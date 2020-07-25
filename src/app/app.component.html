@@ -1,5 +1,8 @@
 <div class="container mt-3">
   <h1>OPS Dashboard</h1>
+  <p>Generate an OPS Dashboard for a given Objective Personality type.  For more about OPS Dashboards, see my article at
+    <a href="https://subjectivepersonality.wordpress.com/2020/06/30/ops-dashboards/" target="_blank">SubjectivePersonality.com</a>.
+  </p>
   <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <div class="d-flex">
       <div class="form-group">
@@ -47,6 +50,10 @@
         <div class="help">Ex: PCSB, SBPC</div>
       </div>
     </div>
+    <p class="help">
+      Note: There is currently no validation on this application and you must enter your info in the specified format.  Casing is important.<br>
+      FF works, ff does not. Fe works fe does not. PCSB works, PC/S(B) does not.
+    </p>
     <div>
       <button class="btn btn-primary" type="submit">Submit</button>
     </div>

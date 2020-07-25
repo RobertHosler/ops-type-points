@@ -3,6 +3,13 @@
   margin-right: 15px;
 }
 
+.help {
+    color: #666;
+}
+label {
+    font-weight: bold;
+}
+
 table {
   text-align: center;
 }
