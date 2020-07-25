@@ -1,4 +1,5 @@
 <div class="container mt-3">
+  <h1>OPS Dashboard</h1>
   <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <div class="d-flex">
       <div class="form-group">
@@ -10,6 +11,7 @@
           ngModel
           name="modalities"
         />
+        <div class="help">Ex: MF, FF</div>
       </div>
       <div class="form-group">
         <label for="savior-one">Savior One</label>
@@ -20,6 +22,7 @@
           ngModel
           name="savior1"
         />
+        <div class="help">Ex: Te, Fi, Ne, Si</div>
       </div>
       <div class="form-group">
         <label for="savior-two">Savior Two</label>
@@ -30,6 +33,7 @@
           ngModel
           name="savior2"
         />
+        <div class="help">Ex: Fe, Ti, Se, Ni</div>
       </div>
       <div class="form-group">
         <label for="animals">Animal Stack</label>
@@ -40,6 +44,7 @@
           ngModel
           name="animals"
         />
+        <div class="help">Ex: PCSB, SBPC</div>
       </div>
     </div>
     <div>
