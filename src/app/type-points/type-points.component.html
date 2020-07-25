@@ -25,12 +25,22 @@
     </tbody>
   </table>
 
-  <div>
+  <div class="mb-3">
     <button
       type="button"
-      class="btn btn-primary mb-3"
+      class="btn btn-primary mr-3"
       (click)="configureOptions = !configureOptions"
-    >{{!configureOptions ? 'Show': 'Hide' }} Points Configuration</button>
+    >
+      {{ !configureOptions ? "Show" : "Hide" }} Points Configuration
+    </button>
+    <button
+      type="button"
+      (click)="assignPoints()"
+      class="btn btn-primary"
+      *ngIf="configureOptions"
+    >
+      Reassign Points
+    </button>
   </div>
 
   <div *ngIf="configureOptions">
@@ -39,7 +49,8 @@
       <p>
         Customize the weights and factors used to calculate the function points
         above. Points are calculated for each option by multipling the weight
-        with the factor.
+        with the factor.  After you update the values, click the reassign points button above
+        to update the table.
       </p>
     </div>
 
@@ -192,11 +203,6 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div>
-      <button type="button" (click)="assignPoints()" class="btn btn-primary">
-        Reassign Points
-      </button>
     </div>
   </div>
 </div>
