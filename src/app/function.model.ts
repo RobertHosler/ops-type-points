@@ -8,6 +8,12 @@ export class Function {
   activation: number = 0; //number of times activated
   savior: string; //S1, S2, A, -
 
+  modalityPoints: number;
+  grantPoints: number;
+  activationPoints: number;
+  saviorPoints: number;
+  totalPoints: number;
+
   constructor(name?: string, savior?: string, grant?: number) {
     this.name = name;
     this.savior = savior;

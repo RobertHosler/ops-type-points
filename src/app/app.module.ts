@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TypePointsComponent } from './type-points/type-points.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TypePointsComponent
   ],
   imports: [
     BrowserModule,

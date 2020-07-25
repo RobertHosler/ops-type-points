@@ -10,6 +10,11 @@ import { Function } from './function.model';
 export class AppComponent {
   title = 'ops-type-points';
 
+  modalityString: string = 'FM';
+  s1String: string = 'Te';
+  s2String: string = 'Se';
+  animalString: string = 'PCSB';
+
   modalities: string[];
   functions: Function[] = new Array<Function>();
   animals: { animal: string; savior: string }[];
