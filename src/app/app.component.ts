@@ -251,4 +251,11 @@ export class AppComponent {
     }
     return demon;
   }
+
+  onClear() {
+    this.modalityString = '';
+    this.s1String = '';
+    this.s2String = '';
+    this.animalString = '';
+  }
 }

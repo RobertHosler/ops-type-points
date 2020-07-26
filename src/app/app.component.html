@@ -48,7 +48,7 @@
       </div>
     </div>
     <p class="help small">
-      Note: There is currently no validation on this application and you must enter your info in the specified format.  Casing is important.<br>
+      Note: There is currently <strong>no validation</strong> on this application and you must enter your info in the specified format.  Casing is important.<br>
       FF works, ff does not. Fe works fe does not. PCSB works, PC/S(B) does not.  <br>
       The animal order entered must must match with the saviors. For
       instance, FF Ti Ne SCPB is not valid.  FF Ti Si SCPB is.  <br>For a list of valid animal orders and the corresponding saviors see the <a
@@ -56,7 +56,8 @@
       target="_blank">Class Notes Doc</a>.
     </p>
     <div>
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button class="btn btn-primary mr-3" type="submit">Submit</button>
+      <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
     </div>
   </form>
 
