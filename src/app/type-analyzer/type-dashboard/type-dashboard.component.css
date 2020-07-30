@@ -1,0 +1,21 @@
+table {
+  text-align: center;
+}
+table th {
+  border-top: 0px;
+  border-bottom: 0px;
+}
+tbody {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+tbody td {
+  text-align: center;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+tbody td:nth-child(5),
+tbody td:nth-child(6) {
+  background: #fbdcb4;
+}
