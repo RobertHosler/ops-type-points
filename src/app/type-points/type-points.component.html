@@ -4,7 +4,8 @@
     Points calculated for each function based on Modality, Grant Order,
     Activation Count, and Savior Status (see dashboard). Points are largely a
     relative representation of how balanced a type is with their given
-    functions.
+    functions. Its building off the idea of the activated column in the dashboard
+    but acknowledging that saviors and the grant function order still matter.
   </p>
   <table class="table mt-3">
     <thead>
@@ -13,7 +14,9 @@
       <th>Grant</th>
       <th>Activation</th>
       <th>Savior</th>
+      <th>Animal</th>
       <th>Total</th>
+      <th>Percentage</th>
     </thead>
     <tbody>
       <tr *ngFor="let function of functions; index as i">
@@ -22,7 +25,9 @@
         <td>{{ function.grantPoints }}</td>
         <td>{{ function.activationPoints }}</td>
         <td>{{ function.saviorPoints }}</td>
+        <td>{{ function.animalPoints }}</td>
         <td>{{ function.totalPoints }}</td>
+        <td>{{ function.pointPercentage }}</td>
       </tr>
     </tbody>
   </table>
@@ -51,6 +56,11 @@
     the function not activated in a savior state. This is the currently given
     the greatest weight for pointing.
   </p>
+  <p>
+      Animal State - Animals distribute points to the functions used within them. 
+      Each function will receive a variable amount of points from each animal depending
+      on whether that animal is a savior, activated, or missing.
+  </p>
 
   <div class="mb-3">
     <button
@@ -62,11 +72,25 @@
     </button>
     <button
       type="button"
+      (click)="assignNew()"
+      class="btn btn-success mr-3"
+    >
+      Assign New Point Values
+    </button>
+    <button
+      type="button"
+      (click)="assignDefault()"
+      class="btn btn-secondary mr-3"
+    >
+      Assign Old Point Values
+    </button>
+    <button
+      type="button"
       (click)="assignPoints()"
-      class="btn btn-primary"
+      class="btn btn-primary mr-3"
       *ngIf="configureOptions"
     >
-      Reassign Points
+      Update Points
     </button>
   </div>
 
@@ -230,6 +254,44 @@
           </tbody>
         </table>
       </div>
+      
+      <div class="col-lg-3 col-md-6">
+        <table class="mb-3">
+          <thead>
+            <th colspan="3">Animal</th>
+          </thead>
+          <thead>
+            <th>Label</th>
+            <th>Factor</th>
+            <th>Points</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let op of animalOptions; index as i">
+              <td>{{ op.option }}</td>
+              <td>
+                <input
+                  id="mo{{ i }}"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="op.factor"
+                />
+              </td>
+              <td>{{ op.factor * animalWeight }}</td>
+            </tr>
+            <tr>
+              <td>Weight</td>
+              <td colspan="2">
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="animalWeight"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
   </div>
 </div>

@@ -17,7 +17,8 @@ tbody td {
 }
 
 tbody td:first-child,
-tbody td:nth-child(6) {
+tbody td:nth-child(7),
+tbody td:nth-child(8) {
   background: #fbdcb4;
   font-weight: bold;
 }

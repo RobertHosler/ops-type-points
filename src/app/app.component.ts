@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Function } from './function.model';
+import { ActivatedRoute } from '@angular/router';
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-root',
@@ -10,14 +13,15 @@ import { Function } from './function.model';
 export class AppComponent {
   title = 'ops-type-points';
 
-  modalityString: string = 'FM';
-  s1String: string = 'Te';
-  s2String: string = 'Se';
-  animalString: string = 'PCSB';
+  modalityString: string;
+  s1String: string;
+  s2String: string;
+  animalString: string;
 
   modalities: string[];
   functions: Function[] = new Array<Function>();
   animals: { animal: string; savior: string }[];
+  animalStack: string[];
 
   playAnimal: { animal: string; savior: string }[] = [
     { animal: 'P', savior: 'S1' },
@@ -44,29 +48,73 @@ export class AppComponent {
     { animal: 'P', savior: '-' },
   ];
 
-  onSubmit(form: NgForm) {
-    console.log(form.value);
+  constructor(private route: ActivatedRoute, private location: Location) {}
 
-    this.modalities = form.value.modalities.split('');
-    var animalStack = form.value.animals.split('');
+  ngOnInit() {
+    this.route.queryParamMap.subscribe((params) => {
+      this.modalityString = params.get('m') ? params.get('m') : 'FF';
+      this.s1String = params.get('s1') ? params.get('s1') : 'Fe';
+      this.s2String = params.get('s2') ? params.get('s2') : 'Se';
+      this.animalString = params.get('a') ? params.get('a') : 'PCSB';
+      // this.orderObj = { ...params.keys, ...params };
+    });
+    if (this.modalityString && this.s1String && this.s2String && this.animalString) {
+      this.onSubmit();
+    }
+  }
+
+  copyLinkTo() {
+    console.log(location.href);
+    var val = location.href;
+    if (val.indexOf('?') < 0) {
+      val += '?';
+    }
+    if (val.indexOf('m=') < 0) {
+      val += "m=" + this.modalityString + '&';
+    }
+    if (val.indexOf('s1=') < 0) {
+      val += "s1=" + this.s1String + '&';
+    }
+    if (val.indexOf('s2=') < 0) {
+      val += "s2=" + this.s2String + '&';
+    }
+    if (val.indexOf('a=') < 0) {
+      val += "a=" + this.animalString + '&';
+    }
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = val;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+  }
+
+  onSubmit() {
+    this.modalities = this.modalityString.split('');
+    this.animalStack = this.animalString.split('');
     this.functions = new Array<Function>();
     var jumper = false;
-    if (animalStack[0] === 'P' || animalStack[0] === 'S') {
+    if (this.animalStack[0] === 'P' || this.animalStack[0] === 'S') {
       jumper = true;
     }
 
-    var lead = new Function(form.value.savior1, 'S1', 1);
+    var lead = new Function(this.s1String, 'S1', 1);
     var aux;
     var tert;
-    var demon1 = this.determineDemon(form.value.savior2);
+    var demon1 = this.determineDemon(this.s2String);
     if (jumper) {
       aux = new Function(demon1, '', 2);
-      tert = new Function(form.value.savior2, 'S2', 3);
+      tert = new Function(this.s2String, 'S2', 3);
     } else {
-      aux = new Function(form.value.savior2, 'S2', 2);
+      aux = new Function(this.s2String, 'S2', 2);
       tert = new Function(demon1, '', 3);
     }
-    var demon2 = this.determineDemon(form.value.savior1);
+    var demon2 = this.determineDemon(this.s1String);
     var last = new Function(demon2, '', 4);
 
     this.functions.push(lead);
@@ -74,7 +122,7 @@ export class AppComponent {
     this.functions.push(tert);
     this.functions.push(last);
 
-    this.addActivations(animalStack);
+    this.addActivations(this.animalStack);
     this.addModalities();
 
     console.log(this.functions);
@@ -108,12 +156,10 @@ export class AppComponent {
             return;
           }
         });
-        //Activate the non savior function 
+        //Activate the non savior function
         switch (a) {
           case 'P':
-            this.functions.forEach((f) => {
-
-            });
+            this.functions.forEach((f) => {});
         }
       } else if (index === 2) {
         animalSavior = 'A';

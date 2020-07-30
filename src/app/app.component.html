@@ -1,6 +1,6 @@
 <div class="container mt-3">
   <h1>OPS Type Analyzer</h1>
-  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+  <form (ngSubmit)="onSubmit()" #form="ngForm">
     <div class="d-flex">
       <div class="form-group">
         <label for="modalities">Modalities</label>
@@ -57,7 +57,8 @@
     </p>
     <div>
       <button class="btn btn-primary mr-3" type="submit">Submit</button>
-      <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
+      <button class="btn btn-secondary mr-3" type="button" (click)="onClear()">Clear</button>
+      <button class="btn btn-secondary" type="button" (click)="copyLinkTo()">Copy Link</button>
     </div>
   </form>
 
@@ -89,6 +90,6 @@
   </div>
 
   <div *ngIf="functions.length > 0">
-    <app-type-points [functions]="functions"></app-type-points>
+    <app-type-points [functions]="functions" [animals]="animals"></app-type-points>
   </div>
 </div>
