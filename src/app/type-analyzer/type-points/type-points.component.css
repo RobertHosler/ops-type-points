@@ -1,6 +1,10 @@
 table {
   text-align: center;
 }
+.dashboard-table {
+  margin-bottom: 0px;
+  max-width: 500px;
+}
 table th {
   border-top: 0px;
   border-bottom: 0px;
@@ -15,10 +19,29 @@ tbody td {
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
-
-tbody td:first-child,
-tbody td:nth-child(7),
-tbody td:nth-child(8) {
+table.full-table tbody td.highlight {
   background: #fbdcb4;
   font-weight: bold;
+}
+tbody td:first-child {
+  background: #fbdcb4;
+  font-weight: bold;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.full-table {
+  max-width: inherit;
+}
+
+.point-config button {
+  display: block;
+}
+.point-config button,
+.point-config table {
+  margin-bottom: 1rem;
+  margin-right: auto;
+  margin-left: auto;
 }

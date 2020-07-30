@@ -12,6 +12,8 @@ export class TypePointsComponent implements OnInit, OnChanges {
   @Input('animals') animals: { animal: string; savior: string }[] = [];
 
   configureOptions: boolean = false;
+  displayFullTable: boolean = false;
+  displayPointTheory: boolean = false;
 
   modalityWeight: number = 1;
   modalityOptions: { label: string; factor: number }[] = [

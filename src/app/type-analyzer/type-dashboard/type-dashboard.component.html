@@ -7,23 +7,26 @@
     >SubjectivePersonality.com</a
   >.
 </p>
-<table class="table mt-3">
-  <thead>
-    <th>Activation</th>
-    <th>Modality</th>
-    <th>Function</th>
-    <th>Saviors</th>
-    <th>Saviors</th>
-    <th>Animals</th>
-  </thead>
-  <tbody>
-    <tr *ngFor="let function of functions; index as i">
-      <td>{{ function.activation }}</td>
-      <td>{{ function.modality }}</td>
-      <td>{{ function.name }}</td>
-      <td>{{ function.savior }}</td>
-      <td>{{ animals[i].savior }}</td>
-      <td>{{ animals[i].animal }}</td>
-    </tr>
-  </tbody>
-</table>
+
+<div class="table-wrapper mt-3 mb-3">
+  <table class="table">
+    <thead>
+      <th>Activation</th>
+      <th>Modality</th>
+      <th>Function</th>
+      <th>Saviors</th>
+      <th>Saviors</th>
+      <th>Animals</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let function of functions; index as i">
+        <td>{{ function.activation }}</td>
+        <td>{{ function.modality }}</td>
+        <td>{{ function.name }}</td>
+        <td>{{ function.savior }}</td>
+        <td>{{ animals[i].savior }}</td>
+        <td>{{ animals[i].animal }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

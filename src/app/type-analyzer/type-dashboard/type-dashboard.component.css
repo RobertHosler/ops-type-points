@@ -1,5 +1,6 @@
 table {
   text-align: center;
+  margin-bottom: 0px;
 }
 table th {
   border-top: 0px;
@@ -18,4 +19,7 @@ tbody td {
 tbody td:nth-child(5),
 tbody td:nth-child(6) {
   background: #fbdcb4;
+}
+.table-wrapper {
+  overflow-x: auto;
 }
