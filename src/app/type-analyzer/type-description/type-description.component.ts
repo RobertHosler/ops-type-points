@@ -9,10 +9,15 @@ import { Function } from '../function.model';
 })
 export class TypeDescriptionComponent implements OnInit, OnChanges {
 
-  @Input('functions') functions: Function[] = new Array<Function>();
-  @Input('animals') animals: { animal: string; savior: string }[] = [];
+  @Input('mod') modality: string;
+  @Input('s1') s1: string;
+  @Input('s2') s2: string;
+  @Input('animals') animals: string;
 
   description: string[] = [];
+  needDescription: string[] = [];
+  animalDescription: string[] = [];
+  modDescription: string[] = [];
 
   constructor(private service: TypeDescriptionService) { }
 
@@ -20,17 +25,25 @@ export class TypeDescriptionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    var s1 = this.functions[0].name;
-    var s2;
-    this.functions.forEach((f) => {
-      if (f.savior === "S2") {
-        s2 = f.name;
-      }
-    });
     this.description = [];
-    this.description.push(this.service.getHumanNeed(s1));
-    this.description.push(this.service.getDecider(s1, s2));
-    this.description.push(this.service.getObserver(s1, s2));
+    this.needDescription = [];
+    this.animalDescription = [];
+    this.modDescription = [];
+    this.needDescription.push(this.service.getHumanNeed(this.s1));
+    this.needDescription.push(this.service.getDecider(this.s1, this.s2));
+    this.needDescription.push(this.service.getObserver(this.s1, this.s2));
+
+    this.animalDescription.push(this.service.getEnergyAnimal(this.animals));
+    this.animalDescription.push(this.service.getInfoAnimal(this.animals));
+    this.animalDescription.push(this.service.getAnimalDominance(this.animals));
+    this.animalDescription.push(this.service.getSaviorAnimal(this.animals));
+
+    var sensMod = this.modality.charAt(0);
+    var exDeMod = this.modality.charAt(1);
+    this.modDescription.push(this.service.getExDecider(exDeMod));
+    this.modDescription.push(this.service.getSensoryMod(sensMod));
+    this.modDescription.push(this.service.getLearningStyle(this.modality));
+
   }
 
 }
