@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Function } from '../function.model';
 
 @Component({
   selector: 'app-type-dashboard',
