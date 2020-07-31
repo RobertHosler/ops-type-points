@@ -22,6 +22,8 @@ export class TypeAnalyzerComponent implements OnInit {
   animals: { animal: string; savior: string }[];
   animalStack: string[];
 
+  optToyLink: string;
+
   playAnimal: { animal: string; savior: string }[] = [
     { animal: 'P', savior: 'S1' },
     { animal: 'C', savior: 'S2' },
@@ -125,6 +127,8 @@ export class TypeAnalyzerComponent implements OnInit {
 
     this.addActivations(this.animalStack);
     this.addModalities();
+
+    this.setOptToyLink();
 
     console.log(this.functions);
   }
@@ -304,5 +308,12 @@ export class TypeAnalyzerComponent implements OnInit {
     this.s1String = '';
     this.s2String = '';
     this.animalString = '';
+  }
+
+  setOptToyLink() {
+    var base = 'https://opt-toy.now.sh/#?type[]='
+    this.optToyLink = base + this.modalityString + '-' + this.s1String + '/' + this.s2String
+      + '-' + this.animalStack[0] + this.animalStack[1] + '/' + this.animalStack[2] + '('
+      + this.animalStack[3] + ')';
   }
 }
