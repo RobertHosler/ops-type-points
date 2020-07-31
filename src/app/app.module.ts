@@ -11,6 +11,7 @@ import { TypePointsComponent } from './type-analyzer/type-points/type-points.com
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { HeaderComponent } from './header/header.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TypeDescriptionComponent } from './type-analyzer/type-description/type-description.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     TypeAnalyzerComponent,
     TypeDashboardComponent,
     UpdatesComponent,
-    HeaderComponent
+    HeaderComponent,
+    TypeDescriptionComponent
   ],
   imports: [
     BrowserModule,
