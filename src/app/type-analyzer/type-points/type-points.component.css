@@ -34,14 +34,16 @@ tbody td:first-child {
 
 .full-table {
   max-width: inherit;
+  width: 99%
 }
 
-.point-config button {
-  display: block;
-}
-.point-config button,
 .point-config table {
   margin-bottom: 1rem;
-  margin-right: auto;
-  margin-left: auto;
+}
+
+tab {
+  padding: 15px;
+  border-bottom: solid 1px #ccc;
+  border-right: solid 1px #ccc;
+  border-left: solid 1px #ccc;
 }

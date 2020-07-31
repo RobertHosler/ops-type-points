@@ -10,6 +10,8 @@ import { UpdatesComponent } from './updates/updates.component';
 import { TypePointsComponent } from './type-analyzer/type-points/type-points.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { HeaderComponent } from './header/header.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { HeaderComponent } from './header/header.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    TabsModule.forRoot(),
     NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [],

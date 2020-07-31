@@ -1,7 +1,8 @@
 <div>
   <h1>OPS Type Analyzer</h1>
   <p>
-      Enter an OPS type in the specified format to view a dashboard and other information pertaining to that type.
+    Enter an OPS type in the specified format to view a dashboard and other
+    information pertaining to that type.
   </p>
   <form (ngSubmit)="onSubmit()" #form="ngForm">
     <div class="d-flex">
@@ -76,17 +77,26 @@
     </div>
   </form>
 
-  <div *ngIf="functions.length > 0" class="mt-5">
-    <app-type-dashboard
-      [functions]="functions"
-      [animals]="animals"
-    ></app-type-dashboard>
-  </div>
+  <hr />
 
-  <div *ngIf="functions.length > 0">
-    <app-type-points
-      [functions]="functions"
-      [animals]="animals"
-    ></app-type-points>
+  <div *ngIf="functions.length > 0" class="mt-3">
+    <tabset>
+      <tab heading="Dashboard">
+        <app-type-dashboard
+          [functions]="functions"
+          [animals]="animals"
+        ></app-type-dashboard>
+      </tab>
+      <tab heading="Description">
+        <h2>Coming Soon!</h2>
+        <p>got you excited didn't I?</p>
+      </tab>
+      <tab heading="Points">
+        <app-type-points
+          [functions]="functions"
+          [animals]="animals"
+        ></app-type-points>
+      </tab>
+    </tabset>
   </div>
 </div>

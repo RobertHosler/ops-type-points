@@ -1,0 +1,28 @@
+.footer {
+  margin-top: 30px;
+  min-height: 80px;
+  text-align: center;
+}
+.footer.bg-dark {
+  color: #fff;
+}
+.footer.bg-dark a {
+  color: #fff;
+  text-decoration: underline;
+}
+.footer.bg-dark a:hover {
+  color: #6af8ff;
+}
+.footer .container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.footer .navbar li {
+  position: relative;
+}
+.footer .navbar li:not(:last-child)::before {
+  content: "|";
+  right: -1px;
+  top: 7px;
+  position: absolute;
+}
