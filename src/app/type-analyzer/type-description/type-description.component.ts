@@ -29,6 +29,7 @@ export class TypeDescriptionComponent implements OnInit, OnChanges {
     this.needDescription = [];
     this.animalDescription = [];
     this.modDescription = [];
+    
     this.needDescription.push(this.service.getHumanNeed(this.s1));
     this.needDescription.push(this.service.getDecider(this.s1, this.s2));
     this.needDescription.push(this.service.getObserver(this.s1, this.s2));
