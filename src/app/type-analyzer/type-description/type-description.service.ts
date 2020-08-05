@@ -80,11 +80,11 @@ export class TypeDescriptionService {
     if (saviorOne.startsWith('N') || saviorTwo.startsWith('N')) {
       observerPriority = 'concepts';
       observerSecondary = 'facts';
-      observerType = 'intuitive';
+      observerType = 'intuitives';
     } else {
       observerPriority = 'facts';
       observerSecondary = 'concepts';
-      observerType = 'sensor';
+      observerType = 'sensors';
     }
     var observerMsg;
     if (
@@ -95,9 +95,9 @@ export class TypeDescriptionService {
     ) {
       //Oi
       observerMsg =
-        'As an introverted ' +
+        'In terms of observing, introverted ' +
         observerType +
-        ', answers are found by going over the known ' +
+        'look to find answers by going over and developing the known ' +
         observerPriority +
         ' first, then gathering in new ' +
         observerSecondary +
@@ -105,11 +105,11 @@ export class TypeDescriptionService {
     } else {
       //Oe
       observerMsg =
-        'As an extroverted ' +
+      'In terms of observing, extroverted ' +
         observerType +
-        ', answers are found by gathering new ' +
+        'look to find answers by gathering new ' +
         observerPriority +
-        ' first, then organizing known ' +
+        ' first, then organizing known the ' +
         observerSecondary +
         ' later.';
     }
@@ -123,10 +123,11 @@ export class TypeDescriptionService {
     if (playIndex < sleepIndex) {
       //Play before Sleep
       energyMsg =
-        'Expends energy for the tribe, before processing and preserving energy for the self.';
+        `Play savior types tend to expend energy for the tribe, before processing
+        and preserving energy for the self.`;
     } else if (playIndex > sleepIndex) {
       //Sleep before Play
-      energyMsg = `Process and preserves energy for self, 
+      energyMsg = `Sleep savior types tend to process and preserves energy for self, 
         before expending energy for the tribe.`;
     } else {
       energyMsg = 'Error';
@@ -140,12 +141,12 @@ export class TypeDescriptionService {
     var infoMsg;
     if (blastIndex < consumeIndex) {
       //Blast before consume
-      infoMsg = `Gets started and is able to teach, 
-        before respecting and gathering info. 
+      infoMsg = `Blast savior types tend to get started and and teach to the tribe, 
+        before respecting and gathering info for the self. 
         `;
     } else if (blastIndex > consumeIndex) {
-      infoMsg = `Takes in and respects info, 
-        before getting started and teaching.
+      infoMsg = `Consume savior types tend to take in and respects info for the self, 
+        before getting started and teaching to the tribe.
         `;
     } else {
       infoMsg = 'Error';
@@ -156,15 +157,34 @@ export class TypeDescriptionService {
   getAnimalDominance(animals: string) {
     var blastIndex = animals.indexOf('B');
     var consumeIndex = animals.indexOf('C');
+    var playIndex = animals.indexOf('P');
     var dominanceMsg;
     if (blastIndex < 3 && consumeIndex < 3) {
       //info dominant
       dominanceMsg = `Having blast and consume in the top 3 animals, this type is info
-        dominant.  They are balanced on the taking in and teaching of information.`;
+        dominant.  They are balanced on the taking in and teaching of information and
+        have an imbalance in the preservation and expenditure
+        of energy. `;
+      if (playIndex === 3) {
+        dominanceMsg += `Play last types are all in on preserving energy for the self
+        and will avoid expending energy for the tribe.`
+      } else {
+        dominanceMsg += `Sleep last types are all in on expending energy for the tribe
+        and will avoid preserving energy for the self.`;
+      }
     } else {
       //energy dominant
       dominanceMsg = `Having play and sleep in the top 3 animals, this type is energy
-        dominant.  They are balanced on the expenditure and preservation of energy.`;
+        dominant.  They are balanced on the expenditure of energy for the tribe and
+        the preservation of energy for the self and have an imbalance in the taking
+        in and teaching of information. `;
+      if (blastIndex === 3) {
+        dominanceMsg += `Blast last types are all in on taking in and respecting info
+            for the self and will avoid getting started and teaching for the tribe.`;
+      } else {
+        dominanceMsg += `Consume last types are all in on getting started and teaching
+            for the tribe and will avoid taking in and respecting info for the self.`;
+      }
     }
     return dominanceMsg;
   }
@@ -200,6 +220,8 @@ export class TypeDescriptionService {
       }
       sAnimalMsg += `Over gathers then wants to do something with it.`;
     }
+    //TODO: add note about last animals being something they will avoid.
+    //Ex: BS last will avoid working the same info and sharing with the tribe
     return sAnimalMsg;
   }
 
@@ -213,9 +235,11 @@ export class TypeDescriptionService {
     if (blastIndex === 3 || playIndex === 3) {
       eScaleMsg = `This type is considered an overall introvert since they have two introverted animals
         and are missing an extroverted animal.`;
-    } else {
+    } else if (consumeIndex === 3 || sleepIndex === 3) {
       eScaleMsg = `This type is considered an overall extrovert since they have two extroverted animals
         and are missing an introverted animal.`;
+    } else {
+      eScaleMsg = 'Extroversion scale message failed.'
     }
     return eScaleMsg;
   }
@@ -247,7 +271,8 @@ export class TypeDescriptionService {
   getLearningStyle(mod: string) {
     var styleString = 'This type tends to prefer the ';
     if (mod === 'FF') {
-      styleString += 'Tester learning style.';
+      styleString += `Tester learning style. This learning style prefers sampling and trying out different things
+          before going all in on something.`;
       // will want to try things out and play with things before going all in on something.'
     } else if (mod === 'FM') {
       styleString += 'Visual learning style.';
@@ -258,4 +283,5 @@ export class TypeDescriptionService {
     }
     return styleString;
   }
+
 }
