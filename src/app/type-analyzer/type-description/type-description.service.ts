@@ -211,7 +211,7 @@ export class TypeDescriptionService {
           facts, details, data, and statistics of what is actually trackable in reality.`;
     } else {
       observerMsg += ` Those that have Savior Intuition will generally struggle with tracking the 
-          details or trusting the facts of a situation, prefing to instead focus on why things are
+          details or trusting the facts of a situation, prefering to instead focus on why things are
           connected through abstract groupings and contextual pattern recognition.`;
     }
     return observerMsg;
