@@ -110,7 +110,8 @@ export class TypeDescriptionService {
         ' will prefer to first ask the tribe ' +
         tribe +
         ', before asking themselves whether it ' +
-        self + ' to them.';
+        self +
+        ' to them.';
     }
     if (deciderType === 'feelers') {
       deciderMsg += ` Those that have Savior Feeling will generally struggle with 
@@ -223,11 +224,23 @@ export class TypeDescriptionService {
     if (playIndex < sleepIndex) {
       //Play before Sleep
       energyMsg = `Play savior types tend to expend energy for the tribe, before processing
-        and preserving energy for the self.`;
+        and preserving energy for the self. Play is the Extroverted Energy Animal, and is 
+        responsible for getting things done while learning from the tribe. Those that have 
+        this high are constantly moving, going, taking action, and trying to work with others. 
+        They tend to have a difficult time with wasting energy earlier on in the day, and may 
+        need to crash later on in the evenings.  Since they have Sleep low they will generally
+        have a harder time stopping themselves and protecting their energy and the energy of
+        those around them.`;
     } else if (playIndex > sleepIndex) {
       //Sleep before Play
       energyMsg = `Sleep savior types tend to process and preserves energy for self, 
-        before expending energy for the tribe.`;
+        before expending energy for the tribe. Sleep is the Introverted Energy Animal, and 
+        is responsible for stopping to go back over known information. Those that have this 
+        are constantly putting on the brakes to protect themselves and preserve their energy. 
+        They tend to have a difficult time with getting things done earlier on in the day, 
+        and may spike in their energy later on in the evenings. Since they have Play low
+        they will generally have a harder time performing tasks such as driving, shopping, 
+        or chores that require gathering and interacting with others.`;
     } else {
       energyMsg = 'Error';
     }
@@ -241,11 +254,25 @@ export class TypeDescriptionService {
     if (blastIndex < consumeIndex) {
       //Blast before consume
       infoMsg = `Blast savior types tend to get started and and teach to the tribe, 
-        before respecting and gathering info for the self. 
+        before respecting and gathering info for the self. Blast is the Extroverted 
+        Information Animal, and is responsible for taking their same known organized 
+        information and sharing it or teaching it. Those that have this high are quick 
+        to communicate and get projects started as it isn’t necessary for them to gather 
+        in all the information first.  They will often unconsciously consume information 
+        and re-share it before they own it or know where it came from. Those with Consume 
+        low will often have a shallow understanding of information, 
+        and are more willing to teach what they know even if the information isn’t valuable.
         `;
     } else if (blastIndex > consumeIndex) {
       infoMsg = `Consume savior types tend to take in and respects info for the self, 
-        before getting started and teaching to the tribe.
+        before getting started and teaching to the tribe. Consume is the Introverted 
+        Information Animal, and is responsible for taking in new information that they 
+        are interested in.  Those that have this high are constantly bored with old 
+        information and seek new things about what they love to learn. They tend to 
+        have a difficult time starting projects because there is never enough new 
+        information to gather, often not finishing and moving on to the next thing. 
+        Those with Blast low will often have a very difficult time communicating or 
+        getting new projects started.
         `;
     } else {
       infoMsg = 'Error';
