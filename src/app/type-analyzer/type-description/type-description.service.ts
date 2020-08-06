@@ -373,9 +373,11 @@ export class TypeDescriptionService {
   getExDecider(exDeMod: string) {
     var exDeModMsg;
     if (exDeMod === 'M') {
-      exDeModMsg = `Direct with the tribe, moveable on identity.`;
+      exDeModMsg = `Those with Masculine De are direct in their interactions with the tribe, but moveable on their identity.
+       They may internally view themselves as trying to protect themselves, when the tribe sees them as harsh.`;
     } else {
-      exDeModMsg = `Moveable with the tribe, direct on identity.`;
+      exDeModMsg = `Those with Feminine De are moveable in their interactions with the tribe, but direct on their identity. They
+       may be externally accepting and willing to work with others, but be internally hard on themselves.`;
     }
     return exDeModMsg;
   }
@@ -383,29 +385,45 @@ export class TypeDescriptionService {
   getSensoryMod(sMod: string) {
     var sModMsg;
     if (sMod === 'M') {
-      sModMsg = `Solid with the facts, moveable with the concepts.
-      Kinesthetic & audio modalities. 
+      sModMsg = `Types with Masculine Sensory are solid with the facts and details, but moveable 
+          with the concepts and patterns. They are willing to argue a fact or detail, but won't
+          argue the concepts and patterns.
       `;
+      // Kinesthetic & audio modalities.
     } else {
-      sModMsg = `Solid with the concepts, moveable with the facts.
-      Tester and visual modalities.
+      sModMsg = `Types with Feminine Sensory are solid with the concepts and patterns, but moveable 
+          with the facts and details. They are willing to argue the concepts and patterns, but won't
+          argue the facts and details.
       `;
+      // Tester and visual modalities.
     }
     return sModMsg;
   }
 
   getLearningStyle(mod: string) {
     var styleString = 'This type tends to prefer the ';
+    var tester = `Tester learning style, learning by being open with the information.
+    This learning style prefers to interact with the information to really grasp it.`;
+    var visual = `Visual learning style, learning through images or pictures. This
+    learning style prefers to see the information to form a clearer understanding
+    and may struggle to learn through auditory means.`;
+    var audio = `Audio learning style, learning through audio sounds. This
+    learning style prefers to have the information conveyed through sound and
+    may struggle with information conveyed via visuals.`;
+    var kines = `Kinesthetic learning style, learning by pushing on the information.
+    This learning style prefers to interact with the information physically to form a
+    more concrete understanding.`;
     if (mod === 'FF') {
-      styleString += `Tester learning style. This learning style prefers sampling and trying out different things
-          before going all in on something.`;
+      styleString += tester + ' They may also prefer the ' + visual;
+      //When exploring something new they will cautiously uncover the points of resistance.
+      //sampling and trying out different things before going all in on something.`;
       // will want to try things out and play with things before going all in on something.'
     } else if (mod === 'FM') {
-      styleString += 'Visual learning style.';
+      styleString += visual + ' They may also prefer the ' + tester;
     } else if (mod === 'MM') {
-      styleString += 'Kinesthetic learning style.';
+      styleString += kines + ' They may also prefer the ' + audio;
     } else if (mod === 'MF') {
-      styleString += 'Audio learning style.';
+      styleString += audio + ' They may also prefer the ' + kines;
     }
     return styleString;
   }
