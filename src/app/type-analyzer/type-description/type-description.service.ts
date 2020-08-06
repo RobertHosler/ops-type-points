@@ -253,7 +253,7 @@ export class TypeDescriptionService {
     var infoMsg;
     if (blastIndex < consumeIndex) {
       //Blast before consume
-      infoMsg = `Blast savior types tend to get started and and teach to the tribe, 
+      infoMsg = `Blast savior types tend to get started and teach to the tribe, 
         before respecting and gathering info for the self. Blast is the Extroverted 
         Information Animal, and is responsible for taking their same known organized 
         information and sharing it or teaching it. Those that have this high are quick 
@@ -292,11 +292,11 @@ export class TypeDescriptionService {
         have an imbalance in the preservation and expenditure
         of energy. `;
       if (playIndex === 3) {
-        dominanceMsg += `Play last types are all in on preserving energy for the self
-        and will avoid expending energy for the tribe.`;
+        dominanceMsg += `Play last types are double activated on Sleep and are all in on 
+        preserving energy for the self and will avoid expending energy for the tribe.`;
       } else {
-        dominanceMsg += `Sleep last types are all in on expending energy for the tribe
-        and will avoid preserving energy for the self.`;
+        dominanceMsg += `Sleep last types are double activated on Play and are all in on 
+        expending energy for the tribe and will avoid preserving energy for the self.`;
       }
     } else {
       //energy dominant
@@ -305,11 +305,11 @@ export class TypeDescriptionService {
         the preservation of energy for the self and have an imbalance in the taking
         in and teaching of information. `;
       if (blastIndex === 3) {
-        dominanceMsg += `Blast last types are all in on taking in and respecting info
-            for the self and will avoid getting started and teaching for the tribe.`;
+        dominanceMsg += `Blast last types are double activated on Consume and are all 
+        in on taking in and respecting info for the self and will avoid getting started and teaching for the tribe.`;
       } else {
-        dominanceMsg += `Consume last types are all in on getting started and teaching
-            for the tribe and will avoid taking in and respecting info for the self.`;
+        dominanceMsg += `Consume last types are double activated on Blast and are all in on 
+        getting started and teaching for the tribe and will avoid taking in and respecting info for the self.`;
       }
     }
     return dominanceMsg;
