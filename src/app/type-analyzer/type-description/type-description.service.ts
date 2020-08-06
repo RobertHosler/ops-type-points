@@ -14,16 +14,24 @@ export class TypeDescriptionService {
       saviorOne === 'Te' ||
       saviorOne === 'Ti'
     ) {
-      result += ` decider, they will be relatively balanced with control and chaos, 
-        but feel stuck when it comes to self and tribe.`;
+      result += ` Decider, they will be relatively balanced with control and chaos, 
+        but feel stuck when it comes to self and tribe. The ability to move back and
+        forth on Observations is what is called 'Double Observing' and all deciders
+        are also 'Double Observers'. This means they will be able to observe the facts
+        and abstract patterns in a relative balance, compared to being able to make 
+        decisions with values and reasons.`;
     } else if (
       saviorOne === 'Se' ||
       saviorOne === 'Si' ||
       saviorOne === 'Ne' ||
       saviorOne === 'Ni'
     ) {
-      result += `n observer, they will be relatively balanced with self and tribe, 
-        but feel stuck when it comes to control and chaos.`;
+      result += `n Observer, they will be relatively balanced with self and tribe, 
+        but feel stuck when it comes to control and chaos. The ability to move back
+        and forth on decisions is what is called 'Double Deciding' and observers
+        are all 'Double Deciders'. This means they will be able to decide for 
+        themselves and for the tribe in a relative balance, compared to their ability 
+        to observe and deal with control and chaos.`;
     } else {
       result = 'ErR0r';
     }
@@ -37,81 +45,173 @@ export class TypeDescriptionService {
     if (saviorOne.startsWith('F') || saviorTwo.startsWith('F')) {
       deciderPriority = 'values';
       deciderSecondary = 'reasons';
-      deciderType = 'feeler';
+      deciderType = 'feelers';
     } else {
       deciderPriority = 'reasons';
       deciderSecondary = 'values';
-      deciderType = 'thinker';
+      deciderType = 'thinkers';
     }
     var deciderMsg;
+    var saviorD;
     if (
       saviorOne === 'Fi' ||
       saviorOne === 'Ti' ||
       saviorTwo === 'Fi' ||
       saviorTwo === 'Ti'
     ) {
+      var self;
+      var tribe;
+      if (deciderType === 'feelers') {
+        saviorD = 'Fi';
+        self = 'is valuable';
+        tribe = 'makes sense';
+      } else {
+        saviorD = 'Ti';
+        self = 'makes sense';
+        tribe = 'is valuable';
+      }
       //Di
       deciderMsg =
-        'As an introverted ' +
+        'When making a decision, introverted ' +
         deciderType +
-        ', they will prioritize their own personal ' +
+        ' will prioritize their own personal ' +
         deciderPriority +
         " first, then seek the spectrum of the tribe's " +
         deciderSecondary +
+        '. Savior ' +
+        saviorD +
+        ' will prefer to first ask themselves what ' +
+        self +
+        ', before asking for the tribe’s input on whether it ' +
+        tribe +
         '.';
     } else {
+      var tribe;
+      var self;
+      if (deciderType === 'feelers') {
+        saviorD = 'Fe';
+        tribe = 'if something is valuable';
+        self = 'makes sense';
+      } else {
+        saviorD = 'Te';
+        tribe = 'to figure out how things work';
+        self = 'is valuable';
+      }
       //De
       deciderMsg =
-        'As an extroverted ' +
+        'When making a decision, extroverted ' +
         deciderType +
-        ", they will prioritize the spectrum of the tribe's " +
+        " will prioritize the spectrum of the tribe's " +
         deciderPriority +
         ' first, then seek their personal ' +
         deciderSecondary +
-        '.';
+        '. Savior ' +
+        saviorD +
+        ' will prefer to first ask the tribe ' +
+        tribe +
+        ', before asking themselves whether it ' +
+        self + ' to them.';
+    }
+    if (deciderType === 'feelers') {
+      deciderMsg += ` Those that have Savior Feeling will generally struggle with 
+      figuring out how things work, instead choosing to process the feelings and values.`;
+    } else {
+      deciderMsg += ` Those that have Savior Thinking will generally struggle with 
+      processing the feelings and values, instead choosing to figure out how things work.`;
     }
     return deciderMsg;
   }
 
   getObserver(saviorOne: string, saviorTwo: string) {
     var observerPriority;
+    var observerPriority2;
     var observerSecondary;
+    var observerSecondary2;
     var observerType;
     if (saviorOne.startsWith('N') || saviorTwo.startsWith('N')) {
       observerPriority = 'concepts';
+      observerPriority2 = 'patterns';
       observerSecondary = 'facts';
+      observerSecondary2 = 'information';
       observerType = 'intuitives';
     } else {
       observerPriority = 'facts';
+      observerPriority2 = 'information';
       observerSecondary = 'concepts';
+      observerSecondary2 = 'patterns';
       observerType = 'sensors';
     }
     var observerMsg;
+    var saviorO;
     if (
       saviorOne === 'Si' ||
       saviorOne === 'Ni' ||
       saviorTwo === 'Si' ||
       saviorTwo === 'Ni'
     ) {
+      if (observerType === 'sensors') {
+        saviorO = 'Si';
+      } else {
+        saviorO = 'Ni';
+      }
       //Oi
       observerMsg =
         'In terms of observing, introverted ' +
         observerType +
-        'look to find answers by going over and developing the known ' +
+        ' look to find answers by going over and developing the known ' +
         observerPriority +
         ' first, then gathering in new ' +
         observerSecondary +
-        ' later.';
+        ' later. ' +
+        saviorO +
+        ' is responsible for narrowing down and limiting new ' +
+        observerSecondary +
+        ' coming in. When solving problems, the Savior ' +
+        saviorO +
+        ' will prefer to find answers in ' +
+        observerPriority2 +
+        ' they are already familiar with, as opposed to seeking out new ' +
+        observerSecondary2 +
+        '. They tend to seek control by planning and organizing the same known ' +
+        observerPriority2 +
+        ' again and again to create order.';
     } else {
+      if (observerType === 'sensors') {
+        saviorO = 'Se';
+      } else {
+        saviorO = 'Ne';
+      }
       //Oe
       observerMsg =
-      'In terms of observing, extroverted ' +
+        'In terms of observing, extroverted ' +
         observerType +
-        'look to find answers by gathering new ' +
+        ' look to find answers by gathering new ' +
         observerPriority +
         ' first, then organizing known the ' +
         observerSecondary +
-        ' later.';
+        ' later. Savior ' +
+        saviorO +
+        ' is responsible to see the different ' +
+        observerPriority2 +
+        ' in the world and gets frustrated when having to go back to a routine or the same old ' +
+        observerSecondary2 +
+        '. When solving problems, the Savior ' +
+        saviorO +
+        ' will prefer to seek out new experiences and new sources to find more ' +
+        observerPriority2 +
+        `. They tend to seek freedom, and 
+        will not readily accept that they already have answers in their known ` +
+        observerSecondary2 +
+        '.';
+    }
+    if (observerType === 'sensors') {
+      observerMsg += ` Those that have Savior Sensing will generally struggle with understanding 
+          or trusting the causes or the “why” behind things that occur, prefering to focus on the 
+          facts, details, data, and statistics of what is actually trackable in reality.`;
+    } else {
+      observerMsg += ` Those that have Savior Intuition will generally struggle with tracking the 
+          details or trusting the facts of a situation, prefing to instead focus on why things are
+          connected through abstract groupings and contextual pattern recognition.`;
     }
     return observerMsg;
   }
@@ -122,8 +222,7 @@ export class TypeDescriptionService {
     var energyMsg;
     if (playIndex < sleepIndex) {
       //Play before Sleep
-      energyMsg =
-        `Play savior types tend to expend energy for the tribe, before processing
+      energyMsg = `Play savior types tend to expend energy for the tribe, before processing
         and preserving energy for the self.`;
     } else if (playIndex > sleepIndex) {
       //Sleep before Play
@@ -167,7 +266,7 @@ export class TypeDescriptionService {
         of energy. `;
       if (playIndex === 3) {
         dominanceMsg += `Play last types are all in on preserving energy for the self
-        and will avoid expending energy for the tribe.`
+        and will avoid expending energy for the tribe.`;
       } else {
         dominanceMsg += `Sleep last types are all in on expending energy for the tribe
         and will avoid preserving energy for the self.`;
@@ -239,7 +338,7 @@ export class TypeDescriptionService {
       eScaleMsg = `This type is considered an overall extrovert since they have two extroverted animals
         and are missing an introverted animal.`;
     } else {
-      eScaleMsg = 'Extroversion scale message failed.'
+      eScaleMsg = 'Extroversion scale message failed.';
     }
     return eScaleMsg;
   }
@@ -283,5 +382,4 @@ export class TypeDescriptionService {
     }
     return styleString;
   }
-
 }
