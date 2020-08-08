@@ -1,0 +1,54 @@
+<h2>Animal Emoji</h2>
+
+<p>
+  Each animal stack has been given a corresponding animal emoji based on an
+  extroversion rating and survey data compiled from
+  <a href="{{ emojiAppUrl }}" target="_blank">this application</a>.
+</p>
+
+<p>
+  This type is in the
+  <ngx-emoji
+    emoji="{{ activeAnimal.emoji }}"
+    set="google"
+    size="20"
+    [fallback]="emojiFallback"
+  ></ngx-emoji
+  ><strong class="mx-1">{{ activeAnimal.name }}</strong
+  ><ngx-emoji
+    emoji="{{ activeAnimal.emoji }}"
+    set="google"
+    size="20"
+    [fallback]="emojiFallback"
+  ></ngx-emoji>
+  animal stack group.
+</p>
+
+<div class="row">
+  <div class="col-3" *ngFor="let ag of animalGroups">
+    <div class="animal-column">
+      <h3>{{ ag.name }}</h3>
+      <div class="animal mb-3" *ngFor="let a of ag.group">
+        <div class="animal-box" [ngClass]="{ active: a.active }">
+          <div class="e-box">{{ a.extroversionInt }}</div>
+          <div>
+            <ngx-emoji
+              emoji="{{ a.emoji }}"
+              set="google"
+              size="40"
+              [fallback]="emojiFallback"
+            ></ngx-emoji>
+          </div>
+          <div class="strong">{{ a.name }} - {{ a.stack }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p>
+  Note: Mice and Dog emojis were used in place of Beaver and Seal since those
+  are new emojis in 2020 and may not display on all platforms (including this
+  one). I've used Mice and Dog for the time being in hopes these are suitable
+  replacements.
+</p>

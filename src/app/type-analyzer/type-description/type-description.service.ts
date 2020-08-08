@@ -211,7 +211,7 @@ export class TypeDescriptionService {
           facts, details, data, and statistics of what is actually trackable in reality.`;
     } else {
       observerMsg += ` Those that have Savior Intuition will generally struggle with tracking the 
-          details or trusting the facts of a situation, prefing to instead focus on why things are
+          details or trusting the facts of a situation, prefering to instead focus on why things are
           connected through abstract groupings and contextual pattern recognition.`;
     }
     return observerMsg;
@@ -323,28 +323,32 @@ export class TypeDescriptionService {
     var sAnimalMsg = '';
     if (consumeIndex < 3 && sleepIndex < 3) {
       //CS - mope
-      sAnimalMsg = `Deep inner world of taking in info and processing.`;
+      sAnimalMsg = `Those with Consume and Sleep animals will often experience a deep inner
+      world of taking in info and processing and be seen as more introverted.`;
     }
     if (blastIndex < 3 && sleepIndex < 3) {
       //BS
       if (sAnimalMsg) {
         sAnimalMsg += ' ';
       }
-      sAnimalMsg += `Reworks same info and then shares knowledge.`;
+      sAnimalMsg += `Those with Blast and Sleep animals will rework the same information
+      to share their knowledge with the tribe.`;
     }
     if (blastIndex < 3 && playIndex < 3) {
       //BP
       if (sAnimalMsg) {
         sAnimalMsg += ' ';
       }
-      sAnimalMsg += `Expends energy and shares knowledge.`;
+      sAnimalMsg += `Those with Play and Blast animals will expend energy and shares knowledge
+       with the tribe and be seen as more extroverted.`;
     }
     if (consumeIndex < 3 && playIndex < 3) {
       //CP - skib
       if (sAnimalMsg) {
         sAnimalMsg += ' ';
       }
-      sAnimalMsg += `Over gathers then wants to do something with it.`;
+      sAnimalMsg += `Those with Consume and Play animals will over gather information and want
+       to do something with it.`;
     }
     //TODO: add note about last animals being something they will avoid.
     //Ex: BS last will avoid working the same info and sharing with the tribe
