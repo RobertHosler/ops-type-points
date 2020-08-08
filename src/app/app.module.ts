@@ -12,6 +12,8 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { HeaderComponent } from './header/header.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TypeDescriptionComponent } from './type-analyzer/type-description/type-description.component';
+import { TypeAnimalComponent } from './type-analyzer/type-animal/type-animal.component';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 
 @NgModule({
@@ -22,12 +24,14 @@ import { TypeDescriptionComponent } from './type-analyzer/type-description/type-
     TypeDashboardComponent,
     UpdatesComponent,
     HeaderComponent,
-    TypeDescriptionComponent
+    TypeDescriptionComponent,
+    TypeAnimalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    EmojiModule,
     TabsModule.forRoot(),
     NgxBootstrapIconsModule.pick(allIcons)
   ],
