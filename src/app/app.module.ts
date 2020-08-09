@@ -14,6 +14,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TypeDescriptionComponent } from './type-analyzer/type-description/type-description.component';
 import { TypeAnimalComponent } from './type-analyzer/type-animal/type-animal.component';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { TypeVisualComponent } from './type-analyzer/type-visual/type-visual.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
     UpdatesComponent,
     HeaderComponent,
     TypeDescriptionComponent,
-    TypeAnimalComponent
+    TypeAnimalComponent,
+    TypeVisualComponent
   ],
   imports: [
     BrowserModule,

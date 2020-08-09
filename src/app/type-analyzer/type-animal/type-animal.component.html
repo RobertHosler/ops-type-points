@@ -9,14 +9,14 @@
 <p>
   This type is in the
   <ngx-emoji
-    emoji="{{ activeAnimal.emoji }}"
+    emoji="{{ activeAnimalStack.emoji }}"
     set="google"
     size="20"
     [fallback]="emojiFallback"
   ></ngx-emoji
-  ><strong class="mx-1">{{ activeAnimal.name }}</strong
+  ><strong class="mx-1">{{ activeAnimalStack.name }}</strong
   ><ngx-emoji
-    emoji="{{ activeAnimal.emoji }}"
+    emoji="{{ activeAnimalStack.emoji }}"
     set="google"
     size="20"
     [fallback]="emojiFallback"
@@ -25,7 +25,7 @@
 </p>
 
 <div class="row">
-  <div class="col-3" *ngFor="let ag of animalGroups">
+  <div class="col-3" *ngFor="let ag of animalStackGroups">
     <div class="animal-column">
       <h3>{{ ag.name }}</h3>
       <div class="animal mb-3" *ngFor="let a of ag.group">

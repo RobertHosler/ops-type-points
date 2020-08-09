@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Function } from '../function.model';
+import { Animal } from '../animal';
 
 @Component({
   selector: 'app-type-points',
@@ -9,7 +10,7 @@ import { Function } from '../function.model';
 export class TypePointsComponent implements OnInit, OnChanges {
 
   @Input('functions') functions: Function[] = new Array<Function>();
-  @Input('animals') animals: { animal: string; savior: string }[] = [];
+  @Input('animals') animals: Animal[] = [];
 
   configureOptions: boolean = false;
   displayFullTable: boolean = false;
@@ -121,10 +122,10 @@ export class TypePointsComponent implements OnInit, OnChanges {
       this.animals.forEach((a) => {
         this.animalOptions.forEach((ao) => {
           if (ao.option === a.savior 
-              && ( (a.animal === 'P' && (f.name === 'Te' || f.name === 'Fe' || f.name === 'Se' || f.name === 'Ne'))
-              || (a.animal === 'B' && (f.name === 'Te' || f.name === 'Fe' || f.name === 'Si' || f.name === 'Ni'))
-              || (a.animal === 'C' && (f.name === 'Ti' || f.name === 'Fi' || f.name === 'Se' || f.name === 'Ne'))
-              || (a.animal === 'S' && (f.name === 'Ti' || f.name === 'Fi' || f.name === 'Si' || f.name === 'Ni')) )) {
+              && ( (a.shortName === 'P' && (f.name === 'Te' || f.name === 'Fe' || f.name === 'Se' || f.name === 'Ne'))
+              || (a.shortName === 'B' && (f.name === 'Te' || f.name === 'Fe' || f.name === 'Si' || f.name === 'Ni'))
+              || (a.shortName === 'C' && (f.name === 'Ti' || f.name === 'Fi' || f.name === 'Se' || f.name === 'Ne'))
+              || (a.shortName === 'S' && (f.name === 'Ti' || f.name === 'Fi' || f.name === 'Si' || f.name === 'Ni')) )) {
               f.animalPoints += this.animalWeight * ao.factor;
           }
           if (animalMax < ao.factor) {

@@ -1,4 +1,4 @@
-export class Animal {
+export class AnimalStack {
 
   extroversionInt: string; //Ranging from -7 to +7
   stack: string; //Ex: BPSC

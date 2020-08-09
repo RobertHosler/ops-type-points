@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Function } from '../function.model';
+import { Animal } from '../animal';
 
 @Component({
   selector: 'app-type-dashboard',
@@ -9,7 +10,7 @@ import { Function } from '../function.model';
 export class TypeDashboardComponent implements OnInit {
 
   @Input('functions') functions: Function[] = new Array<Function>();
-  @Input('animals') animals: { animal: string; savior: string }[] = [];
+  @Input('animals') animals: Animal[] = [];
 
   constructor() { }
 
