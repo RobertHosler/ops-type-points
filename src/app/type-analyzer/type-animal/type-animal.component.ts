@@ -44,11 +44,11 @@ export class TypeAnimalComponent implements OnInit, OnChanges {
     new AnimalStack('PBCS', '+7', 'Dolphins', 'dolphin'),
   ];
 
-  animalStackGroups: { name: string; group: Animal[] }[] = [
-    { name: 'Sleep First', group: this.sleepFirst },
-    { name: 'Consume First', group: this.consumeFirst },
-    { name: 'Blast First', group: this.blastFirst },
-    { name: 'Play First', group: this.playFirst },
+  animalStackGroups: { name: string; group: AnimalStack[] }[] = [
+    { name: 'Sleep', group: this.sleepFirst },
+    { name: 'Consume', group: this.consumeFirst },
+    { name: 'Blast', group: this.blastFirst },
+    { name: 'Play', group: this.playFirst },
   ];
 
   constructor() {}
