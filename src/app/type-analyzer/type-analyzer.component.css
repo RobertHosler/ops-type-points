@@ -1,6 +1,6 @@
 .form-group {
-  width: 150px;
-  margin-right: 15px;
+  max-width: 200px;
+  /* margin-right: 15px; */
 }
 .help {
   color: #666;

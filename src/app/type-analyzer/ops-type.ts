@@ -123,7 +123,9 @@ export class OpsType {
           (currentAnimal.de && f.de)
         ) {
           //Function is used in this animal
-          f.activation++;
+          if (index < 3) {
+            f.activation++;
+          }
           if (index === 1 && f.demon) {
             f.savior = 'A';
           } else if (index === 2 && f.demon) {

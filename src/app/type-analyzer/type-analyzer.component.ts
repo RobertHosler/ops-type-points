@@ -11,7 +11,6 @@ import { Animal } from './animal';
   styleUrls: ['./type-analyzer.component.css'],
 })
 export class TypeAnalyzerComponent implements OnInit {
-
   title = 'ops-type-points';
 
   modalityString: string;
@@ -23,13 +22,20 @@ export class TypeAnalyzerComponent implements OnInit {
   animals: Animal[];
   opsCode: string;
 
-  constructor(
-    private route: ActivatedRoute,
-    private opsType: OpsTypeService
-  ) {}
+  modalityStringB: string = '';
+  s1StringB: string;
+  s2StringB: string;
+  animalStringB: string;
+
+  functionsB: Function[] = new Array<Function>();
+  animalsB: Animal[];
+  opsCodeB: string;
+
+  constructor(private route: ActivatedRoute, private opsType: OpsTypeService) {}
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
+      //Default to my type!
       this.modalityString = params.get('m') ? params.get('m') : 'FF';
       this.s1String = params.get('s1') ? params.get('s1') : 'Fe';
       this.s2String = params.get('s2') ? params.get('s2') : 'Se';
@@ -78,27 +84,61 @@ export class TypeAnalyzerComponent implements OnInit {
   }
 
   onSubmit() {
-    var type = new OpsType(
-      this.modalityString,
-      this.s1String,
-      this.s2String,
+    if (
+      this.modalityString &&
+      this.s1String &&
+      this.s2String &&
       this.animalString
-    );
-    this.opsType.opsType = type;
-    this.functions = type.functions;
-    this.animals = type.animals;
-    this.opsCode = type.opsCode;
+    ) {
+      this.modalityString
+      var type = new OpsType(
+        this.modalityString,
+        this.s1String,
+        this.s2String,
+        this.animalString
+      );
+      this.opsType.opsType = type;
+      this.functions = type.functions;
+      this.animals = type.animals;
+      this.opsCode = type.opsCode;
+    }
+
+    if (
+      this.modalityStringB &&
+      this.s1StringB &&
+      this.s2StringB &&
+      this.animalStringB
+    ) {
+      var typeB = new OpsType(
+        this.modalityStringB,
+        this.s1StringB,
+        this.s2StringB,
+        this.animalStringB
+      );
+      this.opsType.opsTypeB = typeB;
+      this.functionsB = typeB.functions;
+      this.animalsB = typeB.animals;
+      this.opsCodeB = typeB.opsCode;
+    }
   }
 
   onClear() {
     this.modalityString = '';
     this.s1String = '';
     this.s2String = '';
-    this.animalString = '';
+    this.animalStringB = '';
     this.opsType.opsType = null;
     this.animals = [];
     this.functions = [];
     this.opsCode = '';
-  }
 
+    this.animalString = '';
+    this.modalityStringB = '';
+    this.s1StringB = '';
+    this.s2StringB = '';
+    this.opsType.opsTypeB = null;
+    this.animalsB = [];
+    this.functionsB = [];
+    this.opsCodeB = '';
+  }
 }

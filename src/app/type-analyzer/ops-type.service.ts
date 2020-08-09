@@ -7,6 +7,7 @@ import { OpsType } from './ops-type';
 export class OpsTypeService {
 
   opsType: OpsType;
+  opsTypeB: OpsType;
 
   constructor() { }
 
