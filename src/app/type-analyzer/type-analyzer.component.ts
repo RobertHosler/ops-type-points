@@ -95,7 +95,10 @@ export class TypeAnalyzerComponent implements OnInit {
     this.s1String = '';
     this.s2String = '';
     this.animalString = '';
-    // this.opsType.opsType = null;
+    this.opsType.opsType = null;
+    this.animals = [];
+    this.functions = [];
+    this.opsCode = '';
   }
 
 }
