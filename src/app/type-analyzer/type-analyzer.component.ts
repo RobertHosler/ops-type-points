@@ -13,6 +13,8 @@ import { Animal } from './animal';
 export class TypeAnalyzerComponent implements OnInit {
   title = 'ops-type-points';
 
+  opsTypes: OpsType[];
+
   modalityString: string;
   s1String: string;
   s2String: string;
@@ -31,9 +33,10 @@ export class TypeAnalyzerComponent implements OnInit {
   animalsB: Animal[];
   opsCodeB: string;
 
-  constructor(private route: ActivatedRoute, private opsType: OpsTypeService) {}
+  constructor(private route: ActivatedRoute, private opsTypeService: OpsTypeService) {}
 
   ngOnInit() {
+    this.opsTypes = this.opsTypeService.opsTypes;
     this.route.queryParamMap.subscribe((params) => {
       //Default to my type!
       this.modalityString = params.get('m') ? params.get('m') : 'FF';
@@ -97,7 +100,8 @@ export class TypeAnalyzerComponent implements OnInit {
         this.s2String,
         this.animalString
       );
-      this.opsType.opsType = type;
+      this.opsTypeService.clearOpsTypes();
+      this.opsTypeService.addOpsType(type);
       this.functions = type.functions;
       this.animals = type.animals;
       this.opsCode = type.opsCode;
@@ -115,7 +119,8 @@ export class TypeAnalyzerComponent implements OnInit {
         this.s2StringB,
         this.animalStringB
       );
-      this.opsType.opsTypeB = typeB;
+      this.opsTypeService.clearOpsTypes();
+      this.opsTypeService.addOpsType(typeB);
       this.functionsB = typeB.functions;
       this.animalsB = typeB.animals;
       this.opsCodeB = typeB.opsCode;
@@ -123,11 +128,11 @@ export class TypeAnalyzerComponent implements OnInit {
   }
 
   onClear() {
+    this.opsTypeService.clearOpsTypes();
     this.modalityString = '';
     this.s1String = '';
     this.s2String = '';
     this.animalStringB = '';
-    this.opsType.opsType = null;
     this.animals = [];
     this.functions = [];
     this.opsCode = '';
@@ -136,7 +141,6 @@ export class TypeAnalyzerComponent implements OnInit {
     this.modalityStringB = '';
     this.s1StringB = '';
     this.s2StringB = '';
-    this.opsType.opsTypeB = null;
     this.animalsB = [];
     this.functionsB = [];
     this.opsCodeB = '';

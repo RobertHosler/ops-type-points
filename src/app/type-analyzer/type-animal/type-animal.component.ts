@@ -1,13 +1,20 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { AnimalStack } from './animal-stack';
+import { OpsTypeService } from '../ops-type.service';
+import { OpsType } from '../ops-type';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-type-animal',
   templateUrl: './type-animal.component.html',
   styleUrls: ['./type-animal.component.css'],
 })
-export class TypeAnimalComponent implements OnInit, OnChanges {
-  @Input() activeStack: string;
+export class TypeAnimalComponent implements OnInit, OnDestroy {
+
+  opsTypes: OpsType[];
+  private opsTypesSub: Subscription;
+
+  activeStack: string;
   activeAnimalStack: AnimalStack;
 
   emojiFallback = (emoji: any, props: any) =>
@@ -20,7 +27,7 @@ export class TypeAnimalComponent implements OnInit, OnChanges {
     new AnimalStack('SCBP', '-7', 'Owls', 'owl'),
     new AnimalStack('SCPB', '-5', 'Hedgehogs', 'hedgehog'),
     new AnimalStack('SBCP', '-2', 'Rhinos', 'rhinoceros'),
-    new AnimalStack('SBPC', '+1', 'Beaver/Mice', 'mouse'),//Was beaver, new in 2020
+    new AnimalStack('SBPC', '+1', 'Beaver/Mice', 'mouse'), //Was beaver, new in 2020
   ];
 
   consumeFirst: AnimalStack[] = [
@@ -40,7 +47,7 @@ export class TypeAnimalComponent implements OnInit, OnChanges {
   playFirst: AnimalStack[] = [
     new AnimalStack('PCSB', '-1', 'Tigers', 'tiger'),
     new AnimalStack('PCBS', '+2', 'Foxes', 'fox_face'),
-    new AnimalStack('PBSC', '+5', 'Seals/Dogs', 'dog'),//was seal, new in 2020
+    new AnimalStack('PBSC', '+5', 'Seals/Dogs', 'dog'), //was seal, new in 2020
     new AnimalStack('PBCS', '+7', 'Dolphins', 'dolphin'),
   ];
 
@@ -51,20 +58,37 @@ export class TypeAnimalComponent implements OnInit, OnChanges {
     { name: 'Play', group: this.playFirst },
   ];
 
-  constructor() {}
-
-  ngOnInit(): void {}
-
-  ngOnChanges() {
-    this.animalStackGroups.forEach((g) => {
-      g.group.forEach((a) => {
-        if (a.stack === this.activeStack) {
-          a.active = true;
-          this.activeAnimalStack = a;
-        } else {
-          a.active = false;
-        }
-      });
+  constructor(private opsTypeService: OpsTypeService) {
+    this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
+      this.opsTypes = opsTypes;
+      this.updateAnimalStackGroups();
     });
   }
+
+  ngOnInit(): void {
+    this.opsTypes = this.opsTypeService.opsTypes;
+    this.updateAnimalStackGroups();
+  }
+
+  updateAnimalStackGroups() {
+    if (this.opsTypes.length > 0) {
+      this.activeStack = this.opsTypeService.opsTypes[0].animalString;
+      console.log('Animals - Active Stack: ' + this.activeStack);
+      this.animalStackGroups.forEach((g) => {
+        g.group.forEach((a) => {
+          if (a.stack === this.activeStack) {
+            a.active = true;
+            this.activeAnimalStack = a;
+          } else {
+            a.active = false;
+          }
+        });
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    this.opsTypesSub.unsubscribe();
+  }
+
 }
