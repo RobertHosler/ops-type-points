@@ -7,3 +7,21 @@
 <a href="{{ optToyLink }}" target="_blank" class="btn btn-primary btn-lg">
   View Type<i-bs name="box-arrow-up-right" class="ml-1"></i-bs>
 </a>
+
+<div *ngIf="opsType">
+  <div>{{ opsType.optiCode }}</div>
+
+  <div class="animal" [ngClass]="'saviorA-' + blast.savior">B{{blast.index+1}}</div>
+  <div class="bubble-wrapper">
+    <div class="animal float-left" [ngClass]="'saviorA-' + sleep.savior">S{{sleep.index+1}}</div>
+    <div
+      *ngFor="let f of opsType.functions"
+      class="function"
+      [ngClass]="'letter-' + f.letter + ' savior-' + f.savior + ' mod-' + f.modality"
+    >
+      {{ f.name }}
+    </div>
+    <div class="animal float-right" [ngClass]="'saviorA-' + play.savior">P{{play.index+1}}</div>
+  </div>
+  <div class="animal" [ngClass]="'saviorA-' + consume.savior">C{{consume.index+1}}</div>
+</div>

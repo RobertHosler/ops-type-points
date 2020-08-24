@@ -29,20 +29,21 @@ export class OpsType {
 
   temperament: string;
 
-  opsCode: string; //FF-Fe/Se-PC/S(B)
-  optiCode: string; //DSFP-CS-T
-  mbti: string; //ENFJ
+  opsCode: string; //Ex: FF-Fe/Se-PC/S(B)
+  optiCode: string; //Ex: DSFP-CS-T
+  mbti: string; //Ex: ENFJ
 
-  play: Animal = new Animal('Play', 'P', true, true, true);
-  sleep: Animal = new Animal('Sleep', 'S', false, false, true);
-  blast: Animal = new Animal('Blast', 'B', false, true, false);
-  consume: Animal = new Animal('Consume', 'C', true, false, false);
+  //Default animal objects
+  private play: Animal = new Animal('Play', 'P', true, true, true);
+  private sleep: Animal = new Animal('Sleep', 'S', false, false, true);
+  private blast: Animal = new Animal('Blast', 'B', false, true, false);
+  private consume: Animal = new Animal('Consume', 'C', true, false, false);
 
   //Default animal stacks for each lead animal variant, animals in dashboard order
-  playStack: Animal[] = [this.play, this.consume, this.blast, this.sleep];
-  blastStack: Animal[] = [this.blast, this.sleep, this.play, this.consume];
-  consumeStack: Animal[] = [this.consume, this.play, this.sleep, this.blast];
-  sleepStack: Animal[] = [this.sleep, this.blast, this.consume, this.play];
+  private playStack: Animal[] = [this.play, this.consume, this.blast, this.sleep];
+  private blastStack: Animal[] = [this.blast, this.sleep, this.play, this.consume];
+  private consumeStack: Animal[] = [this.consume, this.play, this.sleep, this.blast];
+  private sleepStack: Animal[] = [this.sleep, this.blast, this.consume, this.play];
 
   constructor(
     modalityString: string,
@@ -80,9 +81,9 @@ export class OpsType {
         this.animals = this.sleepStack;
         break;
     }
-    this.animalStack.forEach((a: string, index: number) => {
+    this.animalStack.forEach((a: string, animalIndex: number) => {
       var animalSavior: string;
-      switch (index) {
+      switch (animalIndex) {
         case 0:
           animalSavior = 'S1';
           break;
@@ -104,8 +105,8 @@ export class OpsType {
         if (animal.shortName === a) {
           currentAnimal = animal;
           animal.savior = animalSavior;
-          animal.index = index;
-          if (index < 3) {
+          animal.index = animalIndex;
+          if (animalIndex < 3) {
             animal.saviorBool = true;
             animal.demon = false;
           } else {
@@ -114,7 +115,7 @@ export class OpsType {
           }
         }
       });
-      //Activate the function
+      //Activate the functions
       this.functions.forEach((f) => {
         if (
           (currentAnimal.oe && f.oe) ||
@@ -123,12 +124,12 @@ export class OpsType {
           (currentAnimal.de && f.de)
         ) {
           //Function is used in this animal
-          if (index < 3) {
+          if (animalIndex < 3) {
             f.activation++;
           }
-          if (index === 1 && f.demon) {
+          if (animalIndex === 1 && f.demon) {
             f.savior = 'A';
-          } else if (index === 2 && f.demon) {
+          } else if (animalIndex === 2 && f.demon && !f.savior) {
             f.savior = '-';
           }
           if (f.decider) {
@@ -363,6 +364,12 @@ export class OpsType {
       this.temperament = lead.letter + tert.letter;
     } else {
       this.temperament = lead.letter + aux.letter;
+    }
+
+    if (lead.decider) {
+      this.decider = true;
+    } else {
+      this.observer = true;
     }
   }
 }

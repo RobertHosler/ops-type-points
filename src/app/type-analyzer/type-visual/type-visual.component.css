@@ -1,0 +1,69 @@
+.bubble-wrapper {
+  position: relative;
+  height: 150px;
+  width: 150px;
+}
+
+.function {
+  display: inline-block;
+  text-align: center;
+  padding-top: 10px;
+  border-radius: 50px;
+  position: absolute;
+}
+
+.animal {
+
+}
+
+.mod-M {
+  border: 1px solid black;
+}
+
+.savior-S1 {
+    padding-top: 15px;
+    height: 60px;
+    width: 60px;
+}
+.savior-S2 {
+    height: 50px;
+    width: 50px;
+}
+.savior-A {
+    padding-top: 6px;
+    height: 40px;
+    width: 40px;
+}
+.savior-- {
+    padding-top: 2px;
+    height: 30px;
+    width: 30px;
+}
+
+.function.letter-F,
+.function.feeling {
+  background: #f75e4e;
+  top: 10px;
+  left: 50px;
+}
+
+.function.letter-N,
+.function.intuition {
+  background: yellow;
+  top: 10px;
+  left: 100px;
+}
+
+.function.letter-S,
+.function.sensing {
+  background: #4ce477;
+  top: 60px;
+  left: 50px;
+}
+
+.function.letter-T,
+.function.thinking {
+  background: #79b3fe;
+  top: 60px;
+  left: 100px;
+}
