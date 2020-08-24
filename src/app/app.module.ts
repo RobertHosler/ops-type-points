@@ -15,6 +15,7 @@ import { TypeDescriptionComponent } from './type-analyzer/type-description/type-
 import { TypeAnimalComponent } from './type-analyzer/type-animal/type-animal.component';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { TypeVisualComponent } from './type-analyzer/type-visual/type-visual.component';
+import { TypeBubblesComponent } from './type-analyzer/type-visual/type-bubbles/type-bubbles.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { TypeVisualComponent } from './type-analyzer/type-visual/type-visual.com
     HeaderComponent,
     TypeDescriptionComponent,
     TypeAnimalComponent,
-    TypeVisualComponent
+    TypeVisualComponent,
+    TypeBubblesComponent
   ],
   imports: [
     BrowserModule,

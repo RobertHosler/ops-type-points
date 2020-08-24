@@ -13,22 +13,10 @@ export class TypeVisualComponent implements OnInit, OnDestroy {
   @Input('index') index: number = 0;
 
   opsType: OpsType;
+  opsTypes: OpsType[];
   private opsTypesSub: Subscription;
 
-  showShadows: boolean = true;
-  sizing: string = "activation";
-
   optToyLink: string;
-
-  feeling: Function;
-  thinking: Function;
-  sensing: Function;
-  intuition: Function;
-
-  blast: Animal;
-  consume: Animal;
-  play: Animal;
-  sleep: Animal;
 
   constructor(private opsTypeService: OpsTypeService) {
     this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
@@ -46,19 +34,9 @@ export class TypeVisualComponent implements OnInit, OnDestroy {
 
   setup(opsTypes: OpsType[]) {
     this.opsType = this.opsTypeService.getOpsType(this.index);
+    this.opsTypes = opsTypes;
     if (this.opsType) {
       this.setOptToyLink();
-      this.opsType.animals.forEach((a) => {
-        if (a.shortName === 'S') {
-          this.sleep = a;
-        } else if (a.shortName === 'P') {
-          this.play = a;
-        } else if (a.shortName === 'C') {
-          this.consume = a;
-        } else if (a.shortName === 'B') {
-          this.blast = a;
-        }
-      });
     } else {
       this.optToyLink = 'https://opt-toy.now.sh';
     }

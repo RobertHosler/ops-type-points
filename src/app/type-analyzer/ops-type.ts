@@ -30,6 +30,7 @@ export class OpsType {
   temperament: string;
 
   opsCode: string; //Ex: FF-Fe/Se-PC/S(B)
+  cleanCode: string;//Ex: FF-FeSe-PCSB
   optiCode: string; //Ex: DSFP-CS-T
   mbti: string; //Ex: ENFJ
 
@@ -218,6 +219,16 @@ export class OpsType {
     return result;
   }
 
+  getAnimal(code: string) {
+    var result : Animal;
+    this.animals.forEach((a) => {
+      if (a.shortName === code) {
+        result = a;
+      }
+    });
+    return result;
+  }
+
   private constructMbtiType() {
     var mbti: string;
     switch (this.s1String) {
@@ -299,6 +310,17 @@ export class OpsType {
       '(' +
       this.animalStack[3] +
       ')';
+
+      this.cleanCode = 
+      this.modalityString +
+      '-' +
+      this.s1String +
+      this.s2String +
+      '-' +
+      this.animalStack[0] +
+      this.animalStack[1] +
+      this.animalStack[2] +
+      this.animalStack[3];
   }
 
   /* OPS Type in the Opticode Format Ex: 'DSFP-CS-T' */
