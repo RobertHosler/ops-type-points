@@ -1,16 +1,21 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Function } from '../function.model';
 import { Animal } from '../animal';
+import { OpsTypeService } from '../ops-type.service';
+import { Subscription } from 'rxjs';
+import { OpsType } from '../ops-type';
 
 @Component({
   selector: 'app-type-points',
   templateUrl: './type-points.component.html',
   styleUrls: ['./type-points.component.css'],
 })
-export class TypePointsComponent implements OnInit, OnChanges {
+export class TypePointsComponent implements OnInit, OnDestroy {
 
-  @Input('functions') functions: Function[] = new Array<Function>();
-  @Input('animals') animals: Animal[] = [];
+  @Input('index') index: number = 0;
+
+  opsType: OpsType;
+  private opsTypesSub: Subscription;
 
   configureOptions: boolean = false;
   displayFullTable: boolean = false;
@@ -58,21 +63,32 @@ export class TypePointsComponent implements OnInit, OnChanges {
     { option: '-', factor: 0 }
   ];
 
-  constructor() {
-    this.newPointValues();
+  constructor(private opsTypeService: OpsTypeService) {
+    this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
+      console.log("Type Points Update, index=" + this.index);
+      this.setup(opsTypes);
+    });
   }
 
   ngOnInit(): void {
-    // this.assignPoints();
+    this.setup(this.opsTypeService.opsTypes);
   }
 
-  ngOnChanges(): void {
-    this.assignPoints();
+  ngOnDestroy(): void {
+    this.opsTypesSub.unsubscribe();
+  }
+
+  setup(opsTypes: OpsType[]) {
+    if (opsTypes.length >= this.index + 1) {
+      this.opsType = opsTypes[this.index];
+      this.newPointValues();
+      this.assignPoints();
+    }
   }
 
   assignPoints() {
     var totalPoints = 0;
-    this.functions.forEach((f) => {
+    this.opsType.functions.forEach((f) => {
       //Modality Points
       var modalityMax = 0;
       this.modalityOptions.forEach((m) => {
@@ -119,7 +135,7 @@ export class TypePointsComponent implements OnInit, OnChanges {
 
       var animalMax = 0;
       f.animalPoints = 0;
-      this.animals.forEach((a) => {
+      this.opsType.animals.forEach((a) => {
         this.animalOptions.forEach((ao) => {
           if (ao.option === a.savior 
               && ( (a.shortName === 'P' && (f.name === 'Te' || f.name === 'Fe' || f.name === 'Se' || f.name === 'Ne'))
@@ -139,7 +155,7 @@ export class TypePointsComponent implements OnInit, OnChanges {
     });
 
     //Determine percentage of the total points distributed for each function
-    this.functions.forEach((f) => {
+    this.opsType.functions.forEach((f) => {
       f.pointPercentage = (f.totalPoints / totalPoints * 100).toFixed(2);
     });
   }

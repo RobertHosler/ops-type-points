@@ -24,7 +24,7 @@
         <th>Percentage</th>
       </thead>
       <tbody>
-        <tr *ngFor="let function of functions; index as i">
+        <tr *ngFor="let function of opsType.functions; index as i">
           <td>{{ function.name }}</td>
           <td [ngClass]="{ 'd-none': !displayFullTable }">
             {{ function.modalityPoints }}
