@@ -16,3 +16,6 @@ tab {
     border-left:  1px solid #ccc;
     min-height: 300px;
 }
+.btn-remove {
+  padding: 0px 5px;
+}

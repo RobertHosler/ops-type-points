@@ -14,7 +14,7 @@ export class TypePointsComponent implements OnInit, OnDestroy {
 
   @Input('index') index: number = 0;
 
-  opsType: OpsType;
+  opsTypes: OpsType[];
   private opsTypesSub: Subscription;
 
   configureOptions: boolean = false;
@@ -70,6 +70,7 @@ export class TypePointsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.newPointValues();
     this.setup(this.opsTypeService.opsTypes);
   }
 
@@ -78,17 +79,16 @@ export class TypePointsComponent implements OnInit, OnDestroy {
   }
 
   setup(opsTypes: OpsType[]) {
+    this.opsTypes = opsTypes;
     if (opsTypes.length >= this.index + 1) {
       console.log("Type Points Update, index=" + this.index);
-      this.opsType = opsTypes[this.index];
-      this.newPointValues();
       this.assignPoints();
     }
   }
 
-  assignPoints() {
+  _assignPoints(opsType: OpsType) {
     var totalPoints = 0;
-    this.opsType.functions.forEach((f) => {
+    opsType.functions.forEach((f) => {
       //Modality Points
       var modalityMax = 0;
       this.modalityOptions.forEach((m) => {
@@ -135,7 +135,7 @@ export class TypePointsComponent implements OnInit, OnDestroy {
 
       var animalMax = 0;
       f.animalPoints = 0;
-      this.opsType.animals.forEach((a) => {
+      opsType.animals.forEach((a) => {
         this.animalOptions.forEach((ao) => {
           if (ao.option === a.savior 
               && ( (a.shortName === 'P' && (f.name === 'Te' || f.name === 'Fe' || f.name === 'Se' || f.name === 'Ne'))
@@ -155,7 +155,7 @@ export class TypePointsComponent implements OnInit, OnDestroy {
     });
 
     //Determine percentage of the total points distributed for each function
-    this.opsType.functions.forEach((f) => {
+    opsType.functions.forEach((f) => {
       f.pointPercentage = (f.totalPoints / totalPoints * 100).toFixed(2);
     });
   }
@@ -168,6 +168,12 @@ export class TypePointsComponent implements OnInit, OnDestroy {
   assignNew() {
     this.newPointValues();
     this.assignPoints();
+  }
+  
+  assignPoints() {
+    this.opsTypes.forEach((type) => {
+      this._assignPoints(type);
+    });
   }
 
   defaultPointValues() {

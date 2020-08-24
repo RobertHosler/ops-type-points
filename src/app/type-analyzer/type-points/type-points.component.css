@@ -30,6 +30,7 @@ tbody td:first-child {
 
 .table-wrapper {
   overflow-x: auto;
+  max-width: 501px;
 }
 
 .full-table {

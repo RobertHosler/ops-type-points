@@ -112,7 +112,7 @@
         >Class Notes Doc</a
       >.
     </p>
-    <div>
+    <div class="mb-2">
       <button class="btn btn-primary mr-3" type="submit">Submit</button>
       <button class="btn btn-secondary mr-3" type="button" (click)="onClear()">
         Clear
@@ -134,8 +134,8 @@
     <div *ngIf="opsTypes.length > 1">
       <div *ngFor="let type of opsTypes; index as i">
         {{ type.opsCode }}
-        <button class="btn btn-danger" type="button" (click)="onRemoveOpsType(i)">
-          Remove
+        <button class="btn btn-danger btn-remove" type="button" (click)="onRemoveOpsType(i)">
+          X
         </button>
       </div>
     </div>
