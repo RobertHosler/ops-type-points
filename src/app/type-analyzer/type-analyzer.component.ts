@@ -20,6 +20,8 @@ export class TypeAnalyzerComponent implements OnInit {
   s2String: string;
   animalString: string;
 
+  compare: boolean;
+
   functions: Function[] = new Array<Function>();
   animals: Animal[];
   opsCode: string;
@@ -100,7 +102,9 @@ export class TypeAnalyzerComponent implements OnInit {
         this.s2String,
         this.animalString
       );
-      this.opsTypeService.clearOpsTypes();
+      if (!this.compare) {
+        this.opsTypeService.clearOpsTypes();
+      }
       this.opsTypeService.addOpsType(type);
       this.functions = type.functions;
       this.animals = type.animals;
@@ -144,5 +148,9 @@ export class TypeAnalyzerComponent implements OnInit {
     this.animalsB = [];
     this.functionsB = [];
     this.opsCodeB = '';
+  }
+
+  onRemoveOpsType(index: number) {
+    this.opsTypeService.removeOpsType(index);
   }
 }

@@ -121,6 +121,24 @@
         Copy Link
       </button>
     </div>
+    <div>
+      <label>
+        <input
+          type="checkbox"
+          [checked]="compare"
+          (change)="compare = !compare"
+        />
+        Compare Types
+      </label>
+    </div>
+    <div *ngIf="opsTypes.length > 1">
+      <div *ngFor="let type of opsTypes; index as i">
+        {{ type.opsCode }}
+        <button class="btn btn-danger" type="button" (click)="onRemoveOpsType(i)">
+          Remove
+        </button>
+      </div>
+    </div>
   </form>
 
   <hr />
@@ -128,11 +146,21 @@
   <div *ngIf="functions.length > 0" class="mt-3">
     <tabset>
       <tab heading="Dashboard">
-        <div>
-          <app-type-dashboard></app-type-dashboard>
-        </div>
-        <div *ngIf="opsCodeB">
-          <app-type-dashboard></app-type-dashboard>
+        <h2>OPS Dashboard</h2>
+        <p>
+          For more about OPS Dashboards, see my article at
+          <a
+            href="https://subjectivepersonality.wordpress.com/2020/06/30/ops-dashboards/"
+            target="_blank"
+            >SubjectivePersonality.com<i-bs
+              name="box-arrow-up-right"
+              class="ml-1"
+            ></i-bs></a
+          >.
+        </p>
+        <div *ngFor="let type of opsTypes; index as i">
+          <div class="text-center">{{ type.opsCode }}</div>
+          <app-type-dashboard [index]="i"></app-type-dashboard>
         </div>
       </tab>
       <tab heading="Description">
