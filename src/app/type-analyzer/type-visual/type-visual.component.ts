@@ -15,6 +15,9 @@ export class TypeVisualComponent implements OnInit, OnDestroy {
   opsType: OpsType;
   private opsTypesSub: Subscription;
 
+  showShadows: boolean = true;
+  sizing: string = "activation";
+
   optToyLink: string;
 
   feeling: Function;

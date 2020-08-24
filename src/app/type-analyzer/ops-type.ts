@@ -324,7 +324,7 @@ export class OpsType {
       this.animalStack[0] +
       '-' +
       this.animalStack[1] +
-      this.animalStack[2] +
+      this.animalStack[2] + '-' +
       modType;
   }
 
@@ -360,16 +360,20 @@ export class OpsType {
     this.functions.push(tert);
     this.functions.push(last);
 
-    if (this.jumper) {
-      this.temperament = lead.letter + tert.letter;
-    } else {
-      this.temperament = lead.letter + aux.letter;
-    }
-
     if (lead.decider) {
       this.decider = true;
+      if (this.jumper) {
+        this.temperament = tert.letter + lead.letter;
+      } else {
+        this.temperament = aux.letter + lead.letter;
+      }
     } else {
       this.observer = true;
+      if (this.jumper) {
+        this.temperament = lead.letter + tert.letter;
+      } else {
+        this.temperament = lead.letter + aux.letter;
+      }
     }
   }
 }

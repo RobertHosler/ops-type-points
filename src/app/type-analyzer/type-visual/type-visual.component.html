@@ -9,19 +9,91 @@
 </a>
 
 <div *ngIf="opsType">
-  <div>{{ opsType.optiCode }}</div>
-
-  <div class="animal" [ngClass]="'saviorA-' + blast.savior">B{{blast.index+1}}</div>
-  <div class="bubble-wrapper">
-    <div class="animal float-left" [ngClass]="'saviorA-' + sleep.savior">S{{sleep.index+1}}</div>
-    <div
-      *ngFor="let f of opsType.functions"
-      class="function"
-      [ngClass]="'letter-' + f.letter + ' savior-' + f.savior + ' mod-' + f.modality"
-    >
-      {{ f.name }}
+  <div class="visual-wrapper" [ngClass]="{ 'shadows': showShadows }">
+    <div class="text-center">
+      <span
+        class="animal animal-B"
+        [ngClass]="'saviorA-' + blast.savior + ' animal-mod-' + blast.modality"
+      >
+        <span class="animal-text">Blast</span>
+        <span class="animal-num">B{{ blast.index + 1 }}</span>
+      </span>
     </div>
-    <div class="animal float-right" [ngClass]="'saviorA-' + play.savior">P{{play.index+1}}</div>
+    <div
+      class="animal animal-P"
+      [ngClass]="'saviorA-' + play.savior + ' animal-mod-' + play.modality"
+    >
+      <span class="animal-text">Play</span>
+      <span class="animal-num">P{{ play.index + 1 }}</span>
+    </div>
+    <div
+      class="animal animal-S"
+      [ngClass]="'saviorA-' + sleep.savior + ' animal-mod-' + sleep.modality"
+    >
+      <span class="animal-text">Sleep</span>
+      <span class="animal-num">S{{ sleep.index + 1 }}</span>
+    </div>
+    <div class="bubble-wrapper" [ngClass]="' sizing-'+ sizing">
+      <div
+        *ngFor="let f of opsType.functions"
+        class="function"
+        [ngClass]="
+          'letter-' +
+          f.letter +
+          ' savior-' +
+          f.savior +
+          ' mod-' +
+          f.modality +
+          ' need-' +
+          f.need +
+          ' grant-' +
+          f.grant
+        "
+      >
+        <div class="inner-function" [ngClass]="' inner-savior-' + f.savior">
+          {{ f.name }}
+        </div>
+      </div>
+      <div class="decider-line"></div>
+      <div class="observer-line"></div>
+    </div>
+    <div class="text-center animal-wrapper">
+      <span
+        class="animal animal-C"
+        [ngClass]="
+          'saviorA-' + consume.savior + ' animal-mod-' + consume.modality
+        "
+      >
+        <span class="animal-text">Consume</span>
+        <span class="animal-num">C{{ consume.index + 1 }}</span>
+      </span>
+    </div>
   </div>
-  <div class="animal" [ngClass]="'saviorA-' + consume.savior">C{{consume.index+1}}</div>
+
+  <div>
+    <div>
+      <label>
+        <input
+          type="checkbox"
+          [checked]="showShadows"
+          (change)="showShadows = !showShadows"
+        />
+        3D Mode
+      </label>
+    </div>
+    <div>
+      <label class="mr-1" for="sizing">
+        Size by
+      </label>
+      <select [(ngModel)]="sizing" name="sizing">
+        <option value="activation">Activation</option>
+        <option value="grant">Grant Stack</option>
+        <option value="adam">Adam Stack</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="text-center mt-3">
+    <span class="opti-code">{{ opsType.optiCode }}</span>
+  </div>
 </div>

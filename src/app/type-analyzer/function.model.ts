@@ -20,6 +20,8 @@ export class Function {
   de: boolean;
   di: boolean;
 
+  need: string;//Oe,Oi,De,Di
+
   modalityPoints: number; //Modality Points
   grantPoints: number; //Grand Stack Points
   activationPoints: number; //Activation Points
@@ -53,16 +55,20 @@ export class Function {
       this.introverted = false;
       if (this.decider) {
         this.de = true;
+        this.need = "De";
       } else {
         this.oe = true;
+        this.need = "Oe";
       }
     } else {
       this.extroverted = false;
       this.introverted = true;
       if (this.decider) {
         this.di = true;
+        this.need = "Di";
       } else {
         this.oi = true;
+        this.need = "Oi";
       }
     }
   }
