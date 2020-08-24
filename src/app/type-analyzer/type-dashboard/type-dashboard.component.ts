@@ -1,20 +1,49 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Function } from '../function.model';
 import { Animal } from '../animal';
+import { OpsTypeService } from '../ops-type.service';
+import { OpsType } from '../ops-type';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-type-dashboard',
   templateUrl: './type-dashboard.component.html',
   styleUrls: ['./type-dashboard.component.css']
 })
-export class TypeDashboardComponent implements OnInit {
+export class TypeDashboardComponent implements OnInit, OnDestroy {
+  
+  @Input('index') index: number = 0;
 
-  @Input('functions') functions: Function[] = new Array<Function>();
-  @Input('animals') animals: Animal[] = [];
+  opsType: OpsType;
+  private opsTypesSub: Subscription;
 
-  constructor() { }
+  functions: Function[] = new Array<Function>();
+  animals: Animal[] = [];
+
+  constructor(private opsTypeService: OpsTypeService) {
+    this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
+      this.setup(opsTypes);
+    });
+  }
 
   ngOnInit(): void {
+    this.setup(this.opsTypeService.opsTypes);
+  }
+
+  ngOnDestroy() {
+    this.opsTypesSub.unsubscribe();
+  }
+
+  setup(opsTypes: OpsType[]) {
+    this.opsType = this.opsTypeService.getOpsType(this.index);
+    if (this.opsType) {
+      console.log("Type Dashboard Update, index=" + this.index);
+      this.functions = this.opsType.functions;
+      this.animals = this.opsType.animals;
+    } else {
+      this.functions = new Array<Function>();
+      this.animals = [];
+    }
   }
 
 }

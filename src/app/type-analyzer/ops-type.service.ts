@@ -31,6 +31,14 @@ export class OpsTypeService {
     this.opsTypesSubject.next(this.opsTypes);
   }
 
+  getOpsType(index: number) : OpsType {
+    if (this.opsTypes.length >= index + 1) {
+      return this.opsTypes[index];
+    } else {
+      return null;
+    }
+  }
+
   removeOpsType(index: number) {
     this.opsTypes.splice(index, 1);
     this.opsTypesSubject.next(this.opsTypes);
