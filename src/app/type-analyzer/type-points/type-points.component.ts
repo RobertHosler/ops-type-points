@@ -65,7 +65,6 @@ export class TypePointsComponent implements OnInit, OnDestroy {
 
   constructor(private opsTypeService: OpsTypeService) {
     this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
-      console.log("Type Points Update, index=" + this.index);
       this.setup(opsTypes);
     });
   }
@@ -80,6 +79,7 @@ export class TypePointsComponent implements OnInit, OnDestroy {
 
   setup(opsTypes: OpsType[]) {
     if (opsTypes.length >= this.index + 1) {
+      console.log("Type Points Update, index=" + this.index);
       this.opsType = opsTypes[this.index];
       this.newPointValues();
       this.assignPoints();
