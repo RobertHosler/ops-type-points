@@ -36,6 +36,8 @@ export class OpsType {
   optiCode: string; //Ex: DSFP-CS-T
   mbti: string; //Ex: ENFJ
 
+  valid: boolean;
+
   //Default animal objects
   private play: Animal = new Animal('Play', 'P', true, true, true);
   private sleep: Animal = new Animal('Sleep', 'S', false, false, true);
@@ -67,6 +69,8 @@ export class OpsType {
     this.constructMbtiType();
     this.constructOpticodeType();
     this.constructFormattedType();
+
+    this.validate();
   }
 
   private constructAnimals() {
@@ -400,4 +404,19 @@ export class OpsType {
       }
     }
   }
+
+  private validate() {
+    var result = false;
+    if (this.animals[0].shortName === "P") {
+      result = this.getDe().saviorBool && this.getOe().saviorBool;
+    } else if (this.animals[0].shortName === "S") {
+      result = this.getDi().saviorBool && this.getOi().saviorBool;
+    } else if (this.animals[0].shortName === "B") {
+      result = this.getDe().saviorBool && this.getOi().saviorBool;
+    } else if (this.animals[0].shortName === "C") {
+      result = this.getDi().saviorBool && this.getOe().saviorBool;
+    }
+    this.valid = result;
+  }
+
 }

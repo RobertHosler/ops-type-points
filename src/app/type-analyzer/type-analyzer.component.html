@@ -4,7 +4,7 @@
     Enter an OPS type in the specified format to view a dashboard and other
     information pertaining to that type.
   </p>
-  <form (ngSubmit)="onSubmit()" #form="ngForm">
+  <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <div class="row">
       <div class="form-group col-6 col-sm-3">
         <label for="modalities">Modalities</label>
@@ -12,6 +12,9 @@
           id="modalities"
           type="text"
           class="form-control"
+          minlength="2"
+          maxlength="2"
+          required
           [(ngModel)]="modalityString"
           name="modalities"
         />
@@ -23,6 +26,9 @@
           id="savior-one"
           type="text"
           class="form-control"
+          minlength="2"
+          maxlength="2"
+          required
           [(ngModel)]="s1String"
           name="savior1"
         />
@@ -34,6 +40,9 @@
           id="savior-two"
           type="text"
           class="form-control"
+          minlength="2"
+          maxlength="2"
+          required
           [(ngModel)]="s2String"
           name="savior2"
         />
@@ -45,64 +54,30 @@
           id="animals"
           type="text"
           class="form-control"
+          minlength="2"
+          maxlength="4"
+          required
           [(ngModel)]="animalString"
           name="animals"
         />
         <div class="help small">Ex: PCSB, SBPC</div>
       </div>
     </div>
-    <div class="row d-none">
-      <div class="form-group col-6 col-sm-3">
-        <label for="modalities">Modalities</label>
-        <input
-          id="modalitiesb"
-          type="text"
-          class="form-control"
-          [(ngModel)]="modalityStringB"
-          name="modalitiesb"
-        />
-        <div class="help small">Ex: MM, MF, FF, FM</div>
+    <div>
+      <div class="alert alert-danger" *ngIf="!isValidMod">
+        Modalities Invalid
       </div>
-      <div class="form-group col-6 col-sm-3">
-        <label for="savior-one">Savior One</label>
-        <input
-          id="savior-oneb"
-          type="text"
-          class="form-control"
-          [(ngModel)]="s1StringB"
-          name="savior1b"
-        />
-        <div class="help small">Ex: Te, Fi, Ne, Si</div>
+      <div class="alert alert-danger" *ngIf="!isValidSaviors">
+        Saviors Invalid
       </div>
-      <div class="form-group col-6 col-sm-3">
-        <label for="savior-two">Savior Two</label>
-        <input
-          id="savior-twob"
-          type="text"
-          class="form-control"
-          [(ngModel)]="s2StringB"
-          name="savior2b"
-        />
-        <div class="help small">Ex: Fe, Ti, Se, Ni</div>
+      <div class="alert alert-danger" *ngIf="!isValidAnimals">
+        Animals Invalid
       </div>
-      <div class="form-group col-6 col-sm-3">
-        <label for="animals">Animal Stack</label>
-        <input
-          id="animalsb"
-          type="text"
-          class="form-control"
-          [(ngModel)]="animalStringB"
-          name="animalsb"
-        />
-        <div class="help small">Ex: PCSB, SBPC</div>
+      <div class="alert alert-danger" *ngIf="!typeValid">
+        Type Invalid
       </div>
     </div>
     <p class="help small">
-      Note: There is currently <strong>no validation</strong> on this
-      application and you must enter your info in the specified format. Casing
-      is important.<br />
-      FF works, ff does not. Fe works fe does not. PCSB works, PC/S(B) does not.
-      <br />
       The animal order entered must must match with the saviors. For instance,
       FF Ti Ne SCPB is not valid. FF Ti Si SCPB is. <br />For a list of valid
       animal orders and the corresponding saviors see the
@@ -143,7 +118,7 @@
 
   <hr />
 
-  <div *ngIf="functions.length > 0" class="mt-3">
+  <div *ngIf="opsTypes.length > 0" class="mt-3">
     <tabset>
       <tab heading="Dashboard">
         <h2>OPS Dashboard</h2>

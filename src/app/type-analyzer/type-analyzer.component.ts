@@ -5,6 +5,7 @@ import { OpsTypeService } from './ops-type.service';
 import { OpsType } from './ops-type';
 import { Animal } from './animal';
 import { Subscription } from 'rxjs';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-type-analyzer',
@@ -24,26 +25,48 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
 
   compare: boolean;
 
-  functions: Function[] = new Array<Function>();
-  animals: Animal[];
-  opsCode: string;
+  isValidMod: boolean;
+  isValidSaviors: boolean;
+  isValidAnimals: boolean;
+  typeValid: boolean;
 
-  modalityStringB: string = '';
-  s1StringB: string;
-  s2StringB: string;
-  animalStringB: string;
+  private validModalities: string[] = ['MM', 'MF', 'FM', 'FF'];
 
-  functionsB: Function[] = new Array<Function>();
-  animalsB: Animal[];
-  opsCodeB: string;
+  private validDeciders: string[] = ['Fe', 'Te', 'Fi', 'Ti'];
 
-  constructor(private route: ActivatedRoute, private opsTypeService: OpsTypeService) {
-    this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
-      // console.log(opsTypes);
-      this.opsTypes = opsTypes;
-    });
+  private validObservers: string[] = ['Se', 'Ne', 'Si', 'Ni'];
+
+  private validAnimals: string[] = [
+    'SCBP',
+    'SCPB',
+    'SBCP',
+    'SBPC',
+    'CSBP',
+    'CSPB',
+    'CPSB',
+    'CPBS',
+    'BSCP',
+    'BSPC',
+    'BPSC',
+    'BPCS',
+    'PBCS',
+    'PBSC',
+    'PCSB',
+    'PCBS',
+  ];
+
+  constructor(
+    private route: ActivatedRoute,
+    private opsTypeService: OpsTypeService
+  ) {
+    this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe(
+      (opsTypes: OpsType[]) => {
+        // console.log(opsTypes);
+        this.opsTypes = opsTypes;
+      }
+    );
   }
-update
+
   ngOnInit() {
     this.opsTypes = this.opsTypeService.opsTypes;
     this.route.queryParamMap.subscribe((params) => {
@@ -60,7 +83,7 @@ update
       this.s2String &&
       this.animalString
     ) {
-      this.onSubmit();
+      this.newType();
     }
   }
 
@@ -99,47 +122,54 @@ update
     document.body.removeChild(selBox);
   }
 
-  onSubmit() {
-    if (
-      this.modalityString &&
-      this.s1String &&
-      this.s2String &&
-      this.animalString
-    ) {
-      this.modalityString
+  onSubmit(ngForm: NgForm) {
+    if (ngForm.valid) {
+      this.newType();
+    }
+  }
+
+  newType() {
+    this.modalityString = this.modalityString.toUpperCase();
+    this.s1String = this.formatFunction(this.s1String);
+    this.s2String = this.formatFunction(this.s2String);
+    this.animalString = this.animalString.toUpperCase();
+    this.isValidMod = this.validModalities.includes(this.modalityString);
+    this.isValidSaviors = this.validateSaviors();
+    this.isValidAnimals = this.validAnimals.includes(this.animalString);
+    if (this.isValidMod && this.isValidSaviors && this.isValidAnimals) {
       var type = new OpsType(
         this.modalityString,
         this.s1String,
         this.s2String,
         this.animalString
       );
-      if (!this.compare) {
-        this.opsTypeService.clearOpsTypes();
+      if (type.valid) {
+        this.typeValid = true;
+        if (!this.compare) {
+          this.opsTypeService.clearOpsTypes();
+        }
+        this.opsTypeService.addOpsType(type);
+      } else {
+        this.typeValid = false;
       }
-      this.opsTypeService.addOpsType(type);
-      this.functions = type.functions;
-      this.animals = type.animals;
-      this.opsCode = type.opsCode;
     }
+  }
 
+  private validateSaviors(): boolean {
+    var result = false;
     if (
-      this.modalityStringB &&
-      this.s1StringB &&
-      this.s2StringB &&
-      this.animalStringB
+      (this.validDeciders.includes(this.s1String) &&
+        this.validObservers.includes(this.s2String)) ||
+      (this.validObservers.includes(this.s1String) &&
+        this.validDeciders.includes(this.s2String))
     ) {
-      var typeB = new OpsType(
-        this.modalityStringB,
-        this.s1StringB,
-        this.s2StringB,
-        this.animalStringB
-      );
-      this.opsTypeService.clearOpsTypes();
-      this.opsTypeService.addOpsType(typeB);
-      this.functionsB = typeB.functions;
-      this.animalsB = typeB.animals;
-      this.opsCodeB = typeB.opsCode;
+      result = true;
     }
+    return result;
+  }
+
+  private formatFunction(f: string) {
+    return f.charAt(0).toUpperCase() + f.charAt(1).toLowerCase();
   }
 
   onClear() {
@@ -147,18 +177,7 @@ update
     this.modalityString = '';
     this.s1String = '';
     this.s2String = '';
-    this.animalStringB = '';
-    this.animals = [];
-    this.functions = [];
-    this.opsCode = '';
-
     this.animalString = '';
-    this.modalityStringB = '';
-    this.s1StringB = '';
-    this.s2StringB = '';
-    this.animalsB = [];
-    this.functionsB = [];
-    this.opsCodeB = '';
   }
 
   onRemoveOpsType(index: number) {
