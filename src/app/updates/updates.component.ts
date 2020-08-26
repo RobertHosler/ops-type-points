@@ -14,6 +14,18 @@ export class UpdatesComponent implements OnInit {
   }[] = [
     {
       date: '08.25.2020',
+      title: 'Validation',
+      lead: `Added light validation on the form inputs.`,
+      bullets: [
+        `Case no longer matters, inputs will automatically be cased as needed.`,
+        `Modalities must match MM, MF, FF, or FM`,
+        `Functions must be a valid observer and decider function`,
+        `Animal stack must be one of the 16 valid stacks`,
+        `First animal must match the provided saviors. Ex: Fe Ni cannot be lead Play.`,
+      ],
+    },
+    {
+      date: '08.25.2020',
       title: 'Visuals and Comparisons',
       lead: `Added type visuals using bubbles as well as the ability to compare types
        in the various tabs.`,
