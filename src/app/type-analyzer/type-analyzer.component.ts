@@ -43,7 +43,7 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
       this.opsTypes = opsTypes;
     });
   }
-
+update
   ngOnInit() {
     this.opsTypes = this.opsTypeService.opsTypes;
     this.route.queryParamMap.subscribe((params) => {

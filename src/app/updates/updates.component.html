@@ -1,62 +1,12 @@
 <h1>Release Notes</h1>
 
-<div>
-  <h2>8.08.2020 - Animal Emojis</h2>
-
-  <p>Added a tab for the emoji animals based on the type's animal stack.</p>
-</div>
-
-<hr />
-
-<div>
-  <h2>8.05.2020 - Enhanced Type Description</h2>
-
-  <p>
-    Added enhanced type descriptions to the Type Descriptions tab using the
-    beginner series notes.
-  </p>
-</div>
-<hr />
-
-<div>
-  <h2>7.30.2020 - Animal Points</h2>
-
-  <ol>
-    <li>
-      New points calculation which factors in animal order such that BSPC has
-      more Oi than BPSC.
+<div *ngFor="let update of updates">
+  <h2>{{update.date}} - {{update.title}}</h2>
+  <p>{{update.lead}}</p>
+  <ul *ngIf="update.bullets.length >= 0">
+    <li *ngFor="let bullet of update.bullets">
+      {{bullet}}
     </li>
-    <li>
-      Added points percentage calculation column.
-    </li>
-    <li>
-      Ability to swap between new point calculation and old.
-    </li>
-    <li>Ability to configure Animal Order weights.</li>
-    <li>Ability to copy links to type using request parameters.</li>
-    <li>App navigation header.</li>
-    <li>Release Notes page.</li>
-  </ol>
-</div>
-
-<hr />
-
-<div>
-  <h2>7.26.2020 - Point Theory</h2>
-
-  <p>
-    Update to add explanation of pointing theory and the weights being applied.
-  </p>
-</div>
-
-<hr />
-
-<h2>7.25.2020 - Initial Release</h2>
-
-<div>
-  <ol>
-    <li>OPS Dashboard Generator</li>
-    <li>Function Points Table</li>
-    <li>Point Theory Explanation</li>
-  </ol>
+  </ul>
+  <hr />
 </div>
