@@ -30,13 +30,13 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   isValidAnimals: boolean;
   typeValid: boolean;
 
-  private validModalities: string[] = ['MM', 'MF', 'FM', 'FF'];
+  validModalities: string[] = ['MM', 'MF', 'FM', 'FF'];
 
-  private validDeciders: string[] = ['Fe', 'Te', 'Fi', 'Ti'];
+  validDeciders: string[] = ['Fe', 'Te', 'Fi', 'Ti'];
 
-  private validObservers: string[] = ['Se', 'Ne', 'Si', 'Ni'];
+  validObservers: string[] = ['Se', 'Ne', 'Si', 'Ni'];
 
-  private validAnimals: string[] = [
+  validAnimals: string[] = [
     'SCBP',
     'SCPB',
     'SBCP',

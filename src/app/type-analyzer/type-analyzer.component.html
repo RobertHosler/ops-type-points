@@ -2,7 +2,13 @@
   <h1>OPS Type Analyzer</h1>
   <p>
     Enter an OPS type in the specified format to view a dashboard and other
-    information pertaining to that type.
+    information pertaining to that type. For a list of valid animal stacks and
+    the corresponding saviors see the
+    <a
+      href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
+      target="_blank"
+      >Class Notes Document</a
+    >.
   </p>
   <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <div class="row">
@@ -65,28 +71,46 @@
     </div>
     <div>
       <div class="alert alert-danger" *ngIf="!isValidMod">
-        Modalities Invalid
+        <strong>Modalities Invalid.</strong> Must be one of:
+        <span *ngFor="let m of validModalities">{{ m }} </span>
       </div>
       <div class="alert alert-danger" *ngIf="!isValidSaviors">
-        Saviors Invalid
+        <strong>Saviors Invalid.</strong>
+        <div>
+          Must include one decider (
+          <span *ngFor="let d of validDeciders">{{ d }} </span>) and one
+          observer ( <span *ngFor="let o of validObservers">{{ o }} </span>).
+        </div>
       </div>
       <div class="alert alert-danger" *ngIf="!isValidAnimals">
-        Animals Invalid
+        <strong>Animal Stack Invalid.</strong> See the
+        <a
+          href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
+          target="_blank"
+          >Class Notes Document</a
+        >
+        for a list of valid animals stacks.
+        <div>
+          Also remember that Play and Sleep cannot be in the first two animals
+          together. The same is true for Blast and Consume.
+        </div>
       </div>
       <div class="alert alert-danger" *ngIf="!typeValid">
-        Type Invalid
+        <strong>Type Invalid.</strong> Savior functions must match the first
+        animal. See the
+        <a
+          href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
+          target="_blank"
+          >Class Notes Document</a
+        >
+        for a list of valid animals stacks and their corresponding savior
+        functions.
+        <div>
+          For instance, Ti Ne SCPB is not valid since TiNe is a lead consume
+          type, but Ti Si SCPB is valid since TiSi is a lead sleep type.
+        </div>
       </div>
     </div>
-    <p class="help small">
-      The animal order entered must must match with the saviors. For instance,
-      FF Ti Ne SCPB is not valid. FF Ti Si SCPB is. <br />For a list of valid
-      animal orders and the corresponding saviors see the
-      <a
-        href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
-        target="_blank"
-        >Class Notes Doc</a
-      >.
-    </p>
     <div class="mb-2">
       <button class="btn btn-primary mr-3" type="submit">Submit</button>
       <button class="btn btn-secondary mr-3" type="button" (click)="onClear()">
@@ -109,7 +133,11 @@
     <div *ngIf="opsTypes.length > 1">
       <div *ngFor="let type of opsTypes; index as i">
         {{ type.opsCode }}
-        <button class="btn btn-danger btn-remove" type="button" (click)="onRemoveOpsType(i)">
+        <button
+          class="btn btn-danger btn-remove"
+          type="button"
+          (click)="onRemoveOpsType(i)"
+        >
           X
         </button>
       </div>
