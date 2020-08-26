@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Function } from './function.model';
 import { OpsTypeService } from './ops-type.service';
 import { OpsType } from './ops-type';
 import { Animal } from './animal';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-type-analyzer',
   templateUrl: './type-analyzer.component.html',
   styleUrls: ['./type-analyzer.component.css'],
 })
-export class TypeAnalyzerComponent implements OnInit {
+export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   title = 'ops-type-points';
 
   opsTypes: OpsType[];
+  private opsTypesSub: Subscription;
 
   modalityString: string;
   s1String: string;
@@ -35,7 +37,12 @@ export class TypeAnalyzerComponent implements OnInit {
   animalsB: Animal[];
   opsCodeB: string;
 
-  constructor(private route: ActivatedRoute, private opsTypeService: OpsTypeService) {}
+  constructor(private route: ActivatedRoute, private opsTypeService: OpsTypeService) {
+    this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
+      // console.log(opsTypes);
+      this.opsTypes = opsTypes;
+    });
+  }
 
   ngOnInit() {
     this.opsTypes = this.opsTypeService.opsTypes;
@@ -57,8 +64,12 @@ export class TypeAnalyzerComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.opsTypesSub.unsubscribe();
+  }
+
   copyLinkTo() {
-    console.log(location.href);
+    // console.log(location.href);
     var val = location.href;
     if (val.indexOf('?') < 0) {
       val += '?';

@@ -81,7 +81,7 @@ export class TypePointsComponent implements OnInit, OnDestroy {
   setup(opsTypes: OpsType[]) {
     this.opsTypes = opsTypes;
     if (opsTypes.length >= this.index + 1) {
-      console.log("Type Points Update, index=" + this.index);
+      // console.log("Type Points Update, index=" + this.index);
       this.assignPoints();
     }
   }

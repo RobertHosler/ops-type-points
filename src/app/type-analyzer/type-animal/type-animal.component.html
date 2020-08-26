@@ -6,17 +6,17 @@
   <a href="{{ emojiAppUrl }}" target="_blank">this application</a>.
 </p>
 
-<p>
-  This type is in the
+<p *ngFor="let type of opsTypes">
+  {{ type.opsCode }} is in the
   <ngx-emoji
-    emoji="{{ activeAnimalStack.emoji }}"
+    emoji="{{ type.animalEmojiStack.emoji }}"
     set="google"
     size="20"
     [fallback]="emojiFallback"
   ></ngx-emoji
-  ><strong class="mx-1">{{ activeAnimalStack.name }}</strong
+  ><strong class="mx-1">{{ type.animalEmojiStack.name }}</strong
   ><ngx-emoji
-    emoji="{{ activeAnimalStack.emoji }}"
+    emoji="{{ type.animalEmojiStack.emoji }}"
     set="google"
     size="20"
     [fallback]="emojiFallback"

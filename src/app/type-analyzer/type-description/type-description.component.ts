@@ -24,7 +24,7 @@ export class TypeDescriptionComponent implements OnInit, OnDestroy {
 
   constructor(private service: TypeDescriptionService, private opsTypeService: OpsTypeService) {
     this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
-      console.log("Type Points Update, index=" + this.index);
+      // console.log("Type Points Update, index=" + this.index);
       this.setup(opsTypes);
     });
   }
@@ -43,7 +43,7 @@ export class TypeDescriptionComponent implements OnInit, OnDestroy {
     this.animalDescription = [];
     this.modDescription = [];
     if (opsTypes.length >= this.index + 1) {
-      console.log("Type Description Update, index=" + this.index);
+      // console.log("Type Description Update, index=" + this.index);
       this.opsType = opsTypes[this.index];
       this.buildDescription();
     }

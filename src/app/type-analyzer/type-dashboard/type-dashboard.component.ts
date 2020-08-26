@@ -37,12 +37,9 @@ export class TypeDashboardComponent implements OnInit, OnDestroy {
   setup(opsTypes: OpsType[]) {
     this.opsType = this.opsTypeService.getOpsType(this.index);
     if (this.opsType) {
-      console.log("Type Dashboard Update, index=" + this.index);
+      // console.log("Type Dashboard Update - success, index=" + this.index, this.opsType);
       this.functions = this.opsType.functions;
       this.animals = this.opsType.animals;
-    } else {
-      this.functions = new Array<Function>();
-      this.animals = [];
     }
   }
 

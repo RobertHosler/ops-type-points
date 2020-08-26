@@ -1,5 +1,6 @@
 import { Animal } from './animal';
 import { Function } from './function.model';
+import { AnimalStack } from './type-animal/animal-stack';
 
 export class OpsType {
   //Form values
@@ -22,6 +23,7 @@ export class OpsType {
   functions: Function[] = new Array<Function>();
   animals: Animal[];
   animalStack: string[];
+  animalEmojiStack: AnimalStack;
 
   jumper: boolean;
   decider: boolean;

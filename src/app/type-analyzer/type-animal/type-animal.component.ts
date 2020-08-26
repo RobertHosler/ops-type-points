@@ -14,7 +14,6 @@ export class TypeAnimalComponent implements OnInit, OnDestroy {
   opsTypes: OpsType[];
   private opsTypesSub: Subscription;
 
-  activeStack: string;
   activeAnimalStack: AnimalStack;
 
   emojiFallback = (emoji: any, props: any) =>
@@ -27,7 +26,7 @@ export class TypeAnimalComponent implements OnInit, OnDestroy {
     new AnimalStack('SCBP', '-7', 'Owls', 'owl'),
     new AnimalStack('SCPB', '-5', 'Hedgehogs', 'hedgehog'),
     new AnimalStack('SBCP', '-2', 'Rhinos', 'rhinoceros'),
-    new AnimalStack('SBPC', '+1', 'Beaver/Mice', 'mouse'), //Was beaver, new in 2020
+    new AnimalStack('SBPC', '+1', 'Beavers/Mice', 'mouse'), //Was beaver, new in 2020
   ];
 
   consumeFirst: AnimalStack[] = [
@@ -70,25 +69,28 @@ export class TypeAnimalComponent implements OnInit, OnDestroy {
     this.updateAnimalStackGroups();
   }
 
+  ngOnDestroy() {
+    this.opsTypesSub.unsubscribe();
+  }
+
   updateAnimalStackGroups() {
-    if (this.opsTypes.length > 0) {
-      this.activeStack = this.opsTypeService.opsTypes[0].animalString;
-      console.log('Animals - Active Stack: ' + this.activeStack);
+    this.animalStackGroups.forEach((g) => {
+      g.group.forEach((a) => {
+        a.active = false;
+      });
+    });
+    this.opsTypes.forEach((type) => {
+      var activeStack = type.animalString;
+      // console.log('Animals - Active Stack: ' + activeStack);
       this.animalStackGroups.forEach((g) => {
         g.group.forEach((a) => {
-          if (a.stack === this.activeStack) {
+          if (a.stack === activeStack) {
             a.active = true;
-            this.activeAnimalStack = a;
-          } else {
-            a.active = false;
+            type.animalEmojiStack = a;
           }
         });
       });
-    }
-  }
-
-  ngOnDestroy() {
-    this.opsTypesSub.unsubscribe();
+    });
   }
 
 }
