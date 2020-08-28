@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <div class="container">
+    <h1>Welcome to <span class="sp-branding">Subjective Personality</span></h1>
+  </div>
+  <div class="bg-blue">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-4" *ngFor="let link of homeLinks">
+          <a [routerLink]="link.href" *ngIf="!link.ext">
+            <app-card [link]="link"></app-card>
+          </a>
+          <a href="{{ link.href }}" *ngIf="link.ext">
+            <app-card [link]="link"></app-card>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-3 d-none">
+    info info info
+  </div>
+</div>

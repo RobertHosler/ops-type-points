@@ -1,0 +1,18 @@
+.wrapper {
+  /* min-height: 550px; */
+  /* background-image: '/assets/images/subjective-personality-header.png'; */
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.bg-blue {
+  /* background: #ccc; */
+  padding: 15px 0px;
+  /* box-shadow: inset 0 2px 8px 0 #777; */
+  /* background: linear-gradient(45deg, #108dc7, #fff, #ef8e38); */
+  /* background: linear-gradient(to right, #3F5EFB, #ff3333, #3F5EFC); */
+
+}

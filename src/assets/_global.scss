@@ -1,0 +1,210 @@
+/* You can add global styles to this file, and also import other style files */
+
+.bg-dark {
+  background-color: #333 !important;
+}
+
+hr {
+  border-top: 2px solid #ccc;
+}
+
+a .card h2 {
+  // padding-left: 15px;
+  // padding-right: 15px;
+  // padding-bottom: 5px;
+  /* border-bottom: 5px solid; */
+  /* border-image-slice: 1; */
+  /* border-image-source: linear-gradient(to left, #ff8c00, #ff0080); */
+  /* border-image-source: linear-gradient(to left, #ff3333, #3F5EFC) */
+}
+a:hover .card h2 {
+  // border-image-source: linear-gradient(to right, #ff8c00, #ff0080);
+}
+a .card {
+  /* box-shadow: -2px 2px 5px #777; */
+  /* background: #333; */
+  /* color: #ddd; */
+  position: relative;
+  /* border: 5px solid; */
+  /* border-image-slice: 1; */
+  /* border-image-source: linear-gradient(to left, #ff8c00, #ff0080); */
+  /* border-image-source: linear-gradient(-135deg, #108dc7,#fff, #ef8e38); */
+}
+a:hover .card {
+  /* color: #fff; */
+  /* border-image-source: linear-gradient(to right, #ff8c00, #ff0080); */
+}
+a .card:before {
+  position: absolute;
+  z-index: -1;
+  /* content: ""; */
+  height: 200px;
+  width: 110%;
+  /* background: linear-gradient(to left, lightblue, pink); */
+}
+
+body {
+  // background: linear-gradient(
+  //   to bottom,
+  //   rgb(181, 234, 252, 0),
+  //   rgb(255, 190, 201, 1)
+  // );
+}
+
+.wrapper {
+  /* background-color: #FBB02D; */
+  // background-image: url("/assets/images/subjective-personality-header.png");
+  // opacity: .5;
+}
+
+a {
+  /* color: #7CB518; */
+}
+
+.nav-tabs,
+.header,
+.footer,
+.card {
+  background: theme-color("secondary");
+  background: gradient("purple");
+  color: theme-color("light");
+  a {
+    color: $highlight-green;
+  }
+}
+
+.header {
+  border-bottom: 5px solid theme-color("primary");
+  @include gradient-border();
+}
+.footer {
+  border-top: 5px solid theme-color("primary");
+  @include gradient-border();
+}
+.main {
+  // background: gradient("secondary", bottom);
+}
+
+@each $gradient, $value in $gradients {
+  .gradient-border-top-#{$gradient} {
+    @include gradient-border-top($gradient);
+  }
+  .gradient-border-bottom-#{$gradient} {
+    @include gradient-border-bottom($gradient);
+  }
+  .gradient-border-left-#{$gradient} {
+    @include gradient-border-left($gradient);
+  }
+  .gradient-border-right-#{$gradient} {
+    @include gradient-border-right($gradient);
+  }
+}
+a .card {
+  color: $highlight-green;
+}
+a:focus,
+a:hover {
+  color: $link-hover-color;
+}
+a:focus .card,
+a:hover .card {
+  color: $cad-orange;
+}
+a:active .card,
+a:active {
+  color: $link-active-color;
+}
+
+h1 {
+  margin-top: 15px;
+}
+
+.sp-branding {
+  color: $cad-orange;
+  font-family: monospace;
+  @include gradient-border-left("secondary");
+  @include gradient-border-right("secondary");
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.card h2 {
+  font-family: monospace;
+  @include gradient-border-left("primary");
+  @include gradient-border-right("primary");
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 2rem;
+  line-height: 2rem;
+}
+a:focus .card h2,
+a:hover .card h2 {
+  @include gradient-border-left("secondary");
+  @include gradient-border-right("secondary");
+}
+a:active .card h2 {
+  @include gradient-border-left("green");
+  @include gradient-border-right("green");
+}
+
+h1 .sp-branding {
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
+.nav-tabs {
+  background: gradient("purple");
+  padding: 5px 5px 0px;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  @include gradient-border-bottom();
+  .nav-item {
+    margin-bottom: 0px;
+  }
+  .nav-link {
+    // font-family: monospace;
+    border-bottom: 0px;
+    margin-left: 1px;
+    margin-right: 1px;
+    &:hover:not(.active) {
+      background: $highlight-green;
+      color: theme-color("dark");
+    }
+    &:active:not(.active) {
+      background: $pan-green;
+      color: theme-color("dark");
+      border-color: $pan-green;
+      border-bottom: 0px;
+    }
+    &.active {
+      position: relative;
+    }
+    &.active::after {
+      content: "";
+      border-bottom: 5px solid white;
+      position: absolute;
+      left: -1px;
+      bottom: -5px;
+      width: calc(100% + 2px);
+    }
+  }
+}
+
+.neon {
+  color: $highlight-green;
+  background: gradient("purple");
+  border-radius: 5px;
+  padding: 0px 2px;
+}
+
+.tab-content {
+  padding: 15px;
+  // background: #ecffff;
+  border-bottom: 1px solid $nav-tabs-border-color;
+  border-right: 1px solid $nav-tabs-border-color;
+  border-left: 1px solid $nav-tabs-border-color;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  min-height: 300px;
+}

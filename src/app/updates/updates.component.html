@@ -1,12 +1,14 @@
-<h1>Release Notes</h1>
+<div class="container">
+  <h1>Release Notes</h1>
 
-<div *ngFor="let update of updates">
-  <h2>{{update.date}} - {{update.title}}</h2>
-  <p>{{update.lead}}</p>
-  <ul *ngIf="update.bullets.length >= 0">
-    <li *ngFor="let bullet of update.bullets">
-      {{bullet}}
-    </li>
-  </ul>
-  <hr />
+  <div *ngFor="let update of updates">
+    <h2>{{ update.date }} - {{ update.title }}</h2>
+    <p>{{ update.lead }}</p>
+    <ul *ngIf="update.bullets.length >= 0">
+      <li *ngFor="let bullet of update.bullets">
+        {{ bullet }}
+      </li>
+    </ul>
+    <hr />
+  </div>
 </div>

@@ -1,0 +1,96 @@
+$indian-red: #db5461;
+$black-coral: #3d5467;
+$dim-gray: #686963;
+$morning-blue: #8aa29e;
+$isabelline: #f1edee;
+$blue-crayola: #5f7bfa;
+$sea-green: #228f65;
+$cad-orange: #e0781d;
+$pan-green: #02b354;
+$light-pan-green: #02de69;
+$dark-pan-green: #018e43;
+$kelly-green: #4cbb17;
+
+$russian-violet: #2c0954;
+$royal-purple: #7850a6;
+$purple: #4b2776;
+
+$highlight-blue: #4e92f8;
+$highlight-blue: $blue-crayola;
+$highlight-green: #2affdc;
+
+$primary: $dark-pan-green;
+$secondary: $purple;
+
+// $secondary: $cad-orange;
+// $primary: $royal-purple;
+// $success:       $green !default;
+// $info:          $cyan !default;
+// $warning:       $yellow !default;
+// $danger:        $red !default;
+$light: #fff;
+$dark: $russian-violet;
+
+$yiq-text-dark: $dark;
+$yiq-text-light: $light;
+
+$body-bg: $light;
+$body-color: $dark;
+
+$link-color: $cad-orange;
+$link-hover-color: $pan-green;
+$link-active-color: $dark-pan-green;
+$link-decoration: none;
+$link-hover-decoration: none;
+
+$nav-link-color: $link-color;
+$nav-tabs-border-color: $purple;
+
+$gradient-border-width: 5px;
+
+$gradients: (
+  "primary": (
+    $highlight-green,
+    $pan-green,
+  ),
+  "secondary": (
+    $cad-orange,
+    $indian-red,
+  ),
+  "purple": (
+    $purple,
+    $royal-purple,
+  ),
+  "green": (
+    $pan-green,
+    $royal-purple,
+  ),
+  //   "secondary": ($indian-red, $highlight-blue)
+);
+
+@function gradient($key: "primary", $direction: right) {
+  $colorA: nth(map-get($gradients, $key), 1);
+  $colorB: nth(map-get($gradients, $key), 2);
+  @return linear-gradient(to $direction, $colorA, $colorB);
+}
+
+@mixin gradient-border($key: "primary", $direction: right) {
+  border-image-slice: 1;
+  border-image-source: gradient($key, $direction);
+}
+@mixin gradient-border-top($key: "primary") {
+  border-top: $gradient-border-width solid;
+  @include gradient-border($key, right);
+}
+@mixin gradient-border-bottom($key: "primary") {
+  border-bottom: $gradient-border-width solid;
+  @include gradient-border($key, right);
+}
+@mixin gradient-border-left($key: "primary") {
+  border-left: $gradient-border-width solid;
+  @include gradient-border($key, bottom);
+}
+@mixin gradient-border-right($key: "primary") {
+  border-right: $gradient-border-width solid;
+  @include gradient-border($key, bottom);
+}

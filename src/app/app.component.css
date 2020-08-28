@@ -2,6 +2,11 @@
   margin-top: 30px;
   min-height: 80px;
   text-align: center;
+  /* box-shadow: 0 -2px 8px 0 #777; */
+  /* border-top: 5px solid; */
+  /* border-image-slice: 1; */
+  /* border-image-source: linear-gradient(to right, #3f5efb, #ff3333, #3f5efc); */
+  /* border-image-source: linear-gradient(to left, #76b852, #8DC26F, #76b852); */
 }
 .footer.bg-dark {
   color: #fff;
@@ -26,3 +31,4 @@
   top: 7px;
   position: absolute;
 }
+
