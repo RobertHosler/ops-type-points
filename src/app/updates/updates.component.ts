@@ -13,6 +13,16 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.05.2020',
+      title: 'Theme and Home Page',
+      lead: `Added new home page and color theme throughout the app.`,
+      bullets: [
+        'Color theme uses purple, green/blue, and orange',
+        'SP Gradient Branding',
+        'Mobile friendly navigation menu'
+      ],
+    },
+    {
       date: '08.25.2020',
       title: 'Validation',
       lead: `Added light validation on the form inputs.`,
