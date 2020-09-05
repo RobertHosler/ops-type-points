@@ -15,4 +15,22 @@ h1 {
   /* background: linear-gradient(45deg, #108dc7, #fff, #ef8e38); */
   /* background: linear-gradient(to right, #3F5EFB, #ff3333, #3F5EFC); */
 
+  // background: url("/assets/images/subjective-personality-header.png");
+  // background-size: cover;
+}
+
+app-home .wrapper {
+  // background: gradient("secondary", bottom);
+}
+
+.sp-logo {
+  display: inline-block;
+  width: 7rem;
+  height: 7rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+.logo-wrapper {
+  text-align: center;
 }

@@ -1,6 +1,18 @@
 <div class="wrapper">
   <div class="container">
-    <h1>Welcome to <span class="sp-branding">Subjective Personality</span></h1>
+    <div>
+      <h1>
+        Welcome to <br class="d-block d-lg-none"><span class="sp-branding">Subjective Personality</span>
+      </h1>
+    </div>
+    <div class="logo-wrapper">
+      <img
+        class="sp-logo flip-reverse"
+        src="/assets/images/sp-logo.png"
+        *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]"
+        [ngClass]="{'flip': i % 2 === 0, 'flip-reverse': i % 2 === 1, 'd-none d-lg-inline-block': i > 5 }"
+      />
+    </div>
   </div>
   <div class="bg-blue">
     <div class="container">
@@ -17,7 +29,17 @@
     </div>
   </div>
 
-  <div class="container py-3 d-none">
-    info info info
+  <div class="container py-3">
+    Subjective Personality is a site dedicated to documenting and exploring
+    concepts and theories of personality. Here at SP
+    <a href="https://subjectivepersonality.wordpress.com/about/our-team/"
+      >our team</a
+    >
+    of writers aim to help make these sometimes complicated theories of
+    personality more accessible and, dare I say, fun to learn about. While not
+    ourselves experts in psychology, we feel that we can provide a service in
+    accumulating the broad spectrum of information and giving you the good stuff
+    in brief. Think of us as a friendly neighbor welcoming you to the typology
+    community with a giggly jello dessert.
   </div>
 </div>

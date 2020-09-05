@@ -81,9 +81,6 @@ a {
   border-top: 5px solid theme-color("primary");
   @include gradient-border();
 }
-.main {
-  // background: gradient("secondary", bottom);
-}
 
 @each $gradient, $value in $gradients {
   .gradient-border-top-#{$gradient} {
@@ -109,6 +106,7 @@ a:hover {
 a:focus .card,
 a:hover .card {
   color: $cad-orange;
+  // box-shadow: $shadow
 }
 a:active .card,
 a:active {
@@ -198,13 +196,38 @@ h1 .sp-branding {
   padding: 0px 2px;
 }
 
+$tab-border-width: 1px;
+$inner-tab-border-width: 3px;
+.tab-wrapper {
+  border: $tab-border-width solid $purple;
+  border-radius: 5px;
+}
 .tab-content {
-  padding: 15px;
   // background: #ecffff;
-  border-bottom: 1px solid $nav-tabs-border-color;
-  border-right: 1px solid $nav-tabs-border-color;
-  border-left: 1px solid $nav-tabs-border-color;
+  border-bottom: $inner-tab-border-width solid $highlight-green;
+  border-right: $inner-tab-border-width solid $highlight-green;
+  border-left: $inner-tab-border-width solid $highlight-green;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   min-height: 300px;
+}
+.tab-content > tab {
+  padding: 15px;
+  // border: $tab-border-width solid $purple;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.reverse {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.flip-reverse,
+.flip:hover {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+.flip-reverse:hover {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
 }
