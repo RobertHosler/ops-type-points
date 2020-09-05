@@ -62,7 +62,7 @@ a {
 }
 
 .nav-tabs,
-.header,
+.navbar-app,
 .footer,
 .card {
   background: theme-color("secondary");
@@ -75,6 +75,7 @@ a {
 
 .header {
   border-bottom: 5px solid theme-color("primary");
+  min-height: 56px;
   @include gradient-border();
 }
 .footer {
