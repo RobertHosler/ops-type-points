@@ -19,6 +19,8 @@ import { TypeBubblesComponent } from './type-analyzer/type-visual/type-bubbles/t
 import { TypeQuizComponent } from './type-quiz/type-quiz.component';
 import { HomeComponent } from './home/home.component';
 import { CardComponent } from './home/card/card.component';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { CardComponent } from './home/card/card.component';
     TypeBubblesComponent,
     TypeQuizComponent,
     HomeComponent,
-    CardComponent
+    CardComponent,
+    MainLayoutComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

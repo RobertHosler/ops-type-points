@@ -1,6 +1,21 @@
+@import "~src/assets/variables";
+@import "~node_modules/bootstrap/scss/mixins/breakpoints";
+
 .wrapper {
   /* min-height: 550px; */
   /* background-image: '/assets/images/subjective-personality-header.png'; */
+  // min-height: 100vh;
+  // padding-top: 1rem;
+  // border-top: 2rem solid;
+  // border-bottom: 3rem solid;
+  // border-image-slice: 1;
+  // border-image-source: linear-gradient(to right, #4b2776, #7850a6);
+}
+
+.top,
+.bottom {
+  background: gradient('purple');
+  height: 30px;
 }
 
 h1 {
@@ -29,8 +44,23 @@ app-home .wrapper {
   height: 7rem;
   margin-left: .5rem;
   margin-right: .5rem;
+  @include media-breakpoint-up('lg', $grid-breakpoints) {
+    width: 12rem;
+    height: 12rem;
+  }
+}
+
+.text-bubble {
+  background: #fff;
+  padding: 15px;
+  // border: 1px solid $purple;
 }
 
 .logo-wrapper {
   text-align: center;
+  background: #fff;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
