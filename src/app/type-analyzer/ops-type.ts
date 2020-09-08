@@ -29,6 +29,15 @@ export class OpsType {
   decider: boolean;
   observer: boolean;
 
+  diSavior: boolean;
+  deSavior: boolean;
+
+  oiSavior: boolean;
+  oeSavior: boolean;
+  
+  oNeed: string;
+  dNeed: string;
+
   temperament: string;
 
   opsCode: string; //Ex: FF-Fe/Se-PC/S(B)

@@ -19,6 +19,7 @@ export class TypeDescriptionComponent implements OnInit, OnDestroy {
 
   description: string[] = [];
   needDescription: string[] = [];
+  observerDecider: string;
   animalDescription: string[] = [];
   modDescription: string[] = [];
 
@@ -53,7 +54,7 @@ export class TypeDescriptionComponent implements OnInit, OnDestroy {
 
     var s1 = this.opsType.s1String;
     var s2 = this.opsType.s2String;
-    this.needDescription.push(this.service.getHumanNeed(s1));
+    this.observerDecider = this.service.getHumanNeed(s1);
     this.needDescription.push(this.service.getDecider(s1, s2));
     this.needDescription.push(this.service.getObserver(s1, s2));
  

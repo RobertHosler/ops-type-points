@@ -7,31 +7,35 @@ export class TypeDescriptionService {
   constructor() {}
 
   getHumanNeed(saviorOne: string) {
-    var result = 'Since this type is a';
+    var result = '';
     if (
       saviorOne === 'Fe' ||
       saviorOne === 'Fi' ||
       saviorOne === 'Te' ||
       saviorOne === 'Ti'
     ) {
-      result += ` Decider, they will be relatively balanced with control and chaos, 
+      result += `Since this type is a Decider, they will be relatively balanced with control and chaos, 
         but feel stuck when it comes to self and tribe. The ability to move back and
-        forth on Observations is what is called 'Double Observing' and all deciders
-        are also 'Double Observers'. This means they will be able to observe the facts
-        and abstract patterns in a relative balance, compared to being able to make 
-        decisions with values and reasons.`;
+        forth on Observations is what is called 'Double Observing' and deciders
+        are also considered 'Double Observers'. This means they will be able to observe the facts
+        and abstract patterns in a relative balance, compared to their ability to make 
+        decisions with values and reasons. Deciders tend to focus more on and get stuck when it comes to
+        issues with people, while being able to work through situations where
+        there is missing information with relative ease.`;
     } else if (
       saviorOne === 'Se' ||
       saviorOne === 'Si' ||
       saviorOne === 'Ne' ||
       saviorOne === 'Ni'
     ) {
-      result += `n Observer, they will be relatively balanced with self and tribe, 
+      result += `Since this type is an Observer, they will be relatively balanced with self and tribe, 
         but feel stuck when it comes to control and chaos. The ability to move back
         and forth on decisions is what is called 'Double Deciding' and observers
-        are all 'Double Deciders'. This means they will be able to decide for 
+        are also considered 'Double Deciders'. This means they will be able to decide for 
         themselves and for the tribe in a relative balance, compared to their ability 
-        to observe and deal with control and chaos.`;
+        to observe and deal with control and chaos. Observers tend to focus on and get stuck more on the issues with
+        things and information, while being able to work through issues involving
+        people with relative ease.`;
     } else {
       result = 'ErR0r';
     }
@@ -39,9 +43,9 @@ export class TypeDescriptionService {
   }
 
   getDecider(saviorOne: string, saviorTwo: string) {
-    var deciderPriority;
-    var deciderSecondary;
-    var deciderType;
+    var deciderPriority: string;
+    var deciderSecondary: string;
+    var deciderType: string;
     if (saviorOne.startsWith('F') || saviorTwo.startsWith('F')) {
       deciderPriority = 'values';
       deciderSecondary = 'reasons';
@@ -51,16 +55,16 @@ export class TypeDescriptionService {
       deciderSecondary = 'values';
       deciderType = 'thinkers';
     }
-    var deciderMsg;
-    var saviorD;
+    var deciderMsg: string;
+    var saviorD: string;
     if (
       saviorOne === 'Fi' ||
       saviorOne === 'Ti' ||
       saviorTwo === 'Fi' ||
       saviorTwo === 'Ti'
     ) {
-      var self;
-      var tribe;
+      var self: string;
+      var tribe: string;
       if (deciderType === 'feelers') {
         saviorD = 'Fi';
         self = 'is valuable';
@@ -72,6 +76,8 @@ export class TypeDescriptionService {
       }
       //Di
       deciderMsg =
+        'Having an introverted decider, this type will be responsible for the human need of identity and significance (self)' +
+        ' rather than the human need of community and connection (tribe). ' +
         'When making a decision, introverted ' +
         deciderType +
         ' will prioritize their own personal ' +
@@ -84,41 +90,43 @@ export class TypeDescriptionService {
         self +
         ', before asking for the tribe’s input on whether it ' +
         tribe +
-        '.';
+        ' to them. They know what they want, and feel responsible to resist ' +
+        'the perspective of the tribe when making their decision.';
     } else {
-      var tribe;
-      var self;
       if (deciderType === 'feelers') {
         saviorD = 'Fe';
-        tribe = 'if something is valuable';
+        tribe = 'something is valuable';
         self = 'makes sense';
       } else {
         saviorD = 'Te';
-        tribe = 'to figure out how things work';
+        tribe = 'something works';
         self = 'is valuable';
       }
       //De
       deciderMsg =
+        'Having an extroverted decider, this type will be responsible for the human need of community and connection (tribe)' +
+        ' rather than the human need of identity and significance (self). ' +
         'When making a decision, extroverted ' +
         deciderType +
         " will prioritize the spectrum of the tribe's " +
         deciderPriority +
-        ' first, then seek their personal ' +
+        ' first, then seek their own personal ' +
         deciderSecondary +
         '. Savior ' +
         saviorD +
-        ' will prefer to first ask the tribe ' +
+        ' will prefer to first consider whether the tribe thinks ' +
         tribe +
         ', before asking themselves whether it ' +
         self +
-        ' to them.';
+        ' to them.  They might know internally what they want, but' +
+        ' feel responsible to check in with the tribe before making their decision.';
     }
     if (deciderType === 'feelers') {
       deciderMsg += ` Those that have Savior Feeling will generally struggle with 
-      figuring out how things work, instead choosing to process the feelings and values.`;
+      figuring out how things work, instead choosing to process and focus on the feelings and values.`;
     } else {
       deciderMsg += ` Those that have Savior Thinking will generally struggle with 
-      processing the feelings and values, instead choosing to figure out how things work.`;
+      processing the feelings and values, instead choosing to focus on figuring out how things work.`;
     }
     return deciderMsg;
   }
