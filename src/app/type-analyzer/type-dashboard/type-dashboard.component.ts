@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-type-dashboard',
   templateUrl: './type-dashboard.component.html',
-  styleUrls: ['./type-dashboard.component.css']
+  styleUrls: ['./type-dashboard.component.scss']
 })
 export class TypeDashboardComponent implements OnInit, OnDestroy {
   

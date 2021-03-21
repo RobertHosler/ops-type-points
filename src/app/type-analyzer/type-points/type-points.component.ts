@@ -1,6 +1,4 @@
-import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
-import { Function } from '../function.model';
-import { Animal } from '../animal';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { OpsTypeService } from '../ops-type.service';
 import { Subscription } from 'rxjs';
 import { OpsType } from '../ops-type';
@@ -8,7 +6,7 @@ import { OpsType } from '../ops-type';
 @Component({
   selector: 'app-type-points',
   templateUrl: './type-points.component.html',
-  styleUrls: ['./type-points.component.css'],
+  styleUrls: ['./type-points.component.scss'],
 })
 export class TypePointsComponent implements OnInit, OnDestroy {
 

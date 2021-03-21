@@ -1,3 +1,5 @@
+@import "~src/assets/variables";
+
 table {
   text-align: center;
 }
@@ -20,17 +22,17 @@ tbody td {
   border-right: 1px solid black;
 }
 table.full-table tbody td.highlight {
-  background: #fbdcb4;
+  background: $tertiary-soft;
   font-weight: bold;
 }
 tbody td:first-child {
-  background: #fbdcb4;
+  background: $tertiary-soft;
   font-weight: bold;
 }
 
 .table-wrapper {
   overflow-x: auto;
-  max-width: 501px;
+  // max-width: 501px;
 }
 
 .full-table {

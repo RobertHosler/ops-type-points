@@ -15,6 +15,7 @@ $isabelline: #f1edee;
 $blue-crayola: #5f7bfa;
 $sea-green: #228f65;
 $cad-orange: #e0781d;
+$cad-orange-soft: #e0781d80;
 $pan-green: #02b354;
 $light-pan-green: #02de69;
 $dark-pan-green: #018e43;
@@ -30,6 +31,8 @@ $highlight-green: #2affdc;
 
 $primary: $dark-pan-green;
 $secondary: $purple;
+$tertiary: $cad-orange;
+$tertiary-soft: $cad-orange-soft;
 
 // $secondary: $cad-orange;
 // $primary: $royal-purple;
@@ -46,8 +49,8 @@ $yiq-text-light: $light;
 $body-bg: $light;
 $body-color: $dark;
 
-$link-color: $cad-orange;
-$link-hover-color: $pan-green;
+$link-color: $pan-green;
+$link-hover-color: $cad-orange;
 $link-active-color: $dark-pan-green;
 $link-decoration: none;
 $link-hover-decoration: none;
