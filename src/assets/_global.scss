@@ -5,60 +5,27 @@
 }
 
 hr {
-  border-top: 2px solid #ccc;
+  @include gradient-border(secondary, left);
+  border-top-width: 2px;
+  opacity: 66%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+hr.hr-sm {
+  width: 33%;
+}
+hr.hr-primary {
+  @include gradient-border(primary, left);
 }
 
-a .card h2 {
-  // padding-left: 15px;
-  // padding-right: 15px;
-  // padding-bottom: 5px;
-  /* border-bottom: 5px solid; */
-  /* border-image-slice: 1; */
-  /* border-image-source: linear-gradient(to left, #ff8c00, #ff0080); */
-  /* border-image-source: linear-gradient(to left, #ff3333, #3F5EFC) */
-}
-a:hover .card h2 {
-  // border-image-source: linear-gradient(to right, #ff8c00, #ff0080);
-}
 a .card {
-  /* box-shadow: -2px 2px 5px #777; */
-  /* background: #333; */
-  /* color: #ddd; */
   position: relative;
-  /* border: 5px solid; */
-  /* border-image-slice: 1; */
-  /* border-image-source: linear-gradient(to left, #ff8c00, #ff0080); */
-  /* border-image-source: linear-gradient(-135deg, #108dc7,#fff, #ef8e38); */
-}
-a:hover .card {
-  /* color: #fff; */
-  /* border-image-source: linear-gradient(to right, #ff8c00, #ff0080); */
 }
 a .card:before {
   position: absolute;
   z-index: -1;
-  /* content: ""; */
   height: 200px;
   width: 110%;
-  /* background: linear-gradient(to left, lightblue, pink); */
-}
-
-body {
-  // background: linear-gradient(
-  //   to bottom,
-  //   rgb(181, 234, 252, 0),
-  //   rgb(255, 190, 201, 1)
-  // );
-}
-
-.wrapper {
-  /* background-color: #FBB02D; */
-  // background-image: url("/assets/images/subjective-personality-header.png");
-  // opacity: .5;
-}
-
-a {
-  /* color: #7CB518; */
 }
 
 .nav-tabs,
