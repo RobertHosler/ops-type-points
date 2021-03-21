@@ -1,8 +1,8 @@
 <div class="container">
   <h1>Release <span class="sp-branding">Notes</span></h1>
-
+  <hr/>
   <div *ngFor="let update of updates">
-    <h2>{{ update.date }} - {{ update.title }}</h2>
+    <h2><span class="sp-branding">{{ update.date }}</span> {{ update.title }}</h2>
     <p>{{ update.lead }}</p>
     <ul *ngIf="update.bullets.length >= 0">
       <li *ngFor="let bullet of update.bullets">
