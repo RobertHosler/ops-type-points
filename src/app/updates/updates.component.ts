@@ -13,6 +13,17 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '03.21.2021',
+      title: 'Description and various styling',
+      lead: `Added new home page and color theme throughout the app.`,
+      bullets: [
+        'Analyzer visual tab description update',
+        'Release page styling',
+        'Green links -> hover orange, some external link icons',
+        'Touched the description tab, added a link, future links to supporting info to come'
+      ],
+    },
+    {
       date: '09.05.2020',
       title: 'Theme and Home Page',
       lead: `Added new home page and color theme throughout the app.`,
