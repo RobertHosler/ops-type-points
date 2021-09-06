@@ -16,6 +16,9 @@ export class TypeBubblesComponent implements OnInit {
 
   showShadows: boolean = true;
   showOptiCode: boolean = false;
+  showAnimals: boolean = true;
+  showFunctions: boolean = true;
+  showType: boolean = true;
   sizing: string = 'activation';
 
   constructor(private opsTypeService : OpsTypeService) {

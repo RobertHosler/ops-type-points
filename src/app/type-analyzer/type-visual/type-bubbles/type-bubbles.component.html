@@ -4,7 +4,7 @@
     [ngClass]="{ shadows: showShadows }"
     *ngFor="let opsType of opsTypes; index as i"
   >
-    <div class="text-center">
+    <div class="text-center" [ngClass]="{ 'd-none': !showAnimals }">
       <span
         class="animal animal-B"
         [ngClass]="
@@ -18,29 +18,31 @@
         <span class="animal-num">B{{ opsType.getAnimal("B").index + 1 }}</span>
       </span>
     </div>
-    <div
-      class="animal animal-P"
-      [ngClass]="
-        'saviorA-' +
-        opsType.getAnimal('P').savior +
-        ' animal-mod-' +
-        opsType.getAnimal('P').modality
-      "
-    >
-      <span class="animal-text">Play</span>
-      <span class="animal-num">P{{ opsType.getAnimal("P").index + 1 }}</span>
-    </div>
-    <div
-      class="animal animal-S"
-      [ngClass]="
-        'saviorA-' +
-        opsType.getAnimal('S').savior +
-        ' animal-mod-' +
-        opsType.getAnimal('S').modality
-      "
-    >
-      <span class="animal-text">Sleep</span>
-      <span class="animal-num">S{{ opsType.getAnimal("S").index + 1 }}</span>
+    <div  [ngClass]="{ 'd-none': !showAnimals }">
+      <div
+        class="animal animal-P"
+        [ngClass]="
+          'saviorA-' +
+          opsType.getAnimal('P').savior +
+          ' animal-mod-' +
+          opsType.getAnimal('P').modality
+        "
+      >
+        <span class="animal-text">Play</span>
+        <span class="animal-num">P{{ opsType.getAnimal("P").index + 1 }}</span>
+      </div>
+      <div
+        class="animal animal-S"
+        [ngClass]="
+          'saviorA-' +
+          opsType.getAnimal('S').savior +
+          ' animal-mod-' +
+          opsType.getAnimal('S').modality
+        "
+      >
+        <span class="animal-text">Sleep</span>
+        <span class="animal-num">S{{ opsType.getAnimal("S").index + 1 }}</span>
+      </div>
     </div>
     <div class="bubble-wrapper" [ngClass]="' sizing-' + sizing">
       <div
@@ -60,7 +62,7 @@
         "
       >
         <div class="inner-function" [ngClass]="' inner-savior-' + f.savior">
-          {{ f.name }}
+          {{ showFunctions ? f.name : '&nbsp;'}}
         </div>
       </div>
       <div
@@ -72,7 +74,7 @@
         [ngClass]="opsType.oeModality === 'M' ? 'oe-M' : 'oi-M'"
       ></div>
     </div>
-    <div class="text-center animal-wrapper">
+    <div class="text-center animal-wrapper" [ngClass]="{ 'd-none': !showAnimals }">
       <span
         class="animal animal-C"
         [ngClass]="
@@ -86,7 +88,7 @@
         <span class="animal-num">C{{ opsType.getAnimal("C").index + 1 }}</span>
       </span>
     </div>
-    <div class="text-center mt-3">
+    <div class="text-center mt-3" [ngClass]="{ 'd-none': !showType }">
       <span class="opti-code" [ngClass]="{ 'd-none': !showOptiCode }">{{
         opsType.optiCode
       }}</span>
@@ -116,6 +118,36 @@
         (change)="showOptiCode = !showOptiCode"
       />
       Opti Code
+    </label>
+  </div>
+  <div>
+    <label>
+      <input
+        type="checkbox"
+        [checked]="showFunctions"
+        (change)="showFunctions = !showFunctions"
+      />
+      Functions
+    </label>
+  </div>
+  <div>
+    <label>
+      <input
+        type="checkbox"
+        [checked]="showAnimals"
+        (change)="showAnimals = !showAnimals"
+      />
+      Animals
+    </label>
+  </div>
+  <div>
+    <label>
+      <input
+        type="checkbox"
+        [checked]="showType"
+        (change)="showType = !showType"
+      />
+      Type
     </label>
   </div>
   <div>
