@@ -13,6 +13,17 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.06.2021',
+      title: 'Tables and Molecule updates',
+      lead: `Updated type visual to molecule and added minimalist options.`,
+      bullets: [
+        'Fixed issues with tables on certain screen sizes where the borders would become hidden',
+        'Reduced number of old men shrugging on the home page',
+        'Changed the type visual tab to Molecule',
+        'Added new minimalist options to the molecule to remove labels for animals, functions, and the type'
+      ],
+    },
+    {
       date: '03.21.2021',
       title: 'Description and various styling',
       lead: `Added new home page and color theme throughout the app.`,

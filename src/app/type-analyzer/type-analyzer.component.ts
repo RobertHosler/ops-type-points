@@ -18,6 +18,9 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   opsTypes: OpsType[];
   private opsTypesSub: Subscription;
 
+  opsCodeLink = 'https://subjectivepersonality.wordpress.com/2021/04/30/the-objective-personality-type-code/';
+  whatIsOpsLink = 'https://subjectivepersonality.wordpress.com/2020/08/19/what-is-ops/';
+
   modalityString: string;
   s1String: string;
   s2String: string;

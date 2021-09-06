@@ -1,8 +1,10 @@
 <div class="container">
   <h1>OPS Type <span class="sp-branding">Analyzer</span></h1>
+  <p>The OPS Type Analyzer provides information about a type in the Objective Personality System.  
+    If you aren't familiar with the system, you can read more about it on 
+    <a href="{{whatIsOpsLink}}" target="_blank">SubjectivePersonality.com</a>
   <p>
-    Enter an OPS type in the specified format to view a dashboard and other
-    information pertaining to that type. For a list of valid animal stacks and
+    Enter an OPS type using the OPS Type code to view that type. For a list of valid animal stacks and
     the corresponding saviors see the
     <a
       href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
@@ -10,8 +12,7 @@
       >Class Notes Document<i-bs
       name="box-arrow-up-right"
       class="ml-1"
-    ></i-bs></a
-    >.
+    ></i-bs></a> or read more about <a href="{{opsCodeLink}}" target="_blank">the OPS Type Code on Subjective Personality</a>.
   </p>
   <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <div class="row">
@@ -151,21 +152,18 @@
     <tabset>
       <tab heading="Dashboard">
         <h2>OPS Dashboard</h2>
-        <p>
-          For more about OPS Dashboards, see my article at
-          <a
-            href="https://subjectivepersonality.wordpress.com/2020/06/30/ops-dashboards/"
-            target="_blank"
-            >SubjectivePersonality.com<i-bs
-              name="box-arrow-up-right"
-              class="ml-1"
-            ></i-bs></a
-          >.
-        </p>
         <div *ngFor="let type of opsTypes; index as i">
           <div class="text-center">{{ type.opsCode }}</div>
           <app-type-dashboard [index]="i"></app-type-dashboard>
         </div>
+        <p>
+          Learn more about OPS Dashboards at
+          <a
+            href="https://subjectivepersonality.wordpress.com/2020/06/30/ops-dashboards/"
+            target="_blank"
+            >SubjectivePersonality.com</a
+          >.
+        </p>
       </tab>
       <tab heading="Description">
         <app-type-description></app-type-description>
