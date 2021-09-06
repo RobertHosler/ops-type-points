@@ -12,11 +12,11 @@
       <img
         class="sp-logo flip-reverse"
         src="/assets/images/sp-logo.png"
-        *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+        *ngFor="let i of [1, 2, 3, 4, 5]"
         [ngClass]="{
           'flip': i % 2 === 0,
           'flip-reverse': i % 2 === 1,
-          'd-none': i > 5,
+          'd-none': i > 3,
           'd-lg-inline-block': i > 5 && i < 8,
           'd-xl-inline-block': i > 7
         }"
@@ -30,7 +30,7 @@
           <a [routerLink]="link.href" *ngIf="!link.ext">
             <app-card [link]="link"></app-card>
           </a>
-          <a href="{{ link.href }}" *ngIf="link.ext">
+          <a href="{{ link.href }}" *ngIf="link.ext" target="_blank">
             <app-card [link]="link"></app-card>
           </a>
         </div>
