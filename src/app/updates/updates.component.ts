@@ -13,6 +13,16 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.07.2021',
+      title: 'Summary Tab',
+      lead: `Added new Summary Tab with dashboard and molecule`,
+      bullets: [
+        'Created new primary tab with dashboard and molecule as a summary of the type lookup.',
+        'Summary does not currently work for comparisons.',
+        'Added tooltips for mobile dashboard headings.',
+      ],
+    },
+    {
       date: '09.06.2021',
       title: 'Tables and Molecule updates',
       lead: `Updated type visual to molecule and added minimalist options.`,
