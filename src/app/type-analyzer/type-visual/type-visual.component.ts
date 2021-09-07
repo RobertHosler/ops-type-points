@@ -10,13 +10,11 @@ import { Animal } from '../animal';
   styleUrls: ['./type-visual.component.css'],
 })
 export class TypeVisualComponent implements OnInit, OnDestroy {
-  @Input('index') index: number = 0;
 
-  opsType: OpsType;
   opsTypes: OpsType[];
   private opsTypesSub: Subscription;
 
-  optToyLink: string;
+  optToyBaseUrl = 'https://opt-toy.now.sh/#?';
 
   constructor(private opsTypeService: OpsTypeService) {
     this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
@@ -33,17 +31,14 @@ export class TypeVisualComponent implements OnInit, OnDestroy {
   }
 
   setup(opsTypes: OpsType[]) {
-    this.opsType = this.opsTypeService.getOpsType(this.index);
     this.opsTypes = opsTypes;
-    if (this.opsType) {
-      this.setOptToyLink();
-    } else {
-      this.optToyLink = 'https://opt-toy.now.sh';
-    }
   }
 
-  setOptToyLink() {
-    var base = 'https://opt-toy.now.sh/#?type[]=';
-    this.optToyLink = base + this.opsType.opsCode;
+  optToyLink():string {
+    let path = "";
+    this.opsTypes.forEach((opsType) => {
+      path += ("type[]=" + opsType.opsCode + "&");
+    });
+    return this.optToyBaseUrl + path;
   }
 }

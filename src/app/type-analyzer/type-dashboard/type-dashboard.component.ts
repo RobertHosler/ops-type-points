@@ -19,6 +19,14 @@ export class TypeDashboardComponent implements OnInit, OnDestroy {
 
   functions: Function[] = new Array<Function>();
   animals: Animal[] = [];
+  headings = [
+    { letter: 'A', title: 'Activation'},
+    { letter: 'M', title: 'Modality'},
+    { letter: 'F', title: 'Function'},
+    { letter: 'S', title: 'Saviors'},
+    { letter: 'S', title: 'Saviors'},
+    { letter: 'A', title: 'Animals'}
+  ];
 
   constructor(private opsTypeService: OpsTypeService) {
     this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {

@@ -26,3 +26,10 @@ tbody td:nth-child(6) {
 .table-wrapper {
   overflow-x: auto;
 }
+
+.table-tip {
+  font-weight: bold;
+  padding-bottom: 0px;
+  color: $dark;
+  text-decoration: underline;
+}

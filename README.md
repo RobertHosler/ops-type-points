@@ -1,6 +1,10 @@
-# OpsTypePoints
+# OpsTypePoints aka the Subjective Personality App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+This app was developed in association with the [SubjectivePersonality.com](https://subjectivepersonality.wordpress.com/) blog.  The app's primary functionality at this time is to output various information pertaining to a type within the [Objective Personality System](https://subjectivepersonality.wordpress.com/2020/08/19/what-is-ops/), a typology system loosely based on the work of Carl Jung.
+
+## Dev Tools
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.  It uses Bootstrap 4.5.2 for providing basic responsive design.
 
 ## Development server
 

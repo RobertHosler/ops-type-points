@@ -1,12 +1,10 @@
 <div class="table-wrapper mb-3">
   <table class="table">
     <thead>
-      <th>A<span class="d-none d-md-inline">ctivation</span></th>
-      <th>M<span class="d-none d-md-inline">odality</span></th>
-      <th>F<span class="d-none d-md-inline">unction</span></th>
-      <th>S<span class="d-none d-md-inline">aviors</span></th>
-      <th>S<span class="d-none d-md-inline">aviors</span></th>
-      <th>A<span class="d-none d-md-inline">nimals</span></th>
+      <th *ngFor="let heading of headings;">
+        <button class="d-lg-none btn btn-link table-tip" type="button" placement="top" [tooltip]="heading.title" [adaptivePosition]="false">{{heading.letter}}</button>
+        <span class="d-none d-lg-inline">{{heading.title}}</span>
+      </th>
     </thead>
     <tbody>
       <tr *ngFor="let function of functions; index as i">
@@ -19,15 +17,4 @@
       </tr>
     </tbody>
   </table>
-</div>
-<div class="d-md-none mt-3">
-  <h5>Table Heading Key</h5>
-  <ol>
-    <li>A = Activation</li>
-    <li>M = Modality</li>
-    <li>F = Function</li>
-    <li>S = Saviors</li>
-    <li>S = Saviors</li>
-    <li>A = Animals</li>
-  </ol>
 </div>

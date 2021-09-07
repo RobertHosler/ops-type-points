@@ -199,3 +199,9 @@ $inner-tab-border-width: 3px;
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
+
+@media (max-width: 991px) {
+  .container {
+    max-width: 100%;
+  }  
+}

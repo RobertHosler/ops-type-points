@@ -11,6 +11,7 @@ import { TypePointsComponent } from './type-analyzer/type-points/type-points.com
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { HeaderComponent } from './header/header.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeDescriptionComponent } from './type-analyzer/type-description/type-description.component';
 import { TypeAnimalComponent } from './type-analyzer/type-animal/type-animal.component';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
@@ -47,6 +48,7 @@ import { FooterComponent } from './footer/footer.component';
     FormsModule,
     EmojiModule,
     TabsModule.forRoot(),
+    TooltipModule.forRoot(),
     NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [],

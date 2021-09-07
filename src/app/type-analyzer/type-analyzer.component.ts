@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Function } from './function.model';
 import { OpsTypeService } from './ops-type.service';
 import { OpsType } from './ops-type';
-import { Animal } from './animal';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
 
