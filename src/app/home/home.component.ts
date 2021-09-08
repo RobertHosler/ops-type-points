@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TelephoneMinusFill } from 'ngx-bootstrap-icons';
 import { Greeting, OpsDataService } from '../service/ops-data.service';
 import { HomeLink } from './home-link';
 
@@ -37,12 +38,8 @@ export class HomeComponent implements OnInit {
 
   greeting: string;
 
-  constructor(private service: OpsDataService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.service.getGreeting().subscribe(
-        (result: Greeting) => {
-          this.greeting = result.content;
-    });
   }
 }
