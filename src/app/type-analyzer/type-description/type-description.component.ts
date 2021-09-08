@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { TypeDescriptionService } from './type-description.service';
-import { Function } from '../function.model';
 import { Subscription } from 'rxjs';
 import { OpsType } from '../ops-type';
 import { OpsTypeService } from '../ops-type.service';

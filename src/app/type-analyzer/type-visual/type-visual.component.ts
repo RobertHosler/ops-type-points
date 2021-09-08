@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OpsTypeService } from '../ops-type.service';
 import { Subscription } from 'rxjs';
 import { OpsType } from '../ops-type';
-import { Animal } from '../animal';
 
 @Component({
   selector: 'app-type-visual',

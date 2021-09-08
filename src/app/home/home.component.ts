@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TelephoneMinusFill } from 'ngx-bootstrap-icons';
-import { Greeting, OpsDataService } from '../service/ops-data.service';
 import { HomeLink } from './home-link';
 
 @Component({
@@ -36,10 +34,7 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  greeting: string;
-
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
