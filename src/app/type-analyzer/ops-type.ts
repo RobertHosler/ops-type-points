@@ -1,3 +1,4 @@
+import { TypeRecord } from '../service/ops-data.service';
 import { Animal } from './animal';
 import { Function } from './function.model';
 import { AnimalStack } from './type-animal/animal-stack';
@@ -24,6 +25,7 @@ export class OpsType {
   animals: Animal[];
   animalStack: string[];
   animalEmojiStack: AnimalStack;
+  animalStringFormal: string;
 
   jumper: boolean;
   decider: boolean;
@@ -46,6 +48,8 @@ export class OpsType {
   mbti: string; //Ex: ENFJ
 
   valid: boolean;
+
+  twins: TypeRecord[];
 
   //Default animal objects
   private play: Animal = new Animal('Play', 'P', true, true, true);
@@ -336,6 +340,12 @@ export class OpsType {
       this.animalStack[1] +
       this.animalStack[2] +
       this.animalStack[3];
+      this.animalStringFormal = this.animalStack[0] + this.animalStack[1] +
+        '/' +
+        this.animalStack[2] +
+        '(' +
+        this.animalStack[3] +
+        ')';
   }
 
   /* OPS Type in the Opticode Format Ex: 'DSFP-CS-T' */

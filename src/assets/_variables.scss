@@ -18,6 +18,7 @@ $cad-orange: #e0781d;
 $cad-orange-soft: #e0781d80;
 $pan-green: #02b354;
 $light-pan-green: #02de69;
+$muted-pan-green: #cbf3de;
 $dark-pan-green: #018e43;
 $kelly-green: #4cbb17;
 
@@ -78,6 +79,10 @@ $gradients: (
   "green": (
     $pan-green,
     $royal-purple,
+  ),
+  "gray": (
+    $black-coral,
+    $dim-gray,
   ),
   //   "secondary": ($indian-red, $highlight-blue)
 );

@@ -4,11 +4,12 @@ import { OpsTypeService } from './ops-type.service';
 import { OpsType } from './ops-type';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
+import { OpsDataService, TypeRoot } from '../service/ops-data.service';
 
 @Component({
   selector: 'app-type-analyzer',
   templateUrl: './type-analyzer.component.html',
-  styleUrls: ['./type-analyzer.component.css'],
+  styleUrls: ['./type-analyzer.component.scss'],
 })
 export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   title = 'ops-type-points';
@@ -58,7 +59,8 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private opsTypeService: OpsTypeService
+    private opsTypeService: OpsTypeService,
+    private opsDataService: OpsDataService
   ) {
     this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe(
       (opsTypes: OpsType[]) => {
@@ -150,6 +152,12 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
           this.opsTypeService.clearOpsTypes();
         }
         this.opsTypeService.addOpsType(type);
+        this.opsDataService.getRecords(type.s1String, type.s2String, type.animalStringFormal).subscribe(
+          (result:TypeRoot) => {
+            type.twins = result.records;
+            console.log(result.records);
+          }
+        );
       } else {
         this.typeValid = false;
       }

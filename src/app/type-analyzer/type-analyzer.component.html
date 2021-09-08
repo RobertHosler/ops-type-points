@@ -160,6 +160,22 @@
             <app-type-dashboard [index]="0"></app-type-dashboard>
           </div>
         </div>
+        <h3>Type Twins</h3>
+        <div class="image-row">
+          <div class="image-col text-center" *ngFor="let twin of opsTypes[0].twins">
+            <div class="image-text">
+              <div class="image-name">{{twin.fields.Name}}</div>
+              <div class="image-type">{{twin.fields.Type}}</div>
+            </div>
+            <div class="image-wrapper">
+              <div class="image-img"
+                [ngStyle]="{'background-image':'url('+twin.fields.Picture[0].url+')'}">
+
+              </div>
+              <img *ngIf="false" [src]="twin.fields.Picture[0].url" />
+            </div>
+          </div>
+        </div>
       </tab>
       <tab heading="Dashboard">
         <h2>OPS Dashboard</h2>
