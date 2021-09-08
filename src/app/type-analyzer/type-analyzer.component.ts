@@ -32,6 +32,8 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   isValidAnimals: boolean;
   typeValid: boolean;
 
+  typeTwinsLoading = false;
+
   validModalities: string[] = ['MM', 'MF', 'FM', 'FF'];
 
   validDeciders: string[] = ['Fe', 'Te', 'Fi', 'Ti'];
@@ -152,10 +154,12 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
           this.opsTypeService.clearOpsTypes();
         }
         this.opsTypeService.addOpsType(type);
+        this.typeTwinsLoading = true;
         this.opsDataService.getRecords(type.s1String, type.s2String, type.animalStringFormal).subscribe(
           (result:TypeRoot) => {
             type.twins = result.records;
-            console.log(result.records);
+            this.typeTwinsLoading = false;
+            // console.log(result.records);
           }
         );
       } else {

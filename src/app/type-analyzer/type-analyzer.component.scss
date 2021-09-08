@@ -22,6 +22,7 @@ label {
 
 .image-col {
   width: 210px;
+  height: 300px;
   padding: 10px 15px;
   // border: 1px solid gray;
   // border-radius: 5px;
@@ -64,7 +65,9 @@ label {
   font-weight: bold;
   // background: $primary;
 }
+.image-col .image-tags,
 .image-col .image-type {
   padding: 2px;
   font-size: 12px;
+  height: 22px;
 }
