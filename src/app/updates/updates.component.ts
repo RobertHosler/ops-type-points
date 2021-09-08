@@ -13,6 +13,16 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.08.2021',
+      title: 'Type Twins',
+      lead: `Added Type Twins to the type Summary Tab`,
+      bullets: [
+        'Using new service I wrote to pull from the Airtable Database.',
+        'A "twin" must have the same saviors and animal stack. Modalities Ignored.',
+        'Does not currently pull community members.',
+      ],
+    },
+    {
       date: '09.07.2021',
       title: 'Summary Tab',
       lead: `Added new Summary Tab with dashboard and molecule`,
