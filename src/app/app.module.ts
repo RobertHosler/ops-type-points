@@ -22,6 +22,7 @@ import { HomeComponent } from './home/home.component';
 import { CardComponent } from './home/card/card.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { FooterComponent } from './footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Greeting, OpsDataService } from '../service/ops-data.service';
 import { HomeLink } from './home-link';
 
 @Component({
@@ -34,7 +35,14 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  greeting: string;
 
-  ngOnInit(): void {}
+  constructor(private service: OpsDataService) {}
+
+  ngOnInit(): void {
+    this.service.getGreeting().subscribe(
+        (result: Greeting) => {
+          this.greeting = result.content;
+    });
+  }
 }
