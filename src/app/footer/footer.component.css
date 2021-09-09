@@ -31,3 +31,12 @@
   top: 7px;
   position: absolute;
 }
+
+@media (max-width: 500px) {
+  .footer .navbar li:not(:last-child)::before {
+    display: none;
+  }
+  .footer .navbar-nav {
+    flex-direction: column;
+  }
+}

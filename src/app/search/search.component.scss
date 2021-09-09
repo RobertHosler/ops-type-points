@@ -10,6 +10,16 @@
   .search-heading {
     display: block;
   }
+  .coin-btn {
+    $width-sm: 90px;
+    min-width: $width-sm !important;
+    width: $width-sm !important;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  .coin-btn.mr-3 {
+      margin-right: 5px !important;
+  }
 }
 .search-type-group .btn {
   min-width: 80px;
