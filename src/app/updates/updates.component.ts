@@ -13,6 +13,15 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.09.2021',
+      title: 'Search',
+      lead: `Added Search Page`,
+      bullets: [
+        'Search by each of the ten coins.',
+        'Search by name of typed person.',
+      ],
+    },
+    {
       date: '09.08.2021',
       title: 'Type Twins',
       lead: `Added Type Twins to the type Summary Tab`,
