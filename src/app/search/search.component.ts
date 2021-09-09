@@ -10,6 +10,7 @@ import { OpsDataService, TypeRecord, TypeRoot } from '../service/ops-data.servic
 export class SearchComponent implements OnInit {
 
   nameString: string;
+  typeString: string;
 
   displayedRecords: TypeRecord[];
   maxRecords = 100;
@@ -40,6 +41,13 @@ export class SearchComponent implements OnInit {
 
   onSubmitName(form: NgForm) {
     this.opsDataService.getName(this.maxRecords, this.nameString).subscribe((result:TypeRoot) => {
+      this.displayedRecords = result.records;
+      this.isMaxRecords = result.records.length >= this.maxRecords;
+    });
+  }
+
+  onSubmitType(form: NgForm) {
+    this.opsDataService.getType(this.maxRecords, this.typeString).subscribe((result:TypeRoot) => {
       this.displayedRecords = result.records;
       this.isMaxRecords = result.records.length >= this.maxRecords;
     });

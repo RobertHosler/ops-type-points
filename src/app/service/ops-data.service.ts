@@ -39,14 +39,14 @@ export class OpsDataService {
   }
 
   getType(maxRecords: number, type: string): Observable<TypeRoot> {
-    return this.getList('/list', {
+    return this.getList('/type', {
       maxRecords: maxRecords,
       type: type,
     });
   }
 
   private getList(path: string, params): Observable<TypeRoot> {
-    return this.httpClient.get<TypeRoot>(this.baseUrl + this.namePath, {
+    return this.httpClient.get<TypeRoot>(this.baseUrl + path, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json; charset=utf-8',
       }),

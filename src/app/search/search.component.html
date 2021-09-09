@@ -13,7 +13,7 @@
       <input
         type="radio"
         name="options"
-        id="option2"
+        id="coinsOption"
         [(ngModel)]="searchType"
         value="coins"
         autocomplete="off"
@@ -27,12 +27,26 @@
       <input
         type="radio"
         name="options"
-        id="option3"
+        id="nameOption"
         [(ngModel)]="searchType"
         value="name"
         autocomplete="off"
       />
       Name
+    </label>
+    <label
+      class="btn btn-primary"
+      [ngClass]="{ active: searchType === 'type' }"
+    >
+      <input
+        type="radio"
+        name="options"
+        id="typeOption"
+        [(ngModel)]="searchType"
+        value="type"
+        autocomplete="off"
+      />
+      Type
     </label>
   </div>
 
@@ -193,6 +207,29 @@
           </button>
         </div>
       </form>
+    </div>
+    
+    <div class="search-coins" *ngIf="searchType === 'type'">
+        <form (ngSubmit)="onSubmitType(typeForm)" #typeForm="ngForm">
+          <div class="form-group">
+            <label for="type" class="type-label">Type</label>
+            <input
+              id="type"
+              type="text"
+              class="form-control"
+              minlength="2"
+              required
+              [(ngModel)]="typeString"
+              name="type"
+            />
+            <div class="help small">Enter some part of a partial type. Ex1: MF, Ex2: Ne/Ti, Ex3: CP/S(B)</div>
+          </div>
+          <div>
+            <button class="btn btn-lg btn-primary mr-3" type="submit">
+              Search
+            </button>
+          </div>
+        </form>
     </div>
   </div>
 
