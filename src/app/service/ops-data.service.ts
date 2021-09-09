@@ -39,7 +39,7 @@ export class OpsDataService {
       } );
   }
 
-  getName(name: string):Observable<TypeRoot> {
+  getName(maxRecords: number, name: string):Observable<TypeRoot> {
     return this.httpClient.get<TypeRoot>(this.baseUrl + this.namePath,
       { 'headers': new HttpHeaders(
           {
@@ -48,7 +48,31 @@ export class OpsDataService {
         ),
         'params': {
           'name': name,
-          'maxRecords': '100'
+          'maxRecords': maxRecords
+        }
+      });
+  }
+
+  getCoins(maxRecords: number, hn1: string, ohn: string, dhn: string,
+      ol: string, dl: string, ia: string, ea: string, dom: string, smod: string, demod):Observable<TypeRoot> {
+    return this.httpClient.get<TypeRoot>(this.baseUrl + this.coinsPath,
+      { 'headers': new HttpHeaders(
+          {
+            'Content-Type':'application/json; charset=utf-8',
+          }
+        ),
+        'params': {
+          'hn1': hn1,
+          'ohn': ohn,
+          'dhn': dhn,
+          'ol': ol,
+          'dl': dl,
+          'ia': ia,
+          'ea': ea,
+          'dom': dom,
+          'smod': smod,
+          'demod': demod,
+          'maxRecords': maxRecords
         }
       });
   }

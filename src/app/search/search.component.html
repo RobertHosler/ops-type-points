@@ -1,26 +1,103 @@
-<form (ngSubmit)="onSubmitName(nameForm)" #nameForm="ngForm">
-    <div class="row">
-        <div class="form-group col-6 col-sm-3">
-            <label for="name">Name</label>
-            <input
-              id="name"
-              type="text"
-              class="form-control"
-              minlength="2"
-              required
-              [(ngModel)]="nameString"
-              name="name"
-            />
-            <div class="help small">Caps don't matter</div>
-          </div>
-    </div>
-    <div>
-      <button class="btn btn-primary mr-3" type="submit">Submit</button>
-    </div>
-</form>
+<div class="container">
+  <h1>Search the <span class="sp-branding">OPS Database</span></h1>
 
-<div *ngIf="displayedRecords && displayedRecords.length > 0">
-    <div *ngFor="let record of displayedRecords">
-        {{record.fields.Name}}
+  <div class="row">
+    <div class="col-sm-6 mb-5">
+      <h2>By Coins</h2>
+      <div class="mb-3">
+        <h4>Human Needs</h4>
+        <button class="btn btn-secondary mr-3" type="button" (click)="hn1()">
+          {{ !hn1Label ? "Obs/Dec" : hn1Label }}
+        </button>
+        <button class="btn btn-secondary mr-3" type="button" (click)="ohn()">
+          {{ !ohnLabel ? "Oe/Oi" : ohnLabel }}
+        </button>
+        <button
+          class="btn btn-secondary mr-3"
+          type="button"
+          (click)="dhn()"
+          [ngClass]="{ deClass: dhnLabel === 'De', diClass: dhnLabel === 'Di' }"
+        >
+          {{ !dhnLabel ? "De/Di" : dhnLabel }}
+        </button>
+      </div>
+      <div class="mb-3">
+        <h4>Letters</h4>
+        <button class="btn btn-secondary mr-3" type="button" (click)="ol()">
+          {{ !olLabel ? "S/N" : olLabel }}
+        </button>
+        <button class="btn btn-secondary mr-3" type="button" (click)="dl()">
+          {{ !dlLabel ? "F/T" : dlLabel }}
+        </button>
+      </div>
+      <div class="mb-3">
+        <h4>Animals</h4>
+        <button class="btn btn-secondary mr-3" type="button" (click)="ea()">
+          {{ !eaLabel ? "P/S" : eaLabel }}
+        </button>
+        <button class="btn btn-secondary mr-3" type="button" (click)="ia()">
+          {{ !iaLabel ? "B/C" : iaLabel }}
+        </button>
+        <button class="btn btn-secondary mr-3" type="button" (click)="dom()">
+          {{ !domLabel ? "Info/Energy" : domLabel }}
+        </button>
+      </div>
+      <div class="mb-3">
+        <h4>Modalities</h4>
+        <button class="btn btn-secondary mr-3" type="button" (click)="smod()">
+          {{ !smodLabel ? "M/F S" : smodLabel }}
+        </button>
+        <button class="btn btn-secondary mr-3" type="button" (click)="demod()">
+          {{ !demodLabel ? "M/F De" : demodLabel }}
+        </button>
+      </div>
+      <div>
+        <button
+          class="btn btn-primary mr-3"
+          type="button"
+          (click)="searchCoins()"
+        >
+          Search
+        </button>
+        <button
+          class="btn btn-secondary mr-3"
+          type="button"
+          (click)="resetCoins()"
+        >
+          Reset
+        </button>
+      </div>
     </div>
+    <div class="col-sm-6 mb-5">
+      <h2>By Name</h2>
+      <form (ngSubmit)="onSubmitName(nameForm)" #nameForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            id="name"
+            type="text"
+            class="form-control"
+            minlength="2"
+            required
+            [(ngModel)]="nameString"
+            name="name"
+          />
+          <div class="help small">Caps don't matter</div>
+        </div>
+        <div>
+          <button class="btn btn-primary mr-3" type="submit">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <p *ngIf="isMaxRecords" class="text-danger">
+    The max of {{ maxRecords }} records was returned. Narrow your search if
+    possible.
+  </p>
+  <div *ngIf="displayedRecords && displayedRecords.length > 0">
+    <div *ngFor="let record of displayedRecords">
+      {{ record.fields.Name }} - {{ record.fields.Type }}
+    </div>
+  </div>
 </div>
