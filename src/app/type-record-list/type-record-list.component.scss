@@ -67,3 +67,13 @@
         max-height: 150px;
     }
 }
+@media (max-width: 450px) {
+    .image-col {
+      width: 145px;
+      padding: 10px 5px;
+    }
+    .image-col .image-img {
+        max-width: 135px;
+        max-height: 150px;
+    }
+}
