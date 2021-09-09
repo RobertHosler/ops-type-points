@@ -1,29 +1,42 @@
 <div *ngIf="loading">
-    {{loadingMessage}}
-    <img height="100px" src="/assets/images/sp-logo.png" class="sp-logo flip">
-  </div>
+  {{ loadingMessage }}
+  <img height="100px" src="/assets/images/sp-logo.png" class="sp-logo flip" />
+</div>
 <div *ngIf="!loading">
-    <div class="image-row">
-      <div class="image-col text-center" *ngFor="let typeRecord of typeRecords">
-        <div class="image-text">
-          <div class="image-name">{{typeRecord.fields.Name}}</div>
-          <div class="image-type">{{typeRecord.fields.Type}}</div>
-        </div>
-        <div class="image-wrapper">
-          <div class="image-img"
-            [ngStyle]="{'background-image':'url('+typeRecord.fields.Picture[0].url+')'}">
-          </div>
-        </div>
-        <div class="image-tags">{{typeRecord.fields.Tags}}</div>
+  <div class="image-row">
+    <div class="image-col text-center" *ngFor="let typeRecord of typeRecords">
+      <div class="image-text">
+        <div class="image-name">{{ typeRecord.fields.Name }}</div>
+        <div class="image-type">{{ typeRecord.fields.Type }}</div>
       </div>
-    </div>
-    <div *ngIf="!typeRecords || typeRecords.length === 0">
-      <p>{{notFoundMessage}}</p>
-      <img height="400px" src="/assets/images/type-twin-404.jpg"/>
-    </div>
-    <div class="mt-2">
-        <div class="mb-2">Database results courtesy of the <strong>Objective Personality Database</strong>, a project by Ryan and Jana.</div>
-        <a class="btn btn-primary btn-sm mr-2" target="_blank" href="https://subjectivepersonality.wordpress.com/2021/05/07/objective-personality-database/">Explore Full Database</a>
-        <a class="btn btn-secondary btn-sm" target="_blank" href="https://subjectivepersonality.wordpress.com/2021/05/07/objective-personality-database/">Learn More</a>
+      <div class="image-wrapper">
+        <div
+          class="image-img"
+          [ngStyle]="{
+            'background-image': 'url(' + typeRecord.fields.Picture[0].url + ')'
+          }"
+        ></div>
+      </div>
+      <div class="image-tags">{{ typeRecord.fields.Tags }}</div>
     </div>
   </div>
+  <div *ngIf="!typeRecords || typeRecords.length === 0">
+    <p>{{ notFoundMessage }}</p>
+    <img height="400px" src="/assets/images/type-twin-404.jpg" />
+  </div>
+  <div class="mt-2">
+    <div class="mb-2">
+      Type records courtesy of the
+      <a
+        target="_blank"
+        href="https://airtable.com/shrQ6IoDtlXpzmC1l/tblyUDDV5zVyuX5VL/viweXFJuHAQpi5as3"
+        >Objective Personality Database</a
+      >, a project by Ryan and Jana.
+      <a
+        target="_blank"
+        href="https://subjectivepersonality.wordpress.com/2021/05/07/objective-personality-database/"
+        >Learn More</a
+      >
+    </div>
+  </div>
+</div>
