@@ -1,26 +1,5 @@
 @import "~src/assets/variables";
 
-@media (max-width: 600px) {
-    h1 {
-      font-size: 1.8rem;
-      .sp-branding {
-        font-size: 2rem;
-      }
-    }
-  .search-heading {
-    display: block;
-  }
-  .coin-btn {
-    $width-sm: 90px;
-    min-width: $width-sm !important;
-    width: $width-sm !important;
-    padding-left: 2px;
-    padding-right: 2px;
-  }
-  .coin-btn.mr-3 {
-      margin-right: 5px !important;
-  }
-}
 .search-type-group .btn {
   min-width: 80px;
   height: 40px;
@@ -96,10 +75,40 @@ $coins: (
 }
 
 .records-bg {
-    background-color: #efefef;
-    padding: 10px 15px;
+  background-color: #efefef;
+  padding: 10px 15px;
 }
 
 input.form-control {
-    max-width: 300px;
+  max-width: 300px;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.8rem;
+    .sp-branding {
+      font-size: 2rem;
+    }
+  }
+  .search-heading {
+    display: block;
+  }
+  .coin-btn {
+    $width-sm: 90px;
+    min-width: $width-sm !important;
+    width: $width-sm !important;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  .coin-btn.mr-3 {
+    margin-right: 5px !important;
+  }
+}
+
+@media (max-width: 410px) {
+  .coin-btn {
+    $width-xs: 66px;
+    min-width: $width-xs !important;
+    width: $width-xs !important;
+  }
 }

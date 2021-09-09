@@ -5,7 +5,10 @@
   </h1>
 
   <span class="search-type-label">Select Search Type</span>
-  <div class="btn-group btn-group-toggle search-type-group" data-toggle="buttons">
+  <div
+    class="btn-group btn-group-toggle search-type-group"
+    data-toggle="buttons"
+  >
     <label
       class="btn btn-primary"
       [ngClass]="{ active: searchType === 'coins' }"
@@ -50,11 +53,11 @@
     </label>
   </div>
 
-  <div class="">
-    <div class="search-coins" *ngIf="searchType === 'coins'">
-      <div class="row">
-        <div class="col-md-6 ">
-          <span class="coin-label">Human Needs</span>
+  <div class="search-coins" *ngIf="searchType === 'coins'">
+    <div class="row">
+      <div class="col-md-6">
+        <span class="coin-label">Human Needs</span>
+        <div>
           <button
             class="btn btn-secondary mr-3 coin-btn"
             [ngClass]="{
@@ -86,8 +89,52 @@
             {{ !dhnLabel ? "De/Di" : dhnLabel }}
           </button>
         </div>
-        <div class="col-md-6 ">
-          <span class="coin-label">Letters</span>
+        <div>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: hn1Label === 'Decider' && dhnLabel === 'De'
+            }"
+            type="button"
+            (click)="exxj()"
+          >
+            ExxJ
+          </button>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: hn1Label === 'Decider' && dhnLabel === 'Di'
+            }"
+            type="button"
+            (click)="ixxp()"
+          >
+            IxxP
+          </button>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: hn1Label === 'Observer' && ohnLabel === 'Oe'
+            }"
+            type="button"
+            (click)="exxp()"
+          >
+            ExxP
+          </button>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: hn1Label === 'Observer' && ohnLabel === 'Oi'
+            }"
+            type="button"
+            (click)="ixxj()"
+          >
+            IxxJ
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <span class="coin-label">Letters</span>
+        <div>
           <button
             class="btn btn-secondary mr-3 coin-btn"
             type="button"
@@ -111,8 +158,51 @@
             {{ !dlLabel ? "F/T" : dlLabel }}
           </button>
         </div>
-        <div class="col-md-6 ">
-          <span class="coin-label">Animals</span>
+        <div></div>
+        <button
+          class="btn btn-secondary mr-3 coin-btn"
+          [ngClass]="{
+            active: dlLabel === 'Feeling' && olLabel === 'Intuition'
+          }"
+          type="button"
+          (click)="nf()"
+        >
+          NF
+        </button>
+        <button
+          class="btn btn-secondary mr-3 coin-btn"
+          [ngClass]="{
+            active: dlLabel === 'Thinking' && olLabel === 'Sensing'
+          }"
+          type="button"
+          (click)="st()"
+        >
+          ST
+        </button>
+        <button
+          class="btn btn-secondary mr-3 coin-btn"
+          [ngClass]="{
+            active: dlLabel === 'Thinking' && olLabel === 'Intuition'
+          }"
+          type="button"
+          (click)="nt()"
+        >
+          NT
+        </button>
+        <button
+          class="btn btn-secondary mr-3 coin-btn"
+          [ngClass]="{
+            active: dlLabel === 'Feeling' && olLabel === 'Sensing'
+          }"
+          type="button"
+          (click)="sf()"
+        >
+          SF
+        </button>
+      </div>
+      <div class="col-md-6">
+        <span class="coin-label">Animals</span>
+        <div>
           <button
             class="btn btn-secondary mr-3 coin-btn"
             [ngClass]="{ play: eaLabel === 'Play', sleep: eaLabel === 'Sleep' }"
@@ -144,8 +234,52 @@
             {{ !domLabel ? "Info/Energy" : domLabel }}
           </button>
         </div>
-        <div class="col-md-6 ">
-          <span class="coin-label">Modalities</span>
+        <div>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: eaLabel === 'Play' && iaLabel === 'Consume'
+            }"
+            type="button"
+            (click)="skib()"
+          >
+            Skib
+          </button>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: eaLabel === 'Sleep' && iaLabel === 'Blast'
+            }"
+            type="button"
+            (click)="bs()"
+          >
+            BS
+          </button>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: eaLabel === 'Play' && iaLabel === 'Blast'
+            }"
+            type="button"
+            (click)="crack()"
+          >
+            PB
+          </button>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: eaLabel === 'Sleep' && iaLabel === 'Consume'
+            }"
+            type="button"
+            (click)="mope()"
+          >
+            Mope
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <span class="coin-label">Modalities</span>
+        <div>
           <button
             class="btn btn-secondary mr-3 coin-btn"
             type="button"
@@ -169,69 +303,118 @@
             {{ !demodLabel ? "M/F De" : demodLabel }}
           </button>
         </div>
-      </div>
-      <div class="coin-search-btn-group">
-        <button
-          class="btn btn-lg btn-primary mr-3"
-          type="button"
-          (click)="searchCoins()"
-        >
-          Search
-        </button>
-        <button
-          class="btn btn-secondary mr-3"
-          type="button"
-          (click)="resetCoins()"
-        >
-          Reset
-        </button>
-      </div>
-    </div>
-    <div class="mb-5 search-name" *ngIf="searchType === 'name'">
-      <form (ngSubmit)="onSubmitName(nameForm)" #nameForm="ngForm">
-        <div class="form-group">
-          <label for="name" class="name-label">Name</label>
-          <input
-            id="name"
-            type="text"
-            class="form-control"
-            minlength="2"
-            required
-            [(ngModel)]="nameString"
-            name="name"
-          />
-          <div class="help small">Searches for the text within the name field of the person record. Ex1: 'Jan', Ex2: 'Jon'</div>
-        </div>
         <div>
-          <button class="btn btn-lg btn-primary mr-3" type="submit">
-            Search
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: smodLabel === 'M S' && demodLabel === 'M De'
+            }"
+            type="button"
+            (click)="mm()"
+          >
+            MM
+          </button>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: smodLabel === 'M S' && demodLabel === 'F De'
+            }"
+            type="button"
+            (click)="mf()"
+          >
+            MF
+          </button>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: smodLabel === 'F S' && demodLabel === 'F De'
+            }"
+            type="button"
+            (click)="ff()"
+          >
+            FF
+          </button>
+          <button
+            class="btn btn-secondary mr-3 coin-btn"
+            [ngClass]="{
+              active: smodLabel === 'F S' && demodLabel === 'M De'
+            }"
+            type="button"
+            (click)="fm()"
+          >
+            FM
           </button>
         </div>
-      </form>
+      </div>
     </div>
-    
-    <div class="search-coins" *ngIf="searchType === 'type'">
-        <form (ngSubmit)="onSubmitType(typeForm)" #typeForm="ngForm">
-          <div class="form-group">
-            <label for="type" class="type-label">Type</label>
-            <input
-              id="type"
-              type="text"
-              class="form-control"
-              minlength="2"
-              required
-              [(ngModel)]="typeString"
-              name="type"
-            />
-            <div class="help small">Enter some part of a full type. Performs a search of the full type string (including dashes and parenthesis). Ex1: MF, Ex2: Ne/Ti, Ex3: CP/S(B). Ex4: FF-Fe/Se</div>
-          </div>
-          <div>
-            <button class="btn btn-lg btn-primary mr-3" type="submit">
-              Search
-            </button>
-          </div>
-        </form>
+    <div class="coin-search-btn-group">
+      <button
+        class="btn btn-lg btn-primary mr-3"
+        type="button"
+        (click)="searchCoins()"
+      >
+        Search
+      </button>
+      <button
+        class="btn btn-secondary mr-3"
+        type="button"
+        (click)="resetCoins()"
+      >
+        Reset
+      </button>
     </div>
+  </div>
+  <div class="mb-5 search-name" *ngIf="searchType === 'name'">
+    <form (ngSubmit)="onSubmitName(nameForm)" #nameForm="ngForm">
+      <div class="form-group">
+        <label for="name" class="name-label">Name</label>
+        <input
+          id="name"
+          type="text"
+          class="form-control"
+          minlength="2"
+          required
+          [(ngModel)]="nameString"
+          name="name"
+        />
+        <div class="help small">
+          Searches for the text within the name field of the person record. Ex1:
+          'Jan', Ex2: 'Jon'
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-lg btn-primary mr-3" type="submit">
+          Search
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="search-coins" *ngIf="searchType === 'type'">
+    <form (ngSubmit)="onSubmitType(typeForm)" #typeForm="ngForm">
+      <div class="form-group">
+        <label for="type" class="type-label">Type</label>
+        <input
+          id="type"
+          type="text"
+          class="form-control"
+          minlength="2"
+          required
+          [(ngModel)]="typeString"
+          name="type"
+        />
+        <div class="help small">
+          Enter some part of a full type. Performs a search of the full type
+          string (including dashes and parenthesis). Ex1: MF, Ex2: Ne/Ti, Ex3:
+          CP/S(B). Ex4: FF-Fe/Se
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-lg btn-primary mr-3" type="submit">
+          Search
+        </button>
+      </div>
+    </form>
   </div>
 
   <p class="text-notice">
@@ -243,5 +426,8 @@
   </p>
 </div>
 <div class="container-fluid records-bg">
-    <app-type-record-list [typeRecords]="displayedRecords" [loading]="searchLoading"></app-type-record-list>
+  <app-type-record-list
+    [typeRecords]="displayedRecords"
+    [loading]="searchLoading"
+  ></app-type-record-list>
 </div>

@@ -59,6 +59,10 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  onSubmitClusters(form: NgForm) {
+    this.searchCoins();
+  }
+
   hn1() {
     if (!this.hn1Label) {
       this.hn1Label = 'Observer';
@@ -186,6 +190,86 @@ export class SearchComponent implements OnInit {
     //Modalities
     this.smodLabel = '';
     this.demodLabel = '';
+  }
+
+  exxj() {
+    this.hn1Label = 'Decider';
+    this.dhnLabel = 'De';
+  }
+
+  ixxp() {
+    this.hn1Label = 'Decider';
+    this.dhnLabel = 'Di';
+  }
+
+  exxp() {
+    this.hn1Label = 'Observer';
+    this.ohnLabel = 'Oe';
+  }
+
+  ixxj() {
+    this.hn1Label = 'Observer';
+    this.ohnLabel = 'Oi';
+  }
+
+  nf() {
+    this.olLabel = 'Intuition';
+    this.dlLabel = 'Feeling';
+  }
+
+  nt() {
+    this.olLabel = 'Intuition';
+    this.dlLabel = 'Thinking';
+  }
+
+  sf() {
+    this.olLabel = 'Sensory';
+    this.dlLabel = 'Feeling';
+  }
+
+  st() {
+    this.olLabel = 'Sensory';
+    this.dlLabel = 'Thinking';
+  }
+
+  mm() {
+    this.smodLabel = 'M S';
+    this.demodLabel = 'M De';
+  }
+
+  mf() {
+    this.smodLabel = 'M S';
+    this.demodLabel = 'F De';
+  }
+
+  ff() {
+    this.smodLabel = 'F S';
+    this.demodLabel = 'F De';
+  }
+
+  fm() {
+    this.smodLabel = 'F S';
+    this.demodLabel = 'M De';
+  }
+
+  skib() {
+    this.eaLabel = 'Play';
+    this.iaLabel = 'Consume';
+  }
+
+  crack() {
+    this.eaLabel = 'Play';
+    this.iaLabel = 'Blast';
+  }
+
+  bs() {
+    this.eaLabel = 'Sleep';
+    this.iaLabel = 'Blast';
+  }
+
+  mope() {
+    this.eaLabel = 'Sleep';
+    this.iaLabel = 'Consume';
   }
 
 }
