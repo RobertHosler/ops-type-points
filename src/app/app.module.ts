@@ -23,6 +23,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { BrowserModule } from '@angular/platform-browser';
     HomeComponent,
     CardComponent,
     MainLayoutComponent,
-    FooterComponent
+    FooterComponent,
+    SearchComponent
   ],
   imports: [
     HttpClientModule,

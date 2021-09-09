@@ -1,0 +1,26 @@
+<form (ngSubmit)="onSubmitName(nameForm)" #nameForm="ngForm">
+    <div class="row">
+        <div class="form-group col-6 col-sm-3">
+            <label for="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              class="form-control"
+              minlength="2"
+              required
+              [(ngModel)]="nameString"
+              name="name"
+            />
+            <div class="help small">Caps don't matter</div>
+          </div>
+    </div>
+    <div>
+      <button class="btn btn-primary mr-3" type="submit">Submit</button>
+    </div>
+</form>
+
+<div *ngIf="displayedRecords && displayedRecords.length > 0">
+    <div *ngFor="let record of displayedRecords">
+        {{record.fields.Name}}
+    </div>
+</div>

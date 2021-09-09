@@ -17,6 +17,12 @@ export class HeaderComponent implements OnInit {
       '',
       false
     ),
+    new HomeLink(
+      'Search',
+      '/search',
+      '',
+      false
+    ),
     // {
     //   title: 'Quiz',
     //   href: '/quiz',

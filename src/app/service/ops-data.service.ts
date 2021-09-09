@@ -13,6 +13,8 @@ export class OpsDataService {
   greetingPath = '/greeting';
   airtablePath = '/airtable';
   recordsPath = '/opsRecords';
+  coinsPath = '/tenCoins';
+  namePath = '/name';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -35,6 +37,20 @@ export class OpsDataService {
           }
         )
       } );
+  }
+
+  getName(name: string):Observable<TypeRoot> {
+    return this.httpClient.get<TypeRoot>(this.baseUrl + this.namePath,
+      { 'headers': new HttpHeaders(
+          {
+            'Content-Type':'application/json; charset=utf-8',
+          }
+        ),
+        'params': {
+          'name': name,
+          'maxRecords': '100'
+        }
+      });
   }
 
   getRecords(s1: string, s2: string, animalStack: string):Observable<TypeRoot> {
