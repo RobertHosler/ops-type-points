@@ -1,13 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OpsType } from '../../ops-type';
-import { Animal } from '../../animal';
 import { OpsTypeService } from '../../ops-type.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-type-bubbles',
   templateUrl: './type-bubbles.component.html',
-  styleUrls: ['./type-bubbles.component.css'],
+  styleUrls: ['./type-bubbles.component.scss'],
 })
 export class TypeBubblesComponent implements OnInit {
   

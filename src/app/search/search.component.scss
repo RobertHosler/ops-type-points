@@ -1,5 +1,68 @@
-.btn {
-    min-width: 120px;
+@import "~src/assets/variables";
+
+@media (max-width: 600px) {
+    .search-heading {
+        display: block;
+    }
+}
+.search-type-group .btn {
+    min-width: 80px;
+    height: 40px;
+    line-height: 24px;
+    margin-bottom: 10px;
+}
+
+.name-label,
+.search-type-label,
+.coin-label {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.search-type-label {
+    font-size: 16px;
+}
+
+.coin-search-btn-group {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.coin-btn {
+    background-color: $light;
+    color: $dark;
+    min-width: 110px;
     height: 50px;
     margin-bottom: 10px;
+}
+$coins: (
+    "observer": $observer-color, "decider": $decider-color,
+    "de": $de-color, "di": $di-color,
+    "oe": $oe-color, "oi": $oi-color,
+    "feeling": $feeling-red, "thinking": $thinking-blue,
+    "sensory": $sensory-green, "intuition": $intuition-yellow,
+    "sleep": $sleep-color, "play": $play-color,
+    "blast": $blast-color, "consume": $consume-color,
+    "energy": $energy-color, "info": $info-color,
+    "msensory": $masculine-color, "fsensory": $feminine-color,
+    "mde": $masculine-color, "fde": $feminine-color);
+
+@each $name, $color in $coins {
+    .btn.#{$name} {
+        background-color: $color !important;
+        color: #000 !important;
+        font-weight: bold;
+    }
+}
+
+.btn.sensory,
+.btn.intuition,
+.btn.thinking,
+.btn.feeling {
+    color: #000 !important;
+}
+
+.text-notice {
+    font-size: 12px;
+    font-style: italic;
 }

@@ -24,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SearchComponent } from './search/search.component';
+import { TypeRecordListComponent } from './type-record-list/type-record-list.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { SearchComponent } from './search/search.component';
     CardComponent,
     MainLayoutComponent,
     FooterComponent,
-    SearchComponent
+    SearchComponent,
+    TypeRecordListComponent
   ],
   imports: [
     HttpClientModule,

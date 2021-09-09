@@ -1,0 +1,24 @@
+<div *ngIf="loading">
+    {{loadingMessage}}
+    <img height="100px" src="/assets/images/sp-logo.png" class="sp-logo flip">
+  </div>
+<div *ngIf="!loading">
+    <div class="image-row">
+      <div class="image-col text-center" *ngFor="let typeRecord of typeRecords">
+        <div class="image-text">
+          <div class="image-name">{{typeRecord.fields.Name}}</div>
+          <div class="image-type">{{typeRecord.fields.Type}}</div>
+        </div>
+        <div class="image-wrapper">
+          <div class="image-img"
+            [ngStyle]="{'background-image':'url('+typeRecord.fields.Picture[0].url+')'}">
+          </div>
+        </div>
+        <div class="image-tags">{{typeRecord.fields.Tags}}</div>
+      </div>
+    </div>
+    <div *ngIf="!typeRecords || typeRecords.length === 0">
+      <p>{{notFoundMessage}}</p>
+      <img height="400px" src="/assets/images/type-twin-404.jpg"/>
+    </div>
+  </div>

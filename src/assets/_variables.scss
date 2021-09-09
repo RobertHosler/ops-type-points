@@ -35,6 +35,41 @@ $secondary: $purple;
 $tertiary: $cad-orange;
 $tertiary-soft: $cad-orange-soft;
 
+// $coin-one: #1D85E0;
+$coin-one: #b28ddc; 
+$coin-two: $tertiary;//complementary
+
+//needs
+// $decider-color: #DB7C24;
+// $observer-color: #2483DB;
+// $de-color: #E93F16;
+// $di-color: #E91656;
+// $oe-color: #22DD48;
+// $oi-color: #22DDA6;
+$observer-color: $coin-one;
+$decider-color: $coin-two;
+$de-color: $coin-one;
+$di-color: $coin-two;
+$oe-color: $coin-one;
+$oi-color: $coin-two;
+
+//letters
+$intuition-yellow: #f1cc0c;
+$sensory-green: #31b546;
+$thinking-blue: #0baef1;
+$feeling-red: #ff3e69;
+
+//animals
+$play-color: $coin-one;
+$sleep-color: $coin-two;
+$blast-color: $coin-one;
+$consume-color: $coin-two;
+$info-color: $coin-one;
+$energy-color: $coin-two;
+
+$masculine-color: $coin-one;
+$feminine-color: $coin-two;
+
 // $secondary: $cad-orange;
 // $primary: $royal-purple;
 // $success:       $green !default;

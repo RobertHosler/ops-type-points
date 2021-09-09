@@ -12,9 +12,11 @@ export class SearchComponent implements OnInit {
   nameString: string;
 
   displayedRecords: TypeRecord[];
-  maxRecords = 20;
+  maxRecords = 100;
 
   isMaxRecords = false;
+
+  searchType = 'coins';
 
   //Needs
   hn1Label = '';
