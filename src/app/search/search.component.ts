@@ -19,6 +19,8 @@ export class SearchComponent implements OnInit {
 
   searchType = 'coins';
 
+  searchLoading = false;
+
   //Needs
   hn1Label = '';
   dhnLabel = '';
@@ -40,16 +42,20 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmitName(form: NgForm) {
+    this.searchLoading = true;
     this.opsDataService.getName(this.maxRecords, this.nameString).subscribe((result:TypeRoot) => {
       this.displayedRecords = result.records;
       this.isMaxRecords = result.records.length >= this.maxRecords;
+      this.searchLoading = false;
     });
   }
 
   onSubmitType(form: NgForm) {
+    this.searchLoading = true;
     this.opsDataService.getType(this.maxRecords, this.typeString).subscribe((result:TypeRoot) => {
       this.displayedRecords = result.records;
       this.isMaxRecords = result.records.length >= this.maxRecords;
+      this.searchLoading = false;
     });
   }
 
@@ -154,12 +160,14 @@ export class SearchComponent implements OnInit {
   }
 
   searchCoins() {
+    this.searchLoading = true;
     this.opsDataService.getCoins(this.maxRecords,
         this.hn1Label, this.ohnLabel, this.dhnLabel,
         this.olLabel, this.dlLabel, this.iaLabel, this.eaLabel, this.domLabel,
         this.smodLabel, this.demodLabel).subscribe((result:TypeRoot) => {
       this.displayedRecords = result.records;
       this.isMaxRecords = result.records.length >= this.maxRecords;
+      this.searchLoading = false;
     });
   }
 

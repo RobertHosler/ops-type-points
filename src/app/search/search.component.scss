@@ -28,6 +28,7 @@
   margin-bottom: 10px;
 }
 
+.type-label,
 .name-label,
 .search-type-label,
 .coin-label {
@@ -45,7 +46,7 @@
 }
 
 .coin-btn {
-  background-color: $light;
+  background-color: #efefef;
   color: $dark;
   min-width: 110px;
   height: 50px;
@@ -92,4 +93,13 @@ $coins: (
 .text-notice {
   font-size: 12px;
   font-style: italic;
+}
+
+.records-bg {
+    background-color: #efefef;
+    padding: 10px 15px;
+}
+
+input.form-control {
+    max-width: 300px;
 }

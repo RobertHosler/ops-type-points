@@ -200,6 +200,7 @@
             [(ngModel)]="nameString"
             name="name"
           />
+          <div class="help small">Searches for the text within the name field of the person record. Ex1: 'Jan', Ex2: 'Jon'</div>
         </div>
         <div>
           <button class="btn btn-lg btn-primary mr-3" type="submit">
@@ -222,7 +223,7 @@
               [(ngModel)]="typeString"
               name="type"
             />
-            <div class="help small">Enter some part of a partial type. Ex1: MF, Ex2: Ne/Ti, Ex3: CP/S(B)</div>
+            <div class="help small">Enter some part of a full type. Performs a search of the full type string (including dashes and parenthesis). Ex1: MF, Ex2: Ne/Ti, Ex3: CP/S(B). Ex4: FF-Fe/Se</div>
           </div>
           <div>
             <button class="btn btn-lg btn-primary mr-3" type="submit">
@@ -240,5 +241,7 @@
   <p *ngIf="displayedRecords && displayedRecords.length > 0" class="text-info">
     Search found {{ displayedRecords.length }} results.
   </p>
-  <app-type-record-list [typeRecords]="displayedRecords"></app-type-record-list>
+</div>
+<div class="container-fluid records-bg">
+    <app-type-record-list [typeRecords]="displayedRecords" [loading]="searchLoading"></app-type-record-list>
 </div>
