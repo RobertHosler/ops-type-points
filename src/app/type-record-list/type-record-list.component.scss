@@ -58,12 +58,12 @@
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .image-col {
-      width: 190px;
+      width: 170px;
     }
     .image-col .image-img {
-        max-width: 160px;
-        max-height: 160px;
+        max-width: 150px;
+        max-height: 150px;
     }
 }
