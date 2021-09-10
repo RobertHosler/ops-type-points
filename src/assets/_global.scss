@@ -1,5 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 
+html, body, app-root {
+  height: 100%;
+  display: block;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.main-content {
+  flex-grow: 1;
+}
+app-footer {
+  flex-shrink: 0;
+}
+
 .bg-dark {
   background-color: #333 !important;
 }
