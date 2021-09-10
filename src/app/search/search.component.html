@@ -172,16 +172,6 @@
         <button
           class="btn btn-secondary mr-3 coin-btn"
           [ngClass]="{
-            active: dlLabel === 'Thinking' && olLabel === 'Sensing'
-          }"
-          type="button"
-          (click)="st()"
-        >
-          ST
-        </button>
-        <button
-          class="btn btn-secondary mr-3 coin-btn"
-          [ngClass]="{
             active: dlLabel === 'Thinking' && olLabel === 'Intuition'
           }"
           type="button"
@@ -192,12 +182,22 @@
         <button
           class="btn btn-secondary mr-3 coin-btn"
           [ngClass]="{
-            active: dlLabel === 'Feeling' && olLabel === 'Sensing'
+            active: dlLabel === 'Feeling' && olLabel === 'Sensory'
           }"
           type="button"
           (click)="sf()"
         >
           SF
+        </button>
+        <button
+          class="btn btn-secondary mr-3 coin-btn"
+          [ngClass]="{
+            active: dlLabel === 'Thinking' && olLabel === 'Sensory'
+          }"
+          type="button"
+          (click)="st()"
+        >
+          ST
         </button>
       </div>
       <div class="col-md-6">
@@ -429,5 +429,6 @@
   <app-type-record-list
     [typeRecords]="displayedRecords"
     [loading]="searchLoading"
+    [linkToAnalyzer]="true"
   ></app-type-record-list>
 </div>

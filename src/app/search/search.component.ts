@@ -76,8 +76,18 @@ export class SearchComponent implements OnInit {
   dhn() {
     if (!this.dhnLabel) {
       this.dhnLabel = 'De';
+      // if (this.ohnLabel === 'Oi') {
+      //   this.iaLabel = 'Blast';
+      // } else if (this.ohnLabel === 'Oe') {
+      //   this.eaLabel = 'Play';
+      // }
     } else if (this.dhnLabel === 'De') {
       this.dhnLabel = 'Di';
+      // if (this.ohnLabel === 'Oi') {
+      //   this.eaLabel = 'Sleep';
+      // } else if (this.ohnLabel === 'Oe') {
+      //   this.iaLabel = 'Consume';
+      // }
     } else {
       this.dhnLabel = '';
     }
@@ -86,8 +96,18 @@ export class SearchComponent implements OnInit {
   ohn() {
     if (!this.ohnLabel) {
       this.ohnLabel = 'Oe';
+      // if (this.dhnLabel === 'Di') {
+      //   this.iaLabel = 'Consume';
+      // } else if (this.dhnLabel === 'De') {
+      //   this.eaLabel = 'Play';
+      // }
     } else if (this.ohnLabel === 'Oe') {
       this.ohnLabel = 'Oi';
+      // if (this.dhnLabel === 'Di') {
+      //   this.eaLabel = 'Sleep';
+      // } else if (this.dhnLabel === 'De') {
+      //   this.iaLabel = 'Blast';
+      // }
     } else {
       this.ohnLabel = '';
     }

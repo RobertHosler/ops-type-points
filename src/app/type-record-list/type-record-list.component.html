@@ -7,7 +7,10 @@
     <div class="image-col text-center" *ngFor="let typeRecord of typeRecords">
       <div class="image-text">
         <div class="image-name">{{ typeRecord.fields.Name }}</div>
-        <div class="image-type">{{ typeRecord.fields.Type }}</div>
+        <div class="image-type">
+            <a [href]="analyzerLink(typeRecord.fields.Type)" *ngIf="linkToAnalyzer">{{ typeRecord.fields.Type }}</a>
+            <span *ngIf="!linkToAnalyzer">{{ typeRecord.fields.Type }}</span>
+        </div>
       </div>
       <div class="image-wrapper">
         <div
