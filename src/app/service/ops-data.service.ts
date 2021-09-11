@@ -65,7 +65,8 @@ export class OpsDataService {
     ea: string,
     dom: string,
     smod: string,
-    demod: string
+    demod: string,
+    sex: string
   ): Observable<TypeRoot> {
     return this.getList(this.coinsPath, {
       hn1: hn1,
@@ -78,17 +79,19 @@ export class OpsDataService {
       dom: dom,
       smod: smod,
       demod: demod,
+      sex: sex,
       maxRecords: maxRecords
     });
   }
 
+  //Exact Type / Type Twins
   getRecords(
     s1: string,
     s2: string,
     animalStack: string
   ): Observable<TypeRoot> {
     return this.getList(this.recordsPath, {
-      maxRecords: '100',
+      maxRecords: '1000',
       s1: s1,
       s2: s2,
       as: animalStack
@@ -106,13 +109,13 @@ export class TypeRoot {
 }
 export class TypeRecord {
   id: string;
-  fields: TypeField[];
+  fields: TypeField;
 }
 export class TypeField {
   name: string;
   picture: TypePicture[];
   type: string;
-  tags: string[];
+  Tags: string[];
 }
 export class TypePicture {
   url: string;

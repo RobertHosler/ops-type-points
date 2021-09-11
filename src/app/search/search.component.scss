@@ -52,6 +52,8 @@ $coins: (
   "fsensory": $feminine-color,
   "mde": $masculine-color,
   "fde": $feminine-color,
+  "male": $masculine-color,
+  "female": $feminine-color,
 );
 
 @each $name, $color in $coins {
