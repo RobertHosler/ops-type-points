@@ -13,11 +13,11 @@
   position: relative;
   width: 250px;
   /* border: 1px solid black; */
-  background: #ccc;
-  background: white;
+  // background: $light;
   border-radius: 10px;
   display: inline-block;
   margin-right: 15px;
+  // color: black;
 }
 
 .function {
@@ -31,6 +31,7 @@
 .animal-num {
   /* border: 1px solid black; */
   background: #ccc;
+  color: black;
   /* padding-left: 5px; */
   /* padding-right: 5px; */
   line-height: 25px;
@@ -52,6 +53,7 @@
 }
 .opti-code {
   background: #ccc;
+  color: black;
   border-radius: 3px;
   padding-left: 5px;
   padding-right: 5px;
@@ -60,6 +62,7 @@
 .shadows .opti-code {
   /* border: 1px solid black; */
   background: white;
+  color: black;
 }
 .shadows .opti-code {
   /* box-shadow: -1px 1px 5px #333; */
@@ -131,6 +134,7 @@
 
 .inner-function {
   border-radius: 50px;
+  color: black;
 }
 .sizing-grant .grant-1,
 .sizing-adam .savior-S1,
