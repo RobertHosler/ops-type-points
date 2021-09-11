@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit {
   typeString: string;
 
   displayedRecords: TypeRecord[];
-  maxRecords = 100;
+  maxRecords = 10000;
 
   isMaxRecords = false;
 
@@ -35,6 +35,9 @@ export class SearchComponent implements OnInit {
   //Modalities
   smodLabel = '';
   demodLabel = '';
+
+  sexLabel = 'Sex';
+  classLabel = 'Class';
 
   constructor(private opsDataService: OpsDataService) { }
 
@@ -188,10 +191,19 @@ export class SearchComponent implements OnInit {
     this.opsDataService.getCoins(this.maxRecords,
         this.hn1Label, this.ohnLabel, this.dhnLabel,
         this.olLabel, this.dlLabel, this.iaLabel, this.eaLabel, this.domLabel,
-        this.smodLabel, this.demodLabel).subscribe((result:TypeRoot) => {
-      this.displayedRecords = result.records;
-      this.isMaxRecords = result.records.length >= this.maxRecords;
-      this.searchLoading = false;
+        this.smodLabel, this.demodLabel, this.sexLabel).subscribe((result:TypeRoot) => {
+          if (this.classLabel === 'Class Only') {
+            this.displayedRecords = [];
+            result.records.forEach((record) => {
+              if (record.fields.Tags && record.fields.Tags.includes('Class Typing')) {
+                this.displayedRecords.push(record);
+              }
+            });
+          } else {
+            this.displayedRecords = result.records;
+
+          }
+        this.searchLoading = false;
     });
   }
 
@@ -290,6 +302,24 @@ export class SearchComponent implements OnInit {
   mope() {
     this.eaLabel = 'Sleep';
     this.iaLabel = 'Consume';
+  }
+
+  sex() {
+    if (this.sexLabel === 'Sex') {
+      this.sexLabel = 'Male';
+    } else if (this.sexLabel === 'Male') {
+      this.sexLabel = 'Female';
+    } else {
+      this.sexLabel = 'Sex';
+    }
+  }
+
+  class() {
+    if (this.classLabel === 'Class') {
+      this.classLabel = 'Class Only';
+    } else {
+      this.classLabel = 'Class';
+    }
   }
 
 }
