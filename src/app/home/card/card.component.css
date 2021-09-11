@@ -2,4 +2,29 @@
   /* min-height: 200px; */
   margin-top: .5rem;
   margin-bottom: .5rem;
+  height: 100%;
+}
+
+.card-border {
+  border: 1px solid #ccc;
+  margin-bottom: 30px;
+  border-radius: 5px;
+}
+
+.card img {
+  height: 100px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-img {
+  margin-bottom: 1rem;
+}
+
+.card-lead {
+  flex-grow: 1;
 }

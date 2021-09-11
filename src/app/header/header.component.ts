@@ -15,13 +15,15 @@ export class HeaderComponent implements OnInit {
       'Analyzer',
       '/analyzer',
       '',
-      false
+      false,
+      ''
     ),
     new HomeLink(
       'Search',
       '/search',
       '',
-      false
+      false,
+      ''
     ),
     // {
     //   title: 'Quiz',
@@ -34,12 +36,14 @@ export class HeaderComponent implements OnInit {
       href: 'http://www.subjectivepersonality.com',
       lead: '',
       ext: true,
+      img: ''
     },
     {
       title: 'Release Notes',
       href: '/updates',
       lead: '',
       ext: false,
+      img: ''
     }
   ];
   

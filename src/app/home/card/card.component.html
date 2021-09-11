@@ -1,6 +1,8 @@
+
 <div class="card text-center">
   <div class="card-body">
-    <h2>{{ link.title }}</h2>
-    <p>{{ link.lead }}</p>
+    <div class="card-title"><h2>{{ link.title }}</h2></div>
+    <div *ngIf="link.img" class="text-center card-img"><img [src]="link.img" /></div>
+    <div class="card-lead">{{ link.lead }}</div>
   </div>
 </div>

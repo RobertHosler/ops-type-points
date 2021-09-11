@@ -53,7 +53,7 @@
     </label>
   </div>
 
-  <div class="search-coins" *ngIf="searchType === 'coins'">
+  <div class="search-coins mb-5" *ngIf="searchType === 'coins'">
     <div class="row">
       <div class="col-md-6">
         <span class="coin-label">Human Needs</span>
@@ -416,7 +416,7 @@
     </form>
   </div>
 
-  <div class="search-coins" *ngIf="searchType === 'type'">
+  <div class="search-coins mb-5" *ngIf="searchType === 'type'">
     <form (ngSubmit)="onSubmitType(typeForm)" #typeForm="ngForm">
       <div class="form-group">
         <label for="type" class="type-label">Type</label>

@@ -12,7 +12,15 @@ export class HomeComponent implements OnInit {
       'Analyzer',
       '/analyzer',
       'Scope out and compare objective personality types',
-      false
+      false,
+      '/assets/images/analyzer.png'
+    ),
+    new HomeLink(
+      'Search',
+      '/search',
+      'Explore the Objective Personality Database',
+      false,
+      '/assets/images/database.png'
     ),
     // {
     //   title: 'Quiz',
@@ -25,13 +33,15 @@ export class HomeComponent implements OnInit {
       href: 'http://www.subjectivepersonality.com',
       lead: 'Learn more by reading our typology content on our blog.',
       ext: true,
+      img: '/assets/images/sp-logo-no-bg.png'
     },
-    {
-      title: 'YouTube',
-      href: 'https://www.youtube.com/channel/UCIbfLuHIY6Ox8dAm6Xidvqw',
-      lead: 'For some reason I decided to show my face on YouTube.',
-      ext: true,
-    },
+    // {
+    //   title: 'YouTube',
+    //   href: 'https://www.youtube.com/channel/UCIbfLuHIY6Ox8dAm6Xidvqw',
+    //   lead: 'For some reason I decided to show my face on YouTube.',
+    //   ext: true,
+    //   img: ''
+    // },
   ];
 
   constructor() {}

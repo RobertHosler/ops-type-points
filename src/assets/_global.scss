@@ -146,7 +146,7 @@ h1 {
   padding-right: 10px;
 }
 
-.card h2 {
+a h2 {
   font-family: monospace;
   @include gradient-border-left("primary");
   @include gradient-border-right("primary");
@@ -156,12 +156,12 @@ h1 {
   font-size: 2rem;
   line-height: 2rem;
 }
-a:focus .card h2,
-a:hover .card h2 {
+a:focus h2,
+a:hover h2 {
   @include gradient-border-left("secondary");
   @include gradient-border-right("secondary");
 }
-a:active .card h2 {
+a:active h2 {
   @include gradient-border-left("green");
   @include gradient-border-right("green");
 }

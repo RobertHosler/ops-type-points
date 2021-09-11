@@ -12,7 +12,7 @@
       <div class="logo-wrapper">
         <img
           class="sp-logo flip-reverse"
-          src="/assets/images/sp-logo.png"
+          src="/assets/images/sp-logo-no-bg.png"
           *ngFor="let i of [1, 2, 3, 4, 5]"
           [ngClass]="{
             flip: i % 2 === 0,
@@ -27,7 +27,7 @@
     <div class="bg-blue">
       <div class="container">
         <div class="row">
-          <div class="col-12 col-md-4" *ngFor="let link of homeLinks">
+          <div class="col-12 col-md-4 home-col" *ngFor="let link of homeLinks">
             <a [routerLink]="link.href" *ngIf="!link.ext">
               <app-card [link]="link"></app-card>
             </a>
