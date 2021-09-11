@@ -27,7 +27,11 @@
           }"
         ></div>
       </div>
-      <div class="image-tags">{{ typeRecord.fields.Tags }}</div>
+      <div class="image-tags">
+          <div *ngFor="let tag of typeRecord.fields.Tags">
+              {{tag}}
+          </div>
+        </div>
     </div>
   </div>
   <div class="text-center" *ngIf="!typeRecords || typeRecords.length === 0">
