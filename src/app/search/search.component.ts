@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { OpsDataService, TypeRecord, TypeRoot } from '../service/ops-data.service';
 
 @Component({
@@ -39,9 +40,22 @@ export class SearchComponent implements OnInit {
   sexLabel = 'Sex';
   classLabel = 'Class';
 
-  constructor(private opsDataService: OpsDataService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private opsDataService: OpsDataService) { }
 
   ngOnInit(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      if (params.get('name')) {
+        this.nameString = params.get('name');
+        this.searchType = 'name';
+        this.onSubmitName(null);
+      } else if (params.get('type')) {
+        this.typeString = params.get('type');
+        this.searchType = 'type';
+        this.onSubmitType(null);
+      }
+    });
   }
 
   onSubmitName(form: NgForm) {
