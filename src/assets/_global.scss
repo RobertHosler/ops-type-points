@@ -22,6 +22,17 @@ $dark-mode-color: #666;
       border-bottom: 5px solid $dark-mode-color;
     }
   }
+  .help {
+    color: #ccc;
+  }
+  .table-tip {
+    color: $light !important;
+  }
+}
+
+
+.help {
+  color: #666;
 }
 
 .records-bg {
