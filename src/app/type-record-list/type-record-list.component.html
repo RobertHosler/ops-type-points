@@ -8,12 +8,19 @@
       <div class="image-text">
         <div class="image-name">{{ typeRecord.fields.Name }}</div>
         <div class="image-type">
-            <a [href]="analyzerLink(typeRecord.fields.Type)" *ngIf="linkToAnalyzer">{{ typeRecord.fields.Type }}</a>
-            <span *ngIf="!linkToAnalyzer">{{ typeRecord.fields.Type }}</span>
+          <a
+            [href]="analyzerLink(typeRecord.fields.Type)"
+            *ngIf="linkToAnalyzer"
+            >{{ typeRecord.fields.Type }}</a
+          >
+          <span *ngIf="!linkToAnalyzer">{{ typeRecord.fields.Type }}</span>
         </div>
       </div>
       <div class="image-wrapper">
         <div
+          *ngIf="
+            typeRecord.fields.Picture && typeRecord.fields.Picture.length > 0
+          "
           class="image-img"
           [ngStyle]="{
             'background-image': 'url(' + typeRecord.fields.Picture[0].url + ')'
@@ -28,7 +35,7 @@
     <img height="400px" src="/assets/images/type-twin-404.jpg" />
   </div>
   <div class="mt-2">
-    <div class="mb-2 text-center" >
+    <div class="mb-2 text-center">
       Type records courtesy of the
       <a
         target="_blank"
