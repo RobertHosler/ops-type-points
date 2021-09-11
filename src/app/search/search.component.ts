@@ -222,6 +222,9 @@ export class SearchComponent implements OnInit {
     //Modalities
     this.smodLabel = '';
     this.demodLabel = '';
+    //Other
+    this.sexLabel = 'Sex';
+    this.classLabel = 'Class';
   }
 
   exxj() {
