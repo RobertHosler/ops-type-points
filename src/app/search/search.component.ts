@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { OpsDataService, TypeRecord, TypeRoot } from '../service/ops-data.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import {
+  OpsDataService,
+  TypeRecord,
+  TypeRoot,
+} from '../service/ops-data.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-
   nameString: string;
   typeString: string;
 
@@ -42,7 +45,9 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private opsDataService: OpsDataService) { }
+    private opsDataService: OpsDataService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
@@ -54,25 +59,83 @@ export class SearchComponent implements OnInit {
         this.typeString = params.get('type');
         this.searchType = 'type';
         this.onSubmitType(null);
+      } else {
+        this.searchType = 'coins';
+        this.hn1Label = params.get('hn1') ? params.get('hn1') : '';
+        this.dhnLabel = params.get('dhn') ? params.get('dhn') : '';
+        this.ohnLabel = params.get('ohn') ? params.get('ohn') : '';
+        this.olLabel = params.get('ol') ? params.get('ol'): '';
+        this.dlLabel = params.get('dl') ? params.get('dl') : '';
+        this.iaLabel = params.get('ia') ? params.get('ia') : '';
+        this.eaLabel = params.get('ea') ? params.get('ea') : '';
+        this.domLabel = params.get('dom') ? params.get('dom') : '';
+        this.smodLabel = params.get('smod') ? params.get('smod') : '';
+        this.demodLabel = params.get('demod') ? params.get('demod') : '';
+        this.sexLabel = params.get('sex') ? params.get('sex') : 'Sex';
+        this.searchCoins();
       }
     });
   }
 
   onSubmitName(form: NgForm) {
     this.searchLoading = true;
-    this.opsDataService.getName(this.maxRecords, this.nameString).subscribe((result:TypeRoot) => {
-      this.displayedRecords = result.records;
-      this.isMaxRecords = result.records.length >= this.maxRecords;
-      this.searchLoading = false;
+    this.opsDataService
+      .getName(this.maxRecords, this.nameString)
+      .subscribe((result: TypeRoot) => {
+        this.displayedRecords = result.records;
+        this.isMaxRecords = result.records.length >= this.maxRecords;
+        this.searchLoading = false;
+      });
+    const queryParams: Params = {
+      name: this.nameString,
+      type: null,
+      hn1: null,
+      ohn: null,
+      dhn: null,
+      ol: null,
+      dl: null,
+      ia: null,
+      ea: null,
+      dom: null,
+      smod: null,
+      demod: null,
+      sex: null,
+    };
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
     });
   }
 
   onSubmitType(form: NgForm) {
     this.searchLoading = true;
-    this.opsDataService.getType(this.maxRecords, this.typeString).subscribe((result:TypeRoot) => {
-      this.displayedRecords = result.records;
-      this.isMaxRecords = result.records.length >= this.maxRecords;
-      this.searchLoading = false;
+    this.opsDataService
+      .getType(this.maxRecords, this.typeString)
+      .subscribe((result: TypeRoot) => {
+        this.displayedRecords = result.records;
+        this.isMaxRecords = result.records.length >= this.maxRecords;
+        this.searchLoading = false;
+      });
+    const queryParams: Params = {
+      name: null,
+      type: this.typeString,
+      hn1: null,
+      ohn: null,
+      dhn: null,
+      ol: null,
+      dl: null,
+      ia: null,
+      ea: null,
+      dom: null,
+      smod: null,
+      demod: null,
+      sex: null,
+    };
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
     });
   }
 
@@ -202,22 +265,56 @@ export class SearchComponent implements OnInit {
 
   searchCoins() {
     this.searchLoading = true;
-    this.opsDataService.getCoins(this.maxRecords,
-        this.hn1Label, this.ohnLabel, this.dhnLabel,
-        this.olLabel, this.dlLabel, this.iaLabel, this.eaLabel, this.domLabel,
-        this.smodLabel, this.demodLabel, this.sexLabel).subscribe((result:TypeRoot) => {
-          if (this.classLabel === 'Class Only') {
-            this.displayedRecords = [];
-            result.records.forEach((record) => {
-              if (record.fields.Tags && record.fields.Tags.includes('Class Typing')) {
-                this.displayedRecords.push(record);
-              }
-            });
-          } else {
-            this.displayedRecords = result.records;
-
-          }
+    this.opsDataService
+      .getCoins(
+        this.maxRecords,
+        this.hn1Label,
+        this.ohnLabel,
+        this.dhnLabel,
+        this.olLabel,
+        this.dlLabel,
+        this.iaLabel,
+        this.eaLabel,
+        this.domLabel,
+        this.smodLabel,
+        this.demodLabel,
+        this.sexLabel === 'Sex' ? null : this.sexLabel
+      )
+      .subscribe((result: TypeRoot) => {
+        if (this.classLabel === 'Class Only') {
+          this.displayedRecords = [];
+          result.records.forEach((record) => {
+            if (
+              record.fields.Tags &&
+              record.fields.Tags.includes('Class Typing')
+            ) {
+              this.displayedRecords.push(record);
+            }
+          });
+        } else {
+          this.displayedRecords = result.records;
+        }
         this.searchLoading = false;
+      });
+    const queryParams: Params = {
+      name: null,
+      type: null,
+      hn1: this.hn1Label ? this.hn1Label : null,
+      ohn: this.ohnLabel ? this.ohnLabel : null,
+      dhn: this.dhnLabel ? this.dhnLabel : null,
+      ol: this.olLabel ? this.olLabel : null,
+      dl: this.dlLabel ? this.dlLabel : null,
+      ia: this.iaLabel ? this.iaLabel : null,
+      ea: this.eaLabel ? this.eaLabel : null,
+      dom: this.domLabel ? this.domLabel : null,
+      smod: this.smodLabel ? this.smodLabel : null,
+      demod: this.demodLabel ? this.demodLabel : null,
+      sex: this.sexLabel !== 'Sex' ? this.sexLabel : null,
+    };
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
     });
   }
 
@@ -338,5 +435,4 @@ export class SearchComponent implements OnInit {
       this.classLabel = 'Class';
     }
   }
-
 }
