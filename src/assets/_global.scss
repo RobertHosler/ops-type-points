@@ -171,6 +171,15 @@ h1 .sp-branding {
   line-height: 3rem;
 }
 
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2rem;
+  }
+  h1 .sp-branding {
+    font-size: 2rem;
+  }
+}
+
 .nav-tabs {
   background: gradient("purple");
   padding: 5px 5px 0px;
