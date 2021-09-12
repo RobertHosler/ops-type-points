@@ -4,34 +4,37 @@
 </div>
 <div *ngIf="!loading">
   <div class="image-row">
-    <div class="image-col text-center" *ngFor="let typeRecord of typeRecords">
-      <div class="image-text">
-        <div class="image-name">{{ typeRecord.fields.Name }}</div>
-        <div class="image-type">
-          <a
-            [href]="analyzerLink(typeRecord.fields.Type)"
-            *ngIf="linkToAnalyzer"
-            >{{ typeRecord.fields.Type }}</a
-          >
-          <span *ngIf="!linkToAnalyzer">{{ typeRecord.fields.Type }}</span>
-        </div>
-      </div>
-      <div class="image-wrapper">
-        <div
-          *ngIf="
-            typeRecord.fields.Picture && typeRecord.fields.Picture.length > 0
-          "
-          class="image-img"
-          [ngStyle]="{
-            'background-image': 'url(' + typeRecord.fields.Picture[0].url + ')'
-          }"
-        ></div>
-      </div>
-      <div class="image-tags">
-          <div *ngFor="let tag of typeRecord.fields.Tags">
-              {{tag}}
+    <div *ngFor="let typeRecord of typeRecords">
+      <div class="image-col text-center" *ngIf="typeRecord.fields.Type">
+        <div class="image-text">
+          <div class="image-name">{{ typeRecord.fields.Name }}</div>
+          <div class="image-type">
+            <a
+              [href]="analyzerLink(typeRecord.fields.Type)"
+              *ngIf="linkToAnalyzer"
+              >{{ typeRecord.fields.Type }}</a
+            >
+            <span *ngIf="!linkToAnalyzer">{{ typeRecord.fields.Type }}</span>
           </div>
         </div>
+        <div class="image-wrapper">
+          <div
+            *ngIf="
+              typeRecord.fields.Picture && typeRecord.fields.Picture.length > 0
+            "
+            class="image-img"
+            [ngStyle]="{
+              'background-image':
+                'url(' + typeRecord.fields.Picture[0].url + ')'
+            }"
+          ></div>
+        </div>
+        <div class="image-tags">
+          <div *ngFor="let tag of typeRecord.fields.Tags">
+            {{ tag }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="text-center" *ngIf="!typeRecords || typeRecords.length === 0">
