@@ -13,6 +13,18 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.12.2021',
+      title: 'Search Params',
+      lead: `Added Search Parameters which appear in the url`,
+      bullets: [
+        'Send/share direct links to search results with others.',
+        'Updates to home page.',
+        'Added dark mode.',
+        'Added sex and class filters.',
+        'Added cluster buttons which allow you to quickly search by combining coins together.',
+      ],
+    },
+    {
       date: '09.09.2021',
       title: 'Search',
       lead: `Added Search Page`,
