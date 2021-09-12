@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { OpsTypeService } from './ops-type.service';
 import { OpsType } from './ops-type';
 import { Subscription } from 'rxjs';
@@ -61,6 +61,7 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private opsTypeService: OpsTypeService,
     private opsDataService: OpsDataService
   ) {
@@ -162,6 +163,14 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
             // console.log(result.records);
           }
         );
+      const queryParams: Params = { m: this.modalityString, s1: this.s1String, s2: this.s2String, a: this.animalString };
+      this.router.navigate(
+        [], 
+        {
+          relativeTo: this.route,
+          queryParams: queryParams, 
+          queryParamsHandling: 'merge'
+        });
       } else {
         this.typeValid = false;
       }
