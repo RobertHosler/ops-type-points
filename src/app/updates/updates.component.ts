@@ -14,6 +14,14 @@ export class UpdatesComponent implements OnInit {
   }[] = [
     {
       date: '09.12.2021',
+      title: 'Checklist',
+      lead: `New Checklist Tab`,
+      bullets: [
+        'View type checklist with definitions from the class notes and an X next to the applicable description for the current type.',
+      ],
+    },
+    {
+      date: '09.12.2021',
       title: 'Search Params',
       lead: `Added Search Parameters which appear in the url`,
       bullets: [
@@ -61,7 +69,7 @@ export class UpdatesComponent implements OnInit {
         'Fixed issues with tables on certain screen sizes where the borders would become hidden',
         'Reduced number of old men shrugging on the home page',
         'Changed the type visual tab to Molecule',
-        'Added new minimalist options to the molecule to remove labels for animals, functions, and the type'
+        'Added new minimalist options to the molecule to remove labels for animals, functions, and the type',
       ],
     },
     {
@@ -72,7 +80,7 @@ export class UpdatesComponent implements OnInit {
         'Analyzer visual tab description update',
         'Release page styling',
         'Green links -> hover orange, some external link icons',
-        'Touched the description tab, added a link, future links to supporting info to come'
+        'Touched the description tab, added a link, future links to supporting info to come',
       ],
     },
     {
@@ -82,7 +90,7 @@ export class UpdatesComponent implements OnInit {
       bullets: [
         'Color theme uses purple, green/blue, and orange',
         'SP Gradient Branding',
-        'Mobile friendly navigation menu'
+        'Mobile friendly navigation menu',
       ],
     },
     {
@@ -110,21 +118,19 @@ export class UpdatesComponent implements OnInit {
         `Visuals have optional 2D and 3D`,
         `Function bubble sizing can be based on multiple factors: (1) S1 > S2 > A > -,
         (2) Grant Stack, or (3) S1, S2, then grant stack order.
-        `
+        `,
       ],
     },
     {
       date: '08.08.2020',
       title: 'Animal Emojis',
-      lead:
-        "Added a tab for the emoji animals based on the type's animal stack.",
+      lead: "Added a tab for the emoji animals based on the type's animal stack.",
       bullets: [],
     },
     {
       date: '08.05.2020',
       title: 'Enhanced Type Description',
-      lead:
-        `Added enhanced type descriptions to the Type Descriptions tab using the
+      lead: `Added enhanced type descriptions to the Type Descriptions tab using the
         beginner series notes.`,
       bullets: [],
     },
@@ -140,14 +146,13 @@ export class UpdatesComponent implements OnInit {
         `Ability to configure Animal Order weights.`,
         `Ability to copy links to type using request parameters.`,
         `App navigation header.`,
-        `Release Notes page. Yes, this one.`
+        `Release Notes page. Yes, this one.`,
       ],
     },
     {
       date: '07.26.2020',
       title: 'Point Theory',
-      lead:
-        'Update to add explanation of pointing theory and the weights being applied.',
+      lead: 'Update to add explanation of pointing theory and the weights being applied.',
       bullets: [],
     },
     {

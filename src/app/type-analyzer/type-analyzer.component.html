@@ -166,6 +166,9 @@
           notFoundMessage="Sorry, no type twins for this type yet...">
         </app-type-record-list>
       </tab>
+      <tab heading="Checklist">
+        <app-type-checklist [opsType]="opsTypes[0]"></app-type-checklist>
+      </tab>
       <tab heading="Dashboard">
         <h2>OPS Dashboard</h2>
         <div *ngFor="let type of opsTypes; index as i">

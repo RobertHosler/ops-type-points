@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SearchComponent } from './search/search.component';
 import { TypeRecordListComponent } from './type-record-list/type-record-list.component';
+import { TypeChecklistComponent } from './type-analyzer/type-checklist/type-checklist.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { TypeRecordListComponent } from './type-record-list/type-record-list.com
     MainLayoutComponent,
     FooterComponent,
     SearchComponent,
-    TypeRecordListComponent
+    TypeRecordListComponent,
+    TypeChecklistComponent
   ],
   imports: [
     HttpClientModule,

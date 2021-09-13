@@ -218,6 +218,16 @@ export class OpsType {
     return result;
   }
 
+  getSaviorObserver() {
+    var result: Function;
+    this.functions.forEach((f) => {
+      if (f.observer && f.saviorBool) {
+        result = f;
+      }
+    });
+    return result;
+  }
+
   getDi() {
     var result: Function;
     this.functions.forEach((f) => {
@@ -232,6 +242,16 @@ export class OpsType {
     var result: Function;
     this.functions.forEach((f) => {
       if (f.de) {
+        result = f;
+      }
+    });
+    return result;
+  }
+
+  getSaviorDecider() {
+    var result: Function;
+    this.functions.forEach((f) => {
+      if (f.decider && f.saviorBool) {
         result = f;
       }
     });

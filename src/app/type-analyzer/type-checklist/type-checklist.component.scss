@@ -1,0 +1,39 @@
+@import "~src/assets/variables";
+
+.checklist {
+  // margin: 0rem 1rem;
+}
+
+.coin-side {
+  padding: 0rem 1rem;
+}
+
+.coin-row {
+  min-height: 50px;
+}
+
+//Cell
+.coin-box,
+.coin-label,
+.coin-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid $dark;
+  margin-left: -1px;
+  margin-top: -1px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.coin-label {
+  background: #ccc;
+  text-align: center;
+  & > :first-child {
+    font-weight: bold;
+  }
+}
+
+.coin-box {
+  text-align: center;
+}
