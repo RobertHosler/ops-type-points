@@ -266,6 +266,26 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
       },
     ]
   };
+  infoEnergyCoin: Coin = {
+    sides: [
+      {
+        description: [
+          'Relative balance in conversations, knowledge is power',
+          'Imbalanced with work and rest, over or under exert',
+          'Blast and Consume in top 3 animals, Play or Sleep last.'
+        ],
+        labels: ['Info'],
+      },
+      {
+        description: [
+          'Relative balance with work and rest, goofy',
+          'Imbalanced in conversations, overshare or undershare information',
+          'Play and Sleep in top 3 animals, Consume or Blast last.'
+        ],
+        labels: ['Energy'],
+      },
+    ],
+  };
   //Modalities
   deModalitiesCoin: Coin = {
     heading: 'Modalities',
@@ -401,6 +421,8 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
         this.animalsCombinedCoin.activeSide = 3;
         break;
     }
+    this.infoEnergyCoin.activeSide = this.opsType.infoDom ? 0 : 1;
+    this.coins.push(this.infoEnergyCoin);
     if (this.opsType.sleepSavior && this.opsType.consumeSavior) {
       this.animalsCombinedCoin.activeSide = 0;
     } else if (this.opsType.playSavior && this.opsType.consumeSavior) {

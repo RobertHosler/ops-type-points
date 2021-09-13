@@ -41,6 +41,14 @@ export class OpsType {
   playSavior: boolean;
   consumeSavior: boolean;
   blastSavior: boolean;
+
+  sleepLast: boolean;
+  playLast: boolean;
+  consumeLast: boolean;
+  blastLast: boolean;
+
+  infoDom: boolean;
+  energyDom: boolean;
   
   oNeed: string;
   dNeed: string;
@@ -151,6 +159,26 @@ export class OpsType {
           } else {
             animal.saviorBool = false;
             animal.demon = true;
+            if (animalIndex === 3) {
+              switch(animal.shortName) {
+                case 'P':
+                  this.playLast = true;
+                  this.infoDom = true;
+                  break;
+                case 'S':
+                  this.sleepLast = true;
+                  this.infoDom = true;
+                  break;
+                case 'B':
+                  this.blastLast = true;
+                  this.energyDom = true;
+                  break;
+                case 'C':
+                  this.consumeLast = true;
+                  this.energyDom = true;
+                  break;
+              }
+            }
           }
         }
       });
