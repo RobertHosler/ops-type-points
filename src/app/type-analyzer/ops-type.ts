@@ -36,6 +36,11 @@ export class OpsType {
 
   oiSavior: boolean;
   oeSavior: boolean;
+
+  sleepSavior: boolean;
+  playSavior: boolean;
+  consumeSavior: boolean;
+  blastSavior: boolean;
   
   oNeed: string;
   dNeed: string;
@@ -126,9 +131,23 @@ export class OpsType {
           currentAnimal = animal;
           animal.savior = animalSavior;
           animal.index = animalIndex;
-          if (animalIndex < 3) {
+          if (animalIndex < 2) {
             animal.saviorBool = true;
             animal.demon = false;
+            switch(animal.shortName) {
+              case 'P':
+                this.playSavior = true;
+                break;
+              case 'S':
+                this.sleepSavior = true;
+                break;
+              case 'B':
+                this.blastSavior = true;
+                break;
+              case 'C':
+                this.consumeSavior = true;
+                break;
+            }
           } else {
             animal.saviorBool = false;
             animal.demon = true;
