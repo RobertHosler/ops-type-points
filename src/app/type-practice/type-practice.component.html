@@ -16,9 +16,15 @@
         Loading Type Records... Please wait a moment.
       </div>
       <div class="d-inline-block" *ngIf="!loading">
-        <button (click)="lookupType()" class="btn btn-primary">
+        <button (click)="lookupType()" class="btn btn-primary mr-3">
           Get New Subject
         </button>
+        <div class="btn-group" btnRadioGroup [(ngModel)]="classOnly">
+          <label class="btn mb-0 btn-secondary" [btnRadio]="false"
+            >Full Database</label
+          >
+          <label class="btn mb-0 btn-secondary" [btnRadio]="true">Class Only</label>
+        </div>
       </div>
     </div>
     <hr *ngIf="subjectRecord" />

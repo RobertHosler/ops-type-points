@@ -17,6 +17,7 @@ export class TypePracticeComponent implements OnInit {
   imageSearchBase = 'https://www.google.com/search?tbm=isch&q=';
 
   typeRecords;
+  classOnlyRecords;
 
   nameString: string;
 
@@ -45,6 +46,8 @@ export class TypePracticeComponent implements OnInit {
 
   validationMessage = [];
   guessSubmit = false;
+
+  classOnly = false;
 
   coins = [
     {
@@ -186,6 +189,12 @@ export class TypePracticeComponent implements OnInit {
     });
     this.opsDataService.getAllRecords().subscribe((result: TypeRoot) => {
       this.typeRecords = result.records;
+      this.classOnlyRecords = [];
+      result.records.forEach((record) => {
+        if (record.fields.Tags && record.fields.Tags.includes('Class Typing')) {
+          this.classOnlyRecords.push(record);
+        }
+      });
       this.loading = false;
       if (this.nameString) {
         this.lookupType(this.nameString);
@@ -239,8 +248,17 @@ export class TypePracticeComponent implements OnInit {
       });
     } else {
       do {
-        const randomIndex = Math.floor(Math.random() * this.typeRecords.length);
-        randomRecord = this.typeRecords[randomIndex];
+        if (this.classOnly) {
+          const randomIndex = Math.floor(
+            Math.random() * this.classOnlyRecords.length
+          );
+          randomRecord = this.classOnlyRecords[randomIndex];
+        } else {
+          const randomIndex = Math.floor(
+            Math.random() * this.typeRecords.length
+          );
+          randomRecord = this.typeRecords[randomIndex];
+        }
         if (
           randomRecord.fields.Tags &&
           (randomRecord.fields.Tags.includes('Community Member') ||
@@ -263,9 +281,10 @@ export class TypePracticeComponent implements OnInit {
       this.subjectOpsType = new OpsType(mod, sav1, sav2, animals);
       this.subjectRecord = randomRecord;
       this.subjectName = this.subjectRecord.fields.Name;
-      this.subjectTypeLink = '/analyzer?m=' + mod + '&s1=' + sav1 + '&s2=' + sav2 + '&a=' + animals;
+      this.subjectTypeLink =
+        '/analyzer?m=' + mod + '&s1=' + sav1 + '&s2=' + sav2 + '&a=' + animals;
       const queryParams: Params = {
-        name: this.subjectName
+        name: this.subjectName,
       };
       this.router.navigate([], {
         relativeTo: this.route,
