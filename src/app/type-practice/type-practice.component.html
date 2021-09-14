@@ -23,7 +23,9 @@
           <label class="btn mb-0 btn-secondary" [btnRadio]="false"
             >Full Database</label
           >
-          <label class="btn mb-0 btn-secondary" [btnRadio]="true">Class Only</label>
+          <label class="btn mb-0 btn-secondary" [btnRadio]="true"
+            >Class Only</label
+          >
         </div>
       </div>
     </div>
@@ -60,7 +62,7 @@
                 >Google Images</a
               >
             </div>
-            <div class="d-inline-block mb-3">
+            <div class="mb-3">
               <a
                 [href]="getInterviewLink()"
                 target="_blank"
@@ -71,12 +73,6 @@
                 Tip: use the filter to show 20+ minute videos only where
                 possible
               </div>
-            </div>
-          </div>
-          <div *ngIf="typeRevealed">
-            <h3>{{ subjectRecord.fields.Type }}</h3>
-            <div>
-              <a [href]="subjectTypeLink">View in Analyzer</a>
             </div>
           </div>
         </div>
@@ -131,6 +127,28 @@
           <div *ngFor="let msg of validationMessage">
             {{ msg }}
           </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="typeRevealed">
+      <hr />
+      <div class="text-center">
+        <h3>{{ subjectRecord.fields.Type }}</h3>
+        <a [href]="subjectTypeLink">View in Analyzer</a>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12 col-md-4">
+          <div>
+            <app-type-bubbles
+              class="text-center"
+              [showOptions]="false"
+              [showType]="false"
+              [opsTypes]="[subjectOpsType]"
+            ></app-type-bubbles>
+          </div>
+        </div>
+        <div class="col-12 col-md-8">
+          <app-type-dashboard [opsType]="subjectOpsType"></app-type-dashboard>
         </div>
       </div>
     </div>

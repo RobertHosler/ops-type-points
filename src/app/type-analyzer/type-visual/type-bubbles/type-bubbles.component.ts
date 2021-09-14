@@ -9,8 +9,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./type-bubbles.component.scss'],
 })
 export class TypeBubblesComponent implements OnInit {
-  
+
+  @Input()
   opsTypes: OpsType[];
+
   private opsTypesSub: Subscription;
 
   @Input() index: number;
@@ -24,17 +26,21 @@ export class TypeBubblesComponent implements OnInit {
   sizing: string = 'activation';
 
   constructor(private opsTypeService : OpsTypeService) {
-    this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
-      this.configureOpsTypes(opsTypes);
-    });
   }
 
   ngOnInit(): void {
-    this.configureOpsTypes(this.opsTypeService.opsTypes);
+    if (!this.opsTypes) {
+      this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
+        this.configureOpsTypes(opsTypes);
+      });
+      this.configureOpsTypes(this.opsTypeService.opsTypes);
+    }
   }
 
   ngOnDestroy() {
-    this.opsTypesSub.unsubscribe();
+    if (this.opsTypesSub) {
+      this.opsTypesSub.unsubscribe();
+    }
   }
 
   configureOpsTypes(opsTypeList: OpsType[]) {
