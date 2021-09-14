@@ -44,8 +44,8 @@ export class SearchComponent implements OnInit {
   classLabel = 'Class';
 
   constructor(
-    private route: ActivatedRoute,
     private opsDataService: OpsDataService,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
 

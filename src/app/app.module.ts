@@ -8,6 +8,7 @@ import { UpdatesComponent } from './updates/updates.component';
 import { TypePointsComponent } from './type-analyzer/type-points/type-points.component';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { HeaderComponent } from './header/header.component';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeDescriptionComponent } from './type-analyzer/type-description/type-description.component';
@@ -26,6 +27,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SearchComponent } from './search/search.component';
 import { TypeRecordListComponent } from './type-record-list/type-record-list.component';
 import { TypeChecklistComponent } from './type-analyzer/type-checklist/type-checklist.component';
+import { TypePracticeComponent } from './type-practice/type-practice.component';
 
 
 @NgModule({
@@ -47,7 +49,8 @@ import { TypeChecklistComponent } from './type-analyzer/type-checklist/type-chec
     FooterComponent,
     SearchComponent,
     TypeRecordListComponent,
-    TypeChecklistComponent
+    TypeChecklistComponent,
+    TypePracticeComponent
   ],
   imports: [
     HttpClientModule,
@@ -57,6 +60,7 @@ import { TypeChecklistComponent } from './type-analyzer/type-checklist/type-chec
     EmojiModule,
     TabsModule.forRoot(),
     TooltipModule.forRoot(),
+    ButtonsModule.forRoot(),
     NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [],

@@ -53,6 +53,12 @@ export class OpsDataService {
       params: params,
     });
   }
+  
+  getAllRecords():Observable<TypeRoot> {
+    return this.getList(this.coinsPath, {
+      maxRecords: 10000
+    });
+  }
 
   getCoins(
     maxRecords: number,

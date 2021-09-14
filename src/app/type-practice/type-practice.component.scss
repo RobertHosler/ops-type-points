@@ -1,0 +1,49 @@
+@import "~src/assets/variables";
+
+.guess-form {
+  max-width: 400px;
+}
+.guess-form .btn-group {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.guess-form .btn {
+  background: #ccc;
+}
+.guess-form .btn.active {
+  background: #a2a2a2;
+}
+.guess-form .btn-middle {
+  width: 20%;
+}
+.guess-form .btn-left {
+  width: 40%;
+}
+.guess-form .btn-right {
+  width: 40%;
+}
+.guess-form.show-validation .btn.active.btn-success {
+  background-color: $primary;
+}
+.guess-form.show-validation .btn.active.btn-failure {
+  background-color: $indian-red;
+  color: white;
+}
+.bg-gray {
+  background-color: #ccc;
+  color: $dark;
+}
+.help {
+  font-style: italic;
+}
+.component-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.component-wrapper > .container {
+  flex-grow: 1;
+}
+.component-wrapper > .bg-gray {
+  flex-shrink: 0;
+}

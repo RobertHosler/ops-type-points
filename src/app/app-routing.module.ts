@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { TypeQuizComponent } from './type-quiz/type-quiz.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { SearchComponent } from './search/search.component';
+import { TypePracticeComponent } from './type-practice/type-practice.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
     path: 'analyzer',
     component: MainLayoutComponent,
     children: [{ path: '', component: TypeAnalyzerComponent }],
+  },
+  {
+    path: 'practice',
+    component: MainLayoutComponent,
+    children: [{ path: '', component: TypePracticeComponent }],
   },
   {
     path: 'quiz',

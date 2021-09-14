@@ -1,0 +1,152 @@
+<div class="component-wrapper">
+  <div class="container">
+    <h1>Type <span class="sp-branding">Practice</span></h1>
+    <span class="lead">Want some Objective Personality Typing Practice?</span>
+    <p>
+      Retrieve someone at random from the
+      <a
+        href="https://subjectivepersonality.wordpress.com/2021/05/07/objective-personality-database/"
+        target="_blank"
+        >Objective Personality Database</a
+      >
+      below. Study their interviews and make your best guess!
+    </p>
+    <div class="mb-3">
+      <div class="mb-3" *ngIf="loading">
+        Loading Type Records... Please wait a moment.
+      </div>
+      <div class="d-inline-block" *ngIf="!loading">
+        <button (click)="lookupType()" class="btn btn-primary">
+          Get New Subject
+        </button>
+      </div>
+    </div>
+    <hr *ngIf="subjectRecord" />
+    <div class="row mb-3" *ngIf="subjectRecord">
+      <div class="col-12 col-md-6">
+        <div>
+          <div>
+            <h2>{{ subjectRecord ? subjectName : "Subject TBD" }}</h2>
+          </div>
+          <div class="image-wrapper">
+            <div
+              *ngIf="
+                subjectRecord.fields.Picture &&
+                subjectRecord.fields.Picture.length > 0
+              "
+              class="image-img mb-3"
+            >
+              <img [src]="subjectRecord.fields.Picture[0].url" height="200px" />
+            </div>
+          </div>
+          <div>
+            <div class="d-inline-block mb-3">
+              <a
+                [href]="getGoogleSearch()"
+                target="_blank"
+                class="btn btn-secondary mr-3"
+                >Google Search</a
+              >
+              <a
+                [href]="getImageSearch()"
+                target="_blank"
+                class="btn btn-secondary"
+                >Google Images</a
+              >
+            </div>
+            <div class="d-inline-block mb-3">
+              <a
+                [href]="getInterviewLink()"
+                target="_blank"
+                class="btn btn-secondary"
+                >YouTube Interviews</a
+              >
+              <div class="help small">
+                Tip: use the filter to show 20+ minute videos only where
+                possible
+              </div>
+            </div>
+          </div>
+          <div *ngIf="typeRevealed">
+            <h3>{{ subjectRecord.fields.Type }}</h3>
+            <div>
+              <a [href]="subjectTypeLink">View in Analyzer</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <h2>Guess Form</h2>
+        <div class="guess-form" [ngClass]="{ 'show-validation': guessSubmit }">
+          <div *ngFor="let coin of coins">
+            <div class="btn-group" btnRadioGroup [(ngModel)]="coin.val">
+              <label
+                class="btn mb-0 btn-left"
+                [ngClass]="{
+                  'btn-success':
+                    guessSubmit &&
+                    coin.val === coin.left &&
+                    coin.leftValidate(subjectOpsType),
+                  'btn-failure':
+                    guessSubmit &&
+                    coin.val === coin.left &&
+                    coin.rightValidate(subjectOpsType)
+                }"
+                [btnRadio]="coin.left"
+                >{{ coin.left }}</label
+              >
+              <label class="btn mb-0 btn-middle" btnRadio="">{{
+                coin.middle ? coin.middle : "/"
+              }}</label>
+              <label
+                class="btn mb-0 btn-right"
+                [ngClass]="{
+                  'btn-success':
+                    guessSubmit &&
+                    coin.val === coin.right &&
+                    coin.rightValidate(subjectOpsType),
+                  'btn-failure':
+                    guessSubmit &&
+                    coin.val === coin.right &&
+                    coin.leftValidate(subjectOpsType)
+                }"
+                [btnRadio]="coin.right"
+                >{{ coin.right }}</label
+              >
+            </div>
+          </div>
+        </div>
+        <div>
+          <button (click)="submitGuess()" class="btn btn-primary mb-3">
+            Submit Guess
+          </button>
+        </div>
+        <div *ngIf="validationMessage && validationMessage.length > 0">
+          <div *ngFor="let msg of validationMessage">
+            {{ msg }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-gray py-3">
+    <div class="container">
+      <p>Want to track your guesses? Use my OPS Tracking Template Document!</p>
+      <div>
+        <a
+          class="btn btn-primary mr-3"
+          href="https://docs.google.com/spreadsheets/d/1Zlf2xJlK3mCyBEAInCm7T2RxEjLfVLOkflRQ_ftNptA/edit"
+          target="_blank"
+          >Go to Doc</a
+        >
+        <a
+          class="btn btn-secondary"
+          href="https://youtu.be/VkixpkYa0mM"
+          target="_blank"
+          >Learn More</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

@@ -49,14 +49,18 @@ export class OpsType {
 
   infoDom: boolean;
   energyDom: boolean;
-  
-  oNeed: string;
-  dNeed: string;
+
+  oLetter: string;
+  dLetter: string;
+  feelingSavior: boolean;
+  thinkingSavior: boolean;
+  sensorySavior: boolean;
+  intuitionSavior: boolean;
 
   temperament: string;
 
   opsCode: string; //Ex: FF-Fe/Se-PC/S(B)
-  cleanCode: string;//Ex: FF-FeSe-PCSB
+  cleanCode: string; //Ex: FF-FeSe-PCSB
   optiCode: string; //Ex: DSFP-CS-T
   mbti: string; //Ex: ENFJ
 
@@ -71,10 +75,30 @@ export class OpsType {
   private consume: Animal = new Animal('Consume', 'C', true, false, false);
 
   //Default animal stacks for each lead animal variant, animals in dashboard order
-  private playStack: Animal[] = [this.play, this.consume, this.blast, this.sleep];
-  private blastStack: Animal[] = [this.blast, this.sleep, this.play, this.consume];
-  private consumeStack: Animal[] = [this.consume, this.play, this.sleep, this.blast];
-  private sleepStack: Animal[] = [this.sleep, this.blast, this.consume, this.play];
+  private playStack: Animal[] = [
+    this.play,
+    this.consume,
+    this.blast,
+    this.sleep,
+  ];
+  private blastStack: Animal[] = [
+    this.blast,
+    this.sleep,
+    this.play,
+    this.consume,
+  ];
+  private consumeStack: Animal[] = [
+    this.consume,
+    this.play,
+    this.sleep,
+    this.blast,
+  ];
+  private sleepStack: Animal[] = [
+    this.sleep,
+    this.blast,
+    this.consume,
+    this.play,
+  ];
 
   constructor(
     modalityString: string,
@@ -142,7 +166,7 @@ export class OpsType {
           if (animalIndex < 2) {
             animal.saviorBool = true;
             animal.demon = false;
-            switch(animal.shortName) {
+            switch (animal.shortName) {
               case 'P':
                 this.playSavior = true;
                 break;
@@ -160,7 +184,7 @@ export class OpsType {
             animal.saviorBool = false;
             animal.demon = true;
             if (animalIndex === 3) {
-              switch(animal.shortName) {
+              switch (animal.shortName) {
                 case 'P':
                   this.playLast = true;
                   this.infoDom = true;
@@ -208,8 +232,10 @@ export class OpsType {
           }
         }
       });
-      currentAnimal.temperament = currentAnimal.observerLetter + currentAnimal.deciderLetter;
-      currentAnimal.modality = currentAnimal.observerModality + currentAnimal.deciderModality;
+      currentAnimal.temperament =
+        currentAnimal.observerLetter + currentAnimal.deciderLetter;
+      currentAnimal.modality =
+        currentAnimal.observerModality + currentAnimal.deciderModality;
     });
   }
 
@@ -306,7 +332,7 @@ export class OpsType {
   }
 
   getAnimal(code: string) {
-    var result : Animal;
+    var result: Animal;
     this.animals.forEach((a) => {
       if (a.shortName === code) {
         result = a;
@@ -397,7 +423,7 @@ export class OpsType {
       this.animalStack[3] +
       ')';
 
-      this.cleanCode = 
+    this.cleanCode =
       this.modalityString +
       '-' +
       this.s1String +
@@ -407,12 +433,14 @@ export class OpsType {
       this.animalStack[1] +
       this.animalStack[2] +
       this.animalStack[3];
-      this.animalStringFormal = this.animalStack[0] + this.animalStack[1] +
-        '/' +
-        this.animalStack[2] +
-        '(' +
-        this.animalStack[3] +
-        ')';
+    this.animalStringFormal =
+      this.animalStack[0] +
+      this.animalStack[1] +
+      '/' +
+      this.animalStack[2] +
+      '(' +
+      this.animalStack[3] +
+      ')';
   }
 
   /* OPS Type in the Opticode Format Ex: 'DSFP-CS-T' */
@@ -438,7 +466,8 @@ export class OpsType {
       this.animalStack[0] +
       '-' +
       this.animalStack[1] +
-      this.animalStack[2] + '-' +
+      this.animalStack[2] +
+      '-' +
       modType;
   }
 
@@ -451,7 +480,6 @@ export class OpsType {
   }
 
   private constructFunctions() {
-
     if (this.animalStack[0] === 'P' || this.animalStack[0] === 'S') {
       this.jumper = true;
     }
@@ -476,33 +504,66 @@ export class OpsType {
 
     if (lead.decider) {
       this.decider = true;
+      this.dLetter = lead.letter;
+      this.deSavior = lead.de;
+      this.diSavior = lead.di;
       if (this.jumper) {
         this.temperament = tert.letter + lead.letter;
+        this.oLetter = tert.letter;
+        this.oeSavior = tert.oe;
+        this.oiSavior = tert.oi;
       } else {
         this.temperament = aux.letter + lead.letter;
+        this.oLetter = aux.letter;
+        this.oeSavior = aux.oe;
+        this.oiSavior = aux.oi;
       }
     } else {
       this.observer = true;
+      this.oLetter = lead.letter;
+      this.oeSavior = lead.oe;
+      this.oiSavior = lead.oi;
       if (this.jumper) {
         this.temperament = lead.letter + tert.letter;
+        this.dLetter = tert.letter;
+        this.deSavior = tert.de;
+        this.diSavior = tert.di;
       } else {
         this.temperament = lead.letter + aux.letter;
+        this.dLetter = aux.letter;
+        this.deSavior = aux.de;
+        this.diSavior = aux.di;
       }
+    }
+    switch (this.oLetter) {
+      case 'S':
+        this.sensorySavior = true;
+        break;
+      case 'N':
+        this.intuitionSavior = true;
+        break;
+    }
+    switch (this.dLetter) {
+      case 'F':
+        this.feelingSavior = true;
+        break;
+      case 'T':
+        this.thinkingSavior = true;
+        break;
     }
   }
 
   private validate() {
     var result = false;
-    if (this.animals[0].shortName === "P") {
+    if (this.animals[0].shortName === 'P') {
       result = this.getDe().saviorBool && this.getOe().saviorBool;
-    } else if (this.animals[0].shortName === "S") {
+    } else if (this.animals[0].shortName === 'S') {
       result = this.getDi().saviorBool && this.getOi().saviorBool;
-    } else if (this.animals[0].shortName === "B") {
+    } else if (this.animals[0].shortName === 'B') {
       result = this.getDe().saviorBool && this.getOi().saviorBool;
-    } else if (this.animals[0].shortName === "C") {
+    } else if (this.animals[0].shortName === 'C') {
       result = this.getDi().saviorBool && this.getOe().saviorBool;
     }
     this.valid = result;
   }
-
 }
