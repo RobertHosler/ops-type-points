@@ -86,11 +86,11 @@
                 class="btn mb-0 btn-left"
                 [ngClass]="{
                   'btn-success':
-                    guessSubmit &&
+                    coin.validated &&
                     coin.val === coin.left &&
                     coin.leftValidate(subjectOpsType),
                   'btn-failure':
-                    guessSubmit &&
+                    coin.validated &&
                     coin.val === coin.left &&
                     coin.rightValidate(subjectOpsType)
                 }"
@@ -104,11 +104,11 @@
                 class="btn mb-0 btn-right"
                 [ngClass]="{
                   'btn-success':
-                    guessSubmit &&
+                    coin.validated &&
                     coin.val === coin.right &&
                     coin.rightValidate(subjectOpsType),
                   'btn-failure':
-                    guessSubmit &&
+                    coin.validated &&
                     coin.val === coin.right &&
                     coin.leftValidate(subjectOpsType)
                 }"

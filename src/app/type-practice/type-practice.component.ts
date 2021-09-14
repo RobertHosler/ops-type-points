@@ -55,6 +55,7 @@ export class TypePracticeComponent implements OnInit {
       val: this.obsDecVal,
       left: 'Observer',
       right: 'Decider',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.observer;
       },
@@ -67,6 +68,7 @@ export class TypePracticeComponent implements OnInit {
       val: this.selfTribeVal,
       left: 'Self',
       right: 'Tribe',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.diSavior;
       },
@@ -79,6 +81,7 @@ export class TypePracticeComponent implements OnInit {
       val: this.organizeGatherVal,
       left: 'Organize',
       right: 'Gather',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.oiSavior;
       },
@@ -91,6 +94,7 @@ export class TypePracticeComponent implements OnInit {
       val: this.feelingThinkingVal,
       left: 'Feeling',
       right: 'Thinking',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.feelingSavior;
       },
@@ -103,6 +107,7 @@ export class TypePracticeComponent implements OnInit {
       val: this.feelingThinkingVal,
       left: 'Sensory',
       right: 'Intuition',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.sensorySavior;
       },
@@ -115,6 +120,7 @@ export class TypePracticeComponent implements OnInit {
       val: this.infoAnimalVal,
       left: 'Consume',
       right: 'Blast',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.consumeSavior;
       },
@@ -127,6 +133,7 @@ export class TypePracticeComponent implements OnInit {
       val: this.energyAnimalVal,
       left: 'Play',
       right: 'Sleep',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.playSavior;
       },
@@ -139,6 +146,7 @@ export class TypePracticeComponent implements OnInit {
       val: this.dominanceAnimalVal,
       left: 'Info',
       right: 'Energy',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.infoDom;
       },
@@ -152,6 +160,7 @@ export class TypePracticeComponent implements OnInit {
       left: 'Feminine',
       middle: 'Sensory',
       right: 'Masculine',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.sensoryModality.startsWith('F');
       },
@@ -165,6 +174,7 @@ export class TypePracticeComponent implements OnInit {
       left: 'Feminine',
       middle: 'De',
       right: 'Masculine',
+      validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.deModality.startsWith('F');
       },
@@ -230,6 +240,7 @@ export class TypePracticeComponent implements OnInit {
     //Reset coin values
     this.coins.forEach((coin) => {
       coin.val = '';
+      coin.validated = false;
     });
     this.subjectOpsType = null;
     this.subjectRecord = null;
@@ -295,25 +306,17 @@ export class TypePracticeComponent implements OnInit {
   }
 
   submitGuess() {
-    this.revealType();
-    if (!this.typeRevealed) {
-      return;
-    }
     this.validationMessage = [];
     let validGuess = true;
-    this.coins.forEach((coin) => {
-      //TODO: validate all coins selected
-      if (validGuess && !coin.val) {
-        validGuess = false;
-        this.validationMessage.push('Must submit a guess for all coins!');
-      }
-    });
     if (validGuess) {
       this.guessSubmit = true;
       let totalCorrect = 0;
+      let totalSubmit = 0;
       this.coins.forEach((coin) => {
         let coinMsg = coin.name;
-        if (
+        if (!coin.val) {
+          return;
+        } else if (
           (coin.val === coin.left && coin.leftValidate(this.subjectOpsType)) ||
           (coin.val === coin.right && coin.rightValidate(this.subjectOpsType))
         ) {
@@ -322,9 +325,18 @@ export class TypePracticeComponent implements OnInit {
         } else {
           coinMsg += ' coin is incorrect';
         }
+        coin.validated = true;
+        totalSubmit++;
         // this.validationMessage.push(coinMsg);
       });
-      this.validationMessage.push(totalCorrect + '/10 Coins Correct');
+      this.validationMessage.push(
+        totalCorrect + '/' + totalSubmit + ' Coins Correct'
+      );
+      if (totalSubmit === 10) {
+        this.typeRevealed = true;
+      } else {
+        this.validationMessage.push('Submit all ten coins to reveal the full type');
+      }
     }
   }
 }
