@@ -22,19 +22,26 @@ export class HomeComponent implements OnInit {
       false,
       '/assets/images/database.png'
     ),
+    {
+      title: 'Practice',
+      href: '/practice',
+      lead: 'Sharpen your typing skills with random celebrities from the database.',
+      ext: false,
+      img: '/assets/images/sp-logo-no-bg.png'
+    },
     // {
     //   title: 'Quiz',
     //   href: '/quiz',
     //   lead: 'Who need objectivity when you could take a quiz?',
     //   ext: false,
     // },
-    {
-      title: 'Blog',
-      href: 'http://www.subjectivepersonality.com',
-      lead: 'Learn more by reading our typology content on our blog.',
-      ext: true,
-      img: '/assets/images/sp-logo-no-bg.png'
-    },
+    // {
+    //   title: 'Blog',
+    //   href: 'http://www.subjectivepersonality.com',
+    //   lead: 'Learn more by reading our typology content on our blog.',
+    //   ext: true,
+    //   img: '/assets/images/sp-logo-no-bg.png'
+    // },
     // {
     //   title: 'YouTube',
     //   href: 'https://www.youtube.com/channel/UCIbfLuHIY6Ox8dAm6Xidvqw',

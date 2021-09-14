@@ -13,6 +13,14 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.13.2021',
+      title: 'Typing Practice',
+      lead: `New Type Practice Page`,
+      bullets: [
+        'Practice your Objective Personality Typing with randomized OPS database selections.',
+      ],
+    },
+    {
       date: '09.12.2021',
       title: 'Checklist',
       lead: `New Checklist Tab`,
