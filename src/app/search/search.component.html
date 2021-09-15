@@ -1,57 +1,66 @@
 <div class="container">
-  <h1>
-    <span class="search-heading">Search the </span
-    ><span class="sp-branding">OPS Database</span>
-  </h1>
-
-  <span class="search-type-label">Select Search Type</span>
-  <div
-    class="btn-group btn-group-toggle search-type-group"
-    data-toggle="buttons"
-  >
-    <label
-      class="btn btn-primary"
-      [ngClass]="{ active: searchType === 'coins' }"
-    >
-      <input
-        type="radio"
-        name="options"
-        id="coinsOption"
-        [(ngModel)]="searchType"
-        value="coins"
-        autocomplete="off"
-      />
-      Coins
-    </label>
-    <label
-      class="btn btn-primary"
-      [ngClass]="{ active: searchType === 'name' }"
-    >
-      <input
-        type="radio"
-        name="options"
-        id="nameOption"
-        [(ngModel)]="searchType"
-        value="name"
-        autocomplete="off"
-      />
-      Name
-    </label>
-    <label
-      class="btn btn-primary"
-      [ngClass]="{ active: searchType === 'type' }"
-    >
-      <input
-        type="radio"
-        name="options"
-        id="typeOption"
-        [(ngModel)]="searchType"
-        value="type"
-        autocomplete="off"
-      />
-      Type
-    </label>
+  <div class="img-right img-heading">
+    <img src="/assets/images/database.png" />
   </div>
+  <div class="search-top">
+    <h1>
+      <span class="search-heading">Search the </span
+      ><span class="sp-branding">OPS Database</span>
+    </h1>
+
+    <div>
+      <span class="search-type-label">Select Search Type</span>
+      <div
+        class="btn-group btn-group-toggle search-type-group"
+        data-toggle="buttons"
+      >
+        <label
+          class="btn btn-primary"
+          [ngClass]="{ active: searchType === 'coins' }"
+        >
+          <input
+            type="radio"
+            name="options"
+            id="coinsOption"
+            [(ngModel)]="searchType"
+            value="coins"
+            autocomplete="off"
+          />
+          Coins
+        </label>
+        <label
+          class="btn btn-primary"
+          [ngClass]="{ active: searchType === 'name' }"
+        >
+          <input
+            type="radio"
+            name="options"
+            id="nameOption"
+            [(ngModel)]="searchType"
+            value="name"
+            autocomplete="off"
+          />
+          Name
+        </label>
+        <label
+          class="btn btn-primary"
+          [ngClass]="{ active: searchType === 'type' }"
+        >
+          <input
+            type="radio"
+            name="options"
+            id="typeOption"
+            [(ngModel)]="searchType"
+            value="type"
+            autocomplete="off"
+          />
+          Type
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="clear-right"></div>
 
   <div class="search-coins mb-5" *ngIf="searchType === 'coins'">
     <div class="row">

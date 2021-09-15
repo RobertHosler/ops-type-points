@@ -14,10 +14,9 @@
 
 .top,
 .bottom {
-  background: gradient('purple');
+  background: gradient("purple");
   height: 30px;
 }
-
 
 .top {
   flex-shrink: 0;
@@ -47,9 +46,9 @@ app-home .wrapper {
   display: inline-block;
   width: 7rem;
   // height: 7rem;
-  margin-left: .5rem;
-  margin-right: .5rem;
-  @include media-breakpoint-up('lg', $grid-breakpoints) {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  @include media-breakpoint-up("lg", $grid-breakpoints) {
     width: 12rem;
     // height: 12rem;
   }
@@ -70,6 +69,33 @@ app-home .wrapper {
 }
 
 .home-col {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  padding: 1rem;
+  a {
+    display: block;
+    padding: 2rem;
+    color: $light;
+  }
+}
+
+.card-lead {
+  // font-weight: bold;
+  // color: $light;
+  // background: $secondary;
+}
+
+// @include media-breakpoint-up("md", $grid-breakpoints) {
+//   .home-col:not(:last-child) {
+//     border-right: 1px solid $light;
+//   }
+// }
+@include media-breakpoint-down("sm", $grid-breakpoints) {
+  .home-col:not(:last-child) {
+    border-bottom: 1px solid $light;
+  }
+}
+
+@include media-breakpoint-up("md", $grid-breakpoints) {
+  .bg-gradient-purple-left {
+    background: gradient("purple", bottom);
+  }
 }

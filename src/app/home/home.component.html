@@ -1,6 +1,9 @@
 <div class="wrapper">
-  <div class="top gradient-border-bottom-primary"></div>
-  <div class="main-content">
+  <div class="header">
+    <app-header></app-header>
+  </div>
+  <!-- <div class="top gradient-border-bottom-primary"></div> -->
+  <div class="main-content sp-banner">
     <div class="container">
       <div>
         <h1>
@@ -24,15 +27,19 @@
         />
       </div>
     </div>
-    <div class="bg-blue">
+    <div class="bg-gradient-purple-left">
       <div class="container">
         <div class="row">
           <div class="col-12 col-md-4 home-col" *ngFor="let link of homeLinks">
             <a [routerLink]="link.href" *ngIf="!link.ext">
-              <app-card [link]="link"></app-card>
+              <ng-container
+                *ngTemplateOutlet="homelink; context: { yourLink: link }"
+              ></ng-container>
             </a>
             <a href="{{ link.href }}" *ngIf="link.ext" target="_blank">
-              <app-card [link]="link"></app-card>
+              <ng-container
+                *ngTemplateOutlet="homelink; context: { yourLink: link }"
+              ></ng-container>
             </a>
           </div>
         </div>
@@ -53,10 +60,22 @@
         the good stuff in brief. Think of us as a friendly neighbor welcoming
         you to the typology community with a giggly jello dessert.
       </p>
-      <p>
-        <a href="http://subjectivepersonality.com">View our Blog</a>
+      <p class="text-center">
+        <a href="http://subjectivepersonality.com" class="btn btn-primary">View our Blog</a>
       </p>
     </div>
   </div>
   <app-footer></app-footer>
 </div>
+
+<ng-template let-link="yourLink" #homelink>
+  <div class="link-card text-center">
+    <div class="card-title">
+      <h2>{{ link.title }}</h2>
+    </div>
+    <div *ngIf="link.img" class="text-center card-img">
+      <img [src]="link.img" height="100" class="mb-3" />
+    </div>
+    <div class="card-lead">{{ link.lead }}</div>
+  </div>
+</ng-template>

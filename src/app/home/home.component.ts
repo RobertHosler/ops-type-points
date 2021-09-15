@@ -9,18 +9,18 @@ import { HomeLink } from './home-link';
 export class HomeComponent implements OnInit {
   homeLinks: HomeLink[] = [
     new HomeLink(
-      'Analyzer',
-      '/analyzer',
-      'Scope out and compare objective personality types',
-      false,
-      '/assets/images/analyzer.png'
-    ),
-    new HomeLink(
       'Search',
       '/search',
       'Explore the Objective Personality Database',
       false,
       '/assets/images/database.png'
+    ),
+    new HomeLink(
+      'Analyze',
+      '/analyzer',
+      'Scope out and compare objective personality types',
+      false,
+      '/assets/images/analyzer.png'
     ),
     {
       title: 'Practice',

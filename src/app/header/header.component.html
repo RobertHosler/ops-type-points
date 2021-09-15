@@ -1,6 +1,10 @@
 <nav class="navbar navbar-app navbar-expand-md fixed-top">
   <div class="container">
-    <a class="navbar-brand" routerLink="home">Home</a>
+    <a class="navbar-brand home-link" routerLink="home">
+      <img src="/assets/images/sp-logo-no-bg.png" class="flip" />
+      Home
+      <img src="/assets/images/sp-logo-no-bg.png" class="flip-reverse" />
+    </a>
     <button
       class="navbar-toggler"
       [ngClass]="{ collapsed: headerCollapsed }"

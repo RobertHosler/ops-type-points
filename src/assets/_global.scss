@@ -116,6 +116,22 @@ a .card:before {
     @include gradient-border-right($gradient);
   }
 }
+
+@each $gradient, $value in $gradients {
+  .bg-gradient-#{$gradient}-left {
+    background: gradient($gradient, left);
+  }
+  .bg-gradient-#{$gradient}-right {
+    background: gradient($gradient, right);
+  }
+  .bg-gradient-#{$gradient}-top {
+    background: gradient($gradient, top);
+  }
+  .bg-gradient-#{$gradient}-bottom {
+    background: gradient($gradient, bottom);
+  }
+}
+
 a .card {
   color: $highlight-green;
 }
@@ -171,13 +187,32 @@ h1 .sp-branding {
   line-height: 3rem;
 }
 
-@media (max-width: 600px) {
+.img-heading img,
+.img-heading {
+  height: 125px;
+}
+
+@include media-breakpoint-up('md', $grid-breakpoints) {
+  .img-right {
+    float: right;
+  }
+  .img-heading img,
+  .img-heading {
+    height: 200px;
+  }
+}
+
+@include media-breakpoint-down('md', $grid-breakpoints) {
   h1 {
     font-size: 2rem;
   }
   h1 .sp-branding {
     font-size: 2rem;
   }
+}
+
+.clear-right {
+  clear: right;
 }
 
 .nav-tabs {
