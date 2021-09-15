@@ -13,6 +13,17 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.15.2021',
+      title: 'Styling & Typing Practice Updates',
+      lead: `Various styling and updates to the typing practice page`,
+      bullets: [
+        `Typing practice now displays the list of type records so you
+         can pick from among them who you want to type rather than only finding at random.`,
+        'Updates to the home page - cards are now a banner.',
+        'Fixed links to analyzer on search to be routerLinks rather than refreshing the app.'
+      ],
+    },
+    {
       date: '09.13.2021',
       title: 'Typing Practice',
       lead: `New Type Practice Page`,

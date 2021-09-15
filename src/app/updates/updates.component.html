@@ -3,10 +3,20 @@
     <img src="/assets/images/sp-logo-no-bg.png" />
   </div>
   <h1>Release <span class="sp-branding">Notes</span></h1>
+  <div>
+    <p class="lead">Want to see the progress I've made on the site?</p>
+    <p>
+      Below are the updates I've made to the site over time. Reviewing this
+      might help you discover features you didn't happen to notice. I hope you are
+      enjoying the site!
+    </p>
+  </div>
   <hr class="clear-right" />
   <div *ngFor="let update of updates">
-    <h2><span class="sp-branding">{{ update.date }}</span> {{ update.title }}</h2>
-    <p>{{ update.lead }}</p>
+    <h2>
+      <span class="sp-branding">{{ update.date }}</span> {{ update.title }}
+    </h2>
+    <p class="lead">{{ update.lead }}</p>
     <ul *ngIf="update.bullets.length >= 0">
       <li *ngFor="let bullet of update.bullets">
         {{ bullet }}

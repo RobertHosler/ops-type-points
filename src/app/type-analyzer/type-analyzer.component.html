@@ -1,20 +1,28 @@
 <div class="container">
-  <div class="img-right img-heading"><img src="/assets/images/analyzer.png"/></div>
+  <div class="img-right img-heading">
+    <img src="/assets/images/analyzer.png" />
+  </div>
   <h1>OPS Type <span class="sp-branding">Analyzer</span></h1>
   <p class="lead">Want an overview of a specific Objective Personality Type?</p>
-  <p>The OPS Type Analyzer provides unique information for each of the 512 types in the Objective Personality System.  
-    If you aren't familiar with the Objective Personality System, you can read more about it on the 
-    <a href="{{whatIsOpsLink}}" target="_blank">SubjectivePersonality.com</a> blog.
   <p>
-    Enter an OPS type using the OPS Type code to view that type. For a list of valid animal stacks and
-    the corresponding saviors see the
+    The OPS Type Analyzer provides unique information for each of the 512 types
+    in the Objective Personality System. If you aren't familiar with the
+    Objective Personality System, you can read more about it on the
+    <a href="{{ whatIsOpsLink }}" target="_blank">SubjectivePersonality.com</a>
+    blog.
+  </p>
+  <p>
+    Enter an OPS type using the OPS Type code to view that type. For a list of
+    valid animal stacks and the corresponding saviors see the
     <a
       href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
       target="_blank"
-      >Class Notes Document<i-bs
-      name="box-arrow-up-right"
-      class="ml-1"
-    ></i-bs></a> or read more about <a href="{{opsCodeLink}}" target="_blank">the OPS Type Code on Subjective Personality</a>.
+      >Class Notes Document</a
+    >
+    or read more about
+    <a href="{{ opsCodeLink }}" target="_blank"
+      >the OPS Type Code on Subjective Personality</a
+    >.
   </p>
   <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <div class="row">
@@ -152,21 +160,27 @@
 
   <div *ngIf="opsTypes.length > 0" class="mt-3 tab-wrapper">
     <tabset>
-      <tab heading="Summary" [ngClass]="{'test-class': opsTypes.length > 1}">
+      <tab heading="Summary" [ngClass]="{ 'test-class': opsTypes.length > 1 }">
         <h2>{{ opsTypes[0].opsCode }}</h2>
         <div class="row">
           <div class="col-md-5 col-lg-4">
-            <app-type-bubbles class="text-center" [showOptions]="false"
-                [showType]="false" [index]="0"></app-type-bubbles>
+            <app-type-bubbles
+              class="text-center"
+              [showOptions]="false"
+              [showType]="false"
+              [index]="0"
+            ></app-type-bubbles>
           </div>
           <div class="col-md-7 col-lg-8">
             <app-type-dashboard [index]="0"></app-type-dashboard>
           </div>
         </div>
         <h3>Type Twins</h3>
-        <app-type-record-list [typeRecords]="opsTypes[0].twins"
+        <app-type-record-list
+          [typeRecords]="opsTypes[0].twins"
           loadingMessage="Type Twins are loading..."
-          notFoundMessage="Sorry, no type twins for this type yet...">
+          notFoundMessage="Sorry, no type twins for this type yet..."
+        >
         </app-type-record-list>
       </tab>
       <tab heading="Checklist">

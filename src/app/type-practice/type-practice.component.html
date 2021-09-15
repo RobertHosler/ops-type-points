@@ -10,8 +10,11 @@
       <a
         href="https://subjectivepersonality.wordpress.com/2021/05/07/objective-personality-database/"
         target="_blank"
-        >Objective Personality Database</a
-      >
+        >Objective Personality Database<i-bs
+          name="box-arrow-up-right"
+          class="ml-1"
+        ></i-bs
+      ></a>
       below. Study their interviews and make your best guess at their type.
     </p>
     <div>
@@ -42,11 +45,10 @@
             target="_blank"
             href="https://docs.google.com/spreadsheets/d/1Zlf2xJlK3mCyBEAInCm7T2RxEjLfVLOkflRQ_ftNptA/edit"
             >Tracking Template<i-bs
-            name="box-arrow-up-right"
-            class="ml-1"
-          ></i-bs
-        ></a
-          >. 
+              name="box-arrow-up-right"
+              class="ml-1"
+            ></i-bs></a
+          >.
         </li>
       </ul>
     </div>
@@ -78,7 +80,10 @@
 
     <div *ngIf="!loading && !subjectRecord">
       <div class="text-right">
-        <button (click)="shuffleRecords()" class="btn btn-secondary btn-sm mb-3">
+        <button
+          (click)="shuffleRecords()"
+          class="btn btn-secondary btn-sm mb-3"
+        >
           Shuffle Records
         </button>
       </div>

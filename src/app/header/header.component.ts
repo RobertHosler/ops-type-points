@@ -44,13 +44,6 @@ export class HeaderComponent implements OnInit {
       lead: '',
       ext: true,
       img: ''
-    },
-    {
-      title: 'Release Notes',
-      href: '/updates',
-      lead: '',
-      ext: false,
-      img: ''
     }
   ];
   
