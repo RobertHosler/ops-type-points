@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { observable, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,8 @@ export class OpsDataService {
   recordsPath = '/opsRecords';
   coinsPath = '/tenCoins';
   namePath = '/name';
+
+  allRecords: TypeRoot;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -53,11 +55,20 @@ export class OpsDataService {
       params: params,
     });
   }
-  
-  getAllRecords():Observable<TypeRoot> {
-    return this.getList(this.coinsPath, {
-      maxRecords: 10000
-    });
+
+  getAllRecords(): Observable<TypeRoot> {
+    let recordsResult = null;
+    if (this.allRecords) {
+      recordsResult = of(this.allRecords);
+    } else {
+      recordsResult = this.getList(this.coinsPath, {
+        maxRecords: 10000,
+      });
+      recordsResult.subscribe((result: TypeRoot) => {
+        this.allRecords = result;
+      });
+    }
+    return recordsResult;
   }
 
   getCoins(
@@ -74,20 +85,36 @@ export class OpsDataService {
     demod: string,
     sex: string
   ): Observable<TypeRoot> {
-    return this.getList(this.coinsPath, {
-      hn1: hn1,
-      ohn: ohn,
-      dhn: dhn,
-      ol: ol,
-      dl: dl,
-      ia: ia,
-      ea: ea,
-      dom: dom,
-      smod: smod,
-      demod: demod,
-      sex: sex,
-      maxRecords: maxRecords
-    });
+    if (
+      !hn1 &&
+      !ohn &&
+      !dhn &&
+      !ol &&
+      !dl &&
+      !ia &&
+      !ea &&
+      !dom &&
+      !smod &&
+      !demod &&
+      !sex
+    ) {
+      return this.getAllRecords();
+    } else {
+      return this.getList(this.coinsPath, {
+        hn1: hn1,
+        ohn: ohn,
+        dhn: dhn,
+        ol: ol,
+        dl: dl,
+        ia: ia,
+        ea: ea,
+        dom: dom,
+        smod: smod,
+        demod: demod,
+        sex: sex,
+        maxRecords: maxRecords,
+      });
+    }
   }
 
   //Exact Type / Type Twins
@@ -100,7 +127,7 @@ export class OpsDataService {
       maxRecords: '1000',
       s1: s1,
       s2: s2,
-      as: animalStack
+      as: animalStack,
     });
   }
 }

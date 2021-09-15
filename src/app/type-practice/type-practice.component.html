@@ -3,26 +3,62 @@
     <div class="img-right img-heading">
       <img src="/assets/images/sp-logo-no-bg.png" />
     </div>
-    <h1>Type <span class="sp-branding">Practice</span></h1>
-    <span class="lead">Want some Objective Personality Typing Practice?</span>
+    <h1>OPS Type <span class="sp-branding">Practice</span></h1>
+    <p class="lead">Want some Objective Personality Typing Practice?</p>
     <p>
-      Retrieve someone at random from the
+      Select or retrieve someone to type at random from the
       <a
         href="https://subjectivepersonality.wordpress.com/2021/05/07/objective-personality-database/"
         target="_blank"
         >Objective Personality Database</a
       >
-      below. Study their interviews and make your best guess!
+      below. Study their interviews and make your best guess at their type.
     </p>
-    <div class="mb-3">
+    <div>
+      <ul>
+        <li>
+          You can submit a partial guess, only the parts you submit will be
+          graded.
+        </li>
+        <li>
+          You can save the link to the page and return to submit your guess
+          later.
+        </li>
+        <li>
+          Refer to the
+          <a
+            href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
+            target="_blank"
+            >Class Notes Document<i-bs
+              name="box-arrow-up-right"
+              class="ml-1"
+            ></i-bs
+          ></a>
+          for information on each of the coins in the form.
+        </li>
+        <li>
+          You can track your results over time using this
+          <a
+            target="_blank"
+            href="https://docs.google.com/spreadsheets/d/1Zlf2xJlK3mCyBEAInCm7T2RxEjLfVLOkflRQ_ftNptA/edit"
+            >Tracking Template<i-bs
+            name="box-arrow-up-right"
+            class="ml-1"
+          ></i-bs
+        ></a
+          >. 
+        </li>
+      </ul>
+    </div>
+    <div class="">
       <div class="mb-3" *ngIf="loading">
         Loading Type Records... Please wait a moment.
       </div>
       <div class="d-inline-block" *ngIf="!loading">
-        <button (click)="lookupType()" class="btn btn-primary mr-3">
-          Get New Subject
+        <button (click)="lookupType()" class="btn btn-primary mb-3 mr-3">
+          Get Random Subject
         </button>
-        <div class="btn-group" btnRadioGroup [(ngModel)]="classOnly">
+        <div class="btn-group mb-3 mr-3" btnRadioGroup [(ngModel)]="classOnly">
           <label class="btn mb-0 btn-secondary" [btnRadio]="false"
             >Full Database</label
           >
@@ -30,8 +66,28 @@
             >Class Only</label
           >
         </div>
+        <button
+          *ngIf="subjectRecord"
+          (click)="clearSubject()"
+          class="mb-3 btn btn-secondary btn-sm"
+        >
+          Clear Subject
+        </button>
       </div>
     </div>
+
+    <div *ngIf="!loading && !subjectRecord">
+      <div class="text-right">
+        <button (click)="shuffleRecords()" class="btn btn-secondary btn-sm mb-3">
+          Shuffle Records
+        </button>
+      </div>
+      <app-type-record-list
+        [displayPracticeLink]="true"
+        [typeRecords]="classOnly ? classOnlyRecords : typeRecords"
+      ></app-type-record-list>
+    </div>
+
     <hr *ngIf="subjectRecord" />
     <div class="row mb-3" *ngIf="subjectRecord">
       <div class="col-12 col-md-6">

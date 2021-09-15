@@ -1,6 +1,10 @@
 <div class="text-center" *ngIf="loading">
   {{ loadingMessage }}
-  <img height="100px" src="/assets/images/sp-logo-no-bg.png" class="sp-logo flip" />
+  <img
+    height="100px"
+    src="/assets/images/sp-logo-no-bg.png"
+    class="sp-logo flip"
+  />
 </div>
 <div *ngIf="!loading">
   <div class="image-row">
@@ -8,13 +12,25 @@
       <div class="image-col text-center" *ngIf="typeRecord.fields.Type">
         <div class="image-text">
           <div class="image-name">{{ typeRecord.fields.Name }}</div>
-          <div class="image-type">
+          <div class="image-type" *ngIf="!displayPracticeLink">
             <a
-              [href]="analyzerLink(typeRecord.fields.Type)"
+              [routerLink]="['/analyzer']"
+              [queryParams]="{ 
+                s1: analyzerLinkSav1(typeRecord.fields.Type),
+                s2: analyzerLinkSav2(typeRecord.fields.Type),
+                a: analyzerLinkAnimals(typeRecord.fields.Type),
+                m: analyzerLinkMod(typeRecord.fields.Type) }"
               *ngIf="linkToAnalyzer"
               >{{ typeRecord.fields.Type }}</a
             >
             <span *ngIf="!linkToAnalyzer">{{ typeRecord.fields.Type }}</span>
+          </div>
+          <div *ngIf="displayPracticeLink">
+            <a
+              [routerLink]="['/practice']"
+              [queryParams]="{ name: typeRecord.fields.Name }"
+              >Practice Typing</a
+            >
           </div>
         </div>
         <div class="image-wrapper">

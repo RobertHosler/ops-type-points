@@ -195,21 +195,48 @@ export class TypePracticeComponent implements OnInit {
     this.route.queryParamMap.subscribe((params) => {
       if (params.get('name')) {
         this.nameString = params.get('name');
+        this.lookupType(this.nameString);
       }
     });
     this.opsDataService.getAllRecords().subscribe((result: TypeRoot) => {
-      this.typeRecords = result.records;
+      this.typeRecords = [];
       this.classOnlyRecords = [];
       result.records.forEach((record) => {
-        if (record.fields.Tags && record.fields.Tags.includes('Class Typing')) {
+        if (!record.fields.Tags) {
+          this.typeRecords.push(record);
+        } else if (record.fields.Tags.includes('Class Typing')) {
           this.classOnlyRecords.push(record);
+          this.typeRecords.push(record);
+        } else if (
+          !record.fields.Tags.includes('Community Member') &&
+          !record.fields.Tags.includes('Incomplete') &&
+          !record.fields.Tags.includes('Speculation')) {
+            this.typeRecords.push(record);
         }
       });
       this.loading = false;
       if (this.nameString) {
         this.lookupType(this.nameString);
       }
+      this.shuffleRecords();
     });
+  }
+
+  shuffleRecords() {
+    this.typeRecords = this.shuffleArray(this.typeRecords);
+    this.classOnlyRecords = this.shuffleArray(this.classOnlyRecords);
+  }
+
+  shuffleArray(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
   }
 
   getInterviewLink() {
@@ -231,6 +258,18 @@ export class TypePracticeComponent implements OnInit {
     if (window.confirm('Are you sure?')) {
       this.typeRevealed = true;
     }
+  }
+
+  clearSubject() {
+    this.subjectRecord = null;
+    const queryParams: Params = {
+      name: null,
+    };
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
+    });
   }
 
   lookupType(name?: string): void {
@@ -269,14 +308,6 @@ export class TypePracticeComponent implements OnInit {
             Math.random() * this.typeRecords.length
           );
           randomRecord = this.typeRecords[randomIndex];
-        }
-        if (
-          randomRecord.fields.Tags &&
-          (randomRecord.fields.Tags.includes('Community Member') ||
-            randomRecord.fields.Tags.includes('Incomplete') ||
-            randomRecord.fields.Tags.includes('Speculation'))
-        ) {
-          continue;
         }
         completeRecord = true;
       } while (!completeRecord);
