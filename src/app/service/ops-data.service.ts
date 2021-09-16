@@ -145,9 +145,9 @@ export class TypeRecord {
   fields: TypeField;
 }
 export class TypeField {
-  name: string;
-  picture: TypePicture[];
-  type: string;
+  Name: string;
+  Picture: TypePicture[];
+  Type: string;
   Tags: string[];
 }
 export class TypePicture {

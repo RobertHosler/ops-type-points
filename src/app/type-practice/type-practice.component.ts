@@ -470,6 +470,11 @@ export class TypePracticeComponent implements OnInit {
     },
   ];
 
+  exclusions = [
+    'Jesus',
+    'Sarah'
+  ];
+
   constructor(
     private opsDataService: OpsDataService,
     private route: ActivatedRoute,
@@ -488,6 +493,9 @@ export class TypePracticeComponent implements OnInit {
       this.typeRecords = [];
       this.classOnlyRecords = [];
       result.records.forEach((record) => {
+        if (this.exclusions.includes(record.fields.Name)) {
+          return;
+        }
         if (!record.fields.Tags) {
           this.typeRecords.push(record);
         } else if (record.fields.Tags.includes('Class Typing')) {

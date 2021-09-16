@@ -10,11 +10,8 @@
       <a
         href="https://subjectivepersonality.wordpress.com/2021/05/07/objective-personality-database/"
         target="_blank"
-        >Objective Personality Database<i-bs
-          name="box-arrow-up-right"
-          class="ml-1"
-        ></i-bs
-      ></a>
+        >Objective Personality Database</a
+      >
       below. Study their interviews and make your best guess at their type.
     </p>
     <div>
@@ -32,11 +29,8 @@
           <a
             href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
             target="_blank"
-            >Class Notes Document<i-bs
-              name="box-arrow-up-right"
-              class="ml-1"
-            ></i-bs
-          ></a>
+            >Class Notes Document</a
+          >
           for information on each of the coins in the form.
         </li>
         <li>
@@ -44,11 +38,18 @@
           <a
             target="_blank"
             href="https://docs.google.com/spreadsheets/d/1Zlf2xJlK3mCyBEAInCm7T2RxEjLfVLOkflRQ_ftNptA/edit"
-            >Tracking Template<i-bs
-              name="box-arrow-up-right"
-              class="ml-1"
-            ></i-bs></a
+            >Tracking Template</a
           >.
+        </li>
+        <li>
+          Please
+          <a
+            href="https://subjectivepersonality.wordpress.com/about/contact/"
+            target="_blank"
+            >contact me</a
+          >
+          if there are any records you think should be filtered out for practice
+          purposes or if you have any suggestions/ideas for improvements.
         </li>
       </ul>
     </div>
@@ -185,13 +186,13 @@
         <div *ngIf="totalCoins === 10">
           <p>
             <strong>Current Guess:</strong> {{ typeGuess }}
-            <span class="alert alert-warning d-block" *ngIf="typeGuessInvalid" >
+            <span class="alert alert-warning d-block" *ngIf="typeGuessInvalid">
               <span class="d-block">
                 <strong>Your current type guess is invalid.</strong></span
               >
               <span class="d-block"
-                >Double check the Self/Tribe and Organize/Gather coins align with
-                the Consume/Blast and Sleep/Play coins.</span
+                >Double check the Self/Tribe and Organize/Gather coins align
+                with the Consume/Blast and Sleep/Play coins.</span
               >
               <span class="d-block"
                 >Tribe (De) + Gather (Oe) = Savior Play (Oe + De)</span
@@ -269,7 +270,7 @@
         </div>
       </div>
       <div class="mb-3">
-          <app-type-checklist [opsType]="subjectOpsType"></app-type-checklist>
+        <app-type-checklist [opsType]="subjectOpsType"></app-type-checklist>
       </div>
     </div>
   </div>
