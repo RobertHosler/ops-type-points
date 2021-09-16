@@ -47,3 +47,11 @@
 .component-wrapper > .bg-gray {
   flex-shrink: 0;
 }
+
+.shortcut-buttons .btn {
+    width: 50px;
+    background: #ccc;
+}
+.shortcut-buttons .btn.active {
+  background: #a2a2a2;
+}

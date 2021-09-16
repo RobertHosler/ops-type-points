@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { resourceUsage } from 'process';
 import { OpsDataService, TypeRoot } from '../service/ops-data.service';
 import { OpsType } from '../type-analyzer/ops-type';
 
@@ -27,6 +28,7 @@ export class TypePracticeComponent implements OnInit {
   subjectTypeLink;
   typeRevealed = false;
   loading = false;
+  showFunctions = false;
 
   radioModel = 'Middle';
 
@@ -46,6 +48,7 @@ export class TypePracticeComponent implements OnInit {
 
   validationMessage = [];
   guessSubmit = false;
+  typeGuessInvalid = false;
 
   classOnly = false;
 
@@ -157,9 +160,8 @@ export class TypePracticeComponent implements OnInit {
     {
       name: 'Sensory Modality',
       val: this.deModVal,
-      left: 'Feminine',
-      middle: 'Sensory',
-      right: 'Masculine',
+      left: 'Feminine S',
+      right: 'Masculine S',
       validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.sensoryModality.startsWith('F');
@@ -171,9 +173,8 @@ export class TypePracticeComponent implements OnInit {
     {
       name: 'De Modality',
       val: this.deModVal,
-      left: 'Feminine',
-      middle: 'De',
-      right: 'Masculine',
+      left: 'Feminine De',
+      right: 'Masculine De',
       validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.deModality.startsWith('F');
@@ -181,6 +182,291 @@ export class TypePracticeComponent implements OnInit {
       rightValidate: (opsType: OpsType) => {
         return opsType.deModality.startsWith('M');
       },
+    },
+  ];
+
+  deciderButtons = [
+    {
+      name: 'Fe',
+      updates: [
+        {
+          index: 3,
+          val: 'Feeling',
+        },
+        { index: 1, val: 'Tribe' },
+      ],
+    },
+    {
+      name: 'Te',
+      updates: [
+        {
+          index: 3,
+          val: 'Thinking',
+        },
+        { index: 1, val: 'Tribe' },
+      ],
+    },
+    {
+      name: 'Fi',
+      updates: [
+        {
+          index: 3,
+          val: 'Feeling',
+        },
+        { index: 1, val: 'Self' },
+      ],
+    },
+    {
+      name: 'Ti',
+      updates: [
+        {
+          index: 3,
+          val: 'Thinking',
+        },
+        { index: 1, val: 'Self' },
+      ],
+    },
+  ];
+
+  observerButtons = [
+    {
+      name: 'Ne',
+      updates: [
+        {
+          index: 4,
+          val: 'Intuition',
+        },
+        { index: 2, val: 'Gather' },
+      ],
+    },
+    {
+      name: 'Se',
+      updates: [
+        {
+          index: 4,
+          val: 'Sensory',
+        },
+        { index: 2, val: 'Gather' },
+      ],
+    },
+    {
+      name: 'Ni',
+      updates: [
+        {
+          index: 4,
+          val: 'Intuition',
+        },
+        { index: 2, val: 'Organize' },
+      ],
+    },
+    {
+      name: 'Si',
+      updates: [
+        {
+          index: 4,
+          val: 'Sensory',
+        },
+        { index: 2, val: 'Organize' },
+      ],
+    },
+  ];
+
+  modButtons = [
+    {
+      name: 'MM',
+      updates: [
+        {
+          index: 8,
+          val: 'Masculine S',
+        },
+        { index: 9, val: 'Masculine De' },
+      ],
+    },
+    {
+      name: 'MF',
+      updates: [
+        {
+          index: 8,
+          val: 'Masculine S',
+        },
+        { index: 9, val: 'Feminine De' },
+      ],
+    },
+    {
+      name: 'FF',
+      updates: [
+        {
+          index: 8,
+          val: 'Feminine S',
+        },
+        { index: 9, val: 'Feminine De' },
+      ],
+    },
+    {
+      name: 'FM',
+      updates: [
+        {
+          index: 8,
+          val: 'Feminine S',
+        },
+        { index: 9, val: 'Masculine De' },
+      ],
+    },
+  ];
+
+  animalButtons = [
+    {
+      name: 'CP',
+      updates: [
+        {
+          index: 5,
+          val: 'Consume',
+        },
+        { index: 6, val: 'Play' },
+      ],
+    },
+    {
+      name: 'PB',
+      updates: [
+        {
+          index: 5,
+          val: 'Blast',
+        },
+        { index: 6, val: 'Play' },
+      ],
+    },
+    {
+      name: 'SC',
+      updates: [
+        {
+          index: 5,
+          val: 'Consume',
+        },
+        { index: 6, val: 'Sleep' },
+      ],
+    },
+    {
+      name: 'BS',
+      updates: [
+        {
+          index: 5,
+          val: 'Blast',
+        },
+        { index: 6, val: 'Sleep' },
+      ],
+    },
+  ];
+
+  lastAnimalButtons = [
+    {
+      name: 'B',
+      updates: [
+        {
+          index: 5,
+          val: 'Consume',
+        },
+        { index: 7, val: 'Energy' },
+      ],
+    },
+    {
+      name: 'C',
+      updates: [
+        {
+          index: 5,
+          val: 'Blast',
+        },
+        { index: 7, val: 'Energy' },
+      ],
+    },
+    {
+      name: 'S',
+      updates: [
+        {
+          index: 6,
+          val: 'Play',
+        },
+        { index: 7, val: 'Info' },
+      ],
+    },
+    {
+      name: 'P',
+      updates: [
+        {
+          index: 6,
+          val: 'Sleep',
+        },
+        { index: 7, val: 'Info' },
+      ],
+    },
+  ];
+
+  needButtons = [
+    {
+      name: 'EJ',
+      updates: [
+        {
+          index: 0,
+          val: 'Decider',
+        },
+        { index: 1, val: 'Tribe' },
+      ],
+    },
+    {
+      name: 'IP',
+      updates: [
+        {
+          index: 0,
+          val: 'Decider',
+        },
+        { index: 1, val: 'Self' },
+      ],
+    },
+    {
+      name: 'EP',
+      updates: [
+        {
+          index: 0,
+          val: 'Observer',
+        },
+        { index: 2, val: 'Gather' },
+      ],
+    },
+    {
+      name: 'IJ',
+      updates: [
+        {
+          index: 0,
+          val: 'Observer',
+        },
+        { index: 2, val: 'Organize' },
+      ],
+    },
+  ];
+
+  buttonGroups = [
+    {
+      name: 'Modality',
+      group: this.modButtons,
+    },
+    {
+      name: 'Need',
+      group: this.needButtons,
+    },
+    {
+      name: 'Decider',
+      group: this.deciderButtons,
+    },
+    {
+      name: 'Observer',
+      group: this.observerButtons,
+    },
+    {
+      name: 'Animals',
+      group: this.animalButtons,
+    },
+    {
+      name: 'Last Animal',
+      group: this.lastAnimalButtons,
     },
   ];
 
@@ -210,8 +496,9 @@ export class TypePracticeComponent implements OnInit {
         } else if (
           !record.fields.Tags.includes('Community Member') &&
           !record.fields.Tags.includes('Incomplete') &&
-          !record.fields.Tags.includes('Speculation')) {
-            this.typeRecords.push(record);
+          !record.fields.Tags.includes('Speculation')
+        ) {
+          this.typeRecords.push(record);
         }
       });
       this.loading = false;
@@ -228,7 +515,9 @@ export class TypePracticeComponent implements OnInit {
   }
 
   shuffleArray(array) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
     while (0 !== currentIndex) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
@@ -277,10 +566,7 @@ export class TypePracticeComponent implements OnInit {
       return;
     }
     //Reset coin values
-    this.coins.forEach((coin) => {
-      coin.val = '';
-      coin.validated = false;
-    });
+    this.clearCoins();
     this.subjectOpsType = null;
     this.subjectRecord = null;
     this.subjectName = '';
@@ -337,6 +623,7 @@ export class TypePracticeComponent implements OnInit {
   }
 
   submitGuess() {
+    this.showFunctions = false;
     this.validationMessage = [];
     let validGuess = true;
     if (validGuess) {
@@ -366,8 +653,95 @@ export class TypePracticeComponent implements OnInit {
       if (totalSubmit === 10) {
         this.typeRevealed = true;
       } else {
-        this.validationMessage.push('Submit all ten coins to reveal the full type');
+        this.validationMessage.push(
+          'Submit all ten coins to reveal the full type'
+        );
       }
     }
+  }
+
+  updateButton(button) {
+    button.updates.forEach((update) => {
+      this.coins[update.index].val = update.val;
+    });
+  }
+
+  clearCoins() {
+    this.coins.forEach((coin) => {
+      coin.val = '';
+      coin.validated = false;
+    });
+  }
+
+  buttonActive(button) {
+    let result = true;
+    button.updates.forEach(update => {
+      if (this.coins[update.index].val !== update.val) {
+        result = false;
+      }
+    });
+    return result;
+  }
+
+  get totalCoins() {
+    let guessTotal = 0;
+    this.coins.forEach((coin) => {
+      if (coin.val) {
+        guessTotal++;
+      }
+    });
+    return guessTotal;
+  }
+
+  get typeGuess() {
+    this.typeGuessInvalid = false;
+    let result = '';
+    let mod =
+      this.coins[8].val.substring(0, 1) + this.coins[9].val.substring(0, 1);
+    let functions = '';
+
+    let dLetter = this.coins[3].val.substring(0, 1);
+    let oLetter = this.coins[4].val.substring(0, 1);
+    oLetter = oLetter === 'I' ? 'N' : oLetter;
+    let dNeed = this.coins[1].val === 'Tribe' ? 'e' : 'i';
+    let oNeed = this.coins[2].val === 'Gather' ? 'e' : 'i';
+    let iAnimal = this.coins[5].val.substring(0, 1); // B/C
+    let iAnimal2 = iAnimal === 'B' ? 'C' : 'B';
+    let eAnimal = this.coins[6].val.substring(0, 1); // P/S
+    let eAnimal2 = eAnimal === 'S' ? 'P' : 'S';
+    if (this.coins[0].val === 'Decider') {
+      functions = dLetter + dNeed + '/' + oLetter + oNeed;
+    } else {
+      functions = oLetter + oNeed + '/' + dLetter + dNeed;
+    }
+    let animals = '';
+    if (dNeed === 'e' && oNeed === 'e') {
+      animals = 'P' + iAnimal;
+      if (eAnimal !== 'P') {
+        this.typeGuessInvalid = true;
+      }
+    } else if (dNeed === 'e' && oNeed === 'i') {
+      animals = 'B' + eAnimal;
+      if (iAnimal !== 'B') {
+        this.typeGuessInvalid = true;
+      }
+    } else if (dNeed === 'i' && oNeed === 'e') {
+      animals = 'C' + eAnimal;
+      if (iAnimal !== 'C') {
+        this.typeGuessInvalid = true;
+      }
+    } else if (dNeed === 'i' && oNeed === 'i') {
+      animals = 'S' + iAnimal;
+      if (eAnimal !== 'S') {
+        this.typeGuessInvalid = true;
+      }
+    }
+    if (this.coins[7].val === 'Energy') {
+      animals += '/' + eAnimal2 + '(' + iAnimal2 + ')';
+    } else {
+      animals += '/' + iAnimal2 + '(' + eAnimal2 + ')';
+    }
+    result = mod + '-' + functions + '-' + animals;
+    return result;
   }
 }

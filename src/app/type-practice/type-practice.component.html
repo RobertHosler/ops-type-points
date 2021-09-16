@@ -142,7 +142,7 @@
         </div>
       </div>
       <div class="col-12 col-md-6">
-        <h2>Guess Form</h2>
+        <h2>Coins Form</h2>
         <div class="guess-form" [ngClass]="{ 'show-validation': guessSubmit }">
           <div *ngFor="let coin of coins">
             <div class="btn-group" btnRadioGroup [(ngModel)]="coin.val">
@@ -182,10 +182,63 @@
             </div>
           </div>
         </div>
+        <div *ngIf="totalCoins === 10">
+          <p>
+            <strong>Current Guess:</strong> {{ typeGuess }}
+            <span class="alert alert-warning d-block" *ngIf="typeGuessInvalid" >
+              <span class="d-block">
+                <strong>Your current type guess is invalid.</strong></span
+              >
+              <span class="d-block"
+                >Double check the Self/Tribe and Organize/Gather coins align with
+                the Consume/Blast and Sleep/Play coins.</span
+              >
+              <span class="d-block"
+                >Tribe (De) + Gather (Oe) = Savior Play (Oe + De)</span
+              >
+              <span class="d-block"
+                >Tribe (De) + Organize (Oi) = Savior Blast (Oi + De)</span
+              >
+              <span class="d-block"
+                >Self (Di) + Gather (Oe) = Savior Consume (Oe + Di)</span
+              >
+              <span class="d-block"
+                >Self (Di) + Organize (Oi) = Savior Sleep (Oi + Di)</span
+              >
+            </span>
+          </p>
+        </div>
         <div>
-          <button (click)="submitGuess()" class="btn btn-primary mb-3">
+          <button (click)="submitGuess()" class="btn btn-primary mb-3 mr-3">
             Submit Guess
           </button>
+          <button
+            (click)="showFunctions = !showFunctions"
+            class="btn btn-secondary btn-sm mb-3 mr-3"
+          >
+            {{ showFunctions ? "Hide Shortcuts" : "Show Shortcuts" }}
+          </button>
+          <button (click)="clearCoins()" class="btn btn-secondary btn-sm mb-3">
+            Clear Coins
+          </button>
+        </div>
+        <div class="shortcut-buttons" *ngIf="showFunctions">
+          <div
+            class="mb-3 mr-3 d-inline-block"
+            *ngFor="let buttonGroup of buttonGroups"
+          >
+            <div class="text-center small">{{ buttonGroup.name }}</div>
+            <div class="">
+              <button
+                class="btn mr-1"
+                [ngClass]="{ active: buttonActive(button) }"
+                *ngFor="let button of buttonGroup.group"
+                (click)="updateButton(button)"
+              >
+                {{ button.name }}
+              </button>
+            </div>
+          </div>
         </div>
         <div *ngIf="validationMessage && validationMessage.length > 0">
           <div *ngFor="let msg of validationMessage">
@@ -214,6 +267,9 @@
         <div class="col-12 col-md-8">
           <app-type-dashboard [opsType]="subjectOpsType"></app-type-dashboard>
         </div>
+      </div>
+      <div class="mb-3">
+          <app-type-checklist [opsType]="subjectOpsType"></app-type-checklist>
       </div>
     </div>
   </div>
