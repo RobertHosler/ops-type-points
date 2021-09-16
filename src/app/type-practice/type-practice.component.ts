@@ -704,50 +704,56 @@ export class TypePracticeComponent implements OnInit {
   get typeGuess() {
     this.typeGuessInvalid = false;
     let result = '';
-    let mod =
-      this.coins[8].val.substring(0, 1) + this.coins[9].val.substring(0, 1);
+    let sMod = this.coins[8].val === 'Feminine S' ? 'F' : this.coins[8].val === 'Masculine S' ? 'M' : 'x';
+    let deMod = this.coins[9].val === 'Feminine De' ? 'F' : this.coins[9].val === 'Masculine De' ? 'M' : 'x';
+    let mod = sMod + deMod;
     let functions = '';
-
-    let dLetter = this.coins[3].val.substring(0, 1);
-    let oLetter = this.coins[4].val.substring(0, 1);
+    // let dLetter = this.coins[3].val.substring(0, 1);
+    // let oLetter = this.coins[4].val.substring(0, 1);
+    let dLetter = this.coins[3].val === 'Feeling' ? 'F' : this.coins[3].val === 'Thinking' ? 'T' : 'D';
+    let oLetter = this.coins[4].val === 'Sensory' ? 'S' : this.coins[4].val === 'Intuition' ? 'N' : 'O';
     oLetter = oLetter === 'I' ? 'N' : oLetter;
-    let dNeed = this.coins[1].val === 'Tribe' ? 'e' : 'i';
-    let oNeed = this.coins[2].val === 'Gather' ? 'e' : 'i';
-    let iAnimal = this.coins[5].val.substring(0, 1); // B/C
-    let iAnimal2 = iAnimal === 'B' ? 'C' : 'B';
-    let eAnimal = this.coins[6].val.substring(0, 1); // P/S
-    let eAnimal2 = eAnimal === 'S' ? 'P' : 'S';
+    let dNeed = this.coins[1].val === 'Tribe' ? 'e' : this.coins[1].val === 'Self' ? 'i' : 'x';
+    let oNeed = this.coins[2].val === 'Gather' ? 'e' : this.coins[2].val === 'Organize' ? 'i' : 'x';
+    let iAnimal = this.coins[5].val === 'Blast' ? 'B' : this.coins[5].val === 'Consume' ? 'C' : 'x';
+    let iAnimal2 = iAnimal === 'x' ? 'x' : iAnimal === 'B' ? 'C' : 'B';
+    let eAnimal = this.coins[6].val === 'Play' ? 'P' : this.coins[6].val === 'Sleep' ? 'S' : 'x';
+    let eAnimal2 = eAnimal === 'x' ? 'x' : eAnimal === 'S' ? 'P' : 'S';
     if (this.coins[0].val === 'Decider') {
       functions = dLetter + dNeed + '/' + oLetter + oNeed;
     } else {
       functions = oLetter + oNeed + '/' + dLetter + dNeed;
     }
     let animals = '';
-    if (dNeed === 'e' && oNeed === 'e') {
+    if (dNeed === 'e' && oNeed === 'e' || eAnimal === 'P') {
       animals = 'P' + iAnimal;
-      if (eAnimal !== 'P') {
+      if (eAnimal === 'S') {
         this.typeGuessInvalid = true;
       }
-    } else if (dNeed === 'e' && oNeed === 'i') {
+    } else if (dNeed === 'e' && oNeed === 'i' || iAnimal === 'B') {
       animals = 'B' + eAnimal;
-      if (iAnimal !== 'B') {
+      if (iAnimal === 'C') {
         this.typeGuessInvalid = true;
       }
-    } else if (dNeed === 'i' && oNeed === 'e') {
+    } else if (dNeed === 'i' && oNeed === 'e' || iAnimal === 'C') {
       animals = 'C' + eAnimal;
-      if (iAnimal !== 'C') {
+      if (iAnimal === 'B') {
         this.typeGuessInvalid = true;
       }
-    } else if (dNeed === 'i' && oNeed === 'i') {
+    } else if (dNeed === 'i' && oNeed === 'i' || eAnimal === 'S') {
       animals = 'S' + iAnimal;
-      if (eAnimal !== 'S') {
+      if (eAnimal === 'P') {
         this.typeGuessInvalid = true;
       }
+    } else {
+      animals = 'xx';
     }
     if (this.coins[7].val === 'Energy') {
       animals += '/' + eAnimal2 + '(' + iAnimal2 + ')';
-    } else {
+    } else if (this.coins[7].val === 'Info') {
       animals += '/' + iAnimal2 + '(' + eAnimal2 + ')';
+    } else {
+      animals += '/x(x)';
     }
     result = mod + '-' + functions + '-' + animals;
     return result;
