@@ -43,6 +43,89 @@ export class SearchComponent implements OnInit {
   sexLabel = 'Sex';
   classLabel = 'Class';
 
+  functions = [
+    {
+      label: 'Fe',
+      active: () => {
+        return this.dhnLabel === 'De' && this.dlLabel === 'Feeling'
+      },
+      update: () => {
+        this.dhnLabel = 'De';
+        this.dlLabel = 'Feeling'
+      }
+    },
+    {
+      label: 'Fi',
+      active: () => {
+        return this.dhnLabel === 'Di' && this.dlLabel === 'Feeling'
+      },
+      update: () => {
+        this.dhnLabel = 'Di';
+        this.dlLabel = 'Feeling'
+      }
+    },
+    {
+      label: 'Te',
+      active: () => {
+        return this.dhnLabel === 'De' && this.dlLabel === 'Thinking'
+      },
+      update: () => {
+        this.dhnLabel = 'De';
+        this.dlLabel = 'Thinking'
+      }
+    },
+    {
+      label: 'Ti',
+      active: () => {
+        return this.dhnLabel === 'Di' && this.dlLabel === 'Thinking'
+      },
+      update: () => {
+        this.dhnLabel = 'Di';
+        this.dlLabel = 'Thinking'
+      }
+    },
+    {
+      label: 'Ne',
+      active: () => {
+        return this.ohnLabel === 'Oe' && this.olLabel === 'Intuition'
+      },
+      update: () => {
+        this.ohnLabel = 'Oe';
+        this.olLabel = 'Intuition'
+      }
+    },
+    {
+      label: 'Ni',
+      active: () => {
+        return this.ohnLabel === 'Oi' && this.olLabel === 'Intuition'
+      },
+      update: () => {
+        this.ohnLabel = 'Oi';
+        this.olLabel = 'Intuition'
+      }
+    },
+    {
+      label: 'Se',
+      active: () => {
+        return this.ohnLabel === 'Oe' && this.olLabel === 'Sensory'
+      },
+      update: () => {
+        this.ohnLabel = 'Oe';
+        this.olLabel = 'Sensory'
+      }
+    },
+    {
+      label: 'Si',
+      active: () => {
+        return this.ohnLabel === 'Oi' && this.olLabel === 'Sensory'
+      },
+      update: () => {
+        this.ohnLabel = 'Oi';
+        this.olLabel = 'Sensory'
+      }
+    }
+  ];
+
   constructor(
     private opsDataService: OpsDataService,
     private route: ActivatedRoute,
@@ -72,6 +155,7 @@ export class SearchComponent implements OnInit {
         this.smodLabel = params.get('smod') ? params.get('smod') : '';
         this.demodLabel = params.get('demod') ? params.get('demod') : '';
         this.sexLabel = params.get('sex') ? params.get('sex') : 'Sex';
+        this.classLabel = params.get('co') ? params.get('co') : 'Class';
         this.searchCoins();
       }
     });
@@ -100,6 +184,7 @@ export class SearchComponent implements OnInit {
       smod: null,
       demod: null,
       sex: null,
+      co: null
     };
     this.router.navigate([], {
       relativeTo: this.route,
@@ -131,6 +216,7 @@ export class SearchComponent implements OnInit {
       smod: null,
       demod: null,
       sex: null,
+      co: null
     };
     this.router.navigate([], {
       relativeTo: this.route,
@@ -310,6 +396,7 @@ export class SearchComponent implements OnInit {
       smod: this.smodLabel ? this.smodLabel : null,
       demod: this.demodLabel ? this.demodLabel : null,
       sex: this.sexLabel !== 'Sex' ? this.sexLabel : null,
+      co: this.sexLabel !== 'Class' ? this.classLabel : null,
     };
     this.router.navigate([], {
       relativeTo: this.route,

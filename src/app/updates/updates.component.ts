@@ -21,7 +21,8 @@ export class UpdatesComponent implements OnInit {
         'Modality, Animal, and Human Needs combinations also as shortcuts',
         'Type Checklist added to type results on practice page.',
         'Type you are about to submit shown once you select all ten coins.',
-        'Validation message shown when 10 coins are invalid since there is an overlap between the Human Needs and the first savior animal'
+        'Validation message shown when 10 coins are invalid since there is an overlap between the Human Needs and the first savior animal',
+        'Added functions to search page.'
       ],
     },
     {
