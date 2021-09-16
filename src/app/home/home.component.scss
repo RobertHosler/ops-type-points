@@ -44,13 +44,12 @@ app-home .wrapper {
 
 .sp-logo {
   display: inline-block;
-  width: 7rem;
-  // height: 7rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  width: 30%;
+  max-width: 7rem;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
   @include media-breakpoint-up("lg", $grid-breakpoints) {
-    width: 12rem;
-    // height: 12rem;
+    max-width: 12rem;
   }
 }
 

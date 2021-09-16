@@ -13,6 +13,18 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.16.2021',
+      title: 'Type Practice Shortcuts',
+      lead: `Added shortcuts to the practice typing page`,
+      bullets: [
+        `Select functions to automatically select the corresponding Human Need and Letter Coins.`,
+        'Modality, Animal, and Human Needs combinations also as shortcuts',
+        'Type Checklist added to type results on practice page.',
+        'Type you are about to submit shown once you select all ten coins.',
+        'Validation message shown when 10 coins are invalid since there is an overlap between the Human Needs and the first savior animal'
+      ],
+    },
+    {
       date: '09.15.2021',
       title: 'Styling & Typing Practice Updates',
       lead: `Various styling and updates to the typing practice page`,
