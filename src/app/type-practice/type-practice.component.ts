@@ -725,28 +725,34 @@ export class TypePracticeComponent implements OnInit {
       functions = oLetter + oNeed + '/' + dLetter + dNeed;
     }
     let animals = '';
-    if (dNeed === 'e' && oNeed === 'e' || eAnimal === 'P') {
+    if (dNeed === 'e' && oNeed === 'e') {
       animals = 'P' + iAnimal;
       if (eAnimal === 'S') {
         this.typeGuessInvalid = true;
       }
-    } else if (dNeed === 'e' && oNeed === 'i' || iAnimal === 'B') {
+    } else if (dNeed === 'e' && oNeed === 'i') {
       animals = 'B' + eAnimal;
       if (iAnimal === 'C') {
         this.typeGuessInvalid = true;
       }
-    } else if (dNeed === 'i' && oNeed === 'e' || iAnimal === 'C') {
+    } else if (dNeed === 'i' && oNeed === 'e') {
       animals = 'C' + eAnimal;
       if (iAnimal === 'B') {
         this.typeGuessInvalid = true;
       }
-    } else if (dNeed === 'i' && oNeed === 'i' || eAnimal === 'S') {
+    } else if (dNeed === 'i' && oNeed === 'i') {
       animals = 'S' + iAnimal;
       if (eAnimal === 'P') {
         this.typeGuessInvalid = true;
       }
     } else {
-      animals = 'xx';
+      if (iAnimal && !eAnimal) {
+        animals = iAnimal + eAnimal;
+      } else if (eAnimal && !iAnimal) {
+        animals = eAnimal + iAnimal;
+      } else {
+        animals = iAnimal + eAnimal;
+      }
     }
     if (this.coins[7].val === 'Energy') {
       animals += '/' + eAnimal2 + '(' + iAnimal2 + ')';
