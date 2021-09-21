@@ -377,11 +377,38 @@ export class SearchComponent implements OnInit {
     Array.from(coinMap.values()).forEach((coin) => {
       this.options.set(coin.param, { coin: coin, val: '' });
     });
+    // this.options.set('coin', {
+    //   coin: {
+    //     name: 'Custom Coin',
+    //     sides: [
+    //       {
+    //         name: 'Side 1',
+    //         val: '1',
+    //       },
+    //       {
+    //         name: 'Side 2',
+    //         val: '2',
+    //       },
+    //       {
+    //         name: 'Side 3',
+    //         val: '3',
+    //       },
+    //       {
+    //         name: 'Side 4',
+    //         val: '4',
+    //       },
+    //     ],
+    //   },
+    //   val: '1',
+    // });
     this.optionValues = Array.from(this.options.values());
   }
 
   isSide(optionKey: string, sideKey: string) {
-      return this.options.get(optionKey).val === (coinSideMap.get(sideKey) ? coinSideMap.get(sideKey).val : '');
+    return (
+      this.options.get(optionKey).val ===
+      (coinSideMap.get(sideKey) ? coinSideMap.get(sideKey).val : '')
+    );
   }
 
   isCoins(coins: { optionKey: string; sideKey: string }[]) {
@@ -510,21 +537,16 @@ export class SearchComponent implements OnInit {
     const queryParams: Params = {
       name: null,
       type: null,
-      hn1: this.options.get('hn1').val ? this.options.get('hn1').val : null,
-      ohn: this.options.get('ohn').val ? this.options.get('ohn').val : null,
-      dhn: this.options.get('dhn').val ? this.options.get('dhn').val : null,
-      ol: this.options.get('ol').val ? this.options.get('ol').val : null,
-      dl: this.options.get('dl').val ? this.options.get('dl').val : null,
-      ia: this.options.get('ia').val ? this.options.get('ia').val : null,
-      ea: this.options.get('ea').val ? this.options.get('ea').val : null,
-      dom: this.options.get('dom').val ? this.options.get('dom').val : null,
-      smod: this.options.get('smod').val ? this.options.get('smod').val : null,
-      demod: this.options.get('demod').val
-        ? this.options.get('demod').val
-        : null,
       sex: this.sexLabel !== 'Sex' ? this.sexLabel : null,
-      co: this.sexLabel !== 'Class' ? this.classLabel : null,
+      co: this.classLabel !== 'Class' ? this.classLabel : null,
     };
+    this.options.forEach(option => {
+      if (option.val) {
+        queryParams[option.coin.param] = option.val;
+      } else {
+        queryParams[option.coin.param] = null;
+      }
+    });
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams,
