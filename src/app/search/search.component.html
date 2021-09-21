@@ -111,7 +111,6 @@
                 </label>
               </ng-container>
               <ng-template #other_content>
-                <label class="btn" [btnRadio]="''"> Unset </label>
                 <label
                   class="btn"
                   [btnRadio]="side.val"
@@ -119,35 +118,12 @@
                 >
                   {{ side.name }}
                 </label>
+                <label class="btn btn-unset" [btnRadio]="''">
+                  Clear
+                </label>
               </ng-template>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <span class="coin-label">Other</span>
-        <div>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            type="button"
-            (click)="sex()"
-            [ngClass]="{
-              male: sexLabel === 'Male',
-              female: sexLabel === 'Female'
-            }"
-          >
-            {{ sexLabel }}
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: classLabel === 'Class Only'
-            }"
-            type="button"
-            (click)="class()"
-          >
-            {{ classLabel }}
-          </button>
         </div>
       </div>
     </div>

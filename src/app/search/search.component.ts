@@ -26,26 +26,6 @@ export class SearchComponent implements OnInit {
 
   searchLoading = false;
 
-  sexLabel = 'Sex';
-  classLabel = 'Class';
-
-  //Needs
-  hn1Key = 'Core Need';
-  dhnKey = 'Decider Need';
-  ohnKey = 'Observer Need';
-  //Letters
-  olKey = 'Observer Letter';
-  dlKey = 'Decider Letter';
-  //Animals
-  eaKey = 'Energy Animal';
-  iaKey = 'Info Animal';
-  domKey = 'Info Energy Dominance';
-  //Modalities
-  smodKey = 'Sensory Modality';
-  demodKey = 'De Modality';
-
-  sexKey = 'Sex';
-  classKey = 'Class';
 
   options = new Map(); //ESMap<string, { val: string; coin: Coin }>;
   optionValues;
@@ -366,8 +346,6 @@ export class SearchComponent implements OnInit {
             ? params.get(option.coin.param)
             : '';
         });
-        this.sexLabel = params.get('sex') ? params.get('sex') : 'Sex';
-        this.classLabel = params.get('co') ? params.get('co') : 'Class';
         this.searchCoins();
       }
     });
@@ -528,10 +506,10 @@ export class SearchComponent implements OnInit {
         this.options.get('dom').val,
         this.options.get('smod').val,
         this.options.get('demod').val,
-        this.sexLabel === 'Sex' ? null : this.sexLabel
+        this.options.get('sex').val,
       )
       .subscribe((result: TypeRoot) => {
-        if (this.classLabel === 'Class Only') {
+        if (this.options.get('co').val === 'Class Only') {
           this.displayedRecords = [];
           result.records.forEach((record) => {
             if (
@@ -549,8 +527,6 @@ export class SearchComponent implements OnInit {
     const queryParams: Params = {
       name: null,
       type: null,
-      sex: this.sexLabel !== 'Sex' ? this.sexLabel : null,
-      co: this.classLabel !== 'Class' ? this.classLabel : null,
     };
     this.options.forEach((option) => {
       if (option.val) {
@@ -570,26 +546,6 @@ export class SearchComponent implements OnInit {
     this.options.forEach((option) => {
       option.val = '';
     });
-    //Other
-    this.sexLabel = 'Sex';
-    this.classLabel = 'Class';
   }
 
-  sex() {
-    if (this.sexLabel === 'Sex') {
-      this.sexLabel = 'Male';
-    } else if (this.sexLabel === 'Male') {
-      this.sexLabel = 'Female';
-    } else {
-      this.sexLabel = 'Sex';
-    }
-  }
-
-  class() {
-    if (this.classLabel === 'Class') {
-      this.classLabel = 'Class Only';
-    } else {
-      this.classLabel = 'Class';
-    }
-  }
 }
