@@ -411,6 +411,7 @@ export class OpsType {
     this.animalStringFormal =
       this.animalStack[0] +
       this.animalStack[1] +
+      '/' +
       this.animalStack[2] +
       '(' +
       this.animalStack[3] +
@@ -561,5 +562,4 @@ export class OpsType {
     }
     this.valid = result;
   }
-
 }
