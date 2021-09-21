@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { coinMap, coinSideMap } from '../model/coin';
+import { coinMap, coinSideMap, customCoin } from '../model/coin';
 import {
   OpsDataService,
   TypeRecord,
@@ -378,28 +378,8 @@ export class SearchComponent implements OnInit {
       this.options.set(coin.param, { coin: coin, val: '' });
     });
     // this.options.set('coin', {
-    //   coin: {
-    //     name: 'Custom Coin',
-    //     sides: [
-    //       {
-    //         name: 'Side 1',
-    //         val: '1',
-    //       },
-    //       {
-    //         name: 'Side 2',
-    //         val: '2',
-    //       },
-    //       {
-    //         name: 'Side 3',
-    //         val: '3',
-    //       },
-    //       {
-    //         name: 'Side 4',
-    //         val: '4',
-    //       },
-    //     ],
-    //   },
-    //   val: '1',
+    //   coin: customCoin,
+    //   val: '',
     // });
     this.optionValues = Array.from(this.options.values());
   }
@@ -540,7 +520,7 @@ export class SearchComponent implements OnInit {
       sex: this.sexLabel !== 'Sex' ? this.sexLabel : null,
       co: this.classLabel !== 'Class' ? this.classLabel : null,
     };
-    this.options.forEach(option => {
+    this.options.forEach((option) => {
       if (option.val) {
         queryParams[option.coin.param] = option.val;
       } else {

@@ -111,13 +111,7 @@
                 </label>
               </ng-container>
               <ng-template #other_content>
-                <label
-                  class="btn btn-primary"
-                  [btnRadio]="''"
-                  *ngFor="let side of option.coin.sides"
-                >
-                  None
-                </label>
+                <label class="btn btn-primary" [btnRadio]="''"> None </label>
                 <label
                   class="btn btn-primary"
                   [btnRadio]="side.val"

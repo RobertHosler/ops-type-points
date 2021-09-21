@@ -301,6 +301,29 @@ const smodCoin: Coin = {
   sides: [fsensory, msensory],
 };
 
+export const customCoin: Coin = {
+  name: 'Custom Coin',
+  param: 'custom',
+  sides: [
+    {
+      name: 'Side 1',
+      val: '1',
+    },
+    {
+      name: 'Side 2',
+      val: '2',
+    },
+    {
+      name: 'Side 3',
+      val: '3',
+    },
+    {
+      name: 'Side 4',
+      val: '4',
+    },
+  ],
+};
+
 export const coinMap = new Map();
 coinMap.set('hn1', hn1Coin);
 coinMap.set('dhn', dNeedCoin);
