@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { coinMap, coinSideMap, customCoin } from '../model/coin';
+import { Coin, coinMap, coinSideMap, customCoin } from '../model/coin';
 import {
   OpsDataService,
   TypeRecord,
@@ -381,6 +381,38 @@ export class SearchComponent implements OnInit {
     //   coin: customCoin,
     //   val: '',
     // });
+    const sexCoin : Coin = {
+      name: 'Sex',
+      param: 'sex',
+      sides: [
+        {
+          name: 'Male',
+          val: 'Male'
+        },
+        {
+          name: 'Female',
+          val: 'Female'
+        }
+      ]
+    }
+    this.options.set('sex', {
+      coin: sexCoin,
+      val: ''
+    })
+    const classCoin : Coin = {
+      name: 'Class',
+      param: 'co',
+      sides: [
+        {
+          name: 'Class Only',
+          val: 'Class Only'
+        },
+      ]
+    }
+    this.options.set('co', {
+      coin: classCoin,
+      val: ''
+    })
     this.optionValues = Array.from(this.options.values());
   }
 

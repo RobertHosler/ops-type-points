@@ -110,3 +110,22 @@ input.form-control {
     width: $width-xs !important;
   }
 }
+
+.coin-groups {
+  .btn-group {
+    width: 100%;
+    .btn {
+      background-color: #ccc;
+    }
+    .btn.active {
+      background-color: #a2a2a2;
+      // color: $light;
+    }
+    .btn-side {
+      width: 40%;
+    }
+    .btn-middle {
+      width: 20%;
+    }
+  }
+}
