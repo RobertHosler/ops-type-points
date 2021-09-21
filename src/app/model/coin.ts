@@ -1,5 +1,3 @@
-import { coin } from "ngx-bootstrap-icons";
-
 export class Coin {
   name: string;
   sides: CoinSide[];
