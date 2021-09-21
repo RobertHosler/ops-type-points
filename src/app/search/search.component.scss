@@ -31,6 +31,7 @@
   min-width: 110px;
   height: 50px;
   margin-bottom: 10px;
+  width: calc(25% - 1rem);
 }
 $coins: (
   "observer": $observer-color,
