@@ -40,8 +40,10 @@ export class TypePracticeComponent implements OnInit {
 
   coins = [
     {
-      coin: null,//name and 
+      name: 'Observer or Decider',
       val: '',
+      left: 'Observer',
+      right: 'Decider',
       validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.observer;
