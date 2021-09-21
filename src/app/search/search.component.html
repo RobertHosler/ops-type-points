@@ -8,9 +8,9 @@
       ><span class="sp-branding">Database</span>
     </h1>
     <div>
-      <p class="lead"
-        >Want to know if someone has been typed by Objective Personality?</p
-      >
+      <p class="lead">
+        Want to know if someone has been typed by Objective Personality?
+      </p>
       <p>
         Search the database below by Coin, Name, or Type string as needed to
         find what you are looking for! The url updates as you search so you can
@@ -73,310 +73,62 @@
 
   <div class="search-coins mb-5" *ngIf="searchType === 'coins'">
     <div class="row">
-      <div class="col-md-6">
-        <span class="coin-label">Human Needs</span>
-        <div>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              observer: hn1Label === 'Observer',
-              decider: hn1Label === 'Decider'
-            }"
-            type="button"
-            (click)="hn1()"
-          >
-            {{ !hn1Label ? "Obs/Dec" : hn1Label }}
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              oe: ohnLabel === 'Oe',
-              oi: ohnLabel === 'Oi'
-            }"
-            type="button"
-            (click)="ohn()"
-          >
-            {{ !ohnLabel ? "Oe/Oi" : ohnLabel }}
-          </button>
-          <button
-            class="btn btn-secondary coin-btn"
-            [ngClass]="{ de: dhnLabel === 'De', di: dhnLabel === 'Di' }"
-            type="button"
-            (click)="dhn()"
-          >
-            {{ !dhnLabel ? "De/Di" : dhnLabel }}
-          </button>
-        </div>
-        <div>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: hn1Label === 'Decider' && dhnLabel === 'De'
-            }"
-            type="button"
-            (click)="exxj()"
-          >
-            ExxJ
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: hn1Label === 'Decider' && dhnLabel === 'Di'
-            }"
-            type="button"
-            (click)="ixxp()"
-          >
-            IxxP
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: hn1Label === 'Observer' && ohnLabel === 'Oe'
-            }"
-            type="button"
-            (click)="exxp()"
-          >
-            ExxP
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: hn1Label === 'Observer' && ohnLabel === 'Oi'
-            }"
-            type="button"
-            (click)="ixxj()"
-          >
-            IxxJ
-          </button>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <span class="coin-label">Letters</span>
-        <div>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            type="button"
-            (click)="ol()"
-            [ngClass]="{
-              sensory: olLabel === 'Sensory',
-              intuition: olLabel === 'Intuition'
-            }"
-          >
-            {{ !olLabel ? "S/N" : olLabel }}
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            type="button"
-            (click)="dl()"
-            [ngClass]="{
-              feeling: dlLabel === 'Feeling',
-              thinking: dlLabel === 'Thinking'
-            }"
-          >
-            {{ !dlLabel ? "F/T" : dlLabel }}
-          </button>
-        </div>
-        <div></div>
-        <button
-          class="btn btn-secondary mr-3 coin-btn"
-          [ngClass]="{
-            active: dlLabel === 'Feeling' && olLabel === 'Intuition'
-          }"
-          type="button"
-          (click)="nf()"
-        >
-          NF
-        </button>
-        <button
-          class="btn btn-secondary mr-3 coin-btn"
-          [ngClass]="{
-            active: dlLabel === 'Thinking' && olLabel === 'Intuition'
-          }"
-          type="button"
-          (click)="nt()"
-        >
-          NT
-        </button>
-        <button
-          class="btn btn-secondary mr-3 coin-btn"
-          [ngClass]="{
-            active: dlLabel === 'Feeling' && olLabel === 'Sensory'
-          }"
-          type="button"
-          (click)="sf()"
-        >
-          SF
-        </button>
-        <button
-          class="btn btn-secondary mr-3 coin-btn"
-          [ngClass]="{
-            active: dlLabel === 'Thinking' && olLabel === 'Sensory'
-          }"
-          type="button"
-          (click)="st()"
-        >
-          ST
-        </button>
-      </div>
-      <div class="col-md-6">
-        <span class="coin-label">Animals</span>
-        <div>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{ play: eaLabel === 'Play', sleep: eaLabel === 'Sleep' }"
-            type="button"
-            (click)="ea()"
-          >
-            {{ !eaLabel ? "P/S" : eaLabel }}
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              consume: iaLabel === 'Consume',
-              blast: iaLabel === 'Blast'
-            }"
-            type="button"
-            (click)="ia()"
-          >
-            {{ !iaLabel ? "B/C" : iaLabel }}
-          </button>
-          <button
-            class="btn btn-secondary coin-btn"
-            [ngClass]="{
-              info: domLabel === 'Info',
-              energy: domLabel === 'Energy'
-            }"
-            type="button"
-            (click)="dom()"
-          >
-            {{ !domLabel ? "Info/Energy" : domLabel }}
-          </button>
-        </div>
-        <div>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: eaLabel === 'Play' && iaLabel === 'Consume'
-            }"
-            type="button"
-            (click)="skib()"
-          >
-            Skib
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: eaLabel === 'Sleep' && iaLabel === 'Blast'
-            }"
-            type="button"
-            (click)="bs()"
-          >
-            BS
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: eaLabel === 'Play' && iaLabel === 'Blast'
-            }"
-            type="button"
-            (click)="crack()"
-          >
-            PB
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: eaLabel === 'Sleep' && iaLabel === 'Consume'
-            }"
-            type="button"
-            (click)="mope()"
-          >
-            Mope
-          </button>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <span class="coin-label">Modalities</span>
-        <div>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            type="button"
-            (click)="smod()"
-            [ngClass]="{
-              msensory: smodLabel === 'M S',
-              fsensory: smodLabel === 'F S'
-            }"
-          >
-            {{ !smodLabel ? "M/F S" : smodLabel }}
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              msensory: demodLabel === 'M De',
-              fsensory: demodLabel === 'F De'
-            }"
-            type="button"
-            (click)="demod()"
-          >
-            {{ !demodLabel ? "M/F De" : demodLabel }}
-          </button>
-        </div>
-        <div>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: smodLabel === 'M S' && demodLabel === 'M De'
-            }"
-            type="button"
-            (click)="mm()"
-          >
-            MM
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: smodLabel === 'M S' && demodLabel === 'F De'
-            }"
-            type="button"
-            (click)="mf()"
-          >
-            MF
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: smodLabel === 'F S' && demodLabel === 'F De'
-            }"
-            type="button"
-            (click)="ff()"
-          >
-            FF
-          </button>
-          <button
-            class="btn btn-secondary mr-3 coin-btn"
-            [ngClass]="{
-              active: smodLabel === 'F S' && demodLabel === 'M De'
-            }"
-            type="button"
-            (click)="fm()"
-          >
-            FM
-          </button>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <span class="coin-label">Functions</span>
-        <div>
-          <button
-            *ngFor="let funct of functions"
-            class="btn btn-secondary mr-3 coin-btn"
-            type="button"
-            [ngClass]="{'active': funct.active()}"
-            (click)="funct.update()"
-          >
-            {{ funct.label }}
-          </button>
+      <div class="col-md-8">
+        <div *ngFor="let cluster of clusters">
+          <span class="coin-label">{{ cluster.name }}</span>
+          <div>
+            <button
+              *ngFor="let funct of cluster.cluster"
+              class="btn btn-secondary mr-3 coin-btn"
+              type="button"
+              [ngClass]="{ active: isCoins(funct.coins) }"
+              (click)="setCoins(funct.coins)"
+            >
+              {{ funct.label }}
+            </button>
           </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div *ngIf="options">
+          <div *ngFor="let option of optionValues">
+            <div class="btn-group" btnRadioGroup [(ngModel)]="option.val">
+              <ng-container
+                *ngIf="option.coin.sides.length === 2; else other_content"
+              >
+                <label
+                  class="btn btn-primary"
+                  [btnRadio]="option.coin.sides[0].val"
+                >
+                  {{ option.coin.sides[0].name }}
+                </label>
+                <label class="btn btn-primary" [btnRadio]="''"> / </label>
+                <label
+                  class="btn btn-primary"
+                  [btnRadio]="option.coin.sides[1].val"
+                >
+                  {{ option.coin.sides[1].name }}
+                </label>
+              </ng-container>
+              <ng-template #other_content>
+                <label
+                  class="btn btn-primary"
+                  [btnRadio]="''"
+                  *ngFor="let side of option.coin.sides"
+                >
+                  None
+                </label>
+                <label
+                  class="btn btn-primary"
+                  [btnRadio]="side.val"
+                  *ngFor="let side of option.coin.sides"
+                >
+                  {{ side.name }}
+                </label>
+              </ng-template>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-md-6">
         <span class="coin-label">Other</span>

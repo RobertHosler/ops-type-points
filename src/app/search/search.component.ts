@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { coinMap, coinSideMap } from '../model/coin';
 import {
   OpsDataService,
   TypeRecord,
@@ -25,105 +26,320 @@ export class SearchComponent implements OnInit {
 
   searchLoading = false;
 
-  //Needs
-  hn1Label = '';
-  dhnLabel = '';
-  ohnLabel = '';
-  //Letters
-  olLabel = '';
-  dlLabel = '';
-  //Animals
-  eaLabel = '';
-  iaLabel = '';
-  domLabel = '';
-  //Modalities
-  smodLabel = '';
-  demodLabel = '';
-
   sexLabel = 'Sex';
   classLabel = 'Class';
+
+  //Needs
+  hn1Key = 'Core Need';
+  dhnKey = 'Decider Need';
+  ohnKey = 'Observer Need';
+  //Letters
+  olKey = 'Observer Letter';
+  dlKey = 'Decider Letter';
+  //Animals
+  eaKey = 'Energy Animal';
+  iaKey = 'Info Animal';
+  domKey = 'Info Energy Dominance';
+  //Modalities
+  smodKey = 'Sensory Modality';
+  demodKey = 'De Modality';
+
+  sexKey = 'Sex';
+  classKey = 'Class';
+
+  options = new Map(); //ESMap<string, { val: string; coin: Coin }>;
+  optionValues;
 
   functions = [
     {
       label: 'Fe',
-      active: () => {
-        return this.dhnLabel === 'De' && this.dlLabel === 'Feeling'
-      },
-      update: () => {
-        this.dhnLabel = 'De';
-        this.dlLabel = 'Feeling'
-      }
+      coins: [
+        { optionKey: 'dhn', sideKey: 'tribe' },
+        { optionKey: 'dl', sideKey: 'feeling' },
+      ],
     },
     {
       label: 'Fi',
-      active: () => {
-        return this.dhnLabel === 'Di' && this.dlLabel === 'Feeling'
-      },
-      update: () => {
-        this.dhnLabel = 'Di';
-        this.dlLabel = 'Feeling'
-      }
+      coins: [
+        { optionKey: 'dhn', sideKey: 'self' },
+        { optionKey: 'dl', sideKey: 'feeling' },
+      ],
     },
     {
       label: 'Te',
-      active: () => {
-        return this.dhnLabel === 'De' && this.dlLabel === 'Thinking'
-      },
-      update: () => {
-        this.dhnLabel = 'De';
-        this.dlLabel = 'Thinking'
-      }
+      coins: [
+        { optionKey: 'dhn', sideKey: 'tribe' },
+        { optionKey: 'dl', sideKey: 'thinking' },
+      ],
     },
     {
       label: 'Ti',
-      active: () => {
-        return this.dhnLabel === 'Di' && this.dlLabel === 'Thinking'
-      },
-      update: () => {
-        this.dhnLabel = 'Di';
-        this.dlLabel = 'Thinking'
-      }
+      coins: [
+        { optionKey: 'dhn', sideKey: 'self' },
+        { optionKey: 'dl', sideKey: 'thinking' },
+      ],
     },
     {
       label: 'Ne',
-      active: () => {
-        return this.ohnLabel === 'Oe' && this.olLabel === 'Intuition'
-      },
-      update: () => {
-        this.ohnLabel = 'Oe';
-        this.olLabel = 'Intuition'
-      }
+      coins: [
+        { optionKey: 'ohn', sideKey: 'gather' },
+        { optionKey: 'ol', sideKey: 'intuition' },
+      ],
     },
     {
       label: 'Ni',
-      active: () => {
-        return this.ohnLabel === 'Oi' && this.olLabel === 'Intuition'
-      },
-      update: () => {
-        this.ohnLabel = 'Oi';
-        this.olLabel = 'Intuition'
-      }
+      coins: [
+        { optionKey: 'ohn', sideKey: 'organize' },
+        { optionKey: 'ol', sideKey: 'intuition' },
+      ],
     },
     {
       label: 'Se',
-      active: () => {
-        return this.ohnLabel === 'Oe' && this.olLabel === 'Sensory'
-      },
-      update: () => {
-        this.ohnLabel = 'Oe';
-        this.olLabel = 'Sensory'
-      }
+      coins: [
+        { optionKey: 'ohn', sideKey: 'gather' },
+        { optionKey: 'ol', sideKey: 'sensory' },
+      ],
     },
     {
       label: 'Si',
-      active: () => {
-        return this.ohnLabel === 'Oi' && this.olLabel === 'Sensory'
-      },
-      update: () => {
-        this.ohnLabel = 'Oi';
-        this.olLabel = 'Sensory'
-      }
-    }
+      coins: [
+        { optionKey: 'ohn', sideKey: 'organize' },
+        { optionKey: 'ol', sideKey: 'sensory' },
+      ],
+    },
+  ];
+
+  needClusters = [
+    {
+      label: 'ExxJ',
+      coins: [
+        { optionKey: 'hn1', sideKey: 'decider' },
+        { optionKey: 'dhn', sideKey: 'tribe' },
+      ],
+    },
+    {
+      label: 'IxxP',
+      coins: [
+        { optionKey: 'hn1', sideKey: 'decider' },
+        { optionKey: 'dhn', sideKey: 'self' },
+      ],
+    },
+    {
+      label: 'ExxP',
+      coins: [
+        { optionKey: 'hn1', sideKey: 'observer' },
+        { optionKey: 'ohn', sideKey: 'gather' },
+      ],
+    },
+    {
+      label: 'IxxJ',
+      coins: [
+        { optionKey: 'hn1', sideKey: 'observer' },
+        { optionKey: 'ohn', sideKey: 'organize' },
+      ],
+    },
+  ];
+
+  letterClusters = [
+    {
+      label: 'NF',
+      coins: [
+        { optionKey: 'ol', sideKey: 'intuition' },
+        { optionKey: 'dl', sideKey: 'feeling' },
+      ],
+    },
+    {
+      label: 'NT',
+      coins: [
+        { optionKey: 'ol', sideKey: 'intuition' },
+        { optionKey: 'dl', sideKey: 'thinking' },
+      ],
+    },
+    {
+      label: 'SF',
+      coins: [
+        { optionKey: 'ol', sideKey: 'sensory' },
+        { optionKey: 'dl', sideKey: 'feeling' },
+      ],
+    },
+    {
+      label: 'ST',
+      coins: [
+        { optionKey: 'ol', sideKey: 'sensory' },
+        { optionKey: 'dl', sideKey: 'thinking' },
+      ],
+    },
+    {
+      label: 'xx',
+      coins: [
+        { optionKey: 'ol', sideKey: 'x' },
+        { optionKey: 'dl', sideKey: 'x' },
+      ],
+    },
+  ];
+
+  animalClusters = [
+    {
+      label: 'PB',
+      coins: [
+        { optionKey: 'ia', sideKey: 'blast' },
+        { optionKey: 'ea', sideKey: 'play' },
+        { optionKey: 'dhn', sideKey: 'tribe' },
+      ],
+    },
+    {
+      label: 'BS',
+      coins: [
+        { optionKey: 'ia', sideKey: 'blast' },
+        { optionKey: 'ea', sideKey: 'sleep' },
+        { optionKey: 'ohn', sideKey: 'organize' },
+      ],
+    },
+    {
+      label: 'CP',
+      coins: [
+        { optionKey: 'ia', sideKey: 'consume' },
+        { optionKey: 'ea', sideKey: 'play' },
+        { optionKey: 'ohn', sideKey: 'gather' },
+      ],
+    },
+    {
+      label: 'SC',
+      coins: [
+        { optionKey: 'ia', sideKey: 'consume' },
+        { optionKey: 'ea', sideKey: 'sleep' },
+        { optionKey: 'dhn', sideKey: 'self' },
+      ],
+    },
+    {
+      label: 'Px/x(x)',
+      coins: [
+        { optionKey: 'ohn', sideKey: 'gather' },
+        { optionKey: 'dhn', sideKey: 'tribe' },
+        { optionKey: 'ea', sideKey: 'play' },
+      ],
+    },
+    {
+      label: 'Bx/x(x)',
+      coins: [
+        { optionKey: 'ohn', sideKey: 'organize' },
+        { optionKey: 'dhn', sideKey: 'tribe' },
+        { optionKey: 'ia', sideKey: 'blast' },
+      ],
+    },
+    {
+      label: 'Sx/x(x)',
+      coins: [
+        { optionKey: 'ohn', sideKey: 'organize' },
+        { optionKey: 'dhn', sideKey: 'self' },
+        { optionKey: 'ea', sideKey: 'sleep' },
+      ],
+    },
+    {
+      label: 'Cx/x(x)',
+      coins: [
+        { optionKey: 'ohn', sideKey: 'gather' },
+        { optionKey: 'dhn', sideKey: 'self' },
+        { optionKey: 'ia', sideKey: 'consume' },
+      ],
+    },
+    {
+      label: 'xx/x(P)',
+      coins: [
+        { optionKey: 'dom', sideKey: 'info' },
+        { optionKey: 'ea', sideKey: 'sleep' },
+      ],
+    },
+    {
+      label: 'xx/x(B)',
+      coins: [
+        { optionKey: 'dom', sideKey: 'energy' },
+        { optionKey: 'ia', sideKey: 'consume' },
+      ],
+    },
+    {
+      label: 'xx/x(S)',
+      coins: [
+        { optionKey: 'dom', sideKey: 'info' },
+        { optionKey: 'ea', sideKey: 'play' },
+      ],
+    },
+    {
+      label: 'xx/x(C)',
+      coins: [
+        { optionKey: 'dom', sideKey: 'energy' },
+        { optionKey: 'ia', sideKey: 'blast' },
+      ],
+    },
+    {
+      label: 'X',
+      coins: [
+        { optionKey: 'ia', sideKey: 'x' },
+        { optionKey: 'ea', sideKey: 'x' },
+        { optionKey: 'dom', sideKey: 'x' },
+      ],
+    },
+  ];
+
+  modalityClusters = [
+    {
+      label: 'MM',
+      coins: [
+        { optionKey: 'smod', sideKey: 'msensory' },
+        { optionKey: 'demod', sideKey: 'mde' },
+      ],
+    },
+    {
+      label: 'MF',
+      coins: [
+        { optionKey: 'smod', sideKey: 'msensory' },
+        { optionKey: 'demod', sideKey: 'fde' },
+      ],
+    },
+    {
+      label: 'FF',
+      coins: [
+        { optionKey: 'smod', sideKey: 'fsensory' },
+        { optionKey: 'demod', sideKey: 'fde' },
+      ],
+    },
+    {
+      label: 'FM',
+      coins: [
+        { optionKey: 'smod', sideKey: 'fsensory' },
+        { optionKey: 'demod', sideKey: 'mde' },
+      ],
+    },
+    {
+      label: 'xx',
+      coins: [
+        { optionKey: 'smod', sideKey: 'x' },
+        { optionKey: 'demod', sideKey: 'x' },
+      ],
+    },
+  ];
+
+  clusters = [
+    {
+      name: 'Need',
+      cluster: this.needClusters,
+    },
+    {
+      name: 'Functions',
+      cluster: this.functions,
+    },
+    {
+      name: 'Letters',
+      cluster: this.letterClusters,
+    },
+    {
+      name: 'Animals',
+      cluster: this.animalClusters,
+    },
+    {
+      name: 'Modalities',
+      cluster: this.modalityClusters,
+    },
   ];
 
   constructor(
@@ -133,6 +349,7 @@ export class SearchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initOptions();
     this.route.queryParamMap.subscribe((params) => {
       if (params.get('name')) {
         this.nameString = params.get('name');
@@ -144,20 +361,48 @@ export class SearchComponent implements OnInit {
         this.onSubmitType(null);
       } else {
         this.searchType = 'coins';
-        this.hn1Label = params.get('hn1') ? params.get('hn1') : '';
-        this.dhnLabel = params.get('dhn') ? params.get('dhn') : '';
-        this.ohnLabel = params.get('ohn') ? params.get('ohn') : '';
-        this.olLabel = params.get('ol') ? params.get('ol'): '';
-        this.dlLabel = params.get('dl') ? params.get('dl') : '';
-        this.iaLabel = params.get('ia') ? params.get('ia') : '';
-        this.eaLabel = params.get('ea') ? params.get('ea') : '';
-        this.domLabel = params.get('dom') ? params.get('dom') : '';
-        this.smodLabel = params.get('smod') ? params.get('smod') : '';
-        this.demodLabel = params.get('demod') ? params.get('demod') : '';
+        this.options.forEach((option) => {
+          option.val = params.get(option.coin.param)
+            ? params.get(option.coin.param)
+            : '';
+        });
         this.sexLabel = params.get('sex') ? params.get('sex') : 'Sex';
         this.classLabel = params.get('co') ? params.get('co') : 'Class';
         this.searchCoins();
       }
+    });
+  }
+
+  private initOptions() {
+    Array.from(coinMap.values()).forEach((coin) => {
+      this.options.set(coin.param, { coin: coin, val: '' });
+    });
+    this.optionValues = Array.from(this.options.values());
+  }
+
+  isSide(optionKey: string, sideKey: string) {
+      return this.options.get(optionKey).val === (coinSideMap.get(sideKey) ? coinSideMap.get(sideKey).val : '');
+  }
+
+  isCoins(coins: { optionKey: string; sideKey: string }[]) {
+    let result = true;
+    coins.forEach((coin) => {
+      if (result) {
+        result = this.isSide(coin.optionKey, coin.sideKey);
+      }
+    });
+    return result;
+  }
+
+  setSide(optionKey: string, sideKey: string) {
+    this.options.get(optionKey).val = coinSideMap.get(sideKey)
+      ? coinSideMap.get(sideKey).val
+      : '';
+  }
+
+  setCoins(coins: { optionKey: string; sideKey: string }[]) {
+    coins.forEach((coin) => {
+      this.setSide(coin.optionKey, coin.sideKey);
     });
   }
 
@@ -184,7 +429,7 @@ export class SearchComponent implements OnInit {
       smod: null,
       demod: null,
       sex: null,
-      co: null
+      co: null,
     };
     this.router.navigate([], {
       relativeTo: this.route,
@@ -216,7 +461,7 @@ export class SearchComponent implements OnInit {
       smod: null,
       demod: null,
       sex: null,
-      co: null
+      co: null,
     };
     this.router.navigate([], {
       relativeTo: this.route,
@@ -229,141 +474,21 @@ export class SearchComponent implements OnInit {
     this.searchCoins();
   }
 
-  hn1() {
-    if (!this.hn1Label) {
-      this.hn1Label = 'Observer';
-    } else if (this.hn1Label === 'Observer') {
-      this.hn1Label = 'Decider';
-    } else {
-      this.hn1Label = '';
-    }
-  }
-
-  dhn() {
-    if (!this.dhnLabel) {
-      this.dhnLabel = 'De';
-      // if (this.ohnLabel === 'Oi') {
-      //   this.iaLabel = 'Blast';
-      // } else if (this.ohnLabel === 'Oe') {
-      //   this.eaLabel = 'Play';
-      // }
-    } else if (this.dhnLabel === 'De') {
-      this.dhnLabel = 'Di';
-      // if (this.ohnLabel === 'Oi') {
-      //   this.eaLabel = 'Sleep';
-      // } else if (this.ohnLabel === 'Oe') {
-      //   this.iaLabel = 'Consume';
-      // }
-    } else {
-      this.dhnLabel = '';
-    }
-  }
-
-  ohn() {
-    if (!this.ohnLabel) {
-      this.ohnLabel = 'Oe';
-      // if (this.dhnLabel === 'Di') {
-      //   this.iaLabel = 'Consume';
-      // } else if (this.dhnLabel === 'De') {
-      //   this.eaLabel = 'Play';
-      // }
-    } else if (this.ohnLabel === 'Oe') {
-      this.ohnLabel = 'Oi';
-      // if (this.dhnLabel === 'Di') {
-      //   this.eaLabel = 'Sleep';
-      // } else if (this.dhnLabel === 'De') {
-      //   this.iaLabel = 'Blast';
-      // }
-    } else {
-      this.ohnLabel = '';
-    }
-  }
-
-  ol() {
-    if (!this.olLabel) {
-      this.olLabel = 'Sensory';
-    } else if (this.olLabel === 'Sensory') {
-      this.olLabel = 'Intuition';
-    } else {
-      this.olLabel = '';
-    }
-  }
-
-  dl() {
-    if (!this.dlLabel) {
-      this.dlLabel = 'Thinking';
-    } else if (this.dlLabel === 'Thinking') {
-      this.dlLabel = 'Feeling';
-    } else {
-      this.dlLabel = '';
-    }
-  }
-
-  ea() {
-    if (!this.eaLabel) {
-      this.eaLabel = 'Play';
-    } else if (this.eaLabel === 'Play') {
-      this.eaLabel = 'Sleep';
-    } else {
-      this.eaLabel = '';
-    }
-  }
-
-  ia() {
-    if (!this.iaLabel) {
-      this.iaLabel = 'Blast';
-    } else if (this.iaLabel === 'Blast') {
-      this.iaLabel = 'Consume';
-    } else {
-      this.iaLabel = '';
-    }
-  }
-
-  dom() {
-    if (!this.domLabel) {
-      this.domLabel = 'Info';
-    } else if (this.domLabel === 'Info') {
-      this.domLabel = 'Energy';
-    } else {
-      this.domLabel = '';
-    }
-  }
-
-  smod() {
-    if (!this.smodLabel) {
-      this.smodLabel = 'M S';
-    } else if (this.smodLabel === 'M S') {
-      this.smodLabel = 'F S';
-    } else {
-      this.smodLabel = '';
-    }
-  }
-
-  demod() {
-    if (!this.demodLabel) {
-      this.demodLabel = 'M De';
-    } else if (this.demodLabel === 'M De') {
-      this.demodLabel = 'F De';
-    } else {
-      this.demodLabel = '';
-    }
-  }
-
   searchCoins() {
     this.searchLoading = true;
     this.opsDataService
       .getCoins(
         this.maxRecords,
-        this.hn1Label,
-        this.ohnLabel,
-        this.dhnLabel,
-        this.olLabel,
-        this.dlLabel,
-        this.iaLabel,
-        this.eaLabel,
-        this.domLabel,
-        this.smodLabel,
-        this.demodLabel,
+        this.options.get('hn1').val,
+        this.options.get('ohn').val,
+        this.options.get('dhn').val,
+        this.options.get('ol').val,
+        this.options.get('dl').val,
+        this.options.get('ia').val,
+        this.options.get('ea').val,
+        this.options.get('dom').val,
+        this.options.get('smod').val,
+        this.options.get('demod').val,
         this.sexLabel === 'Sex' ? null : this.sexLabel
       )
       .subscribe((result: TypeRoot) => {
@@ -385,16 +510,18 @@ export class SearchComponent implements OnInit {
     const queryParams: Params = {
       name: null,
       type: null,
-      hn1: this.hn1Label ? this.hn1Label : null,
-      ohn: this.ohnLabel ? this.ohnLabel : null,
-      dhn: this.dhnLabel ? this.dhnLabel : null,
-      ol: this.olLabel ? this.olLabel : null,
-      dl: this.dlLabel ? this.dlLabel : null,
-      ia: this.iaLabel ? this.iaLabel : null,
-      ea: this.eaLabel ? this.eaLabel : null,
-      dom: this.domLabel ? this.domLabel : null,
-      smod: this.smodLabel ? this.smodLabel : null,
-      demod: this.demodLabel ? this.demodLabel : null,
+      hn1: this.options.get('hn1').val ? this.options.get('hn1').val : null,
+      ohn: this.options.get('ohn').val ? this.options.get('ohn').val : null,
+      dhn: this.options.get('dhn').val ? this.options.get('dhn').val : null,
+      ol: this.options.get('ol').val ? this.options.get('ol').val : null,
+      dl: this.options.get('dl').val ? this.options.get('dl').val : null,
+      ia: this.options.get('ia').val ? this.options.get('ia').val : null,
+      ea: this.options.get('ea').val ? this.options.get('ea').val : null,
+      dom: this.options.get('dom').val ? this.options.get('dom').val : null,
+      smod: this.options.get('smod').val ? this.options.get('smod').val : null,
+      demod: this.options.get('demod').val
+        ? this.options.get('demod').val
+        : null,
       sex: this.sexLabel !== 'Sex' ? this.sexLabel : null,
       co: this.sexLabel !== 'Class' ? this.classLabel : null,
     };
@@ -406,103 +533,12 @@ export class SearchComponent implements OnInit {
   }
 
   resetCoins() {
-    //Needs
-    this.hn1Label = '';
-    this.dhnLabel = '';
-    this.ohnLabel = '';
-    //Letters
-    this.olLabel = '';
-    this.dlLabel = '';
-    //Animals
-    this.eaLabel = '';
-    this.iaLabel = '';
-    this.domLabel = '';
-    //Modalities
-    this.smodLabel = '';
-    this.demodLabel = '';
+    this.options.forEach((option) => {
+      option.val = '';
+    });
     //Other
     this.sexLabel = 'Sex';
     this.classLabel = 'Class';
-  }
-
-  exxj() {
-    this.hn1Label = 'Decider';
-    this.dhnLabel = 'De';
-  }
-
-  ixxp() {
-    this.hn1Label = 'Decider';
-    this.dhnLabel = 'Di';
-  }
-
-  exxp() {
-    this.hn1Label = 'Observer';
-    this.ohnLabel = 'Oe';
-  }
-
-  ixxj() {
-    this.hn1Label = 'Observer';
-    this.ohnLabel = 'Oi';
-  }
-
-  nf() {
-    this.olLabel = 'Intuition';
-    this.dlLabel = 'Feeling';
-  }
-
-  nt() {
-    this.olLabel = 'Intuition';
-    this.dlLabel = 'Thinking';
-  }
-
-  sf() {
-    this.olLabel = 'Sensory';
-    this.dlLabel = 'Feeling';
-  }
-
-  st() {
-    this.olLabel = 'Sensory';
-    this.dlLabel = 'Thinking';
-  }
-
-  mm() {
-    this.smodLabel = 'M S';
-    this.demodLabel = 'M De';
-  }
-
-  mf() {
-    this.smodLabel = 'M S';
-    this.demodLabel = 'F De';
-  }
-
-  ff() {
-    this.smodLabel = 'F S';
-    this.demodLabel = 'F De';
-  }
-
-  fm() {
-    this.smodLabel = 'F S';
-    this.demodLabel = 'M De';
-  }
-
-  skib() {
-    this.eaLabel = 'Play';
-    this.iaLabel = 'Consume';
-  }
-
-  crack() {
-    this.eaLabel = 'Play';
-    this.iaLabel = 'Blast';
-  }
-
-  bs() {
-    this.eaLabel = 'Sleep';
-    this.iaLabel = 'Blast';
-  }
-
-  mope() {
-    this.eaLabel = 'Sleep';
-    this.iaLabel = 'Consume';
   }
 
   sex() {

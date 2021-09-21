@@ -408,6 +408,14 @@ export class OpsType {
 
   /* OPS Type in the Classical Format Ex: FF-Fe/Se-PC/S(B) */
   private constructFormattedType() {
+    this.animalStringFormal =
+      this.animalStack[0] +
+      this.animalStack[1] +
+      this.animalStack[2] +
+      '(' +
+      this.animalStack[3] +
+      ')';
+
     this.opsCode =
       this.modalityString +
       '-' +
@@ -415,14 +423,9 @@ export class OpsType {
       '/' +
       this.s2String +
       '-' +
-      this.animalStack[0] +
-      this.animalStack[1] +
-      '/' +
-      this.animalStack[2] +
-      '(' +
-      this.animalStack[3] +
-      ')';
+      this.animalStringFormal;
 
+    // No slashes/parenthesis
     this.cleanCode =
       this.modalityString +
       '-' +
@@ -433,14 +436,6 @@ export class OpsType {
       this.animalStack[1] +
       this.animalStack[2] +
       this.animalStack[3];
-    this.animalStringFormal =
-      this.animalStack[0] +
-      this.animalStack[1] +
-      '/' +
-      this.animalStack[2] +
-      '(' +
-      this.animalStack[3] +
-      ')';
   }
 
   /* OPS Type in the Opticode Format Ex: 'DSFP-CS-T' */
@@ -566,4 +561,5 @@ export class OpsType {
     }
     this.valid = result;
   }
+
 }

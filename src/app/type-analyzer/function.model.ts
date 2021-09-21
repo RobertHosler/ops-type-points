@@ -73,6 +73,9 @@ export class Function {
     }
   }
 
+  /** 
+   * Return the function's opposite function on the function axis
+   */
   determineDemon() {
     var demon: string;
     switch (this.name) {

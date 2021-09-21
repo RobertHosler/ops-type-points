@@ -25,6 +25,9 @@ export class TypeRecordListComponent implements OnInit {
   @Input()
   displayPracticeLink = false;
 
+  @Input()
+  maxDisplay;
+
   constructor() {}
 
   ngOnInit(): void {}

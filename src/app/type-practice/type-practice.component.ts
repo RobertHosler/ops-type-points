@@ -32,20 +32,6 @@ export class TypePracticeComponent implements OnInit {
 
   radioModel = 'Middle';
 
-  obsDecVal = '';
-  selfTribeVal = '';
-  organizeGatherVal = '';
-
-  feelingThinkingVal = '';
-  sensoryIntuitionVal = '';
-
-  infoAnimalVal = '';
-  energyAnimalVal = '';
-  dominanceAnimalVal = '';
-
-  deModVal = '';
-  sensoryModVal = '';
-
   validationMessage = [];
   guessSubmit = false;
   typeGuessInvalid = false;
@@ -54,10 +40,8 @@ export class TypePracticeComponent implements OnInit {
 
   coins = [
     {
-      name: 'Observer or Decider',
-      val: this.obsDecVal,
-      left: 'Observer',
-      right: 'Decider',
+      coin: null,//name and 
+      val: '',
       validated: false,
       leftValidate: (opsType: OpsType) => {
         return opsType.observer;
@@ -68,7 +52,7 @@ export class TypePracticeComponent implements OnInit {
     },
     {
       name: 'Self or Tribe',
-      val: this.selfTribeVal,
+      val: '',
       left: 'Self',
       right: 'Tribe',
       validated: false,
@@ -81,7 +65,7 @@ export class TypePracticeComponent implements OnInit {
     },
     {
       name: 'Organize or Gather',
-      val: this.organizeGatherVal,
+      val: '',
       left: 'Organize',
       right: 'Gather',
       validated: false,
@@ -94,7 +78,7 @@ export class TypePracticeComponent implements OnInit {
     },
     {
       name: 'Feeling or Thinking',
-      val: this.feelingThinkingVal,
+      val: '',
       left: 'Feeling',
       right: 'Thinking',
       validated: false,
@@ -107,7 +91,7 @@ export class TypePracticeComponent implements OnInit {
     },
     {
       name: 'Sensory or Intuition',
-      val: this.feelingThinkingVal,
+      val: '',
       left: 'Sensory',
       right: 'Intuition',
       validated: false,
@@ -120,7 +104,7 @@ export class TypePracticeComponent implements OnInit {
     },
     {
       name: 'Consume or Blast',
-      val: this.infoAnimalVal,
+      val: '',
       left: 'Consume',
       right: 'Blast',
       validated: false,
@@ -133,7 +117,7 @@ export class TypePracticeComponent implements OnInit {
     },
     {
       name: 'Play or Sleep',
-      val: this.energyAnimalVal,
+      val: '',
       left: 'Play',
       right: 'Sleep',
       validated: false,
@@ -146,7 +130,7 @@ export class TypePracticeComponent implements OnInit {
     },
     {
       name: 'Info or Energy',
-      val: this.dominanceAnimalVal,
+      val: '',
       left: 'Info',
       right: 'Energy',
       validated: false,
@@ -159,7 +143,7 @@ export class TypePracticeComponent implements OnInit {
     },
     {
       name: 'Sensory Modality',
-      val: this.deModVal,
+      val: '',
       left: 'Feminine S',
       right: 'Masculine S',
       validated: false,
@@ -172,7 +156,7 @@ export class TypePracticeComponent implements OnInit {
     },
     {
       name: 'De Modality',
-      val: this.deModVal,
+      val: '',
       left: 'Feminine De',
       right: 'Masculine De',
       validated: false,

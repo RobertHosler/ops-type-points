@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+  import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { OpsType } from '../ops-type';
 
 @Component({
