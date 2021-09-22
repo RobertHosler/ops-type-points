@@ -70,7 +70,7 @@ const selfSide = {
 const dNeedCoin: Coin = {
   name: 'Decider Need',
   param: 'dhn',
-  sides: [tribeSide, selfSide],
+  sides: [selfSide, tribeSide],
 };
 
 const organizeSide = {
@@ -215,7 +215,7 @@ const consume = {
 const iAnimalCoin: Coin = {
   name: 'Info Animal',
   param: 'ia',
-  sides: [consume, blast],
+  sides: [blast, consume],
 };
 
 const info = {
@@ -332,8 +332,8 @@ coinMap.set('ohn', oNeedCoin);
 coinMap.set('dl', feelingThinkingCoin);
 coinMap.set('ol', sensoryIntuitionCoin);
 
-coinMap.set('ea', eAnimalCoin);
 coinMap.set('ia', iAnimalCoin);
+coinMap.set('ea', eAnimalCoin);
 coinMap.set('dom', adomCoin);
 
 coinMap.set('smod', smodCoin);
