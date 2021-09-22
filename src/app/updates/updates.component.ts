@@ -13,6 +13,15 @@ export class UpdatesComponent implements OnInit {
     bullets: string[];
   }[] = [
     {
+      date: '09.21.2021',
+      title: 'Search Coins Formatting',
+      lead: `Face lift to the coins search`,
+      bullets: [
+        `Making use of button groups so you don't have to press buttons multiple times to find the coin you want.`,
+        'Created coin objects which can be shared across components for centralized information.'
+      ],
+    },
+    {
       date: '09.16.2021',
       title: 'Type Practice Shortcuts',
       lead: `Added shortcuts to the practice typing page`,
