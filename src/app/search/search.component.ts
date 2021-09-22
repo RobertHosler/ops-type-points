@@ -26,7 +26,6 @@ export class SearchComponent implements OnInit {
 
   searchLoading = false;
 
-
   options = new Map(); //ESMap<string, { val: string; coin: Coin }>;
   optionValues;
 
@@ -359,38 +358,38 @@ export class SearchComponent implements OnInit {
     //   coin: customCoin,
     //   val: '',
     // });
-    const sexCoin : Coin = {
+    const sexCoin: Coin = {
       name: 'Sex',
       param: 'sex',
       sides: [
         {
           name: 'Male',
-          val: 'Male'
+          val: 'Male',
         },
         {
           name: 'Female',
-          val: 'Female'
-        }
-      ]
-    }
+          val: 'Female',
+        },
+      ],
+    };
     this.options.set('sex', {
       coin: sexCoin,
-      val: ''
-    })
-    const classCoin : Coin = {
+      val: '',
+    });
+    const classCoin: Coin = {
       name: 'Class',
       param: 'co',
       sides: [
         {
           name: 'Class Only',
-          val: 'Class Only'
+          val: 'Class Only',
         },
-      ]
-    }
+      ],
+    };
     this.options.set('co', {
       coin: classCoin,
-      val: ''
-    })
+      val: '',
+    });
     this.optionValues = Array.from(this.options.values());
   }
 
@@ -435,19 +434,10 @@ export class SearchComponent implements OnInit {
     const queryParams: Params = {
       name: this.nameString,
       type: null,
-      hn1: null,
-      ohn: null,
-      dhn: null,
-      ol: null,
-      dl: null,
-      ia: null,
-      ea: null,
-      dom: null,
-      smod: null,
-      demod: null,
-      sex: null,
-      co: null,
     };
+    this.options.forEach((option) => {
+      queryParams[option.coin.param] = null;
+    });
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams,
@@ -467,19 +457,10 @@ export class SearchComponent implements OnInit {
     const queryParams: Params = {
       name: null,
       type: this.typeString,
-      hn1: null,
-      ohn: null,
-      dhn: null,
-      ol: null,
-      dl: null,
-      ia: null,
-      ea: null,
-      dom: null,
-      smod: null,
-      demod: null,
-      sex: null,
-      co: null,
     };
+    this.options.forEach((option) => {
+      queryParams[option.coin.param] = null;
+    });
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: queryParams,
@@ -506,7 +487,7 @@ export class SearchComponent implements OnInit {
         this.options.get('dom').val,
         this.options.get('smod').val,
         this.options.get('demod').val,
-        this.options.get('sex').val,
+        this.options.get('sex').val
       )
       .subscribe((result: TypeRoot) => {
         if (this.options.get('co').val === 'Class Only') {
@@ -547,5 +528,4 @@ export class SearchComponent implements OnInit {
       option.val = '';
     });
   }
-
 }
