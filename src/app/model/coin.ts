@@ -5,6 +5,7 @@ export class Coin {
   otherNames?: string[];
   descriptions?: string[];
   param: string;
+  infoLink?: string;
 }
 
 export class CoinSide {
@@ -40,6 +41,8 @@ const hn1Coin: Coin = {
   name: 'Core Need',
   param: 'hn1',
   sides: [observerSide, deciderSide],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/foundations/ops-starter-kit/do-you-focus-on-things-or-people/',
   //   sides: hn1Sides
 };
 
@@ -71,6 +74,8 @@ const dNeedCoin: Coin = {
   name: 'Decider Need',
   param: 'dhn',
   sides: [selfSide, tribeSide],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/foundations/ops-starter-kit/ops-self-vs-tribe/',
 };
 
 const organizeSide = {
@@ -101,6 +106,8 @@ const oNeedCoin: Coin = {
   name: 'Observer Need',
   param: 'ohn',
   sides: [organizeSide, gatherSide],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/2020/05/06/gather-oe-vs-organise-oi/',
 };
 
 const feelingSide = {
@@ -129,6 +136,8 @@ const feelingThinkingCoin: Coin = {
   name: 'Decider Letter',
   param: 'dl',
   sides: [feelingSide, thinkingSide],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/foundations/ops-starter-kit/ops-deciders/',
 };
 
 const intuitionSide = {
@@ -156,6 +165,8 @@ const sensoryIntuitionCoin: Coin = {
   name: 'Observer Letter',
   param: 'ol',
   sides: [sensorySide, intuitionSide],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/2020/04/24/observer-functions/',
 };
 
 const sleep = {
@@ -186,6 +197,8 @@ const eAnimalCoin: Coin = {
   name: 'Energy Animal',
   param: 'ea',
   sides: [sleep, play],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/foundations/ops-starter-kit/animals#energy',
 };
 
 const blast = {
@@ -216,6 +229,8 @@ const iAnimalCoin: Coin = {
   name: 'Info Animal',
   param: 'ia',
   sides: [blast, consume],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/foundations/ops-starter-kit/animals#info',
 };
 
 const info = {
@@ -246,6 +261,8 @@ const adomCoin: Coin = {
   name: 'Info / Energy Dominance',
   param: 'dom',
   sides: [info, energy],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/foundations/ops-starter-kit/info-vs-energy-dominant/',
 };
 
 const mde = {
@@ -274,6 +291,8 @@ const demodCoin: Coin = {
   name: 'De Modality',
   param: 'demod',
   sides: [fde, mde],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/foundations/ops-starter-kit/ops-sexual-modalities/#de',
 };
 
 let fsensory = {
@@ -299,6 +318,8 @@ const smodCoin: Coin = {
   name: 'Sensory Modality',
   param: 'smod',
   sides: [fsensory, msensory],
+  infoLink:
+    'https://subjectivepersonality.wordpress.com/foundations/ops-starter-kit/ops-sexual-modalities/#sensory',
 };
 
 export const customCoin: Coin = {
