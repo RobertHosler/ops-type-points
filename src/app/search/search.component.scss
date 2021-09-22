@@ -15,6 +15,9 @@
   font-size: 20px;
   margin-bottom: 5px;
 }
+.coin-label-sm {
+  font-size: 12px;
+}
 .search-type-label {
   font-size: 16px;
   font-weight: bold;
@@ -28,7 +31,7 @@
 .coin-btn {
   background-color: #efefef;
   color: $dark;
-  min-width: 110px;
+  min-width: 100px;
   height: 50px;
   margin-bottom: 10px;
   width: calc(25% - 1rem);
@@ -94,8 +97,10 @@ input.form-control {
   }
   .coin-btn {
     $width-sm: 90px;
-    min-width: $width-sm !important;
-    width: $width-sm !important;
+    // min-width: $width-sm !important;
+    // width: $width-sm !important;
+    min-width: calc(25% - 5px);
+    width: calc(25% - 5px);
     padding-left: 2px;
     padding-right: 2px;
   }
@@ -107,8 +112,8 @@ input.form-control {
 @media (max-width: 410px) {
   .coin-btn {
     $width-xs: 66px;
-    min-width: $width-xs !important;
-    width: $width-xs !important;
+    // min-width: $width-xs !important;
+    // width: $width-xs !important;
   }
 }
 
@@ -122,6 +127,10 @@ input.form-control {
       background-color: #a2a2a2;
       // color: $light;
     }
+    .btn.active {
+      color: $light;
+      background-color: $secondary;
+    }
     .btn-side {
       width: 40%;
     }
@@ -130,6 +139,11 @@ input.form-control {
     }
     .btn-unset {
       max-width: 80px;
+    }
+    .btn-middle.btn.active,
+    .btn-unset.active {
+      background-color: #a2a2a2;
+      color: $dark;
     }
   }
 }
