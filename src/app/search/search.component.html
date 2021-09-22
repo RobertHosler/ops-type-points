@@ -118,9 +118,7 @@
                 >
                   {{ side.name }}
                 </label>
-                <label class="btn btn-unset" [btnRadio]="''">
-                  Clear
-                </label>
+                <label class="btn btn-unset" [btnRadio]="''"> Clear </label>
               </ng-template>
             </div>
           </div>
@@ -131,6 +129,7 @@
       <button
         class="btn btn-lg btn-primary mr-3"
         type="button"
+        [disabled]="searchLoading"
         (click)="searchCoins()"
       >
         Search
@@ -163,7 +162,11 @@
         </div>
       </div>
       <div>
-        <button class="btn btn-lg btn-primary mr-3" type="submit">
+        <button
+          class="btn btn-lg btn-primary mr-3"
+          type="submit"
+          [disabled]="searchLoading"
+        >
           Search
         </button>
       </div>
@@ -190,7 +193,11 @@
         </div>
       </div>
       <div>
-        <button class="btn btn-lg btn-primary mr-3" type="submit">
+        <button
+          class="btn btn-lg btn-primary mr-3"
+          type="submit"
+          [disabled]="searchLoading"
+        >
           Search
         </button>
       </div>
