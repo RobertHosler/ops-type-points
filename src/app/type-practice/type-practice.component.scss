@@ -59,4 +59,6 @@
 }
 .shortcut-buttons .btn.active {
   background: #a2a2a2;
+  background: $secondary;
+  color: $light;
 }
