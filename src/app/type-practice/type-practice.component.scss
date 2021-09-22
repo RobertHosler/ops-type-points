@@ -11,10 +11,15 @@
   background: #ccc;
 }
 .guess-form .btn.active {
-  background: #a2a2a2;
+  background: $secondary;
+  color: $light;
 }
 .guess-form .btn-middle {
   width: 20%;
+}
+.guess-form .btn-middle.active {
+  background: #a2a2a2;
+  color: $dark;
 }
 .guess-form .btn-left {
   width: 40%;
