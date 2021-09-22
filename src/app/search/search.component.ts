@@ -58,6 +58,9 @@ export class SearchComponent implements OnInit {
         { optionKey: 'dl', sideKey: 'thinking' },
       ],
     },
+  ];
+
+  observerFunctions = [
     {
       label: 'Ne',
       coins: [
@@ -148,13 +151,13 @@ export class SearchComponent implements OnInit {
         { optionKey: 'dl', sideKey: 'thinking' },
       ],
     },
-    {
-      label: 'xx',
-      coins: [
-        { optionKey: 'ol', sideKey: 'x' },
-        { optionKey: 'dl', sideKey: 'x' },
-      ],
-    },
+    // {
+    //   label: 'xx',
+    //   coins: [
+    //     { optionKey: 'ol', sideKey: 'x' },
+    //     { optionKey: 'dl', sideKey: 'x' },
+    //   ],
+    // },
   ];
 
   animalClusters = [
@@ -190,8 +193,10 @@ export class SearchComponent implements OnInit {
         { optionKey: 'dhn', sideKey: 'self' },
       ],
     },
+  ];
+  firstAnimals = [
     {
-      label: 'Px/x(x)',
+      label: 'P First',
       coins: [
         { optionKey: 'ohn', sideKey: 'gather' },
         { optionKey: 'dhn', sideKey: 'tribe' },
@@ -199,7 +204,7 @@ export class SearchComponent implements OnInit {
       ],
     },
     {
-      label: 'Bx/x(x)',
+      label: 'B First',
       coins: [
         { optionKey: 'ohn', sideKey: 'organize' },
         { optionKey: 'dhn', sideKey: 'tribe' },
@@ -207,7 +212,7 @@ export class SearchComponent implements OnInit {
       ],
     },
     {
-      label: 'Sx/x(x)',
+      label: 'S First',
       coins: [
         { optionKey: 'ohn', sideKey: 'organize' },
         { optionKey: 'dhn', sideKey: 'self' },
@@ -215,49 +220,51 @@ export class SearchComponent implements OnInit {
       ],
     },
     {
-      label: 'Cx/x(x)',
+      label: 'C First',
       coins: [
         { optionKey: 'ohn', sideKey: 'gather' },
         { optionKey: 'dhn', sideKey: 'self' },
         { optionKey: 'ia', sideKey: 'consume' },
       ],
     },
+  ];
+  lastAnimals = [
     {
-      label: 'xx/x(P)',
+      label: 'P Last',
       coins: [
         { optionKey: 'dom', sideKey: 'info' },
         { optionKey: 'ea', sideKey: 'sleep' },
       ],
     },
     {
-      label: 'xx/x(B)',
+      label: 'B Last',
       coins: [
         { optionKey: 'dom', sideKey: 'energy' },
         { optionKey: 'ia', sideKey: 'consume' },
       ],
     },
     {
-      label: 'xx/x(S)',
+      label: 'S Last',
       coins: [
         { optionKey: 'dom', sideKey: 'info' },
         { optionKey: 'ea', sideKey: 'play' },
       ],
     },
     {
-      label: 'xx/x(C)',
+      label: 'C Last',
       coins: [
         { optionKey: 'dom', sideKey: 'energy' },
         { optionKey: 'ia', sideKey: 'blast' },
       ],
     },
-    {
-      label: 'X',
-      coins: [
-        { optionKey: 'ia', sideKey: 'x' },
-        { optionKey: 'ea', sideKey: 'x' },
-        { optionKey: 'dom', sideKey: 'x' },
-      ],
-    },
+    // {
+    //   label: 'X',
+    //   coins: [
+    //     { optionKey: 'ia', sideKey: 'x' },
+    //     { optionKey: 'ea', sideKey: 'x' },
+    //     { optionKey: 'dom', sideKey: 'x' },
+    //   ],
+    // },
   ];
 
   modalityClusters = [
@@ -289,13 +296,13 @@ export class SearchComponent implements OnInit {
         { optionKey: 'demod', sideKey: 'mde' },
       ],
     },
-    {
-      label: 'xx',
-      coins: [
-        { optionKey: 'smod', sideKey: 'x' },
-        { optionKey: 'demod', sideKey: 'x' },
-      ],
-    },
+    // {
+    //   label: 'xx',
+    //   coins: [
+    //     { optionKey: 'smod', sideKey: 'x' },
+    //     { optionKey: 'demod', sideKey: 'x' },
+    //   ],
+    // },
   ];
 
   clusters = [
@@ -304,8 +311,12 @@ export class SearchComponent implements OnInit {
       cluster: this.needClusters,
     },
     {
-      name: 'Functions',
+      name: 'Decider Functions',
       cluster: this.functions,
+    },
+    {
+      name: 'Observer Functions',
+      cluster: this.observerFunctions,
     },
     {
       name: 'Letters',
@@ -314,6 +325,14 @@ export class SearchComponent implements OnInit {
     {
       name: 'Animals',
       cluster: this.animalClusters,
+    },
+    {
+      name: 'First Animal',
+      cluster: this.firstAnimals,
+    },
+    {
+      name: 'Last Animal',
+      cluster: this.lastAnimals,
     },
     {
       name: 'Modalities',
