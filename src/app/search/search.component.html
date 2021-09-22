@@ -69,29 +69,26 @@
     </div>
   </div>
 
+  <hr class="">
   <div class="clear-right"></div>
 
   <div class="search-coins mb-5" *ngIf="searchType === 'coins'">
     <div class="row">
-      <div class="col-md-8">
-        <div *ngFor="let cluster of clusters">
-          <span class="coin-label">{{ cluster.name }}</span>
-          <div>
-            <button
-              *ngFor="let funct of cluster.cluster"
-              class="btn btn-secondary mr-3 coin-btn"
-              type="button"
-              [ngClass]="{ active: isCoins(funct.coins) }"
-              (click)="setCoins(funct.coins)"
-            >
-              {{ funct.label }}
-            </button>
-          </div>
-        </div>
-      </div>
       <div class="col-md-4">
         <div *ngIf="options" class="coin-groups">
           <div *ngFor="let option of optionValues">
+            <div class="coin-label coin-label-sm" *ngIf="false">
+              <a
+                [href]="option.coin.infoLink"
+                target="_blank"
+                *ngIf="option.coin.infoLink"
+              >
+                {{ option.coin.name }}
+              </a>
+              <span *ngIf="!option.coin.infoLink">
+                {{ option.coin.name }}
+              </span>
+            </div>
             <div class="btn-group" btnRadioGroup [(ngModel)]="option.val">
               <ng-container
                 *ngIf="option.coin.sides.length === 2; else other_content"
@@ -120,6 +117,26 @@
                 </label>
                 <label class="btn btn-unset" [btnRadio]="''"> Clear </label>
               </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 d-md-none">
+        <hr >
+      </div>
+      <div class="col-md-8">
+        <div *ngFor="let cluster of clusters">
+          <span class="coin-label" *ngIf="false">{{ cluster.name }}</span>
+          <div class="coin-groups">
+            <div class="btn-group">
+              <label
+                class="btn"
+                *ngFor="let funct of cluster.cluster"
+                [ngClass]="{ active: isCoins(funct.coins) }"
+                (click)="setCoins(funct.coins)"
+              >
+                {{ funct.label }}
+              </label>
             </div>
           </div>
         </div>
