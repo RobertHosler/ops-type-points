@@ -54,6 +54,9 @@ const PORT = process.env.PORT || 8080;
 const INDEX = '/index.html';
 
 app.use(express.static('./dist/ops-type-points'));
+app.get('/*', function(req, res) { 
+  res.sendFile('index.html', {root: 'dist/ops-type-points/'})
+});
 
 var sockets = [];
 
