@@ -6,8 +6,21 @@
   justify-content: center;
 }
 
+.name-wrapper {
+  display: flex;
+  justify-content: space-between;
+  .image-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
 .type-indicator {
   position: relative;
+  height: 2.5rem;
+  width: 2.5rem;
+  margin: .25rem;
 }
 .type-indicator::before,
 .type-indicator::after {
@@ -293,6 +306,9 @@ $types: (
   padding: 2px;
   font-weight: bold;
   // background: $primary;
+}
+.image-type {
+  font-weight: bold;
 }
 .image-col .image-tags,
 .image-col .image-type {

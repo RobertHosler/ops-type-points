@@ -57,7 +57,7 @@ export class TypeRecordListComponent implements OnInit {
   }
 
   convert(type: string) {
-    if (type.length === 16) {
+    if (this.showMolecule && !this.displayPracticeLink && type.length === 16) {
       return 'type-indicator type-' + (type.substring(3,5) + type.substring(6,8)).toLowerCase();
     } else {
       return '';
