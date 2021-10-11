@@ -1,0 +1,23 @@
+@import "~src/assets/variables";
+
+.source {
+  font-style: italic;
+  display: block;
+  margin-left: 1.5rem;
+  // text-align: right;
+}
+
+.definitions-list {
+  li {
+    margin-bottom: 0.5rem;
+    // border-bottom: 1px solid #ccc;
+  }
+}
+
+.toggle-btn {
+  background-color: #efefef;
+  &.active {
+    color: $light;
+    background-color: $secondary;
+  }
+}

@@ -26,6 +26,13 @@ export class HeaderComponent implements OnInit {
       ''
     ),
     new HomeLink(
+      'Terms',
+      '/terms',
+      '',
+      false,
+      ''
+    ),
+    new HomeLink(
       'Practice',
       '/practice',
       '',

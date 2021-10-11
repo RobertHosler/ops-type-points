@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Function } from './type-analyzer/function.model';
-import { ActivatedRoute } from '@angular/router';
-import {Location} from '@angular/common';
+import { Socket } from 'ngx-socket-io';
 
 
 @Component({
@@ -11,4 +8,8 @@ import {Location} from '@angular/common';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+
+  constructor(private socket: Socket) {
+    this.socket.emit('connection');
+  }
 }

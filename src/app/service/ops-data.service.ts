@@ -1,6 +1,7 @@
 import { Injectable, Type } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { observable, Observable, of } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,21 @@ export class OpsDataService {
   namePath = '/name';
 
   allRecords: TypeRoot;
+  allTerms: Observable<Map<string, Term>>;
+  // allSources: Term;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient,
+    private socket: Socket) {
+      this.allTerms = new Observable((observer) => {
+        // socket.emit('getRecords');
+        socket.on('terms', terms => {
+          console.log('terms');
+          let map = new Map<string, Term>(terms);
+          observer.next(map);
+        });
+        socket.emit('getTerms');
+      });
+    }
 
   getGreeting(): Observable<Greeting> {
     return this.httpClient.get<Greeting>(this.baseUrl + this.greetingPath, {
@@ -152,4 +166,16 @@ export class TypeField {
 }
 export class TypePicture {
   url: string;
+}
+
+export class Term {
+  definitions: Definition[];
+  tags?: string[];
+  types?: string[];
+  altNames?: string[];
+}
+export class Definition {
+  definition: string;
+  sourceName?: string;
+  sourceUrl?: string;
 }

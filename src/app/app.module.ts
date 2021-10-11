@@ -28,7 +28,10 @@ import { SearchComponent } from './search/search.component';
 import { TypeRecordListComponent } from './type-record-list/type-record-list.component';
 import { TypeChecklistComponent } from './type-analyzer/type-checklist/type-checklist.component';
 import { TypePracticeComponent } from './type-practice/type-practice.component';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { TermsComponent } from './terms/terms.component';
 
+const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
 
 @NgModule({
   declarations: [
@@ -50,7 +53,8 @@ import { TypePracticeComponent } from './type-practice/type-practice.component';
     SearchComponent,
     TypeRecordListComponent,
     TypeChecklistComponent,
-    TypePracticeComponent
+    TypePracticeComponent,
+    TermsComponent
   ],
   imports: [
     HttpClientModule,
@@ -58,6 +62,7 @@ import { TypePracticeComponent } from './type-practice/type-practice.component';
     AppRoutingModule,
     FormsModule,
     EmojiModule,
+    SocketIoModule.forRoot(config),
     TabsModule.forRoot(),
     TooltipModule.forRoot(),
     ButtonsModule.forRoot(),

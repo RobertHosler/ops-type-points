@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Objective Personality <span class="sp-branding">Terms</span></h1>
+  <div class="options mb-3">
+    <button class="btn btn-sm toggle-btn"
+        [ngClass]="{ active: showSources }"
+        (click)="showSources = !showSources">{{ showSources ? 'Hide Sources' : 'Show Sources'}}</button>
+  </div>
+  <div *ngFor="let term of terms | keyvalue">
+    <strong>{{ term.key }}</strong>
+    <ol class="definitions-list">
+      <li *ngFor="let definition of term.value.definitions; let i = index">
+        {{ definition.definition }}
+        <span class="source" *ngIf="showSources && definition.sourceName">
+          - from
+          <a
+            *ngIf="definition.sourceUrl"
+            [href]="definition.sourceUrl"
+            target="_blank"
+          >
+            {{ definition.sourceName }}
+          </a>
+          <span *ngIf="!definition.sourceUrl">
+            {{ definition.sourceName }}</span
+          >
+        </span>
+      </li>
+    </ol>
+    <hr />
+  </div>
+</div>
