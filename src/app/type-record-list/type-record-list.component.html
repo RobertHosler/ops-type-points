@@ -14,16 +14,20 @@
           <div class="image-name">{{ typeRecord.fields.Name }}</div>
           <div class="image-type" *ngIf="!displayPracticeLink">
             <a
+              *ngIf="linkToAnalyzer && typeRecord.fields.Type.length === 16"
               [routerLink]="['/analyzer']"
-              [queryParams]="{ 
+              [queryParams]="{
                 s1: analyzerLinkSav1(typeRecord.fields.Type),
                 s2: analyzerLinkSav2(typeRecord.fields.Type),
                 a: analyzerLinkAnimals(typeRecord.fields.Type),
-                m: analyzerLinkMod(typeRecord.fields.Type) }"
-              *ngIf="linkToAnalyzer"
+                m: analyzerLinkMod(typeRecord.fields.Type)
+              }"
               >{{ typeRecord.fields.Type }}</a
             >
-            <span *ngIf="!linkToAnalyzer">{{ typeRecord.fields.Type }}</span>
+            <span
+              *ngIf="!linkToAnalyzer || typeRecord.fields.Type.length !== 16"
+              >{{ typeRecord.fields.Type }}</span
+            >
           </div>
           <div *ngIf="displayPracticeLink">
             <a
@@ -39,6 +43,7 @@
               typeRecord.fields.Picture && typeRecord.fields.Picture.length > 0
             "
             class="image-img"
+            [class]="showMolecule && convert(typeRecord.fields.Type)"
             [ngStyle]="{
               'background-image':
                 'url(' + typeRecord.fields.Picture[0].url + ')'

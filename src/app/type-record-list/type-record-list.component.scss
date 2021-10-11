@@ -6,9 +6,252 @@
   justify-content: center;
 }
 
+.type-indicator {
+  position: relative;
+}
+.type-indicator::before,
+.type-indicator::after {
+  height: 1.25rem;
+  width: 1.25rem;
+  line-height: 1.125rem;
+  font-size: 0.7rem;
+  position: absolute;
+  border: 1px solid #333;
+  color: #000;
+  border-radius: 100%;
+  text-align: center;
+  top: 0px;
+  left: 0px;
+  box-shadow: -3px 2px 5px #333;
+}
+
+$types: (
+  //Fe Leads
+  "fese": (
+    "d",
+    "Fe",
+    "Se",
+  ),
+  "fesi": (
+    "d",
+    "Fe",
+    "Si",
+  ),
+  "fene": (
+    "d",
+    "Fe",
+    "Ne ",
+  ),
+  "feni": (
+    "d",
+    "Fe",
+    "Ni ",
+  ),
+  //Te Leads
+  "tese": (
+    "d",
+    "Te",
+    "Se",
+  ),
+  "tesi": (
+    "d",
+    "Te",
+    "Si",
+  ),
+  "tene": (
+    "d",
+    "Te",
+    "Ne ",
+  ),
+  "teni": (
+    "d",
+    "Te",
+    "Ni ",
+  ),
+  //Ti Leads
+  "tise": (
+    "d",
+    "Ti",
+    "Se",
+  ),
+  "tisi": (
+    "d",
+    "Ti",
+    "Si",
+  ),
+  "tine": (
+    "d",
+    "Ti",
+    "Ne ",
+  ),
+  "tini": (
+    "d",
+    "Ti",
+    "Ni ",
+  ),
+  //Fi Leads
+  "fise": (
+    "d",
+    "Fi",
+    "Se",
+  ),
+  "fisi": (
+    "d",
+    "Fi",
+    "Si",
+  ),
+  "fine": (
+    "d",
+    "Fi",
+    "Ne ",
+  ),
+  "fini": (
+    "d",
+    "Fi",
+    "Ni ",
+  ),
+
+
+  //Se Leads
+  "sefi": (
+    "o",
+    "Fi",
+    "Se",
+  ),
+  "seti": (
+    "o",
+    "Ti",
+    "Se",
+  ),
+  "sete": (
+    "o",
+    "Te",
+    "Se ",
+  ),
+  "sefe": (
+    "o",
+    "Fe",
+    "Se ",
+  ),
+  //Ne Leads
+  "nefi": (
+    "o",
+    "Fi",
+    "Ne",
+  ),
+  "neti": (
+    "o",
+    "Ti",
+    "Ne",
+  ),
+  "nete": (
+    "o",
+    "Te",
+    "Ne ",
+  ),
+  "nefe": (
+    "o",
+    "Fe",
+    "Ne ",
+  ),
+  //Ni Leads
+  "nifi": (
+    "o",
+    "Fi",
+    "Ni",
+  ),
+  "niti": (
+    "o",
+    "Ti",
+    "Ni",
+  ),
+  "nite": (
+    "o",
+    "Te",
+    "Ni ",
+  ),
+  "nife": (
+    "o",
+    "Fe",
+    "Ni ",
+  ),
+  //Si Leads
+  "sifi": (
+    "o",
+    "Fi",
+    "Si",
+  ),
+  "siti": (
+    "o",
+    "Ti",
+    "Si",
+  ),
+  "site": (
+    "o",
+    "Te",
+    "Si ",
+  ),
+  "sife": (
+    "o",
+    "Fe",
+    "Si ",
+  ),
+
+);
+
+@each $name, $val in $types {
+  .type-#{$name}::after {
+    //decider
+    content: nth($val, 2);
+    @if (str-index(nth($val, 2), 'F')) {
+      background-color: $feeling-red;
+    } @else {
+      background-color: $thinking-blue;
+    }
+  }
+  .type-#{$name}::before {
+    //observer
+    content: nth($val, 3);
+    @if (str-index(nth($val, 3), 'S')) {
+      background-color: $sensory-green;
+    } @else {
+      background-color: $intuition-yellow;
+    }
+  }
+  @if (nth($val, 1) == "d") {
+    .type-#{$name}::after {
+      //decider
+      height: 1.5rem;
+      width: 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.25rem;
+      z-index: 1;
+    }
+    .type-#{$name}::before {
+      top: 1rem;
+      left: 1rem;
+    }
+  } @else {
+    .type-#{$name}::before {
+      //observer
+      height: 1.5rem;
+      width: 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.25rem;
+      z-index: 1;
+      left: 0.75rem;
+      box-shadow: 3px 2px 5px #333;
+    }
+    .type-#{$name}::after {
+      top: 1rem;
+      box-shadow: 3px 2px 5px #333;
+    }
+  }
+}
+
 .image-col {
   width: 210px;
-//   height: 300px;
+  //   height: 300px;
   padding: 10px 15px;
   // border: 1px solid gray;
   // border-radius: 5px;
@@ -58,23 +301,22 @@
   min-height: 22px;
 }
 
-
 @media (max-width: 600px) {
-    .image-col {
-      width: 170px;
-    }
-    .image-col .image-img {
-        max-width: 150px;
-        max-height: 150px;
-    }
+  .image-col {
+    width: 170px;
+  }
+  .image-col .image-img {
+    max-width: 150px;
+    max-height: 150px;
+  }
 }
 @media (max-width: 450px) {
-    .image-col {
-      width: 145px;
-      padding: 10px 5px;
-    }
-    .image-col .image-img {
-        max-width: 135px;
-        max-height: 150px;
-    }
+  .image-col {
+    width: 145px;
+    padding: 10px 5px;
+  }
+  .image-col .image-img {
+    max-width: 135px;
+    max-height: 150px;
+  }
 }

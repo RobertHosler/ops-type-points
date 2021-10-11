@@ -11,6 +11,9 @@ export class TypeRecordListComponent implements OnInit {
   linkToAnalyzer = false;
 
   @Input()
+  showMolecule = true;
+
+  @Input()
   loading = false;
 
   @Input()
@@ -51,5 +54,13 @@ export class TypeRecordListComponent implements OnInit {
 
   practiceLink(name: string) {
     return '/practice?name=' + name;
+  }
+
+  convert(type: string) {
+    if (type.length === 16) {
+      return 'type-indicator type-' + (type.substring(3,5) + type.substring(6,8)).toLowerCase();
+    } else {
+      return '';
+    }
   }
 }
