@@ -32,7 +32,7 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { TermsComponent } from './terms/terms.component';
 import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: environment.ws_url, options: {} };
+const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
 @NgModule({
   declarations: [
