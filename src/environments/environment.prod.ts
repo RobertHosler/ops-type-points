@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  ws_url: 'https://sp-app-qa.herokuapp.com/'
 };

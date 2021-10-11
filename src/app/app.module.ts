@@ -30,8 +30,9 @@ import { TypeChecklistComponent } from './type-analyzer/type-checklist/type-chec
 import { TypePracticeComponent } from './type-practice/type-practice.component';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { TermsComponent } from './terms/terms.component';
+import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: 'http://localhost:8080', options: {} };
+const config: SocketIoConfig = { url: environment.ws_url, options: {} };
 
 @NgModule({
   declarations: [
