@@ -8,12 +8,27 @@
 </div>
 <div *ngIf="!loading">
   <div class="image-row">
-    <div *ngFor="let typeRecord of typeRecords">
+    <div *ngFor="let typeRecord of typeRecords" class="type-record">
       <div class="image-col" *ngIf="typeRecord.fields.Type">
         <div class="image-text">
           <div class="name-wrapper">
             <div class="image-name">{{ typeRecord.fields.Name }}</div>
-            <div [class]="convert(typeRecord.fields.Type)"></div>
+            <div *ngIf="showMolecule && !displayPracticeLink && typeRecord.fields.Type.length == 16"
+                [class]="convert(typeRecord.fields.Type)">
+              <div [class]="'function-s1 function-' + analyzerLinkSav1(typeRecord.fields.Type).toLowerCase()">
+                {{analyzerLinkSav1(typeRecord.fields.Type)}}
+              </div>
+              <div [class]="'function-s2 function-' + analyzerLinkSav2(typeRecord.fields.Type).toLowerCase()">
+                {{analyzerLinkSav2(typeRecord.fields.Type)}}
+              </div>
+              <div class="animals">
+                <!-- {{analyzerLinkAnimals(typeRecord.fields.Type)}} -->
+                {{animal(typeRecord.fields.Type, 1) + '/' + animal(typeRecord.fields.Type, 2)}}
+              </div>
+              <div [class]="'modality modality-' + analyzerLinkMod(typeRecord.fields.Type).toLowerCase()">
+                {{analyzerLinkMod(typeRecord.fields.Type)}}
+              </div>
+            </div>
           </div>
           <div *ngIf="displayPracticeLink">
             <a
@@ -39,6 +54,7 @@
           <div class="type-wrapper">
             <div class="image-type" *ngIf="!displayPracticeLink">
               <a
+                class="analyzer-link"
                 *ngIf="linkToAnalyzer && typeRecord.fields.Type.length === 16"
                 [routerLink]="['/analyzer']"
                 [queryParams]="{

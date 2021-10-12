@@ -9,6 +9,7 @@
 .name-wrapper {
   display: flex;
   justify-content: space-between;
+  margin-bottom: .5rem;
   .image-name {
     display: flex;
     flex-direction: column;
@@ -19,11 +20,13 @@
 .type-indicator {
   position: relative;
   height: 2.5rem;
-  width: 2.5rem;
+  width: 3rem;
   margin: .25rem;
 }
-.type-indicator::before,
-.type-indicator::after {
+.type-indicator>.function-s1,
+.type-indicator>.function-s2,
+.type-indicator>.animals,
+.type-indicator>.modality {
   height: 1.25rem;
   width: 1.25rem;
   line-height: 1.125rem;
@@ -35,246 +38,71 @@
   text-align: center;
   top: 0px;
   left: 0px;
-  box-shadow: -3px 2px 5px #333;
+  // box-shadow: -3px 2px 5px #333;
 }
-
-$types: (
-  //Fe Leads
-  "fese": (
-    "d",
-    "Fe",
-    "Se",
-  ),
-  "fesi": (
-    "d",
-    "Fe",
-    "Si",
-  ),
-  "fene": (
-    "d",
-    "Fe",
-    "Ne ",
-  ),
-  "feni": (
-    "d",
-    "Fe",
-    "Ni ",
-  ),
-  //Te Leads
-  "tese": (
-    "d",
-    "Te",
-    "Se",
-  ),
-  "tesi": (
-    "d",
-    "Te",
-    "Si",
-  ),
-  "tene": (
-    "d",
-    "Te",
-    "Ne ",
-  ),
-  "teni": (
-    "d",
-    "Te",
-    "Ni ",
-  ),
-  //Ti Leads
-  "tise": (
-    "d",
-    "Ti",
-    "Se",
-  ),
-  "tisi": (
-    "d",
-    "Ti",
-    "Si",
-  ),
-  "tine": (
-    "d",
-    "Ti",
-    "Ne ",
-  ),
-  "tini": (
-    "d",
-    "Ti",
-    "Ni ",
-  ),
-  //Fi Leads
-  "fise": (
-    "d",
-    "Fi",
-    "Se",
-  ),
-  "fisi": (
-    "d",
-    "Fi",
-    "Si",
-  ),
-  "fine": (
-    "d",
-    "Fi",
-    "Ne ",
-  ),
-  "fini": (
-    "d",
-    "Fi",
-    "Ni ",
-  ),
-
-
-  //Se Leads
-  "sefi": (
-    "o",
-    "Fi",
-    "Se",
-  ),
-  "seti": (
-    "o",
-    "Ti",
-    "Se",
-  ),
-  "sete": (
-    "o",
-    "Te",
-    "Se ",
-  ),
-  "sefe": (
-    "o",
-    "Fe",
-    "Se ",
-  ),
-  //Ne Leads
-  "nefi": (
-    "o",
-    "Fi",
-    "Ne",
-  ),
-  "neti": (
-    "o",
-    "Ti",
-    "Ne",
-  ),
-  "nete": (
-    "o",
-    "Te",
-    "Ne ",
-  ),
-  "nefe": (
-    "o",
-    "Fe",
-    "Ne ",
-  ),
-  //Ni Leads
-  "nifi": (
-    "o",
-    "Fi",
-    "Ni",
-  ),
-  "niti": (
-    "o",
-    "Ti",
-    "Ni",
-  ),
-  "nite": (
-    "o",
-    "Te",
-    "Ni ",
-  ),
-  "nife": (
-    "o",
-    "Fe",
-    "Ni ",
-  ),
-  //Si Leads
-  "sifi": (
-    "o",
-    "Fi",
-    "Si",
-  ),
-  "siti": (
-    "o",
-    "Ti",
-    "Si",
-  ),
-  "site": (
-    "o",
-    "Te",
-    "Si ",
-  ),
-  "sife": (
-    "o",
-    "Fe",
-    "Si ",
-  ),
-
-);
-
-@each $name, $val in $types {
-  .type-#{$name}::after {
-    //decider
-    content: nth($val, 2);
-    @if (str-index(nth($val, 2), 'F')) {
-      background-color: $feeling-red;
-    } @else {
-      background-color: $thinking-blue;
-    }
-  }
-  .type-#{$name}::before {
-    //observer
-    content: nth($val, 3);
-    @if (str-index(nth($val, 3), 'S')) {
-      background-color: $sensory-green;
-    } @else {
-      background-color: $intuition-yellow;
-    }
-  }
-  @if (nth($val, 1) == "d") {
-    .type-#{$name}::after {
-      //decider
-      height: 1.5rem;
-      width: 1.5rem;
-      font-size: 0.9rem;
-      line-height: 1.25rem;
-      z-index: 1;
-    }
-    .type-#{$name}::before {
-      top: 1rem;
-      left: 1rem;
-    }
-  } @else {
-    .type-#{$name}::before {
-      //observer
-      height: 1.5rem;
-      width: 1.5rem;
-      font-size: 0.9rem;
-      line-height: 1.25rem;
-      z-index: 1;
-      left: 0.75rem;
-      box-shadow: 3px 2px 5px #333;
-    }
-    .type-#{$name}::after {
-      top: 1rem;
-      box-shadow: 3px 2px 5px #333;
-    }
-  }
+.type-indicator>.function-s1 {
+  height: 1.5rem;
+  width: 1.5rem;
+  font-size: .9rem;
+  line-height: 1.25rem;
+  z-index: 10;
+  font-weight: 600;
+  left: 10px;
+}
+.type-indicator>.function-s2 {
+  top: 1rem;
+  left: 1.6rem;
+  z-index: 9;
+  font-weight: 600;
+}
+.type-indicator>.animals {
+  left: 30px;
+  top: 0px;
+  border-radius: 5px;
+  width: 1.75rem;
+  z-index: 8;
+}
+.type-indicator>.modality {
+  top: 22px;
+  left: 2px;
+  border-radius: 5px;
+  width: 1.75rem;
+}
+.modality-mm {
+  background-color: #9fc5e8;
+}
+.modality-mf {
+  background-color: #cfe2f3;
+}
+.modality-fm {
+  background-color: #ead1dc;
+}
+.modality-ff {
+  background-color: #d5a6bd;
+}
+.function-te,
+.function-ti {
+  background-color: $thinking-blue;
+}
+.function-fe,
+.function-fi {
+  background-color: $feeling-red;
+}
+.function-se,
+.function-si {
+  background-color: $sensory-green;
+}
+.function-ne,
+.function-ni {
+  background-color: $intuition-yellow;
 }
 
 .image-col {
   width: 210px;
-  //   height: 300px;
   padding: 10px 15px;
-  // border: 1px solid gray;
-  // border-radius: 5px;
-  // margin: 10px;
-  // margin-right: -1px;
-  // margin-top: -1px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  // background: $muted-pan-green;
 }
 
 .image-col .image-wrapper {
@@ -305,7 +133,7 @@ $types: (
 .image-col .image-name {
   padding: 2px;
   font-weight: bold;
-  // background: $primary;
+  max-width: 75%;
 }
 .image-type {
   font-weight: bold;
@@ -315,6 +143,12 @@ $types: (
   padding: 2px;
   font-size: 12px;
   min-height: 22px;
+}
+.analyzer-link {
+  color: $secondary;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 @media (max-width: 600px) {
@@ -334,5 +168,16 @@ $types: (
   .image-col .image-img {
     max-width: 135px;
     max-height: 150px;
+  }
+  .name-wrapper {
+    display: block;
+    text-align: center;
+    .type-indicator {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  .image-col .image-name {
+    max-width: 100%;
   }
 }

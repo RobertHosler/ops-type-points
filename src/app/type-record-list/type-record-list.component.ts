@@ -51,13 +51,16 @@ export class TypeRecordListComponent implements OnInit {
     animals = animals.replace('/', '');
     return animals;
   }
+  animal(type: string, i : number) {
+    return this.analyzerLinkAnimals(type).substring(i, i+1);
+  }
 
   practiceLink(name: string) {
     return '/practice?name=' + name;
   }
 
   convert(type: string) {
-    if (this.showMolecule && !this.displayPracticeLink && type.length === 16) {
+    if (type.length === 16) {
       return 'type-indicator type-' + (type.substring(3,5) + type.substring(6,8)).toLowerCase();
     } else {
       return '';
