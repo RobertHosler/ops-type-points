@@ -1,0 +1,309 @@
+@import "~src/assets/variables";
+
+.type-indicator {
+  position: relative;
+  height: 2.5rem;
+  width: 3rem;
+  margin: 0.25rem;
+}
+.type-indicator > .function-s1,
+.type-indicator > .function-s2,
+.type-indicator > .animals,
+.type-indicator > .modality {
+  height: 1.25rem;
+  width: 1.25rem;
+  line-height: 1.125rem;
+  font-size: 0.65rem;
+  position: absolute;
+  border: 1px solid #333;
+  color: #000;
+  border-radius: 100%;
+  text-align: center;
+  top: 0px;
+  left: 0px;
+  // box-shadow: -3px 2px 5px #333;
+}
+.type-indicator > .function-s1 {
+  height: 32px;
+  width: 32px;
+  font-size: 0.9rem;
+  line-height: 26px;
+  z-index: 10;
+  font-weight: 600;
+  left: 0px;
+  top: -6px;
+}
+.type-indicator > .function-s2 {
+  top: 8px;
+  left: 1.6rem;
+  z-index: 9;
+  font-weight: 600;
+  height: 28px;
+  width: 28px;
+  font-size: .8rem;
+  line-height: 1.5rem;
+}
+.type-indicator > .animals {
+  left: 28px;
+  top: -9px;
+  width: 1.75rem;
+  height: 1.45rem;
+  z-index: 8;
+}
+.type-indicator > .modality {
+  top: 20px;
+  left: 4px;
+  width: 1.75rem;
+  height: 1.45rem;
+  line-height: 1.45rem;
+}
+
+.type-table {
+  width: 50px;
+  text-align: center;
+}
+.type-row {
+  display: flex;
+}
+.type-table-1 {
+  $border-radius: 7px;
+  border: 1px solid;
+  border-radius: $border-radius;
+  .type-row > div {
+    width: 50%;
+  }
+  .type-row-1 {
+    height: 1.5rem;
+    line-height: 1.5rem;
+  }
+  .type-row-2 {
+    height: 1.25rem;
+    line-height: 1.25rem;
+  }
+  .type-table-s1 {
+    border-top-left-radius: $border-radius;
+    // border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    font-weight: 600;
+  }
+  .type-table-s2 {
+    border-top-right-radius: $border-radius;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .type-table-mod {
+    border-bottom-left-radius: $border-radius;
+    // border-right: 1px solid black;
+    // border-top: 1px solid black;
+    font-size: 0.7rem;
+  }
+  .type-table-animals {
+    border-bottom-right-radius: $border-radius;
+    border-left: 1px solid black;
+    // border-top: 1px solid black;
+    font-size: 0.7rem;
+  }
+}
+.type-table-2 {
+  position: relative;
+  height: 50px;
+  .type-table-s1 {
+    position: absolute;
+    // border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border: 1px solid black;
+    font-weight: 600;
+    border-radius: 100%;
+    height: 32px;
+    width: 32px;
+    z-index: 5;
+    left: -3px;
+    top: -3px;
+  }
+  .type-table-s2 {
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    border-radius: 100%;
+    border: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    font-size: 0.85rem;
+    font-weight: 600;
+    height: 27px;
+    width: 27px;
+    z-index: 4;
+  }
+  .type-table-mod {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    border: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    font-size: 0.7rem;
+    margin-top: 2px;
+    margin-right: 2px;
+    border-radius: 0px;
+    // height: 25px;
+    width: 25px;
+  }
+  .type-table-animals {
+    position: absolute;
+    right: 0px;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    // border-top: 1px solid black;
+    font-size: 0.7rem;
+    margin-left: 2px;
+    margin-bottom: 2px;
+    border-radius: 0px;
+  }
+}
+
+.type-table-3 {
+  transform: rotate(-10deg);
+  height: 60px;
+  width: 60px;
+  position: relative;
+  .type-table-s1 {
+    width: 34px;
+    height: 34px;
+    line-height: 30px;
+  }
+  .type-table-s2 {
+    width: 32px;
+    height: 32px;
+    line-height: 28px;
+    font-size: 0.9rem;
+  }
+  .type-table-mod,
+  .type-table-animals {
+    width: 42px;
+    height: 40px;
+    font-size: 0.7rem;
+    line-height: 18px;
+  }
+  .type-table-s1,
+  .type-table-s2,
+  .type-table-mod,
+  .type-table-animals {
+    transform: rotate(10deg);
+  }
+  .type-table-s1 {
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    z-index: 5;
+    // border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border: 1px solid black;
+    font-weight: 600;
+    border-radius: 100%;
+  }
+  .type-table-s2 {
+    position: absolute;
+    bottom: 4px;
+    right: 3px;
+    z-index: 4;
+    border-radius: 100%;
+    border: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .type-table-mod {
+    position: absolute;
+    bottom: 8px;
+    left: 1px;
+    z-index: 1;
+    border: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top-right-radius: 35px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 14px;
+    border-bottom-left-radius: 10px;
+    background-color: $light;
+    & > div {
+      margin-top: 21px;
+    }
+  }
+  .type-table-animals {
+    position: absolute;
+    top: 5px;
+    right: 1px;
+    z-index: 1;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    text-align: right;
+    padding-right: 4px;
+    border-top-right-radius: 10px;
+  }
+}
+
+.table-relative {
+  height: 60px;
+  width: 60px;
+  position: relative;
+}
+
+.modality-mm {
+  background-color: #9fc5e8 !important;
+}
+.modality-mf {
+  background-color: #cfe2f3 !important;
+}
+.modality-fm {
+  background-color: #ead1dc !important;
+}
+.modality-ff {
+  background-color: #d5a6bd !important;
+}
+.function-te,
+.function-ti {
+  background-color: $thinking-blue !important;
+}
+.function-fe,
+.function-fi {
+  background-color: $feeling-red !important;
+}
+.function-se,
+.function-si {
+  background-color: $sensory-green !important;
+}
+.function-ne,
+.function-ni {
+  background-color: $intuition-yellow !important;
+}
+
+.animal-CP,
+.animal-PC {
+  background-color: #98e2a4 !important;
+}
+.animal-BS,
+.animal-SB {
+  background-color: #fff4b9 !important;
+}
+.animal-PB,
+.animal-BP {
+  background-color: #ffbecc !important;
+}
+.animal-SC,
+.animal-CS {
+  background-color: #9ce2ff !important;
+}

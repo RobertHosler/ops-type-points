@@ -1,0 +1,78 @@
+<div *ngIf="display">
+  <div *ngIf="option === 1" class="type-indicator mt-2 mr-2">
+    <div [class]="'function-s1 function-' + s1.toLowerCase()">
+      {{ s1 }}
+    </div>
+    <div [class]="'function-s2 function-' + s2.toLowerCase()">
+      {{ s2 }}
+    </div>
+    <div [class]="'animals animal-' + a12">
+      <!-- {{analyzerLinkAnimals(typeRecord.fields.Type)}} -->
+      {{ animals }}
+    </div>
+    <div [class]="'modality modality-' + mod.toLowerCase()">
+      {{ mod }}
+    </div>
+  </div>
+
+  <div *ngIf="option === 2" class="type-table type-table-1 my-3">
+    <div class="type-row type-row-1">
+      <div class="type-table-s1" [class]="'function-' + s1.toLowerCase()">
+        {{ s1 }}
+      </div>
+      <div class="type-table-s2" [class]="'function-' + s2.toLowerCase()">
+        {{ s2 }}
+      </div>
+    </div>
+    <div class="type-row type-row-2">
+      <div class="type-table-mod" [class]="'modality-' + mod.toLowerCase()">
+        {{ mod }}
+      </div>
+      <div class="type-table-animals" [class]="'animal-' + a12">
+        {{ animals }}
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="option === 3" class="type-table type-table-2 my-3">
+    <div class="type-row type-row-1">
+      <div class="type-table-s1" [class]="'function-' + s1.toLowerCase()">
+        {{ s1 }}
+      </div>
+      <div class="type-table-animals" [class]="'animal-' + a12">
+        {{ animals }}
+      </div>
+    </div>
+    <div class="type-row type-row-2">
+      <div class="type-table-mod" [class]="'modality-' + mod.toLowerCase()">
+        {{ mod }}
+      </div>
+      <div class="type-table-s2" [class]="'function-' + s2.toLowerCase()">
+        {{ s2 }}
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="option === 4" class="type-table type-table-3 circular my-3">
+    <div class="type-table-s1" [class]="'function-' + s1.toLowerCase()">
+      <div *ngIf="showLetters">
+        {{ s1 }}
+      </div>
+    </div>
+    <div class="type-table-animals" [class]="'animal-' + a12">
+      <div *ngIf="showLetters">
+        {{ animals }}
+      </div>
+    </div>
+    <div class="type-table-mod" [class]="'modality-' + mod.toLowerCase()">
+      <div *ngIf="showLetters">
+        {{ mod }}
+      </div>
+    </div>
+    <div class="type-table-s2" [class]="'function-' + s2.toLowerCase()">
+      <div *ngIf="showLetters">
+        {{ s2 }}
+      </div>
+    </div>
+  </div>
+</div>

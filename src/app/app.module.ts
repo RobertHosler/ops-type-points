@@ -31,6 +31,7 @@ import { TypePracticeComponent } from './type-practice/type-practice.component';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { TermsComponent } from './terms/terms.component';
 import { environment } from 'src/environments/environment';
+import { TypeIndicatorComponent } from './type-indicator/type-indicator.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -55,7 +56,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     TypeRecordListComponent,
     TypeChecklistComponent,
     TypePracticeComponent,
-    TermsComponent
+    TermsComponent,
+    TypeIndicatorComponent
   ],
   imports: [
     HttpClientModule,

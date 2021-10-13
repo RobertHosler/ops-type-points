@@ -17,6 +17,27 @@
         share these search results with others.
       </p>
     </div>
+    <div class="d-none d-sm-flex my-2">
+      <app-type-indicator [option]="1"></app-type-indicator>
+      <div class="mx-3">
+        <app-type-indicator
+          [option]="1"
+          type="MF-Fe/Ni-BP/C(S)"
+        ></app-type-indicator>
+      </div>
+      <div class="mx-3">
+        <app-type-indicator
+          [option]="1"
+          type="FM-Fi/Se-CS/B(P)"
+        ></app-type-indicator>
+      </div>
+      <div class="mx-3">
+        <app-type-indicator
+          [option]="1"
+          type="FF-Ti/Ni-SB/P(C)"
+        ></app-type-indicator>
+      </div>
+    </div>
     <div>
       <span class="search-type-label">Select Search Type</span>
       <div
@@ -69,7 +90,7 @@
     </div>
   </div>
 
-  <hr class="">
+  <hr class="" />
   <div class="clear-right"></div>
 
   <div class="search-coins mb-5" *ngIf="searchType === 'coins'">
@@ -122,7 +143,7 @@
         </div>
       </div>
       <div class="col-12 d-md-none">
-        <hr >
+        <hr />
       </div>
       <div class="col-md-8">
         <div *ngFor="let cluster of clusters">

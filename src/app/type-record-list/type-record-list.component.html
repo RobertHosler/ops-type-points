@@ -12,22 +12,14 @@
       <div class="image-col" *ngIf="typeRecord.fields.Type">
         <div class="image-text">
           <div class="name-wrapper">
-            <div class="image-name">{{ typeRecord.fields.Name }}</div>
-            <div *ngIf="showMolecule && !displayPracticeLink && typeRecord.fields.Type.length == 16"
-                [class]="convert(typeRecord.fields.Type)">
-              <div [class]="'function-s1 function-' + analyzerLinkSav1(typeRecord.fields.Type).toLowerCase()">
-                {{analyzerLinkSav1(typeRecord.fields.Type)}}
-              </div>
-              <div [class]="'function-s2 function-' + analyzerLinkSav2(typeRecord.fields.Type).toLowerCase()">
-                {{analyzerLinkSav2(typeRecord.fields.Type)}}
-              </div>
-              <div class="animals">
-                <!-- {{analyzerLinkAnimals(typeRecord.fields.Type)}} -->
-                {{animal(typeRecord.fields.Type, 1) + '/' + animal(typeRecord.fields.Type, 2)}}
-              </div>
-              <div [class]="'modality modality-' + analyzerLinkMod(typeRecord.fields.Type).toLowerCase()">
-                {{analyzerLinkMod(typeRecord.fields.Type)}}
-              </div>
+            <div class="image-name">
+              <div class="">{{ typeRecord.fields.Name }}</div>
+            </div>
+            <div *ngIf="showMolecule && !displayPracticeLink">
+              <app-type-indicator
+                [option]="1"
+                [type]="typeRecord.fields.Type"
+              ></app-type-indicator>
             </div>
           </div>
           <div *ngIf="displayPracticeLink">
