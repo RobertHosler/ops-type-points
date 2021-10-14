@@ -16,4 +16,11 @@ listUrl.searchParams.append('fields', 'Picture');
 const urlMap = new Map();
 urlMap.set('list', listUrl);
 
+// Exclude select names
+const exclusionsList = ['Jesus'];
+// Include select community members
+const inclusionsList = ['Roqb Hosler'];
+
 exports.urlMap = urlMap;
+exports.exclusions = exclusionsList;
+exports.inclusions = inclusionsList;

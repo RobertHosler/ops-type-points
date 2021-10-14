@@ -129,10 +129,6 @@ getData(definitionsUrl, convertDefinitionsResult);
 const typeMap = new Map();
 const nameMap = new Map();
 
-const personExclusions = ['Jesus'];
-const tagExclusions = ['Community Member'];
-const communityInclusions = ['Roqb Hosler'];
-
 function convertPersonListResult(json) {
   const result = JSON.parse(json);
   const typeRecords = result.records;
@@ -143,18 +139,18 @@ function convertPersonListResult(json) {
       pictureUrl: record.fields.Picture && record.fields.Picture.length > 0 ? record.fields.Picture[0].url : '',
       tags: record.fields.Tags
     };
-    if (personExclusions.includes(record.fields.Name)) {
+    if (typedPersons.exclusions.includes(record.fields.Name)) {
       return;
     }
     let tagExclusionFound = false;
     if (record.fields.Tags) {
       record.fields.Tags.forEach(tag => {
-        if (tagExclusions.includes(tag)) {
+        if (tag === 'Community Member') {
           tagExclusionFound = true;
         }
       });
     }
-    if (tagExclusionFound && !communityInclusions.includes(record.fields.Name)) {
+    if (tagExclusionFound && !typedPersons.inclusions.includes(record.fields.Name)) {
       return;
     }
     if (record.fields.Type) {
