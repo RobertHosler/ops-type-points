@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OpsDataService, Source, Term } from '../service/ops-data.service';
+import { OpsDataService, Source, Term, TypedPerson } from '../service/ops-data.service';
 
 @Component({
   selector: 'app-terms',
@@ -11,6 +11,7 @@ export class TermsComponent implements OnInit {
   terms: Map<string, Term>;
   sources: Map<string, Source>;
   activeSource: string;
+  allNames: Map<string, TypedPerson>;
 
   constructor(private opsDataService: OpsDataService) {
     opsDataService.allTerms.subscribe((result) => {
@@ -18,6 +19,9 @@ export class TermsComponent implements OnInit {
     });
     opsDataService.allSources.subscribe((result) => {
       this.sources = result;
+    });
+    opsDataService.allNames.subscribe((result) => {
+      this.allNames = result;
     });
   }
 

@@ -18,23 +18,31 @@ export class OpsDataService {
   allTerms: Observable<Map<string, Term>>;
   allSources: Observable<Map<string, Source>>;
 
+  allTypes: Observable<Map<string, TypedPerson>>;
+  allNames: Observable<Map<string, TypedPerson>>;
+
   constructor(private httpClient: HttpClient, private socket: Socket) {
     this.allTerms = new Observable((observer) => {
       socket.on('terms', (terms) => {
-        console.log('terms');
         let map = new Map<string, Term>(terms);
         observer.next(map);
       });
       socket.emit('getTerms');
     });
     this.allSources = new Observable((observer) => {
-      socket.on('sources', (terms) => {
-        console.log('sources');
-        let map = new Map<string, Source>(terms);
+      socket.on('sources', (sources) => {
+        let map = new Map<string, Source>(sources);
         map.delete("");
         observer.next(map);
       });
       socket.emit('getSources');
+    });
+    this.allNames = new Observable((observer) => {
+      socket.on('nameMap', (names) => {
+        let map = new Map<string, TypedPerson>(names);
+        observer.next(map);
+      });
+      socket.emit('getNames');
     });
   }
 
@@ -194,4 +202,11 @@ export class Source {
 export class SourceDefinition {
   term: string;
   definition: string;
+}
+
+export class TypedPerson {
+  name: string;
+  pictureUrl: string;
+  type: string;
+  tags: string[];
 }

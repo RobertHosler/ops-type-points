@@ -4,7 +4,7 @@ const opsKey = process.env.OP_DATABASE_KEY || require('./local-api').key;
 const TERMS_HOST = 'https://api.airtable.com/v0/appU0Gx0zVVLeMYUe/';
 const MAX_RECORD = 10000;
 
-const termsUrl = new URL(TERMS_HOST + '/Terms');
+const termsUrl = new URL(TERMS_HOST + 'Terms');
 termsUrl.searchParams.append('api_key', opsKey);
 termsUrl.searchParams.append('maxRecords', MAX_RECORD);
 termsUrl.searchParams.append('view', 'Standard Grid');
