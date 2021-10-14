@@ -16,20 +16,27 @@ export class OpsDataService {
 
   allRecords: TypeRoot;
   allTerms: Observable<Map<string, Term>>;
-  // allSources: Term;
+  allSources: Observable<Map<string, Source>>;
 
-  constructor(private httpClient: HttpClient,
-    private socket: Socket) {
-      this.allTerms = new Observable((observer) => {
-        // socket.emit('getRecords');
-        socket.on('terms', terms => {
-          console.log('terms');
-          let map = new Map<string, Term>(terms);
-          observer.next(map);
-        });
-        socket.emit('getTerms');
+  constructor(private httpClient: HttpClient, private socket: Socket) {
+    this.allTerms = new Observable((observer) => {
+      socket.on('terms', (terms) => {
+        console.log('terms');
+        let map = new Map<string, Term>(terms);
+        observer.next(map);
       });
-    }
+      socket.emit('getTerms');
+    });
+    this.allSources = new Observable((observer) => {
+      socket.on('sources', (terms) => {
+        console.log('sources');
+        let map = new Map<string, Source>(terms);
+        map.delete("");
+        observer.next(map);
+      });
+      socket.emit('getSources');
+    });
+  }
 
   getGreeting(): Observable<Greeting> {
     return this.httpClient.get<Greeting>(this.baseUrl + this.greetingPath, {
@@ -178,4 +185,13 @@ export class Definition {
   definition: string;
   sourceName?: string;
   sourceUrl?: string;
+}
+
+export class Source {
+  definitions: SourceDefinition[];
+  url: string;
+}
+export class SourceDefinition {
+  term: string;
+  definition: string;
 }

@@ -1,33 +1,85 @@
 <div class="container">
   <h1>Objective Personality <span class="sp-branding">Terms</span></h1>
   <div class="mb-3">
-    Be sure to also check out the <a href="https://opscienceclub.com/op-term-dictionary/" target="_blank">OP Dictionary</a> from our friends at OP Science Club.
+    Be sure to also check out the
+    <a href="https://opscienceclub.com/op-term-dictionary/" target="_blank"
+      >OP Dictionary</a
+    >
+    from our friends at OP Science Club.
   </div>
   <div class="options mb-3">
-    <button class="btn btn-sm toggle-btn"
-        [ngClass]="{ active: showSources }"
-        (click)="showSources = !showSources">{{ showSources ? 'Hide Sources' : 'Show Sources'}}</button>
+    <button
+      class="btn btn-sm toggle-btn"
+      [ngClass]="{ active: showSources }"
+      (click)="showSources = !showSources"
+    >
+      {{ showSources ? "Hide Sources" : "Show Sources" }}
+    </button>
   </div>
-  <div *ngFor="let term of terms | keyvalue">
-    <strong>{{ term.key }}</strong>
-    <ol class="definitions-list">
-      <li *ngFor="let definition of term.value.definitions; let i = index">
-        {{ definition.definition }}
-        <span class="source" *ngIf="showSources && definition.sourceName">
-          - from
+  <div *ngIf="showSources" class="source-selection mb-3">
+    <div class="small ml-1 mb-1">
+      Select a source to view definitions from that source only.
+    </div>
+    <span *ngFor="let source of sources | keyvalue">
+      <button
+        class="btn btn-gray"
+        *ngIf="source.value.definitions.length > 1"
+        [ngClass]="{ active: source.key === activeSource }"
+        (click)="selectSource(source.key)"
+      >
+        {{ source.key }}
+      </button>
+    </span>
+    <div>
+      <button class="btn btn-sm btn-secondary" (click)="selectSource()">
+        Clear Source
+      </button>
+    </div>
+  </div>
+  <div *ngIf="activeSource">
+    <ng-container *ngFor="let source of sources | keyvalue">
+      <ng-container *ngIf="source.key === activeSource">
+        <div class="mb-3">
+          <span class="small">Showing definitions from <strong>{{ source.key }}</strong></span>
           <a
-            *ngIf="definition.sourceUrl"
-            [href]="definition.sourceUrl"
+            *ngIf="source.value.url"
+            class="ml-2"
+            [href]="source.value.url"
             target="_blank"
+            >View Source</a
           >
-            {{ definition.sourceName }}
-          </a>
-          <span *ngIf="!definition.sourceUrl">
-            {{ definition.sourceName }}</span
-          >
-        </span>
-      </li>
-    </ol>
-    <hr />
+        </div>
+        <ul class="sources-list">
+          <li *ngFor="let definition of source.value.definitions">
+            <strong>{{ definition.term }}</strong>
+            <div class="ml-3">{{ definition.definition }}</div>
+          </li>
+        </ul>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div *ngIf="!activeSource">
+    <div *ngFor="let term of terms | keyvalue">
+      <strong>{{ term.key }}</strong>
+      <ol class="definitions-list">
+        <li *ngFor="let definition of term.value.definitions; let i = index">
+          {{ definition.definition }}
+          <span class="source" *ngIf="showSources && definition.sourceName">
+            - from
+            <a
+              *ngIf="definition.sourceUrl"
+              [href]="definition.sourceUrl"
+              target="_blank"
+            >
+              {{ definition.sourceName }}
+            </a>
+            <span *ngIf="!definition.sourceUrl">
+              {{ definition.sourceName }}</span
+            >
+          </span>
+        </li>
+      </ol>
+      <hr />
+    </div>
   </div>
 </div>

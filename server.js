@@ -1,42 +1,4 @@
 /*jshint esversion: 6 */
-
-//Install express server
-// const express = require('express');
-// const http = require('http');
-// const path = require('path');
-// const {Server} = require('socket.io');
-
-// const app = express();
-
-// var server = http.createServer(app);
-// var io = new Server(server);
-
-// app.get('/*', function(req, res) {
-//   res.sendFile('index.html', {root: 'dist/ops-type-points/'});
-// });
-
-// io.on('connection', function(socket) {
-//   console.log("new socket");
-//   sockets.push(socket);
-  
-//   socket.on('disconnect', function() {
-//     console.log("removed socket");
-//     sockets.splice(sockets.indexOf(socket), 1);
-//   });
-// });
-
-// Start the app by listening on the default Heroku port
-// server.listen(process.env.PORT || 8080);
-
-// Serve only the static files form the dist directory
-
-// const server = express()
-//   .use((req, res) => res.sendFile(INDEX, { root: 'dist/ops-type-points' }))
-//   .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-// const io = new Server(server);
-
-
 const express = require("express");
 const app = express();
 const http = require("http");
@@ -69,13 +31,6 @@ const termMap = new Map();
 // Build sources map, source -> list of definitions
 // Build sources list, list of source names (keys to the map)
 const sourceMap = new Map();
-sourceMap.set('sourceName', {
-  definitions: [{
-    term: '',
-    definition: ''
-  }],
-  url: ''
-});
 
 const tenCoins = '/tenCoins?maxRecords=10000';
 
@@ -95,7 +50,6 @@ function getData(url, callback, offset) {
   
     //the whole response has been received, so we just print it out here
     response.on('end', () => {
-      // console.log(str);
       callback(str);
     });
   }).end();
@@ -182,19 +136,6 @@ io.on('connection', function(socket) {
     console.log("removed socket");
     sockets.splice(sockets.indexOf(socket), 1);
   });
-
-  // socket.on('getRecords', () => {
-  //   if (!records) {
-  //     records = 'placeholder';
-  //     console.log('getting records');
-  //     getData(tenCoins, data => {
-  //       records = JSON.parse(data);
-  //       broadcast('records', records);
-  //     });
-  //   } else {
-  //     socket.emit('records', records);
-  //   }
-  // });
 
   socket.on('getTerms', () => {
     socket.emit('terms', Array.from(termMap));
