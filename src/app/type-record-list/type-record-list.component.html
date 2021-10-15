@@ -7,37 +7,26 @@
   />
 </div>
 
-<div *ngIf="false">
-  <!-- <div *ngFor="let person of allNames | keyvalue" class="mb-3">
-    <div>{{ person.key }}</div>
-    <div>{{ person.value.type }}</div>
-    <div>{{ person.value.tags }}</div>
-    <div>
-      <img [src]="person.value.pictureUrl" style="max-height: 150px" />
-    </div>
-  </div> -->
-</div>
-
 <div *ngIf="!loading">
   <div class="image-row">
     <div *ngFor="let typeRecord of typeRecords" class="type-record">
-      <div class="image-col" *ngIf="typeRecord.fields.Type">
+      <div class="image-col" *ngIf="typeRecord.type">
         <div class="image-text">
           <div class="name-wrapper">
             <div class="image-name">
-              <div class="">{{ typeRecord.fields.Name }}</div>
+              <div class="">{{ typeRecord.name }}</div>
             </div>
             <div *ngIf="showMolecule && !displayPracticeLink">
               <app-type-indicator
                 [option]="1"
-                [type]="typeRecord.fields.Type"
+                [type]="typeRecord.type"
               ></app-type-indicator>
             </div>
           </div>
           <div *ngIf="displayPracticeLink">
             <a
               [routerLink]="['/practice']"
-              [queryParams]="{ name: typeRecord.fields.Name }"
+              [queryParams]="{ name: typeRecord.name }"
               >Practice Typing</a
             >
           </div>
@@ -45,12 +34,12 @@
         <div class="image-wrapper">
           <div
             *ngIf="
-              typeRecord.fields.Picture && typeRecord.fields.Picture.length > 0
+              typeRecord.pictureUrl
             "
             class="image-img"
             [ngStyle]="{
               'background-image':
-                'url(' + typeRecord.fields.Picture[0].url + ')'
+                'url(' + typeRecord.pictureUrl + ')'
             }"
           ></div>
         </div>
@@ -59,24 +48,24 @@
             <div class="image-type" *ngIf="!displayPracticeLink">
               <a
                 class="analyzer-link"
-                *ngIf="linkToAnalyzer && typeRecord.fields.Type.length === 16"
+                *ngIf="linkToAnalyzer && typeRecord.type.length === 16"
                 [routerLink]="['/analyzer']"
                 [queryParams]="{
-                  s1: analyzerLinkSav1(typeRecord.fields.Type),
-                  s2: analyzerLinkSav2(typeRecord.fields.Type),
-                  a: analyzerLinkAnimals(typeRecord.fields.Type),
-                  m: analyzerLinkMod(typeRecord.fields.Type)
+                  s1: analyzerLinkSav1(typeRecord.type),
+                  s2: analyzerLinkSav2(typeRecord.type),
+                  a: analyzerLinkAnimals(typeRecord.type),
+                  m: analyzerLinkMod(typeRecord.type)
                 }"
-                >{{ typeRecord.fields.Type }}</a
+                >{{ typeRecord.type }}</a
               >
               <span
-                *ngIf="!linkToAnalyzer || typeRecord.fields.Type.length !== 16"
-                >{{ typeRecord.fields.Type }}</span
+                *ngIf="!linkToAnalyzer || typeRecord.type.length !== 16"
+                >{{ typeRecord.type }}</span
               >
             </div>
           </div>
           <div class="image-tags">
-            <div *ngFor="let tag of typeRecord.fields.Tags">
+            <div *ngFor="let tag of typeRecord.tags">
               {{ tag }}
             </div>
           </div>
