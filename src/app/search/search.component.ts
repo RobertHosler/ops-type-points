@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Coin, coinMap, coinSideMap } from '../model/coin';
 import {
   OpsDataService,
@@ -39,21 +40,29 @@ export class SearchComponent implements OnInit {
   modalityClusters = searchModel.modalityClusters;
   clusters = searchModel.clusters;
 
-  allNames: Map<string, TypedPerson> = new Map();
+  allNames: Map<string, TypedPerson>;
+
+  routerInit = false;
 
   constructor(
     private opsDataService: OpsDataService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    opsDataService.allNames.subscribe((result) => {
+    this.opsDataService.allNames.subscribe((result) => {
       this.allNames = result;
-      this.displayedRecords = Array.from(this.allNames.values());
+      if (!this.routerInit) {
+        this.routerInit = true;
+        this.initRouter();
+      }
     });
   }
 
   ngOnInit(): void {
     this.initOptions();
+  }
+
+  private initRouter() {
     this.route.queryParamMap.subscribe((params) => {
       if (params.get('name')) {
         this.nameString = params.get('name');
@@ -162,14 +171,19 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmitName(form: NgForm) {
+    if (this.searchLoading || !this.nameString) {
+      return;
+    }
     this.searchLoading = true;
     this.displayedRecords = [];
-    this.allNames.forEach((value, key) => {
-      if (value.name.toLowerCase().includes(this.nameString.toLowerCase())) {
-        this.displayedRecords.push(value);
-      }
-    });
-    this.searchLoading = false;
+    setTimeout(() => {
+      this.allNames.forEach((value, key) => {
+        if (value.name.toLowerCase().includes(this.nameString.toLowerCase())) {
+          this.displayedRecords.push(value);
+        }
+      });
+      this.searchLoading = false;
+    }, 200);
     const queryParams: Params = {
       name: this.nameString,
       type: null,
@@ -185,17 +199,22 @@ export class SearchComponent implements OnInit {
   }
 
   onSubmitType(form: NgForm) {
+    if (this.searchLoading || !this.typeString) {
+      return;
+    }
     this.searchLoading = true;
     this.displayedRecords = [];
-    this.allNames.forEach((value, key) => {
-      if (
-        value.type &&
-        value.type.toLowerCase().includes(this.typeString.toLowerCase())
-      ) {
-        this.displayedRecords.push(value);
-      }
-    });
-    this.searchLoading = false;
+    setTimeout(() => {
+      this.allNames.forEach((value, key) => {
+        if (
+          value.type &&
+          value.type.toLowerCase().includes(this.typeString.toLowerCase())
+        ) {
+          this.displayedRecords.push(value);
+        }
+      });
+      this.searchLoading = false;
+    }, 200);
     const queryParams: Params = {
       name: null,
       type: this.typeString,
@@ -215,86 +234,91 @@ export class SearchComponent implements OnInit {
   }
 
   searchCoins() {
+    if (this.searchLoading) {
+      return;
+    }
     this.searchLoading = true;
     this.displayedRecords = [];
-    this.allNames.forEach((value, key) => {
-      if (
-        this.options.get('hn1').val &&
-        this.options.get('hn1').val !== value.coreNeed
-      ) {
-        return;
-      }
-      if (
-        this.options.get('dhn').val &&
-        this.options.get('dhn').val !== value.deciderNeed
-      ) {
-        return;
-      }
-      if (
-        this.options.get('ohn').val &&
-        this.options.get('ohn').val !== value.observerNeed
-      ) {
-        return;
-      }
-      if (
-        this.options.get('ol').val &&
-        this.options.get('ol').val !== value.observerLetter
-      ) {
-        return;
-      }
-      if (
-        this.options.get('dl').val &&
-        this.options.get('dl').val !== value.deciderLetter
-      ) {
-        return;
-      }
-      if (
-        this.options.get('ia').val &&
-        this.options.get('ia').val !== value.infoAnimal
-      ) {
-        return;
-      }
-      if (
-        this.options.get('ea').val &&
-        this.options.get('ea').val !== value.energyAnimal
-      ) {
-        return;
-      }
-      if (
-        this.options.get('dom').val &&
-        this.options.get('dom').val !== value.animalBalance
-      ) {
-        return;
-      }
-      if (
-        this.options.get('smod').val &&
-        this.options.get('smod').val !== value.sensoryMod
-      ) {
-        return;
-      }
-      if (
-        this.options.get('demod').val &&
-        this.options.get('demod').val !== value.deMod
-      ) {
-        return;
-      }
-      if (
-        this.options.get('sex').val &&
-        ((!value.trans && this.options.get('sex').val !== value.sex) ||
-        (value.trans && this.options.get('sex').val === value.sex))
-      ) {
-        return;
-      }
-      if (
-        this.options.get('co').val === 'Class Only' &&
-        value.tags &&
-        !value.tags.includes('Class Typing')
-      ) {
-        return;
-      }
-      this.displayedRecords.push(value);
-    });
-    this.searchLoading = false;
+    setTimeout(() => {
+      this.allNames.forEach((value, key) => {
+        if (
+          this.options.get('hn1').val &&
+          this.options.get('hn1').val !== value.coreNeed
+        ) {
+          return;
+        }
+        if (
+          this.options.get('dhn').val &&
+          this.options.get('dhn').val !== value.deciderNeed
+        ) {
+          return;
+        }
+        if (
+          this.options.get('ohn').val &&
+          this.options.get('ohn').val !== value.observerNeed
+        ) {
+          return;
+        }
+        if (
+          this.options.get('ol').val &&
+          this.options.get('ol').val !== value.observerLetter
+        ) {
+          return;
+        }
+        if (
+          this.options.get('dl').val &&
+          this.options.get('dl').val !== value.deciderLetter
+        ) {
+          return;
+        }
+        if (
+          this.options.get('ia').val &&
+          this.options.get('ia').val !== value.infoAnimal
+        ) {
+          return;
+        }
+        if (
+          this.options.get('ea').val &&
+          this.options.get('ea').val !== value.energyAnimal
+        ) {
+          return;
+        }
+        if (
+          this.options.get('dom').val &&
+          this.options.get('dom').val !== value.animalBalance
+        ) {
+          return;
+        }
+        if (
+          this.options.get('smod').val &&
+          this.options.get('smod').val !== value.sensoryMod
+        ) {
+          return;
+        }
+        if (
+          this.options.get('demod').val &&
+          this.options.get('demod').val !== value.deMod
+        ) {
+          return;
+        }
+        if (
+          this.options.get('sex').val &&
+          ((!value.trans && this.options.get('sex').val !== value.sex) ||
+            (value.trans && this.options.get('sex').val === value.sex))
+        ) {
+          return;
+        }
+        if (
+          this.options.get('co').val === 'Class Only' &&
+          value.tags &&
+          !value.tags.includes('Class Typing')
+        ) {
+          return;
+        }
+        this.displayedRecords.push(value);
+      });
+      this.searchLoading = false;
+    }, 200);
     const queryParams: Params = {
       name: null,
       type: null,
