@@ -310,8 +310,8 @@ export class SearchComponent implements OnInit {
         }
         if (
           this.options.get('co').val === 'Class Only' &&
-          value.tags &&
-          !value.tags.includes('Class Typing')
+          (!value.tags ||
+          !value.tags.includes('Class Typing'))
         ) {
           return;
         }
