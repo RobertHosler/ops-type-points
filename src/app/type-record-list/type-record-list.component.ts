@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TypeRecord } from '../service/ops-data.service';
+import { TypedPerson, TypeRecord } from '../service/ops-data.service';
 
 @Component({
   selector: 'app-type-record-list',
@@ -17,7 +17,7 @@ export class TypeRecordListComponent implements OnInit {
   loading = false;
 
   @Input()
-  typeRecords: TypeRecord[];
+  typeRecords: TypedPerson[];
 
   @Input()
   notFoundMessage = 'Sorry, no type records found';

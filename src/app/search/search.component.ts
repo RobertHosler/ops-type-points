@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Coin, coinMap, coinSideMap } from '../model/coin';
 import {
   OpsDataService,
+  TypedPerson,
   TypeRecord,
   TypeRoot,
 } from '../service/ops-data.service';
@@ -18,7 +19,7 @@ export class SearchComponent implements OnInit {
   nameString: string;
   typeString: string;
 
-  displayedRecords: TypeRecord[];
+  displayedRecords: TypedPerson[];
   maxRecords = 10000;
 
   isMaxRecords = false;
@@ -38,11 +39,18 @@ export class SearchComponent implements OnInit {
   modalityClusters = searchModel.modalityClusters;
   clusters = searchModel.clusters;
 
+  allNames: Map<string, TypedPerson> = new Map();
+
   constructor(
     private opsDataService: OpsDataService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    opsDataService.allNames.subscribe((result) => {
+      this.allNames = result;
+      this.displayedRecords = Array.from(this.allNames.values());
+    });
+  }
 
   ngOnInit(): void {
     this.initOptions();
@@ -155,13 +163,13 @@ export class SearchComponent implements OnInit {
 
   onSubmitName(form: NgForm) {
     this.searchLoading = true;
-    this.opsDataService
-      .getName(this.maxRecords, this.nameString)
-      .subscribe((result: TypeRoot) => {
-        this.displayedRecords = result.records;
-        this.isMaxRecords = result.records.length >= this.maxRecords;
-        this.searchLoading = false;
-      });
+    this.displayedRecords = [];
+    this.allNames.forEach((value, key) => {
+      if (value.name.toLowerCase().includes(this.nameString.toLowerCase())) {
+        this.displayedRecords.push(value);
+      }
+    });
+    this.searchLoading = false;
     const queryParams: Params = {
       name: this.nameString,
       type: null,
@@ -178,13 +186,13 @@ export class SearchComponent implements OnInit {
 
   onSubmitType(form: NgForm) {
     this.searchLoading = true;
-    this.opsDataService
-      .getType(this.maxRecords, this.typeString)
-      .subscribe((result: TypeRoot) => {
-        this.displayedRecords = result.records;
-        this.isMaxRecords = result.records.length >= this.maxRecords;
-        this.searchLoading = false;
-      });
+    this.displayedRecords = [];
+    this.allNames.forEach((value, key) => {
+      if (value.type && value.type.toLowerCase().includes(this.typeString.toLowerCase())) {
+        this.displayedRecords.push(value);
+      }
+    });
+    this.searchLoading = false;
     const queryParams: Params = {
       name: null,
       type: this.typeString,
@@ -205,37 +213,19 @@ export class SearchComponent implements OnInit {
 
   searchCoins() {
     this.searchLoading = true;
-    this.opsDataService
-      .getCoins(
-        this.maxRecords,
-        this.options.get('hn1').val,
-        this.options.get('ohn').val,
-        this.options.get('dhn').val,
-        this.options.get('ol').val,
-        this.options.get('dl').val,
-        this.options.get('ia').val,
-        this.options.get('ea').val,
-        this.options.get('dom').val,
-        this.options.get('smod').val,
-        this.options.get('demod').val,
-        this.options.get('sex').val
-      )
-      .subscribe((result: TypeRoot) => {
-        if (this.options.get('co').val === 'Class Only') {
-          this.displayedRecords = [];
-          result.records.forEach((record) => {
-            if (
-              record.fields.Tags &&
-              record.fields.Tags.includes('Class Typing')
-            ) {
-              this.displayedRecords.push(record);
-            }
-          });
-        } else {
-          this.displayedRecords = result.records;
-        }
-        this.searchLoading = false;
-      });
+    this.displayedRecords = [];
+    this.allNames.forEach((value, key) => {
+      if (
+        this.options.get('co').val === 'Class Only' &&
+        value.tags &&
+        value.tags.includes('Class Typing')
+      ) {
+        this.displayedRecords.push(value);
+      } else {
+        this.displayedRecords.push(value);
+      }
+    });
+    this.searchLoading = false;
     const queryParams: Params = {
       name: null,
       type: null,
