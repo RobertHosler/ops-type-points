@@ -180,33 +180,27 @@
           <button
             class="btn btn-gray mr-2"
             (click)="twin('modality')"
-            [ngClass]="{ active: twinType === 'modality' }"
+            [ngClass]="{ active: twinMod }"
           >
             Ignoring Modality
           </button>
           <button
             class="btn btn-gray mr-2"
             (click)="twin('core-need')"
-            [ngClass]="{ active: twinType === 'core-need' }"
+            [ngClass]="{ active: twinNeed }"
           >
             Ignoring OO/DD
           </button>
           <button
             class="btn btn-gray mr-2"
             (click)="twin('info-energy')"
-            [ngClass]="{ active: twinType === 'info-energy' }"
+            [ngClass]="{ active: twinDom }"
           >
             Ignoring Info/Energy
           </button>
-          <button
-            class="btn btn-gray mr-2"
-            (click)="twin('exact')"
-            [ngClass]="{ active: twinType === 'exact' }"
-          >
-            Exact Only
-          </button>
         </div>
         <app-type-record-list
+          style="min-height: 300px;"
           [typeRecords]="twinPersons"
           [showMolecule]="true"
           [loading]="typeTwinsLoading"

@@ -40,6 +40,9 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
 
   typeTwinsLoading = false;
   twinType = 'modality';
+  twinMod = true;
+  twinNeed = false;
+  twinDom = false;
 
   validModalities: string[] = ['MM', 'MF', 'FM', 'FF'];
 
@@ -198,18 +201,15 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
     this.twinPersons = [];
     setTimeout(() => {
       if (this.allTypes && type) {
-        switch (this.twinType) {
-          case 'core-need':
-            this.fetchNeedTwins(type);
-            break;
-          case 'info-energy':
-            this.fetchDomTwins(type);
-            break;
-          case 'exact':
-            this.fetchExactTwins(type);
-            break;
-          default:
-            this.fetchModTwins(type);
+        this.fetchExactTwins(type);
+        if (this.twinMod) {
+          this.fetchModTwins(type);
+        }
+        if (this.twinNeed) {
+          this.fetchNeedTwins(type);
+        }
+        if (this.twinDom) {
+          this.fetchDomTwins(type);
         }
         this.typeTwinsLoading = false;
       } else {
@@ -218,63 +218,53 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
         }, 200);
       }
       this.typeTwinsLoading = false;
-    }, 200);
+    }, 0);
   }
 
   private fetchModTwins(type: OpsType) {
-    let mfKey =
-      'MF-' +
-      type.s1String +
-      '/' +
-      type.s2String +
-      '-' +
-      type.animalStringFormal;
-    this.concatTwins(
-      'MM-' +
+    let mod = ['MM', 'MF', 'FF', 'FM'];
+    mod.forEach((m) => {
+      if (m === type.modalityString) {
+        return; // skip exact
+      }
+      var tempType = new OpsType(
+        m,
+        this.s1String,
+        this.s2String,
+        this.animalString
+      );
+      let mfKey =
+        m +
+        '-' +
         type.s1String +
         '/' +
         type.s2String +
         '-' +
-        type.animalStringFormal
-    );
-    this.concatTwins(mfKey);
-    this.concatTwins(
-      'FF-' +
-        type.s1String +
-        '/' +
-        type.s2String +
-        '-' +
-        type.animalStringFormal
-    );
-    this.concatTwins(
-      'FM-' +
-        type.s1String +
-        '/' +
-        type.s2String +
-        '-' +
-        type.animalStringFormal
-    );
+        type.animalStringFormal;
+      this.concatTwins(mfKey);
+      if (this.twinNeed) {
+        this.fetchNeedTwins(tempType);
+      }
+      if (this.twinDom) {
+        this.fetchDomTwins(tempType);
+      }
+    });
   }
 
   private fetchNeedTwins(type: OpsType) {
+    const saviorAlt = type.s2String + '/' + type.s1String;
     this.concatTwins(
-      type.modalityString +
-        '-' +
-        type.s1String +
-        '/' +
-        type.s2String +
-        '-' +
-        type.animalStringFormal
+      type.modalityString + '-' + saviorAlt + '-' + type.animalStringFormal
     );
-    this.concatTwins(
-      type.modalityString +
-        '-' +
-        type.s2String +
-        '/' +
-        type.s1String +
-        '-' +
-        type.animalStringFormal
-    );
+    if (this.twinDom) {
+      var tempType = new OpsType(
+        type.modalityString,
+        type.s2String,
+        type.s1String,
+        type.animalString
+      );
+      this.fetchDomTwins(tempType);
+    }
   }
 
   private fetchDomTwins(type: OpsType) {
@@ -286,15 +276,6 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
       '(' +
       type.animalStack[2] +
       ')';
-    this.concatTwins(
-      type.modalityString +
-        '-' +
-        type.s1String +
-        '/' +
-        type.s2String +
-        '-' +
-        type.animalStringFormal
-    );
     this.concatTwins(
       type.modalityString +
         '-' +
@@ -318,7 +299,17 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   }
 
   twin(type: string) {
-    this.twinType = type;
+    switch (type) {
+      case 'core-need':
+        this.twinNeed = !this.twinNeed;
+        break;
+      case 'modality':
+        this.twinMod = !this.twinMod;
+        break;
+      case 'info-energy':
+        this.twinDom = !this.twinDom;
+        break;
+    }
     var opType = new OpsType(
       this.modalityString,
       this.s1String,
