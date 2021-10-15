@@ -4,7 +4,11 @@ import { OpsTypeService } from './ops-type.service';
 import { OpsType } from './ops-type';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
-import { OpsDataService, TypedPerson, TypeRoot } from '../service/ops-data.service';
+import {
+  OpsDataService,
+  TypedPerson,
+  TypeRoot,
+} from '../service/ops-data.service';
 
 @Component({
   selector: 'app-type-analyzer',
@@ -17,8 +21,10 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   opsTypes: OpsType[];
   private opsTypesSub: Subscription;
 
-  opsCodeLink = 'https://subjectivepersonality.wordpress.com/2021/04/30/the-objective-personality-type-code/';
-  whatIsOpsLink = 'https://subjectivepersonality.wordpress.com/2020/08/19/what-is-ops/';
+  opsCodeLink =
+    'https://subjectivepersonality.wordpress.com/2021/04/30/the-objective-personality-type-code/';
+  whatIsOpsLink =
+    'https://subjectivepersonality.wordpress.com/2020/08/19/what-is-ops/';
 
   modalityString: string;
   s1String: string;
@@ -33,6 +39,7 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   typeValid: boolean;
 
   typeTwinsLoading = false;
+  twinType = 'modality';
 
   validModalities: string[] = ['MM', 'MF', 'FM', 'FF'];
 
@@ -163,19 +170,22 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
         this.opsTypeService.addOpsType(type);
         this.fetchTwins(type);
 
-        this.opsDataService.getRecords(type.s1String, type.s2String, type.animalStringFormal).subscribe(
-          (result:TypeRoot) => {
+        this.opsDataService
+          .getRecords(type.s1String, type.s2String, type.animalStringFormal)
+          .subscribe((result: TypeRoot) => {
             type.twins = result.records;
             // console.log(result.records);
-          }
-        );
-      const queryParams: Params = { m: this.modalityString, s1: this.s1String, s2: this.s2String, a: this.animalString };
-      this.router.navigate(
-        [], 
-        {
+          });
+        const queryParams: Params = {
+          m: this.modalityString,
+          s1: this.s1String,
+          s2: this.s2String,
+          a: this.animalString,
+        };
+        this.router.navigate([], {
           relativeTo: this.route,
-          queryParams: queryParams, 
-          queryParamsHandling: 'merge'
+          queryParams: queryParams,
+          queryParamsHandling: 'merge',
         });
       } else {
         this.typeValid = false;
@@ -188,19 +198,116 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
     this.twinPersons = [];
     setTimeout(() => {
       if (this.allTypes && type) {
-        let mfKey = 'MF-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal;
-        this.concatTwins('MM-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal);
-        this.concatTwins(mfKey);
-        this.concatTwins('FF-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal);
-        this.concatTwins('FM-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal);
+        switch (this.twinType) {
+          case 'core-need':
+            this.fetchNeedTwins(type);
+            break;
+          case 'info-energy':
+            this.fetchDomTwins(type);
+            break;
+          case 'exact':
+            this.fetchExactTwins(type);
+            break;
+          default:
+            this.fetchModTwins(type);
+        }
         this.typeTwinsLoading = false;
       } else {
         setTimeout(() => {
-          this.fetchTwins(type)
+          this.fetchTwins(type);
         }, 200);
       }
       this.typeTwinsLoading = false;
-    },200);
+    }, 200);
+  }
+
+  private fetchModTwins(type: OpsType) {
+    let mfKey =
+      'MF-' +
+      type.s1String +
+      '/' +
+      type.s2String +
+      '-' +
+      type.animalStringFormal;
+    this.concatTwins(
+      'MM-' +
+        type.s1String +
+        '/' +
+        type.s2String +
+        '-' +
+        type.animalStringFormal
+    );
+    this.concatTwins(mfKey);
+    this.concatTwins(
+      'FF-' +
+        type.s1String +
+        '/' +
+        type.s2String +
+        '-' +
+        type.animalStringFormal
+    );
+    this.concatTwins(
+      'FM-' +
+        type.s1String +
+        '/' +
+        type.s2String +
+        '-' +
+        type.animalStringFormal
+    );
+  }
+
+  private fetchNeedTwins(type: OpsType) {
+    this.concatTwins(
+      type.modalityString +
+        '-' +
+        type.s1String +
+        '/' +
+        type.s2String +
+        '-' +
+        type.animalStringFormal
+    );
+    this.concatTwins(
+      type.modalityString +
+        '-' +
+        type.s2String +
+        '/' +
+        type.s1String +
+        '-' +
+        type.animalStringFormal
+    );
+  }
+
+  private fetchDomTwins(type: OpsType) {
+    let animalAlt =
+      type.animalStack[0] +
+      type.animalStack[1] +
+      '/' +
+      type.animalStack[3] +
+      '(' +
+      type.animalStack[2] +
+      ')';
+    this.concatTwins(
+      type.modalityString +
+        '-' +
+        type.s1String +
+        '/' +
+        type.s2String +
+        '-' +
+        type.animalStringFormal
+    );
+    this.concatTwins(
+      type.modalityString +
+        '-' +
+        type.s1String +
+        '/' +
+        type.s2String +
+        '-' +
+        animalAlt
+    );
+  }
+
+  private fetchExactTwins(type: OpsType) {
+    this.concatTwins(type.opsCode);
   }
 
   private concatTwins(key: string) {
@@ -208,6 +315,17 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
     if (twins) {
       this.twinPersons = this.twinPersons.concat(twins);
     }
+  }
+
+  twin(type: string) {
+    this.twinType = type;
+    var opType = new OpsType(
+      this.modalityString,
+      this.s1String,
+      this.s2String,
+      this.animalString
+    );
+    this.fetchTwins(opType);
   }
 
   private validateSaviors(): boolean {

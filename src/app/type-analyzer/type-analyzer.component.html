@@ -176,6 +176,36 @@
           </div>
         </div>
         <h3>Type Twins</h3>
+        <div>
+          <button
+            class="btn btn-gray mr-2"
+            (click)="twin('modality')"
+            [ngClass]="{ active: twinType === 'modality' }"
+          >
+            Ignoring Modality
+          </button>
+          <button
+            class="btn btn-gray mr-2"
+            (click)="twin('core-need')"
+            [ngClass]="{ active: twinType === 'core-need' }"
+          >
+            Ignoring OO/DD
+          </button>
+          <button
+            class="btn btn-gray mr-2"
+            (click)="twin('info-energy')"
+            [ngClass]="{ active: twinType === 'info-energy' }"
+          >
+            Ignoring Info/Energy
+          </button>
+          <button
+            class="btn btn-gray mr-2"
+            (click)="twin('exact')"
+            [ngClass]="{ active: twinType === 'exact' }"
+          >
+            Exact Only
+          </button>
+        </div>
         <app-type-record-list
           [typeRecords]="twinPersons"
           [showMolecule]="true"

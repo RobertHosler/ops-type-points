@@ -35,6 +35,10 @@ $dark-mode-color: #333;
 .btn-gray {
   background-color: #ccc;
 }
+.btn-gray.active {
+  background-color: $secondary;
+  color: $light;
+}
 
 .help {
   color: #666;
