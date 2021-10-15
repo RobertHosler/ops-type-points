@@ -7,16 +7,6 @@
     >
     from our friends at OP Science Club.
   </div>
-
-  <div *ngFor="let person of allNames | keyvalue" class="mb-3">
-    <div>{{ person.key }}</div>
-    <div>{{ person.value.type }}</div>
-    <div>{{ person.value.tags }}</div>
-    <div>
-      <img [src]="person.value.pictureUrl" style="max-height: 150px"/>
-    </div>
-  </div>
-
   <div class="options mb-3">
     <button
       class="btn btn-sm toggle-btn"

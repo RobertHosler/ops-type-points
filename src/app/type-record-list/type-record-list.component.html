@@ -6,6 +6,18 @@
     class="sp-logo flip"
   />
 </div>
+
+<div *ngIf="false">
+  <!-- <div *ngFor="let person of allNames | keyvalue" class="mb-3">
+    <div>{{ person.key }}</div>
+    <div>{{ person.value.type }}</div>
+    <div>{{ person.value.tags }}</div>
+    <div>
+      <img [src]="person.value.pictureUrl" style="max-height: 150px" />
+    </div>
+  </div> -->
+</div>
+
 <div *ngIf="!loading">
   <div class="image-row">
     <div *ngFor="let typeRecord of typeRecords" class="type-record">
