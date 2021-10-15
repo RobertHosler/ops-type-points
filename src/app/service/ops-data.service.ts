@@ -219,4 +219,6 @@ export class TypedPerson {
   animalBalance?: string;
   sensoryMod?: string;
   deMod?: string;
+  sex?: string;
+  trans?: boolean;
 }

@@ -162,6 +162,8 @@ function convertPersonListResult(json) {
       deMod: record.fields['De Sexual'] ?
         record.fields['De Sexual'] === 'Masculine' ? 'M' :
         record.fields['De Sexual'] === 'Feminine' ? 'F' : '' : '',
+      sex: record.fields['Biological Sex'],
+      trans: record.fields.Transgender
     };
     if (typedPersons.exclusions.includes(record.fields.Name)) {
       return;

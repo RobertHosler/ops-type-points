@@ -23,6 +23,8 @@ listUrl.searchParams.append('fields', 'Observer Human Need');
 listUrl.searchParams.append('fields', 'Energy vs Info Dom');
 listUrl.searchParams.append('fields', 'Blast vs Consume');
 listUrl.searchParams.append('fields', 'Play vs Sleep');
+listUrl.searchParams.append('fields', 'Biological Sex');
+listUrl.searchParams.append('fields', 'Transgender');
 
 const urlMap = new Map();
 urlMap.set('list', listUrl);
