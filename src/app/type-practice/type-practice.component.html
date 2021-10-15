@@ -111,12 +111,11 @@
           <div class="image-wrapper">
             <div
               *ngIf="
-                subjectRecord.fields.Picture &&
-                subjectRecord.fields.Picture.length > 0
+                subjectRecord.pictureUrl
               "
               class="image-img mb-3"
             >
-              <img [src]="subjectRecord.fields.Picture[0].url" height="200px" />
+              <img [src]="subjectRecord.pictureUrl" height="200px" />
             </div>
           </div>
           <div>
@@ -124,13 +123,13 @@
               <a
                 [href]="getGoogleSearch()"
                 target="_blank"
-                class="btn btn-secondary mr-3"
+                class="btn btn-sm btn-secondary mr-3"
                 >Google Search</a
               >
               <a
                 [href]="getImageSearch()"
                 target="_blank"
-                class="btn btn-secondary"
+                class="btn btn-sm btn-secondary"
                 >Google Images</a
               >
             </div>
@@ -138,11 +137,11 @@
               <a
                 [href]="getInterviewLink()"
                 target="_blank"
-                class="btn btn-secondary"
+                class="btn btn-sm btn-secondary"
                 >YouTube Interviews</a
               >
               <div class="help small">
-                Tip: use the filter to show 20+ minute videos only where
+                <strong>Tip:</strong> use the filter to show 20+ minute videos only where
                 possible
               </div>
             </div>
@@ -258,7 +257,7 @@
     <div *ngIf="typeRevealed">
       <hr />
       <div class="text-center">
-        <h3>{{ subjectRecord.fields.Type }}</h3>
+        <h3>{{ subjectRecord.type }}</h3>
         <a [href]="subjectTypeLink">View in Analyzer</a>
       </div>
       <div class="row mb-3">
@@ -284,7 +283,7 @@
 
   <div class="bg-gray py-3">
     <div class="container">
-      <p>Want to track your guesses? Use my OPS Tracking Template Document!</p>
+      <p><strong>Want to track your guesses?</strong> Try my OPS Tracking Document!</p>
       <div>
         <a
           class="btn btn-primary mr-3"
@@ -293,7 +292,7 @@
           >Go to Doc</a
         >
         <a
-          class="btn btn-secondary"
+          class="btn btn-sm btn-secondary"
           href="https://youtu.be/VkixpkYa0mM"
           target="_blank"
           >Learn More</a

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { resourceUsage } from 'process';
-import { OpsDataService, TypeRoot } from '../service/ops-data.service';
+import { OpsDataService, TypedPerson, TypeRoot } from '../service/ops-data.service';
 import { OpsType } from '../type-analyzer/ops-type';
 
 @Component({
@@ -17,8 +17,11 @@ export class TypePracticeComponent implements OnInit {
   googleSearchBase = 'https://www.google.com/search?q=';
   imageSearchBase = 'https://www.google.com/search?tbm=isch&q=';
 
-  typeRecords;
-  classOnlyRecords;
+  typeRecords: TypedPerson[];
+  classOnlyRecords: TypedPerson[];
+
+  alltypedPersons: TypedPerson[];
+  allClassOnlyPersons: TypedPerson[];
 
   nameString: string;
 
@@ -37,6 +40,8 @@ export class TypePracticeComponent implements OnInit {
   typeGuessInvalid = false;
 
   classOnly = false;
+
+  allNames: Map<string, TypedPerson>;
 
   coins = [
     {
@@ -458,54 +463,74 @@ export class TypePracticeComponent implements OnInit {
 
   exclusions = [
     'Jesus',
-    'Sarah'
+    'Sarah',
+    'Dave Powers',
+    'Shannon Powers'
   ];
+
+  routerInit = false;
 
   constructor(
     private opsDataService: OpsDataService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.opsDataService.allNames.subscribe((result) => {
+      this.allNames = result;
+      if (!this.routerInit) {
+        this.routerInit = true;
+        this.initRouter();
+        this.initList();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.loading = true;
+  }
+
+  initList() {
+    this.alltypedPersons = [];
+    this.allClassOnlyPersons = [];
+    this.allNames.forEach((person, name) => {
+      if (this.exclusions.includes(name)) {
+        return;
+      }
+      if (!person.tags) {
+        this.alltypedPersons.push(person);
+      } else if (person.tags.includes('Class Typing')) {
+        this.allClassOnlyPersons.push(person);
+        this.alltypedPersons.push(person);
+      } else if (
+        person.type.length === 16 &&
+        !person.tags.includes('Community Member') &&
+        !person.tags.includes('Incomplete') &&
+        !person.tags.includes('Speculation')
+      ) {
+        this.alltypedPersons.push(person);
+      }
+    });
+    this.loading = false;
+    if (this.nameString) {
+      this.lookupType(this.nameString);
+    }
+    this.shuffleRecords();
+  }
+
+  initRouter() {
     this.route.queryParamMap.subscribe((params) => {
       if (params.get('name')) {
         this.nameString = params.get('name');
         this.lookupType(this.nameString);
       }
     });
-    this.opsDataService.getAllRecords().subscribe((result: TypeRoot) => {
-      this.typeRecords = [];
-      this.classOnlyRecords = [];
-      result.records.forEach((record) => {
-        if (this.exclusions.includes(record.fields.Name)) {
-          return;
-        }
-        if (!record.fields.Tags) {
-          this.typeRecords.push(record);
-        } else if (record.fields.Tags.includes('Class Typing')) {
-          this.classOnlyRecords.push(record);
-          this.typeRecords.push(record);
-        } else if (
-          !record.fields.Tags.includes('Community Member') &&
-          !record.fields.Tags.includes('Incomplete') &&
-          !record.fields.Tags.includes('Speculation')
-        ) {
-          this.typeRecords.push(record);
-        }
-      });
-      this.loading = false;
-      if (this.nameString) {
-        this.lookupType(this.nameString);
-      }
-      this.shuffleRecords();
-    });
   }
 
   shuffleRecords() {
-    this.typeRecords = this.shuffleArray(this.typeRecords);
-    this.classOnlyRecords = this.shuffleArray(this.classOnlyRecords);
+    this.alltypedPersons = this.shuffleArray(this.alltypedPersons);
+    this.typeRecords = this.alltypedPersons.slice(0, 5);
+    this.allClassOnlyPersons = this.shuffleArray(this.allClassOnlyPersons);
+    this.classOnlyRecords = this.allClassOnlyPersons.slice(0, 5);
   }
 
   shuffleArray(array) {
@@ -566,43 +591,39 @@ export class TypePracticeComponent implements OnInit {
     this.subjectName = '';
     this.subjectTypeLink = '';
     this.typeRevealed = false;
-    let randomRecord;
+    let randomRecord: TypedPerson;
     let completeRecord = false;
     this.validationMessage = [];
     this.guessSubmit = false;
     if (name) {
-      this.typeRecords.forEach((record) => {
-        if (record.fields.Name === name) {
-          randomRecord = record;
-        }
-      });
+      randomRecord = this.allNames.get(name);
     } else {
       do {
         if (this.classOnly) {
           const randomIndex = Math.floor(
-            Math.random() * this.classOnlyRecords.length
+            Math.random() * this.allClassOnlyPersons.length
           );
-          randomRecord = this.classOnlyRecords[randomIndex];
+          randomRecord = this.allClassOnlyPersons[randomIndex];
         } else {
           const randomIndex = Math.floor(
-            Math.random() * this.typeRecords.length
+            Math.random() * this.alltypedPersons.length
           );
-          randomRecord = this.typeRecords[randomIndex];
+          randomRecord = this.alltypedPersons[randomIndex];
         }
         completeRecord = true;
       } while (!completeRecord);
     }
     if (randomRecord) {
-      const mod = randomRecord.fields.Type.substring(0, 2);
-      const sav1 = randomRecord.fields.Type.substring(3, 5);
-      const sav2 = randomRecord.fields.Type.substring(6, 8);
-      let animals = randomRecord.fields.Type.substring(9, 16);
+      const mod = randomRecord.type.substring(0, 2);
+      const sav1 = randomRecord.type.substring(3, 5);
+      const sav2 = randomRecord.type.substring(6, 8);
+      let animals = randomRecord.type.substring(9, 16);
       animals = animals.replace('(', '');
       animals = animals.replace(')', '');
       animals = animals.replace('/', '');
       this.subjectOpsType = new OpsType(mod, sav1, sav2, animals);
       this.subjectRecord = randomRecord;
-      this.subjectName = this.subjectRecord.fields.Name;
+      this.subjectName = this.subjectRecord.name;
       this.subjectTypeLink =
         '/analyzer?m=' + mod + '&s1=' + sav1 + '&s2=' + sav2 + '&a=' + animals;
       const queryParams: Params = {
