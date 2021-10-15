@@ -12,6 +12,17 @@ listUrl.searchParams.append('fields', 'Name');
 listUrl.searchParams.append('fields', 'Type');
 listUrl.searchParams.append('fields', 'Tags');
 listUrl.searchParams.append('fields', 'Picture');
+//Coins
+listUrl.searchParams.append('fields', 'Sensory Sexual');
+listUrl.searchParams.append('fields', 'De Sexual');
+listUrl.searchParams.append('fields', 'Savior Observer');
+listUrl.searchParams.append('fields', 'Savior Decider');
+listUrl.searchParams.append('fields', 'Single Observer vs Decider');
+listUrl.searchParams.append('fields', 'Decider Human Need');
+listUrl.searchParams.append('fields', 'Observer Human Need');
+listUrl.searchParams.append('fields', 'Energy vs Info Dom');
+listUrl.searchParams.append('fields', 'Blast vs Consume');
+listUrl.searchParams.append('fields', 'Play vs Sleep');
 
 const urlMap = new Map();
 urlMap.set('list', listUrl);

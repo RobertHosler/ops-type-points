@@ -188,7 +188,10 @@ export class SearchComponent implements OnInit {
     this.searchLoading = true;
     this.displayedRecords = [];
     this.allNames.forEach((value, key) => {
-      if (value.type && value.type.toLowerCase().includes(this.typeString.toLowerCase())) {
+      if (
+        value.type &&
+        value.type.toLowerCase().includes(this.typeString.toLowerCase())
+      ) {
         this.displayedRecords.push(value);
       }
     });
@@ -215,15 +218,44 @@ export class SearchComponent implements OnInit {
     this.searchLoading = true;
     this.displayedRecords = [];
     this.allNames.forEach((value, key) => {
+      if (this.options.get('hn1').val && this.options.get('hn1').val !== value.coreNeed) {
+        return;
+      }
+      if (this.options.get('dhn').val && this.options.get('dhn').val !== value.deciderNeed) {
+        return;
+      }
+      if (this.options.get('ohn').val && this.options.get('ohn').val !== value.observerNeed) {
+        return;
+      }
+      if (this.options.get('ol').val && this.options.get('ol').val !== value.observerLetter) {
+        return;
+      }
+      if (this.options.get('dl').val && this.options.get('dl').val !== value.deciderLetter) {
+        return;
+      }
+      if (this.options.get('ia').val && this.options.get('ia').val !== value.infoAnimal) {
+        return;
+      }
+      if (this.options.get('ea').val && this.options.get('ea').val !== value.energyAnimal) {
+        return;
+      }
+      if (this.options.get('dom').val && this.options.get('dom').val !== value.animalBalance) {
+        return;
+      }
+      if (this.options.get('smod').val && this.options.get('smod').val !== value.sensoryMod) {
+        return;
+      }
+      if (this.options.get('demod').val && this.options.get('demod').val !== value.deMod) {
+        return;
+      }
       if (
         this.options.get('co').val === 'Class Only' &&
         value.tags &&
-        value.tags.includes('Class Typing')
+        !value.tags.includes('Class Typing')
       ) {
-        this.displayedRecords.push(value);
-      } else {
-        this.displayedRecords.push(value);
+        return;
       }
+      this.displayedRecords.push(value);
     });
     this.searchLoading = false;
     const queryParams: Params = {

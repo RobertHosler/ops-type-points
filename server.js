@@ -118,7 +118,7 @@ function convertDefinitionsResult(json) {
     }
   });
   const offset = result.offset;
-  console.log("Term fetch", offset, termMap.size, sourceMap.size);
+  console.log("Term fetch", termMap.size, sourceMap.size, offset);
   if (offset) {
     getData(definitionsUrl, convertDefinitionsResult, offset);
   }
@@ -131,13 +131,37 @@ const nameMap = new Map();
 
 function convertPersonListResult(json) {
   const result = JSON.parse(json);
-  const typeRecords = result.records;
+  const typeRecords = result.records ? result.records : [];
   typeRecords.forEach(record => {
     const typedPerson = {
       name: record.fields.Name,
       type: record.fields.Type,
       pictureUrl: record.fields.Picture && record.fields.Picture.length > 0 ? record.fields.Picture[0].url : '',
-      tags: record.fields.Tags
+      tags: record.fields.Tags,
+      coreNeed: record.fields['Single Observer vs Decider'] ?
+        record.fields['Single Observer vs Decider'] === 'Single Decider / Double Observer' ? 'Decider' :
+        record.fields['Single Observer vs Decider'] === 'Single Observer / Double Decider' ? 'Observer' : '' : '',
+      deciderNeed: record.fields['Decider Human Need'],
+      observerNeed: record.fields['Observer Human Need'],
+      observerLetter: record.fields['Savior Observer'] ?
+        record.fields['Savior Observer'] === 'Sensory' ? 'S' :
+        record.fields['Savior Observer'] === 'Intuition' ? 'N' : '' : '',
+      deciderLetter: record.fields['Savior Decider'] ?
+        record.fields['Savior Decider'] === 'Feeling' ? 'F' : 
+        record.fields['Savior Decider'] === 'Thinking' ? 'T' : '': '',
+      infoAnimal: record.fields['Blast vs Consume'] ?
+        record.fields['Blast vs Consume'] === 'Blast' ? 'B' :
+        record.fields['Blast vs Consume'] === 'Consume' ? 'C' : '': '',
+      energyAnimal: record.fields['Play vs Sleep'] ?
+        record.fields['Play vs Sleep'] === 'Play' ? 'P' : 
+        record.fields['Play vs Sleep'] === 'Sleep' ? 'S' : '' : '',
+      animalBalance: record.fields['Energy vs Info Dom'],
+      sensoryMod: record.fields['Sensory Sexual'] ?
+        record.fields['Sensory Sexual'] === 'Masculine' ? 'M' :
+        record.fields['Sensory Sexual'] === 'Feminine' ?'F' : '' : '',
+      deMod: record.fields['De Sexual'] ?
+        record.fields['De Sexual'] === 'Masculine' ? 'M' :
+        record.fields['De Sexual'] === 'Feminine' ? 'F' : '' : '',
     };
     if (typedPersons.exclusions.includes(record.fields.Name)) {
       return;
@@ -165,7 +189,7 @@ function convertPersonListResult(json) {
     }
   });
   const offset = result.offset;
-  console.log("Person Fetch", offset, nameMap.size, typeMap.size);
+  console.log("Person Fetch", nameMap.size, typeMap.size, offset);
   if (offset) {
     getData(listUrl, convertPersonListResult, offset);
   }

@@ -206,7 +206,17 @@ export class SourceDefinition {
 
 export class TypedPerson {
   name: string;
-  pictureUrl: string;
-  type: string;
-  tags: string[];
+  pictureUrl?: string;
+  type?: string;
+  tags?: string[];
+  coreNeed?: string;
+  deciderNeed?: string;
+  observerNeed?: string;
+  observerLetter?: string;
+  deciderLetter?: string;
+  infoAnimal?: string;
+  energyAnimal?: string;
+  animalBalance?: string;
+  sensoryMod?: string;
+  deMod?: string;
 }
