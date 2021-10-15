@@ -120,8 +120,36 @@ export class SearchComponent implements OnInit {
         },
       ],
     };
+    const incompleteCoin: Coin = {
+      name: 'Incomplete',
+      param: 'hi',
+      sides: [
+        {
+          name: 'Hide Incomplete',
+          val: 't',
+        },
+      ],
+    };
+    const speculationCoin: Coin = {
+      name: 'Speculation',
+      param: 'hs',
+      sides: [
+        {
+          name: 'Hide Speculation',
+          val: 't',
+        },
+      ],
+    };
     this.options.set('co', {
       coin: classCoin,
+      val: '',
+    });
+    this.options.set('hi', {
+      coin: incompleteCoin,
+      val: '',
+    });
+    this.options.set('hs', {
+      coin: speculationCoin,
       val: '',
     });
     this.optionValues = Array.from(this.options.values());
@@ -312,6 +340,22 @@ export class SearchComponent implements OnInit {
           this.options.get('co').val === 'Class Only' &&
           (!value.tags ||
           !value.tags.includes('Class Typing'))
+        ) {
+          return;
+        }
+        if (
+          this.options.get('hi') &&
+          this.options.get('hi').val === 't' &&
+          (value.tags &&
+          value.tags.includes('Incomplete'))
+        ) {
+          return;
+        }
+        if (
+          this.options.get('hs') &&
+          this.options.get('hs').val === 't' &&
+          (value.tags &&
+          value.tags.includes('Speculation'))
         ) {
           return;
         }
