@@ -4,7 +4,7 @@ import { OpsTypeService } from './ops-type.service';
 import { OpsType } from './ops-type';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
-import { OpsDataService, TypeRoot } from '../service/ops-data.service';
+import { OpsDataService, TypedPerson, TypeRoot } from '../service/ops-data.service';
 
 @Component({
   selector: 'app-type-analyzer',
@@ -59,6 +59,9 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
     'PCBS',
   ];
 
+  allTypes: Map<string, TypedPerson[]>;
+  twinPersons: TypedPerson[];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -71,6 +74,9 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
         this.opsTypes = opsTypes;
       }
     );
+    this.opsDataService.allTypes.subscribe((result) => {
+      this.allTypes = result;
+    });
   }
 
   ngOnInit() {
@@ -155,11 +161,11 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
           this.opsTypeService.clearOpsTypes();
         }
         this.opsTypeService.addOpsType(type);
-        this.typeTwinsLoading = true;
+        this.fetchTwins(type);
+
         this.opsDataService.getRecords(type.s1String, type.s2String, type.animalStringFormal).subscribe(
           (result:TypeRoot) => {
             type.twins = result.records;
-            this.typeTwinsLoading = false;
             // console.log(result.records);
           }
         );
@@ -174,6 +180,28 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
       } else {
         this.typeValid = false;
       }
+    }
+  }
+
+  private fetchTwins(type: OpsType) {
+    this.typeTwinsLoading = true;
+    setTimeout(() => {
+      if (this.allTypes) {
+        this.twinPersons = [];
+        let mfKey = 'MF-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal;
+        this.concatTwins('MM-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal);
+        this.concatTwins(mfKey);
+        this.concatTwins('FF-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal);
+        this.concatTwins('FM-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal);
+      }
+      this.typeTwinsLoading = false;
+    },200);
+  }
+
+  private concatTwins(key: string) {
+    let twins = this.allTypes.get(key);
+    if (twins) {
+      this.twinPersons = this.twinPersons.concat(twins);
     }
   }
 

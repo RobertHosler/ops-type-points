@@ -18,7 +18,7 @@ export class OpsDataService {
   allTerms: Observable<Map<string, Term>>;
   allSources: Observable<Map<string, Source>>;
 
-  allTypes: Observable<Map<string, TypedPerson>>;
+  allTypes: Observable<Map<string, TypedPerson[]>>;
   allNames: Observable<Map<string, TypedPerson>>;
 
   constructor(private httpClient: HttpClient, private socket: Socket) {
@@ -43,6 +43,13 @@ export class OpsDataService {
         observer.next(map);
       });
       socket.emit('getNames');
+    });
+    this.allTypes = new Observable((observer) => {
+      socket.on('types', (types) => {
+        let map = new Map<string, TypedPerson[]>(types);
+        observer.next(map);
+      });
+      socket.emit('getTypes');
     });
   }
 
