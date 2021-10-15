@@ -185,14 +185,19 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
 
   private fetchTwins(type: OpsType) {
     this.typeTwinsLoading = true;
+    this.twinPersons = [];
     setTimeout(() => {
-      if (this.allTypes) {
-        this.twinPersons = [];
+      if (this.allTypes && type) {
         let mfKey = 'MF-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal;
         this.concatTwins('MM-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal);
         this.concatTwins(mfKey);
         this.concatTwins('FF-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal);
         this.concatTwins('FM-'+type.s1String+'/'+type.s2String+'-'+type.animalStringFormal);
+        this.typeTwinsLoading = false;
+      } else {
+        setTimeout(() => {
+          this.fetchTwins(type)
+        }, 200);
       }
       this.typeTwinsLoading = false;
     },200);
