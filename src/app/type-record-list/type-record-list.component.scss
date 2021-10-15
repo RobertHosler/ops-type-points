@@ -22,18 +22,20 @@
   padding: 10px 15px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  // justify-content: flex-end;
+  height: 100%;
 }
 
 .image-col .image-wrapper {
   text-align: center;
 }
 .image-col .image-img {
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 180px;
+  width: 150px;
   height: 180px;
+  margin: 0 auto;
   // border:1px solid $dark;
   // background-color: #ccc;
 }
@@ -49,6 +51,10 @@
   // color: $dark;
   // background-color: $morning-blue;
   border-radius: 5px;
+  flex-grow: 2;
+}
+.image-text-bottom {
+  flex-grow: 2;
 }
 .image-col .image-name {
   padding: 2px;
