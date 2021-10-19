@@ -29,6 +29,9 @@ export class NineTypesComponent implements OnInit {
 
   sortOptions = ['Number', 'Source'];
 
+  manageTypes = false;
+  manageSources = false;
+
   constructor(private nineTypesService: NineTypesService) {
     nineTypesService.nineTypes.subscribe((result) => {
       this.nineTypes = result;

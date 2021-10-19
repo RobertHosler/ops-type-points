@@ -3,11 +3,20 @@
   <div>
     <span class="lead">Want to compare the nine types of the Enneagram?</span>
     <p>
-      Select a type (or multiple), then select from the various definition sets
+      Select a type (or multiple), then select from the various description sets
       to compare the types to one another!
     </p>
   </div>
   <div>
+    <button
+      (click)="manageTypes = !manageTypes"
+      class="btn btn-sm btn-gray mr-2 mb-2"
+      [ngClass]="{ active: manageTypes }"
+    >
+      {{ manageTypes ? "Hide Types" : "Show Types" }}
+    </button>
+  </div>
+  <div [ngClass]="{ 'd-none': !manageTypes }">
     <div>
       <strong>Select Types</strong>
     </div>
@@ -32,6 +41,15 @@
     </div>
   </div>
   <div>
+    <button
+      (click)="manageSources = !manageSources"
+      class="btn btn-sm btn-gray mr-2 mb-2"
+      [ngClass]="{ active: manageSources }"
+    >
+      {{ manageSources ? "Hide Sources" : "Show Sources" }}
+    </button>
+  </div>
+  <div [ngClass]="{ 'd-none': !manageSources }">
     <div>
       <strong>Select Sources</strong>
     </div>
@@ -59,14 +77,16 @@
     <div>
       <strong>Group By</strong>
     </div>
-    <button
-      class="btn btn-gray mr-2 mb-2"
-      *ngFor="let option of sortOptions"
-      (click)="sortBy = option"
-      [ngClass]="{ active: sortBy === option }"
-    >
-      {{ option }}
-    </button>
+    <div class="btn-group mr-2 mb-2">
+      <button
+        class="btn btn-gray"
+        *ngFor="let option of sortOptions"
+        (click)="sortBy = option"
+        [ngClass]="{ active: sortBy === option }"
+      >
+        {{ option }}
+      </button>
+    </div>
   </div>
   <!-- <h2>One</h2>
   <div *ngFor="let source of nineTypes | keyvalue">
@@ -128,7 +148,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="sourceText(source, number).length > 1">
+      <div class="number-list" *ngIf="sourceText(source, number).length > 1">
         <div class="">
           <strong>{{ source }}</strong>
         </div>
