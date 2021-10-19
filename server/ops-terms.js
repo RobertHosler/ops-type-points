@@ -36,7 +36,6 @@ childrenUrl.searchParams.append('view', 'Grid view');
 childrenUrl.searchParams.append('fields', 'Term Name');
 childrenUrl.searchParams.append('fields', 'Children Names');
 
-//https://api.airtable.com/v0/appTmhBYKYMGTX2y5/Description?maxRecords=10000&view=Grid view&api_key=keyvlHyPYg7WBvst6&fields=Type Name&fields=Description Set Name&fields=Text
 const nineTypesUrl = new URL(ENNEAGRAM_HOST + 'Description');
 nineTypesUrl.searchParams.append('api_key', opsKey);
 nineTypesUrl.searchParams.append('maxRecords', MAX_RECORD);
