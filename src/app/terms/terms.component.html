@@ -63,28 +63,24 @@
     </div>
   </div>
   <div *ngIf="activeSource">
-    <ng-container *ngFor="let source of sources | keyvalue">
-      <ng-container *ngIf="source.key === activeSource">
-        <div class="mb-3">
-          <span class="small"
-            >Showing definitions from <strong>{{ source.key }}</strong></span
-          >
-          <a
-            *ngIf="source.value.url"
-            class="ml-2"
-            [href]="source.value.url"
-            target="_blank"
-            >View Source</a
-          >
-        </div>
-        <ul class="sources-list">
-          <li *ngFor="let definition of source.value.definitions">
-            <strong>{{ definition.term }}</strong>
-            <div class="ml-3">{{ definition.definition }}</div>
-          </li>
-        </ul>
-      </ng-container>
-    </ng-container>
+      <div class="mb-3">
+        <span class="small"
+          >Showing definitions from <strong>{{ activeSource }}</strong></span
+        >
+        <a
+          *ngIf="activeSourceVal.url"
+          class="ml-2"
+          [href]="activeSourceVal.url"
+          target="_blank"
+          >View Source</a
+        >
+      </div>
+      <ul class="sources-list">
+        <li *ngFor="let definition of sources.get(activeSource).definitions">
+          <strong>{{ definition.term }}</strong>
+          <div class="ml-3">{{ definition.definition }}</div>
+        </li>
+      </ul>
   </div>
   <div *ngIf="!activeSource">
     <div *ngFor="let term of activeTerms">

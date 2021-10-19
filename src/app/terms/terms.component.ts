@@ -33,6 +33,10 @@ export class TermsComponent implements OnInit {
     }
   }
 
+  get activeSourceVal() {
+    return this.sources.get(this.activeSource);
+  }
+
   toggleTerm(key: string) {
     const index = this.activeTerms.indexOf(key);
     if (index < 0) {
