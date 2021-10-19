@@ -61,6 +61,64 @@ const listUrl = typedPersons.urlMap.get('list');
 
 const terms = require('./server/ops-terms');
 const definitionsUrl = terms.urlMap.get('definitions');
+const nineTypesUrl = terms.urlMap.get('nineTypes');
+
+const nineTypesMap = new Map();
+const nineTypesSetMap = new Map();
+
+function convertNineTypesResult(json) {
+  const result = JSON.parse(json);
+  const records = result.records;
+  records.forEach(record => {
+    const typeName = record.fields['Type Name'] ? record.fields['Type Name'][0] : '';
+    const descriptionSetName = record.fields['Description Set Name'] ? record.fields['Description Set Name'][0] : '';
+    const text = record.fields.Text;
+    if (nineTypesSetMap.get(descriptionSetName)) {
+      nineTypesSetMap.get(descriptionSetName)[typeName.toLowerCase()].push(text);
+    } else {
+      const set = {
+        one: [],
+        two: [],
+        three: [],
+        four: [],
+        five: [],
+        six: [],
+        seven: [],
+        eight: [],
+        nine: []
+      };
+      set[typeName.toLowerCase()].push(text);
+      nineTypesSetMap.set(descriptionSetName, set);
+    }
+
+    // if (nineTypesMap.get(typeName)) {
+    //   nineTypesMap.get(typeName)
+    // } else {
+    //   nineTypesMap.set(typeName, {
+    //     descriptions: [
+    //       {
+    //         set: descriptionSetName,
+    //         text: text
+    //       }
+    //     ]
+    //   });
+      
+    //   sourceMap.set(sourceName, {
+    //     definitions: [{
+    //       term: termName,
+    //       definition: record.fields.Definition
+    //     }],
+    //     url: sourceUrl
+    //   });
+    // }
+  });
+  const offset = result.offset;
+  console.log("Nine Types fetch", nineTypesMap.size, nineTypesSetMap.size, offset);
+  if (offset) {
+    getData(nineTypesUrl, convertNineTypesResult, offset);
+  }
+}
+getData(nineTypesUrl, convertNineTypesResult);
 
 function convertDefinitionsResult(json) {
   const result = JSON.parse(json);
@@ -199,6 +257,17 @@ function convertPersonListResult(json) {
 
 getData(listUrl, convertPersonListResult);
 
+function convertChildrenResult(json) {
+  const result = JSON.parse(json);
+  // console.log(result);
+  const relRecords = result.records ? result.records : [];
+  relRecords.forEach(record=> {
+    
+  });
+}
+
+getData(terms.urlMap.get('children'), convertChildrenResult);
+
 function broadcast(event, data) {
   sockets.forEach(socket => {
       socket.emit(event, data);
@@ -233,6 +302,11 @@ io.on('connection', function(socket) {
     socket.emit('types', Array.from(typeMap));
   });
   socket.emit('types', Array.from(typeMap));
+
+  socket.on('getNineTypes', () => {
+    socket.emit('nineTypes', Array.from(nineTypesSetMap));
+  });
+  socket.emit('nineTypes', Array.from(nineTypesSetMap));
 
 });
 

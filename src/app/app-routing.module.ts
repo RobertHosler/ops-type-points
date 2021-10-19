@@ -8,6 +8,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { SearchComponent } from './search/search.component';
 import { TypePracticeComponent } from './type-practice/type-practice.component';
 import { TermsComponent } from './terms/terms.component';
+import { NineTypesComponent } from './nine-types/nine-types.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
     path: 'terms',
     component: MainLayoutComponent,
     children: [{ path: '', component: TermsComponent }],
+  },
+  {
+    path: 'nineTypes',
+    component: MainLayoutComponent,
+    children: [{ path: '', component: NineTypesComponent }],
   },
   {
     path: 'analyzer',

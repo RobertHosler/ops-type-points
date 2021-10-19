@@ -33,6 +33,13 @@ export class HeaderComponent implements OnInit {
       ''
     ),
     new HomeLink(
+      'Nine Types',
+      '/nineTypes',
+      '',
+      false,
+      ''
+    ),
+    new HomeLink(
       'Practice',
       '/practice',
       '',

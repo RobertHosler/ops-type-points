@@ -32,6 +32,7 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { TermsComponent } from './terms/terms.component';
 import { environment } from 'src/environments/environment';
 import { TypeIndicatorComponent } from './type-indicator/type-indicator.component';
+import { NineTypesComponent } from './nine-types/nine-types.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -57,7 +58,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     TypeChecklistComponent,
     TypePracticeComponent,
     TermsComponent,
-    TypeIndicatorComponent
+    TypeIndicatorComponent,
+    NineTypesComponent
   ],
   imports: [
     HttpClientModule,

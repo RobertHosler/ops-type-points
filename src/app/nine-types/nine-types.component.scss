@@ -1,0 +1,38 @@
+@import "~src/assets/variables";
+
+.source-row {
+  display: flex;
+  .number-side {
+    width: 75px;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: .25rem;
+  }
+  .text-side {
+    width: 100%;
+    text-align: left;
+    padding: .25rem;
+  }
+}
+.source-row:not(:last-child),
+.number-source:not(:last-child) {
+    border-bottom: 1px solid $cad-orange;
+}
+.number-row {
+  display: flex;
+  .source-side {
+    width: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: .25rem;
+  }
+  .text-side {
+    width: 100%;
+    text-align: left;
+    padding: .25rem;
+  }
+}
