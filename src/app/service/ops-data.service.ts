@@ -20,6 +20,7 @@ export class OpsDataService {
 
   allTypes: Observable<Map<string, TypedPerson[]>>;
   allNames: Observable<Map<string, TypedPerson>>;
+  allParents: Observable<Map<string, Parent>>;
 
   constructor(private httpClient: HttpClient, private socket: Socket) {
     this.allTerms = new Observable((observer) => {
@@ -50,6 +51,13 @@ export class OpsDataService {
         observer.next(map);
       });
       socket.emit('getTypes');
+    });
+    this.allParents = new Observable((observer) => {
+      socket.on('parents', (types) => {
+        let map = new Map<string, Parent>(types);
+        observer.next(map);
+      });
+      socket.emit('getParents');
     });
   }
 
@@ -228,4 +236,9 @@ export class TypedPerson {
   deMod?: string;
   sex?: string;
   trans?: boolean;
+}
+
+export class Parent {
+  name: string;
+  children: string[];
 }

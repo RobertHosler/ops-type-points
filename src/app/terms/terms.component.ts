@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { OpsDataService, Source, Term, TypedPerson } from '../service/ops-data.service';
+import {
+  OpsDataService,
+  Parent,
+  Source,
+  Term,
+  TypedPerson,
+} from '../service/ops-data.service';
 
 @Component({
   selector: 'app-terms',
@@ -14,6 +20,10 @@ export class TermsComponent implements OnInit {
   activeSource: string;
   activeTerms = [];
 
+  parents: Map<string, Parent>;
+
+  activeParent: string;
+
   constructor(private opsDataService: OpsDataService) {
     opsDataService.allTerms.subscribe((result) => {
       this.terms = result;
@@ -21,6 +31,9 @@ export class TermsComponent implements OnInit {
     });
     opsDataService.allSources.subscribe((result) => {
       this.sources = result;
+    });
+    opsDataService.allParents.subscribe((result) => {
+      this.parents = result;
     });
   }
 
@@ -35,6 +48,17 @@ export class TermsComponent implements OnInit {
 
   get activeSourceVal() {
     return this.sources.get(this.activeSource);
+  }
+
+  toggleTermSet(keys: string[]) {
+    this.activeTerms = [];
+    if (keys) {
+      keys.forEach((key) => {
+        this.activeTerms.push(key);
+      });
+    } else {
+      console.log(keys);
+    }
   }
 
   toggleTerm(key: string) {
@@ -53,7 +77,6 @@ export class TermsComponent implements OnInit {
       this.activeTerms.push(key);
     });
   }
-
 }
 
 class SelectableSource {

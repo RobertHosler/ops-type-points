@@ -7,6 +7,16 @@
     >
     from our friends at OP Science Club.
   </div>
+  <div>
+    <button
+      class="btn btn-gray mb-2 mr-2"
+      (click)="toggleTermSet(parent.value.children)"
+      [ngClass]="{ active: activeParent === parent.key }"
+      *ngFor="let parent of parents | keyvalue"
+    >
+      {{ parent.value.name }}
+    </button>
+  </div>
   <div class="options mb-3">
     <button
       class="btn btn-sm toggle-btn"
@@ -82,10 +92,10 @@
         </li>
       </ul>
   </div>
-  <div *ngIf="!activeSource">
-    <div *ngFor="let term of activeTerms">
+  <div *ngIf="!activeSource" class="row">
+    <div *ngFor="let term of activeTerms" [ngClass]="{'col-sm-6': activeTerms.length > 1}">
       <strong>{{ term }}</strong>
-      <ol class="definitions-list">
+      <ol class="definitions-list" *ngIf="terms.get(term) && terms.get(term).definitions">
         <li *ngFor="let definition of terms.get(term).definitions; let i = index">
           {{ definition.definition }}
           <span class="source" *ngIf="showSources && definition.sourceName">
