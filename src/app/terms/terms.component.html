@@ -10,6 +10,32 @@
   <div class="options mb-3">
     <button
       class="btn btn-sm toggle-btn"
+      [ngClass]="{ active: showTerms }"
+      (click)="showTerms = !showTerms"
+    >
+      {{ showSources ? "Hide Terms" : "Show Terms" }}
+    </button>
+  </div>
+  <div class="mb-3" [ngClass]="{ 'd-none': !showTerms }">
+    <div class="help small ml-1 mb-1">
+      Select or Deselect terms to view descriptions for those terms only.
+    </div>
+    <button
+      class="btn btn-gray mb-2 mr-2"
+      (click)="toggleTerm(term.key)"
+      [ngClass]="{ active: activeTerms.includes(term.key) }"
+      *ngFor="let term of terms | keyvalue"
+    >
+      {{ term.key }}
+    </button>
+    <div>
+      <button class="btn btn-primary mb-2 mr-2" (click)="allTerms()">Select All</button>
+      <button class="btn btn-sm btn-secondary mb-2 mr-2" (click)="activeTerms = []">Clear</button>
+    </div>
+  </div>
+  <div class="options mb-3">
+    <button
+      class="btn btn-sm toggle-btn"
       [ngClass]="{ active: showSources }"
       (click)="showSources = !showSources"
     >
@@ -17,7 +43,7 @@
     </button>
   </div>
   <div *ngIf="showSources" class="source-selection mb-3">
-    <div class="small ml-1 mb-1">
+    <div class="help small ml-1 mb-1">
       Select a source to view definitions from that source only.
     </div>
     <span *ngFor="let source of sources | keyvalue">
@@ -61,10 +87,10 @@
     </ng-container>
   </div>
   <div *ngIf="!activeSource">
-    <div *ngFor="let term of terms | keyvalue">
-      <strong>{{ term.key }}</strong>
+    <div *ngFor="let term of activeTerms">
+      <strong>{{ term }}</strong>
       <ol class="definitions-list">
-        <li *ngFor="let definition of term.value.definitions; let i = index">
+        <li *ngFor="let definition of terms.get(term).definitions; let i = index">
           {{ definition.definition }}
           <span class="source" *ngIf="showSources && definition.sourceName">
             - from

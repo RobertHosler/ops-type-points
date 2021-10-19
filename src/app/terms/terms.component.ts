@@ -8,13 +8,16 @@ import { OpsDataService, Source, Term, TypedPerson } from '../service/ops-data.s
 })
 export class TermsComponent implements OnInit {
   showSources = false;
+  showTerms = false;
   terms: Map<string, Term>;
   sources: Map<string, Source>;
   activeSource: string;
+  activeTerms = [];
 
   constructor(private opsDataService: OpsDataService) {
     opsDataService.allTerms.subscribe((result) => {
       this.terms = result;
+      this.allTerms();
     });
     opsDataService.allSources.subscribe((result) => {
       this.sources = result;
@@ -29,6 +32,24 @@ export class TermsComponent implements OnInit {
       this.activeSource = key;
     }
   }
+
+  toggleTerm(key: string) {
+    const index = this.activeTerms.indexOf(key);
+    if (index < 0) {
+      this.activeTerms.push(key);
+    } else {
+      this.activeTerms.splice(index, 1);
+    }
+    this.activeTerms.sort();
+  }
+
+  allTerms() {
+    this.activeTerms = [];
+    this.terms.forEach((value, key) => {
+      this.activeTerms.push(key);
+    });
+  }
+
 }
 
 class SelectableSource {
