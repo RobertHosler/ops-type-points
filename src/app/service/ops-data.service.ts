@@ -203,6 +203,8 @@ export class Term {
   tags?: string[];
   types?: string[];
   altNames?: string[];
+  children: string[];
+  parents: string[];
 }
 export class Definition {
   definition: string;
@@ -241,4 +243,5 @@ export class TypedPerson {
 export class Parent {
   name: string;
   children: string[];
+  parents: string[];
 }

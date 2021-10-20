@@ -52,6 +52,10 @@ export class TermsComponent implements OnInit {
 
   toggleTermSet(keys: string[]) {
     this.activeTerms = [];
+    this.addKeys(keys);
+  }
+
+  private addKeys(keys: string[]) {
     if (keys) {
       keys.forEach((key) => {
         this.activeTerms.push(key);
@@ -59,6 +63,25 @@ export class TermsComponent implements OnInit {
     } else {
       console.log(keys);
     }
+  }
+
+  setParentTerms(parent: string) {
+    let parentVal = this.terms.get(parent);
+    this.toggleTermSet(parentVal.children);
+    // this.activeTerms.unshift(parent);
+    this.activeParent = parent;
+  }
+
+  /**
+   * Set the terms based on the chosen child. Display child and
+   * it's siblings.
+   */
+  setChildTerms(child: string) {
+    this.activeTerms = [];
+    this.terms.get(child).parents.forEach(parent => {
+      let parentVal = this.terms.get(parent);
+      this.addKeys(parentVal.children);
+    });
   }
 
   toggleTerm(key: string) {

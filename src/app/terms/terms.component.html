@@ -8,9 +8,12 @@
     from our friends at OP Science Club.
   </div>
   <div>
+    <div>
+      <strong>Select a Parent</strong>
+    </div>
     <button
       class="btn btn-gray mb-2 mr-2"
-      (click)="toggleTermSet(parent.value.children)"
+      (click)="setParentTerms(parent.key)"
       [ngClass]="{ active: activeParent === parent.key }"
       *ngFor="let parent of parents | keyvalue"
     >
@@ -39,8 +42,15 @@
       {{ term.key }}
     </button>
     <div>
-      <button class="btn btn-primary mb-2 mr-2" (click)="allTerms()">Select All</button>
-      <button class="btn btn-sm btn-secondary mb-2 mr-2" (click)="activeTerms = []">Clear</button>
+      <button class="btn btn-primary mb-2 mr-2" (click)="allTerms()">
+        Select All
+      </button>
+      <button
+        class="btn btn-sm btn-secondary mb-2 mr-2"
+        (click)="activeTerms = []"
+      >
+        Clear
+      </button>
     </div>
   </div>
   <div class="options mb-3">
@@ -73,30 +83,38 @@
     </div>
   </div>
   <div *ngIf="activeSource">
-      <div class="mb-3">
-        <span class="small"
-          >Showing definitions from <strong>{{ activeSource }}</strong></span
-        >
-        <a
-          *ngIf="activeSourceVal.url"
-          class="ml-2"
-          [href]="activeSourceVal.url"
-          target="_blank"
-          >View Source</a
-        >
-      </div>
-      <ul class="sources-list">
-        <li *ngFor="let definition of sources.get(activeSource).definitions">
-          <strong>{{ definition.term }}</strong>
-          <div class="ml-3">{{ definition.definition }}</div>
-        </li>
-      </ul>
+    <div class="mb-3">
+      <span class="small"
+        >Showing definitions from <strong>{{ activeSource }}</strong></span
+      >
+      <a
+        *ngIf="activeSourceVal.url"
+        class="ml-2"
+        [href]="activeSourceVal.url"
+        target="_blank"
+        >View Source</a
+      >
+    </div>
+    <ul class="sources-list">
+      <li *ngFor="let definition of sources.get(activeSource).definitions">
+        <strong>{{ definition.term }}</strong>
+        <div class="ml-3">{{ definition.definition }}</div>
+      </li>
+    </ul>
   </div>
   <div *ngIf="!activeSource" class="row">
-    <div *ngFor="let term of activeTerms" [ngClass]="{'col-sm-6': activeTerms.length > 1}">
+    <div
+      *ngFor="let term of activeTerms"
+      [ngClass]="{ 'col-sm-6': activeTerms.length > 1 }"
+    >
       <strong>{{ term }}</strong>
-      <ol class="definitions-list" *ngIf="terms.get(term) && terms.get(term).definitions">
-        <li *ngFor="let definition of terms.get(term).definitions; let i = index">
+      <ol
+        class="definitions-list"
+        *ngIf="terms.get(term) && terms.get(term).definitions.length > 0"
+      >
+        <li
+          *ngFor="let definition of terms.get(term).definitions; let i = index"
+        >
           {{ definition.definition }}
           <span class="source" *ngIf="showSources && definition.sourceName">
             - from
@@ -113,6 +131,27 @@
           </span>
         </li>
       </ol>
+      <div *ngIf="!(terms.get(term) && terms.get(term).definitions.length > 0)">
+        <p>No descriptions found for this term.</p>
+      </div>
+      <div *ngIf="terms.get(term) && terms.get(term).parents.length > 0">
+        <strong>Parent Terms</strong>
+        <span
+          class="mx-2"
+          *ngFor="let parent of terms.get(term).parents"
+          (click)="setParentTerms(parent)"
+          >{{ parent }}</span
+        >
+      </div>
+      <div *ngIf="terms.get(term) && terms.get(term).children.length > 0">
+        <strong>Child Terms</strong>
+        <span
+          class="mx-2"
+          *ngFor="let child of terms.get(term).children"
+          (click)="setChildTerms(child)"
+          >{{ child }}</span
+        >
+      </div>
       <hr />
     </div>
   </div>
