@@ -3,42 +3,26 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const https = require("https");
-const { emit, off } = require("process");
 const server = http.Server(app);
 const io = require("socket.io")(server, {
   cors: {
+    // Allow access from local 4200 - angular dev server can hit the npm server
     origin: "http://localhost:4200",
     methods: ["GET", "POST"],
   },
 });
-
-const PORT = process.env.PORT || 8080;
-const INDEX = "/index.html";
-
+// Configure npm to use the built angular app
 app.use(express.static("./dist/ops-type-points"));
 app.get("/*", function (req, res) {
   res.sendFile("index.html", { root: "dist/ops-type-points/" });
 });
+// Run server
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => {
+  console.log("Listening on port ", PORT);
+});
 
-var sockets = [];
-
-let records;
-
-// Build terms map, terms -> list of definitions
-// Build terms list, list of term names (keys to the map)
-const termMap = new Map();
-
-// Build sources map, source -> list of definitions
-// Build sources list, list of source names (keys to the map)
-const sourceMap = new Map();
-
-const typeMap = new Map();
-const nameMap = new Map();
-const childrenMap = new Map();
-
-const tenCoins = "/tenCoins?maxRecords=10000";
-
-function getData(url, callback, offset) {
+function getData(url, converter, offset) {
   let host = url.host;
   let path = url.pathname + url.search + (offset ? "&offset=" + offset : "");
   // console.log(host, path);
@@ -56,24 +40,14 @@ function getData(url, callback, offset) {
           str += chunk;
         });
 
-        //the whole response has been received, so we just print it out here
+        //the whole response has been received, so we send it to the converter
         response.on("end", () => {
-          callback(str);
+          converter(str);
         });
       }
     )
     .end();
 }
-
-const typedPersons = require("./server/ops-typed-persons");
-const listUrl = typedPersons.urlMap.get("list");
-
-const terms = require("./server/ops-terms");
-const definitionsUrl = terms.urlMap.get("definitions");
-const nineTypesUrl = terms.urlMap.get("nineTypes");
-
-const nineTypesMap = new Map();
-const nineTypesSetMap = new Map();
 
 function convertNineTypesResult(json) {
   const result = JSON.parse(json);
@@ -138,7 +112,6 @@ function convertNineTypesResult(json) {
     getData(nineTypesUrl, convertNineTypesResult, offset);
   }
 }
-getData(nineTypesUrl, convertNineTypesResult);
 
 function convertDefinitionsResult(json) {
   const result = JSON.parse(json);
@@ -201,6 +174,8 @@ function convertDefinitionsResult(json) {
           altNames: record.fields["Alt Names"]
             ? record.fields["Alt Names"][0]
             : [],
+          parents: [],
+          children: [],
         });
       }
     } else {
@@ -211,11 +186,10 @@ function convertDefinitionsResult(json) {
   console.log("Term fetch", termMap.size, sourceMap.size, offset);
   if (offset) {
     getData(definitionsUrl, convertDefinitionsResult, offset);
+  } else {
+    childrenBlob.ready = true;
   }
 }
-
-getData(definitionsUrl, convertDefinitionsResult);
-
 
 function convertPersonListResult(json) {
   const result = JSON.parse(json);
@@ -318,28 +292,72 @@ function convertPersonListResult(json) {
   console.log("Person Fetch", nameMap.size, typeMap.size, offset);
   if (offset) {
     getData(listUrl, convertPersonListResult, offset);
+  } else {
+    // TODO: invoke something on complete?
   }
 }
 
-getData(listUrl, convertPersonListResult);
-
 function convertChildrenResult(json) {
   const result = JSON.parse(json);
-  console.log(result);
   const relRecords = result.records ? result.records : [];
+  // For each parent...
   relRecords.forEach((record) => {
-    if (childrenMap.get(record.fields['Term Name'])) {
-      console.log('already in map???', record.fields);
+    // Add children to term
+    const parentName = record.fields["Term Name"][0];
+    if (termMap.get(parentName)) {
+      record.fields["Children Names"].forEach((child) => {
+        termMap.get(parentName).children.push(child);
+      });
     } else {
-      childrenMap.set(record.fields['Term Name'], {
-        name: record.fields['Term Name'],
-        children: record.fields['Children Names']
+      // Term not found - may have no definitions - add term
+      termMap.set(parentName, {
+        definitions: [],
+        tags: [],
+        types: [],
+        altNames: [],
+        parents: [],
+        children: record.fields["Children Names"],
+      });
+    }
+    if (childrenMap.get(parentName)) {
+      console.log("already in map???", record.fields);
+    } else {
+      childrenMap.set(parentName, {
+        name: parentName,
+        children: record.fields["Children Names"],
       });
     }
   });
+  // For each possible child...
+  termMap.forEach((childVal, childKey) => {
+    // Add parents to term
+    childrenMap.forEach((parentVal, parentKey) => {
+      if (parentVal.children.includes(childKey)) {
+        // Found a parent
+        childVal.parents.push(parentKey);
+      }
+    });
+  });
+  const offset = result.offset;
+  console.log("Child Fetch", childrenMap.size, offset);
+  if (offset) {
+    getData(terms.urlMap.get("children"), convertChildrenResult, offset);
+  } else {
+    //TODO: trigger on complete?
+  }
 }
 
-getData(terms.urlMap.get("children"), convertChildrenResult);
+function fireBlob(blob) {
+  if (blob.ready) {
+    console.log("blob firing", blob.name);
+    blob.fire();
+  } else {
+    console.log("blob waiting", blob.name);
+    setTimeout(() => {
+      fireBlob(blob);
+    }, 200);
+  }
+}
 
 function broadcast(event, data) {
   sockets.forEach((socket) => {
@@ -347,46 +365,80 @@ function broadcast(event, data) {
   });
 }
 
-io.on("connection", function (socket) {
-  console.log("new socket");
-  sockets.push(socket);
+function ioSetup() {
+  io.on("connection", function (socket) {
+    console.log("new socket");
+    sockets.push(socket);
 
-  socket.on("disconnect", function () {
-    console.log("removed socket");
-    sockets.splice(sockets.indexOf(socket), 1);
-  });
+    socket.on("disconnect", function () {
+      console.log("removed socket");
+      sockets.splice(sockets.indexOf(socket), 1);
+    });
 
-  socket.on("getTerms", () => {
+    socket.on("getTerms", () => {
+      socket.emit("terms", Array.from(termMap));
+    });
     socket.emit("terms", Array.from(termMap));
-  });
-  socket.emit("terms", Array.from(termMap));
 
-  socket.on("getSources", () => {
+    socket.on("getSources", () => {
+      socket.emit("sources", Array.from(sourceMap));
+    });
     socket.emit("sources", Array.from(sourceMap));
-  });
-  socket.emit("sources", Array.from(sourceMap));
 
-  socket.on("getNames", () => {
+    socket.on("getNames", () => {
+      socket.emit("nameMap", Array.from(nameMap));
+    });
     socket.emit("nameMap", Array.from(nameMap));
-  });
-  socket.emit("nameMap", Array.from(nameMap));
 
-  socket.on("getParents", () => {
+    socket.on("getParents", () => {
+      socket.emit("parents", Array.from(childrenMap));
+    });
     socket.emit("parents", Array.from(childrenMap));
-  });
-  socket.emit("parents", Array.from(childrenMap));
 
-  socket.on("getTypes", () => {
+    socket.on("getTypes", () => {
+      socket.emit("types", Array.from(typeMap));
+    });
     socket.emit("types", Array.from(typeMap));
-  });
-  socket.emit("types", Array.from(typeMap));
 
-  socket.on("getNineTypes", () => {
+    socket.on("getNineTypes", () => {
+      socket.emit("nineTypes", Array.from(nineTypesSetMap));
+    });
     socket.emit("nineTypes", Array.from(nineTypesSetMap));
   });
-  socket.emit("nineTypes", Array.from(nineTypesSetMap));
-});
+}
 
-server.listen(PORT, () => {
-  console.log("Listening on port ", PORT);
-});
+const typedPersons = require("./server/ops-typed-persons");
+const listUrl = typedPersons.urlMap.get("list");
+const terms = require("./server/ops-terms");
+const definitionsUrl = terms.urlMap.get("definitions");
+const nineTypesUrl = terms.urlMap.get("nineTypes");
+
+var sockets = [];
+const nineTypesMap = new Map();
+const nineTypesSetMap = new Map();
+const termMap = new Map();
+const sourceMap = new Map();
+const typeMap = new Map();
+const nameMap = new Map();
+const childrenMap = new Map();
+const childrenBlob = {
+  name: "Child",
+  ready: false,
+  fire: () => {
+    getData(terms.urlMap.get("children"), convertChildrenResult);
+  },
+};
+
+const ioBlob = {
+  description: "IO Setup",
+  fire: ioSetup,
+  ready: false,
+};
+
+getData(definitionsUrl, convertDefinitionsResult);
+getData(nineTypesUrl, convertNineTypesResult);
+getData(listUrl, convertPersonListResult);
+fireBlob(childrenBlob);
+
+// delay(ioBlob);
+ioBlob.fire();
