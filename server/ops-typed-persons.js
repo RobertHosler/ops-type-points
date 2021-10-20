@@ -1,10 +1,13 @@
 /*jshint esversion: 6 */
 
 const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
-const TERMS_HOST = "https://api.airtable.com/v0/appudq0aG1uwqIFX5/";
+const OP_DB_HOST = "https://api.airtable.com/v0/appudq0aG1uwqIFX5/";
+const OP_DB_KEY = "appudq0aG1uwqIFX5";
+const OFFICIALLY_TYPED = "Officially Typed People";
+const BY_MBTI_TYPE = "Gallery by MBTI Type";
 const MAX_RECORD = 10000;
 
-const listUrl = new URL(TERMS_HOST + "Officially Typed People");
+const listUrl = new URL(OP_DB_HOST + "Officially Typed People");
 listUrl.searchParams.append("api_key", opsKey);
 listUrl.searchParams.append("maxRecords", MAX_RECORD);
 listUrl.searchParams.append("view", "Gallery by MBTI Type");
@@ -28,6 +31,34 @@ listUrl.searchParams.append("fields", "Transgender");
 
 const urlMap = new Map();
 urlMap.set("list", listUrl);
+
+const opsTypedPersons = {
+  dbKey: OP_DB_KEY,
+  table: OFFICIALLY_TYPED,
+  view: BY_MBTI_TYPE,
+  fields: [
+    'Name',
+    'Type',
+    'Tags',
+    'Picture',
+    'Sensory Sexual',
+    'De Sexual',
+    'Savior Observer',
+    'Savior Decider',
+    'Single Observer vs Decider',
+    'Decider Human Need',
+    'Observer Human Need',
+    'Energy vs Info Dom',
+    'Blast vs Consume',
+    'Play vs Sleep',
+    'Biological Sex',
+    'Transgender'
+  ],
+  converter: converter,
+  callback: () => {
+    typedPersonComplete = true;
+  }
+};
 
 // Exclude select names
 const exclusionsList = [
