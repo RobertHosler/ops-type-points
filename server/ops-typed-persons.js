@@ -60,12 +60,11 @@ const opsTypedPersons = {
 // Exclude select names
 const exclusionsList = [
   "Jesus",
-  "Sarah",
   // --Christopher Columbus
   "Batman",
   "The Joker",
   "Superman",
-  "Gargamel (Smurfs)",
+  "Gargamel",
 ];
 // Include select community members
 const inclusionsList = [
@@ -76,13 +75,73 @@ const inclusionsList = [
   "Sam Kelley",
   "Aiste Jonusaite",
 ];
+const converterList = [
+  {org: "", result: "Missingno"},
+  {org: "Robert (Bob) Iger", result: "Bob Iger"},
+  {org: "Wolf of Wall Street (aka Jordan Belfort)", result: "Jordan Belfort"},
+  {org: "Simon (Goonzsquad)", result: "Goonzsquad - Simon"},
+  {org: "Billy (Goonzsquad)", result: "Goonzsquad - Billy"},
+  {org: "MrBeast (aka Jimmy Donaldson)", result: "Jimmy Donaldson"},
+  {org: "Mykie (Glam&Gore)", result: "Мykie - Glam & Gore"},
+  {org: "Barepantrytalk (Barbara)", result: "Barbara - BarePantryTalk"},
+  {org: "Mini Ladd a/k/a Craig Thompson", result: "Craig Thompson"},
+  {org: "Ultimate Warrior a/k/a James Brian Hellwig", result: "James Brian Hellwig"},
+  {org: "Unbox Therapy a/k/a Lewis Hilsenteger", result: "Lewis Hilsenteger"},
+  {org: "Classroom Diva a/k/a Jessica Nichols", result: "Jessica Nichols"},
+  {org: "Happy Classroom a/k/a Vanessa/Fernanda", result: "Vanessa/Fernanda"},
+  {org: "SadPanda a/k/a Adria Killen", result: "Adria Killen"},
+  {org: "Mytoecold a/k/a Drew Monson", result: "Drew Monson"},
+  {org: "KetoDiet a/k/a Martina Slajerova", result: "Martina Slajerova"},
+  {org: "Depersonalization Manual a/k/a Shaun O'Connor", result: "Shaun O'Connor"},
+  {org: "Olivia a/k/a Thinker of Everything", result: "Olivia - Thinker of Everything"},
+  {org: "ATHLEAN-X™ a/k/a Jeff Cavaliere", result: "Jeff Cavaliere"},
+  {org: "Engineering Explained a/k/a Jason Fenske", result: "Jason Fenske"},
+  {org: "Alexandria Ocasio-Cortez a/k/a AOC", result: "Alexandria Ocasio-Cortez"},
+  {org: "Expression a/k/a Scott Ste Marie", result: "Scott Ste Marie"},
+  {org: "One Minute Workbench a/k/a Tommy Rich", result: "Tommy Rich"},
+  {org: "FemmeLife/FemmeHead a/k/a Victoria Zimmerman", result: "Victoria Zimmerman"},
+  {org: "Dynamo a/k/a Steven Frayne", result: "Steven Frayne"},
+  {org: "Yeshua's Servant a/k/a Queen Devoryah Michaela", result: "Queen Devoryah Michaela"},
+  {org: "Kevin a/k/a Chug", result: "Kevin \"Chug\""},
+  {org: "Bignoknow a/k/a Noah Thomas", result: "Noah Thomas"},
+  {org: "Redfoo (aka Stephen Kendal Gordy)", result: "Stephen Kendal Gordy"},
+  {org: "Physics Girl a/k/a Dianna Cowern", result: "Dianna Cowern"},
+  {org: "My Green Closet a/k/a Verina Erin", result: "Verina Erin"},
+  {org: "Hustle Standard a/k/a Charley", result: "Charley - Hustle Standard"},
+  {org: "Sarah", result: "Sarah, the ISTJ"}
+  //shift+alt+downArrow to copy line
+];
+
+function convertName(name) {
+  name = name.trim();
+  converterList.forEach(converter => {
+    if (converter.org === name) {
+      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
+      name = converter.result;
+    }
+  });
+  const slashIndex = name.indexOf("(");
+  if (slashIndex > -1) {
+    const beforeName = name;
+    name = name.substring(0, slashIndex).trim();
+    console.log('Trimmed Name () - ', beforeName, '- to |' + name + '|');
+  }
+  const akaIndex = name.indexOf("a/k/a");
+  if (akaIndex > -1) {
+    const beforeName = name;
+    name = name.substring(0, akaIndex).trim();
+    console.log('Trimmed Name aka - ', beforeName, '- to |' + name + '|');
+  }
+  return name;
+}
 
 function convertPersons(records) {
   const typeMap = new Map();
   const nameMap = new Map();
   records.forEach((record) => {
+    let name = convertName(record.fields.Name);
     const typedPerson = {
-      name: record.fields.Name,
+      name: name,
       type: record.fields.Type,
       pictureUrl:
         record.fields.Picture && record.fields.Picture.length > 0
@@ -146,7 +205,7 @@ function convertPersons(records) {
       sex: record.fields["Biological Sex"],
       trans: record.fields.Transgender,
     };
-    if (exclusionsList.includes(record.fields.Name)) {
+    if (exclusionsList.includes(name)) {
       return;
     }
     let tagExclusionFound = false;
@@ -159,7 +218,7 @@ function convertPersons(records) {
     }
     if (
       tagExclusionFound &&
-      !inclusionsList.includes(record.fields.Name)
+      !inclusionsList.includes(name)
     ) {
       return;
     }
@@ -170,8 +229,8 @@ function convertPersons(records) {
         typeMap.set(record.fields.Type, [typedPerson]);
       }
     }
-    if (record.fields.Name) {
-      nameMap.set(record.fields.Name, typedPerson);
+    if (name) {
+      nameMap.set(name, typedPerson);
     }
   });
   console.log("Convert Persons", nameMap.size, typeMap.size);
