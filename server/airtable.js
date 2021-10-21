@@ -52,50 +52,39 @@ function getData(url, offset, callback) {
 
 function getAllData(input) {
   console.log("getAllData", input.name);
-  const allRecords = [];
-  const getter = (offset) => {
-    // Invoke Get
-    getData(input.url, offset, (json) => {
-      // Handle Get
-      const result = JSON.parse(json);
-      const records = result.records ? result.records : [];
-      records.forEach((record) => {
-        allRecords.push(record); // combine records
+  const myPromise = new Promise((resolve, reject) => {
+    const allRecords = [];
+    const getter = (offset) => {
+      // Invoke Get
+      getData(input.url, offset, (json) => {
+        // Handle Get
+        const result = JSON.parse(json);
+        const records = result.records ? result.records : [];
+        records.forEach((record) => {
+          allRecords.push(record); // combine records
+        });
+        const offset = result.offset;
+        if (offset) {
+          // Reinvoke Get
+          // console.log("getAllData", input.name, allRecords.length);
+          getter(offset);
+        } else {
+          // Handle End
+          console.log("getAllData", input.name, allRecords.length, "COMPLETE");
+          resolve(allRecords);
+        }
       });
-      const offset = result.offset;
-      if (offset) {
-        // Reinvoke Get
-        // console.log("getAllData", input.name, allRecords.length);
-        getter(offset);
-      } else {
-        // Handle End
-        console.log("getAllData", input.name, allRecords.length, "COMPLETE");
-        input.callback(allRecords);
-      }
-    });
-  };
-  getter();
+    };
+    getter();
+  });
+  return myPromise;
 }
 
-function getPromise(input) {
-    const myPromise = new Promise((resolve, reject) => {
-        // change callback
-        input.callback = (records) => {
-            resolve(records);
-        };
-        getAllData(input);
-    });
-    return myPromise;
-}
-
-const model = {
+// Example input for getAll
+const modelInput = {
   name: "modelName",
-  url: new URL("https://api.airtable.com"),
-  callback: (records) => {
-    // called after request complete
-  },
+  url: new URL("https://api.airtable.com/"),
 };
 
 exports.getAll = getAllData;
-exports.getPromise = getPromise;
 exports.buildUrl = buildUrl;

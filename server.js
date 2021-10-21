@@ -78,7 +78,7 @@ function errorHandler(reason) {
 
 // get Persons
 airtable
-  .getPromise({
+  .getAll({
     name: "OP Database",
     url: typedPersons.listUrl,
   })
@@ -91,7 +91,7 @@ airtable
 
 // get Definitions
 airtable
-  .getPromise({
+  .getAll({
     name: "Definitions",
     url: terms.urlMap.get("definitions"),
   })
@@ -101,7 +101,7 @@ airtable
     termMap = result.terms;
     sourceMap = result.sources;
     // get Children
-    return airtable.getPromise({
+    return airtable.getAll({
       name: "Children",
       url: terms.urlMap.get("children"),
     });
@@ -113,7 +113,7 @@ airtable
   });
 
 airtable
-  .getPromise({
+  .getAll({
     name: "Nine Types",
     url: nineTypes.nineTypesUrl,
   })
@@ -132,7 +132,6 @@ function monitorMaps() {
     nameMap &&
     childrenMap
   ) {
-    console.log("ioSetup");
     ioSetup([
       {
         listener: "getNames",
