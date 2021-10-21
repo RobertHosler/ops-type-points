@@ -47,6 +47,10 @@ export class SearchComponent implements OnInit {
 
   allNames: Map<string, TypedPerson>;
 
+  allNamesArr: string[];
+  allNamesArrUnsorted: string[];
+  sortByName = true;
+
   routerInit = false;
 
   constructor(
@@ -56,6 +60,12 @@ export class SearchComponent implements OnInit {
   ) {
     this.opsDataService.allNames.subscribe((result) => {
       this.allNames = result;
+      this.allNamesArr = [];
+      this.allNames.forEach(record => {
+        this.allNamesArr.push(record.name);
+      });
+      this.allNamesArrUnsorted = this.allNamesArr.slice();
+      this.allNamesArr.sort();
       if (!this.routerInit) {
         this.routerInit = true;
         this.initRouter();
@@ -278,7 +288,14 @@ export class SearchComponent implements OnInit {
     this.searchLoading = true;
     this.displayedRecords = [];
     setTimeout(() => {
-      this.allNames.forEach((value, key) => {
+      let nameList;
+      if (this.sortByName) {
+        nameList = this.allNamesArr;
+      } else {
+        nameList = this.allNamesArrUnsorted;
+      }
+      nameList.forEach((name:string) => {
+        let value = this.allNames.get(name);
         if (
           this.options.get('hn1').val &&
           this.options.get('hn1').val !== value.coreNeed
@@ -395,4 +412,5 @@ export class SearchComponent implements OnInit {
       option.val = '';
     });
   }
+
 }
