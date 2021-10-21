@@ -87,7 +87,8 @@ airtable
     const result = typedPersons.convertPersons(records);
     typeMap = result.types;
     nameMap = result.names;
-  }, errorHandler);
+  }, errorHandler)
+  .then(startIo);
 
 // get Definitions
 airtable
@@ -110,7 +111,8 @@ airtable
     // handle Children
     const result = terms.convertChildren(records, termMap);
     childrenMap = result.children;
-  });
+  })
+  .then(startIo);
 
 airtable
   .getAll({
@@ -120,10 +122,11 @@ airtable
   .then((records) => {
     const result = nineTypes.convert(records);
     nineTypesMap = result.nineTypes;
-  }, errorHandler);
+  }, errorHandler)
+  .then(startIo);
 
 // Wait for maps to complete before starting the io
-function monitorMaps() {
+function startIo() {
   if (
     nineTypesMap &&
     termMap &&
@@ -164,8 +167,5 @@ function monitorMaps() {
         val: Array.from(nineTypesMap),
       },
     ]);
-  } else {
-    setTimeout(monitorMaps, 200);
   }
 }
-monitorMaps();
