@@ -241,6 +241,7 @@ export class TypedPerson {
   eType?: string;
   instinct?: string;
   trifix?: string;
+  fullEType?: string;
 }
 
 export class Parent {

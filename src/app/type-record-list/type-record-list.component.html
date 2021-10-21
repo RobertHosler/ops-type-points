@@ -58,14 +58,8 @@
               <span *ngIf="!linkToAnalyzer || typeRecord.type.length !== 16">{{
                 typeRecord.type
               }}</span>
-              <div *ngIf="typeRecord.eType">
-                <span *ngIf="typeRecord.instinct">
-                  {{ typeRecord.instinct }} -
-                </span>
-                {{ typeRecord.eType }}
-                <span *ngIf="typeRecord.trifix">
-                  - {{ typeRecord.trifix }}
-                </span>
+              <div *ngIf="typeRecord.fullEType">
+                {{ typeRecord.fullEType }}
               </div>
             </div>
           </div>

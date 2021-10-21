@@ -30,6 +30,20 @@ function convertRecords(records) {
   return result;
 }
 
+function buildFullEType(eType) {
+  let fullEType;
+  if (eType.instinct && eType.trifix) {
+    fullEType = eType.instinct + " - " + eType.eType + " - " + eType.trifix;
+  } else if (eType.instinct) {
+    fullEType = eType.instinct + " - " + eType.eType;
+  } else if (eType.instinct && eType.trifix) {
+    fullEType = eType.eType + " - " + eType.trifix;
+  } else {
+    fullEType = eType.eType;
+  }
+  return fullEType;
+}
+
 function mergeMaps(nameMap, eTypeMap) {
   const matches = [];
   nameMap.forEach((nameVal, nameKey) => {
@@ -38,6 +52,7 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.eType = eType.eType;
       nameVal.instinct = eType.instinct;
       nameVal.trifix = eType.trifix;
+      nameVal.fullEType = buildFullEType(eType);
       matches.push(nameKey);
     }
   });

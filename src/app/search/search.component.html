@@ -31,7 +31,14 @@
           href="https://subjectivepersonality.wordpress.com/about/contact/"
           target="_blank"
           >contact me</a
-        > to be added.
+        >
+        to be added.
+      </p>
+      <p>
+        Enneagram Types sourced from the
+        <a href="enneagrammerLink" target="_blank">Enneagrammer Database</a>.
+        Check out their
+        <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a>.
       </p>
     </div>
     <div class="d-none d-sm-flex my-2">
@@ -62,46 +69,19 @@
         data-toggle="buttons"
       >
         <label
+          *ngFor="let st of searchTypes"
           class="btn btn-primary"
-          [ngClass]="{ active: searchType === 'coins' }"
+          [ngClass]="{ active: searchType === st }"
         >
           <input
             type="radio"
             name="options"
             id="coinsOption"
             [(ngModel)]="searchType"
-            value="coins"
+            [value]="st"
             autocomplete="off"
           />
-          Coins
-        </label>
-        <label
-          class="btn btn-primary"
-          [ngClass]="{ active: searchType === 'name' }"
-        >
-          <input
-            type="radio"
-            name="options"
-            id="nameOption"
-            [(ngModel)]="searchType"
-            value="name"
-            autocomplete="off"
-          />
-          Name
-        </label>
-        <label
-          class="btn btn-primary"
-          [ngClass]="{ active: searchType === 'type' }"
-        >
-          <input
-            type="radio"
-            name="options"
-            id="typeOption"
-            [(ngModel)]="searchType"
-            value="type"
-            autocomplete="off"
-          />
-          Type
+          {{ st }}
         </label>
       </div>
     </div>
@@ -110,7 +90,7 @@
   <hr class="" />
   <div class="clear-right"></div>
 
-  <div class="search-coins mb-5" *ngIf="searchType === 'coins'">
+  <div class="search-coins mb-5" *ngIf="searchType === 'Coins'">
     <div class="row">
       <div class="col-md-4">
         <div *ngIf="options" class="coin-groups">
@@ -198,7 +178,7 @@
       </button>
     </div>
   </div>
-  <div class="mb-5 search-name" *ngIf="searchType === 'name'">
+  <div class="mb-5 search-name" *ngIf="searchType === 'Name'">
     <form (ngSubmit)="onSubmitName(nameForm)" #nameForm="ngForm">
       <div class="form-group">
         <label for="name" class="name-label">Name</label>
@@ -228,7 +208,7 @@
     </form>
   </div>
 
-  <div class="search-coins mb-5" *ngIf="searchType === 'type'">
+  <div class="search-coins mb-5" *ngIf="searchType === 'Type'">
     <form (ngSubmit)="onSubmitType(typeForm)" #typeForm="ngForm">
       <div class="form-group">
         <label for="type" class="type-label">Type</label>
@@ -257,6 +237,14 @@
         </button>
       </div>
     </form>
+  </div>
+
+  <div class="search-coins mb-5" *ngIf="searchType === 'Enneagram'">
+    <p>Coming Soon...</p>
+    <p>
+      For now you can search for parts of an enneagram type on the types tab.
+      Ex: 'So/Sp' or '9w1'
+    </p>
   </div>
 
   <p class="text-notice" *ngIf="false">

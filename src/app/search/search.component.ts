@@ -17,6 +17,10 @@ import { searchModel } from './search.model';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
+
+  enneagrammerLink = 'https://www.enneagrammer.com/database-list';
+  enneagrammerPinterest = 'https://www.pinterest.ca/enneagrammer/boards/';
+
   nameString: string;
   typeString: string;
 
@@ -25,7 +29,8 @@ export class SearchComponent implements OnInit {
 
   isMaxRecords = false;
 
-  searchType = 'coins';
+  searchType = 'Coins';
+  searchTypes = ['Coins', 'Name', 'Type', 'Enneagram'];
 
   searchLoading = false;
 
@@ -66,14 +71,14 @@ export class SearchComponent implements OnInit {
     this.route.queryParamMap.subscribe((params) => {
       if (params.get('name')) {
         this.nameString = params.get('name');
-        this.searchType = 'name';
+        this.searchType = 'Name';
         this.onSubmitName(null);
       } else if (params.get('type')) {
         this.typeString = params.get('type');
-        this.searchType = 'type';
+        this.searchType = 'Type';
         this.onSubmitType(null);
       } else {
-        this.searchType = 'coins';
+        this.searchType = 'Coins';
         this.options.forEach((option) => {
           option.val = params.get(option.coin.param)
             ? params.get(option.coin.param)
@@ -239,6 +244,11 @@ export class SearchComponent implements OnInit {
           value.type.toLowerCase().includes(this.typeString.toLowerCase())
         ) {
           this.displayedRecords.push(value);
+        } else if (
+          value.fullEType &&
+          value.fullEType.toLowerCase().includes(this.typeString.toLowerCase())
+        ) {
+          this.displayedRecords.push(value);
         }
       });
       this.searchLoading = false;
@@ -338,24 +348,23 @@ export class SearchComponent implements OnInit {
         }
         if (
           this.options.get('co').val === 'Class Only' &&
-          (!value.tags ||
-          !value.tags.includes('Class Typing'))
+          (!value.tags || !value.tags.includes('Class Typing'))
         ) {
           return;
         }
         if (
           this.options.get('hi') &&
           this.options.get('hi').val === 't' &&
-          (value.tags &&
-          value.tags.includes('Incomplete'))
+          value.tags &&
+          value.tags.includes('Incomplete')
         ) {
           return;
         }
         if (
           this.options.get('hs') &&
           this.options.get('hs').val === 't' &&
-          (value.tags &&
-          value.tags.includes('Speculation'))
+          value.tags &&
+          value.tags.includes('Speculation')
         ) {
           return;
         }
