@@ -17,6 +17,31 @@ function buildUrl(dbKey, table, view, fields) {
 }
 
 /**
+ * Wrap getData call to ensure we aren't calling it too often.
+ */
+let requests = 0;
+function getDataSafe(input, offset, callback) {
+  requests++;
+  if (requests < 5) {
+    // console.log("safe request", input.name, requests);
+    getData(input.url, offset, callback);
+    setTimeout(() => {
+      requests--;
+    //   console.log("safe request", input.name, "COMPLETE", requests);
+      if (requests === 0) {
+          console.log("safe requests queue empty");
+      }
+    }, 1000);
+  } else {
+    // console.log("safety pause", input.name, requests);
+    setTimeout(() => {
+      requests--;
+      getDataSafe(input, offset, callback);
+    }, 200);
+  }
+}
+
+/**
  * Retrieve data from the provided airtable url
  *
  * @param {*} url
@@ -56,7 +81,7 @@ function getAllData(input) {
     const allRecords = [];
     const getter = (offset) => {
       // Invoke Get
-      getData(input.url, offset, (json) => {
+      getDataSafe(input, offset, (json) => {
         // Handle Get
         const result = JSON.parse(json);
         const records = result.records ? result.records : [];
