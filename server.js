@@ -1,4 +1,7 @@
 /*jshint esversion: 6 */
+
+const setup = "Server Setup";
+console.time(setup);
 const express = require("express");
 const app = express();
 const http = require("http");
@@ -62,6 +65,7 @@ function ioSetup(shared) {
 const typedPersons = require("./server/ops-typed-persons");
 const terms = require("./server/ops-terms");
 const nineTypes = require("./server/e9-terms");
+const enneagrammer = require("./server/enneagrammer-db");
 const airtable = require("./server/airtable");
 
 var sockets = [];
@@ -71,6 +75,7 @@ let sourceMap;
 let typeMap;
 let nameMap;
 let childrenMap;
+let eTypeMap;
 
 function errorHandler(reason) {
   console.log("promise rejected with reason...", reason);
@@ -88,6 +93,19 @@ airtable
     typeMap = result.types;
     nameMap = result.names;
   }, errorHandler)
+  .then(() => {
+    return airtable.getAll({
+      name: "Enneagrammer DB",
+      url: enneagrammer.url,
+    });
+  }, errorHandler)
+  .then((records) => {
+    const result = enneagrammer.convertRecords(records);
+    eTypeMap = result;
+  })
+  .then(() => {
+    enneagrammer.mergeMaps(nameMap, eTypeMap);
+  })
   .then(startIo);
 
 // get Definitions
@@ -135,8 +153,10 @@ function startIo() {
     sourceMap &&
     typeMap &&
     nameMap &&
-    childrenMap
+    childrenMap &&
+    eTypeMap
   ) {
+    // console.timeЕnd(setup);
     ioSetup([
       {
         listener: "getNames",

@@ -33,13 +33,10 @@
         </div>
         <div class="image-wrapper">
           <div
-            *ngIf="
-              typeRecord.pictureUrl
-            "
+            *ngIf="typeRecord.pictureUrl"
             class="image-img"
             [ngStyle]="{
-              'background-image':
-                'url(' + typeRecord.pictureUrl + ')'
+              'background-image': 'url(' + typeRecord.pictureUrl + ')'
             }"
           ></div>
         </div>
@@ -58,10 +55,18 @@
                 }"
                 >{{ typeRecord.type }}</a
               >
-              <span
-                *ngIf="!linkToAnalyzer || typeRecord.type.length !== 16"
-                >{{ typeRecord.type }}</span
-              >
+              <span *ngIf="!linkToAnalyzer || typeRecord.type.length !== 16">{{
+                typeRecord.type
+              }}</span>
+              <div *ngIf="typeRecord.eType">
+                <span *ngIf="typeRecord.instinct">
+                  {{ typeRecord.instinct }} -
+                </span>
+                {{ typeRecord.eType }}
+                <span *ngIf="typeRecord.trifix">
+                  - {{ typeRecord.trifix }}
+                </span>
+              </div>
             </div>
           </div>
           <div class="image-tags">

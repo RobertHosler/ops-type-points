@@ -238,6 +238,9 @@ export class TypedPerson {
   deMod?: string;
   sex?: string;
   trans?: boolean;
+  eType?: string;
+  instinct?: string;
+  trifix?: string;
 }
 
 export class Parent {
