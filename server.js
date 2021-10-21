@@ -72,9 +72,67 @@ let typeMap;
 let nameMap;
 let childrenMap;
 
-const ioBlob = {
-  name: "IO Setup",
-  fire: () => {
+function errorHandler(reason) {
+  console.log("promise rejected with reason...", reason);
+}
+
+// get Persons
+airtable
+  .getPromise({
+    name: "OP Database",
+    url: typedPersons.listUrl,
+  })
+  .then((records) => {
+    // handle Persons
+    const result = typedPersons.convertPersons(records);
+    typeMap = result.types;
+    nameMap = result.names;
+  }, errorHandler);
+
+// get Definitions
+airtable
+  .getPromise({
+    name: "Definitions",
+    url: terms.urlMap.get("definitions"),
+  })
+  .then((records) => {
+    // handle Definitions
+    const result = terms.convertDefinitions(records);
+    termMap = result.terms;
+    sourceMap = result.sources;
+    // get Children
+    return airtable.getPromise({
+      name: "Children",
+      url: terms.urlMap.get("children"),
+    });
+  }, errorHandler)
+  .then((records) => {
+    // handle Children
+    const result = terms.convertChildren(records, termMap);
+    childrenMap = result.children;
+  });
+
+airtable
+  .getPromise({
+    name: "Nine Types",
+    url: nineTypes.nineTypesUrl,
+  })
+  .then((records) => {
+    const result = nineTypes.convert(records);
+    nineTypesMap = result.nineTypes;
+  }, errorHandler);
+
+// Wait for maps to complete before starting the io
+function monitorMaps() {
+  if (
+    nineTypesMap &&
+    termMap &&
+    sourceMap &&
+    typeMap &&
+    nameMap &&
+    childrenMap
+  ) {
+    console.log("ioSetup");
     ioSetup([
       {
         listener: "getNames",
@@ -107,55 +165,8 @@ const ioBlob = {
         val: Array.from(nineTypesMap),
       },
     ]);
-  },
-  ready: false,
-};
-
-airtable.getAll({
-  name: "OP Database",
-  url: typedPersons.listUrl,
-  callback: (records) => {
-    const result = typedPersons.convertPersons(records);
-    typeMap = result.types;
-    nameMap = result.names;
-    ioBlob.ready = true;
-  },
-});
-
-airtable.getAll({
-  name: "Nine Types",
-  url: nineTypes.nineTypesUrl,
-  callback: (records) => {
-    const result = nineTypes.convert(records);
-    nineTypesMap = result.nineTypes;
-  },
-});
-
-airtable.getAll({
-  name: "Definitions",
-  url: terms.urlMap.get("definitions"),
-  callback: (records) => {
-    const result = terms.convertDefinitions(records);
-    termMap = result.terms;
-    sourceMap = result.sources;
-    childrenBlob.ready = true;
-  },
-});
-
-const childrenBlob = {
-  name: "Child",
-  ready: false,
-  fire: () => {
-    airtable.getAll({
-      name: "Children",
-      url: terms.urlMap.get("children"),
-      callback: (records) => {
-        const result = terms.convertChildren(records, termMap);
-        childrenMap = result.children;
-      },
-    });
-  },
-};
-
-fireBlob(childrenBlob);
-fireBlob(ioBlob);
+  } else {
+    setTimeout(monitorMaps, 200);
+  }
+}
+monitorMaps();

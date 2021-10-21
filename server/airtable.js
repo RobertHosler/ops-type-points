@@ -77,6 +77,17 @@ function getAllData(input) {
   getter();
 }
 
+function getPromise(input) {
+    const myPromise = new Promise((resolve, reject) => {
+        // change callback
+        input.callback = (records) => {
+            resolve(records);
+        };
+        getAllData(input);
+    });
+    return myPromise;
+}
+
 const model = {
   name: "modelName",
   url: new URL("https://api.airtable.com"),
@@ -86,4 +97,5 @@ const model = {
 };
 
 exports.getAll = getAllData;
+exports.getPromise = getPromise;
 exports.buildUrl = buildUrl;
