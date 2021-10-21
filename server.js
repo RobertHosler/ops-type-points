@@ -101,7 +101,9 @@ airtable
     const result = terms.convertDefinitions(records);
     termMap = result.terms;
     sourceMap = result.sources;
-    // get Children
+  }, errorHandler)
+  // get Children
+  .then(() => {
     return airtable.getAll({
       name: "Children",
       url: terms.urlMap.get("children"),
