@@ -108,7 +108,8 @@ const converterList = [
   {org: "Physics Girl a/k/a Dianna Cowern", result: "Dianna Cowern"},
   {org: "My Green Closet a/k/a Verina Erin", result: "Verina Erin"},
   {org: "Hustle Standard a/k/a Charley", result: "Charley - Hustle Standard"},
-  {org: "Sarah", result: "Sarah, the ISTJ"}
+  {org: "Sarah", result: "Sarah, the ISTJ"},
+  { org: "Whoopie Goldberg", result: "Whoopi Goldberg" },
   //shift+alt+downArrow to copy line
 ];
 

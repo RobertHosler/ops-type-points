@@ -31,7 +31,6 @@ const converterList = [
   { org: "Russel Brand", result: "Russell Brand" },
   { org: "Samuel L Jackson", result: "Samuel L. Jackson" },
   { org: "Shaq", result: "Shaquille O’Neal" },
-  { org: "Whoopi Goldberg", result: "Whoopie Goldberg" },
 ];
 function convertName(name) {
   name = name.trim();
