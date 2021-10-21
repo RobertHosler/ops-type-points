@@ -33,13 +33,13 @@ export class OpsDataService {
     this.allSources = new Observable((observer) => {
       socket.on('sources', (sources) => {
         let map = new Map<string, Source>(sources);
-        map.delete("");
+        map.delete('');
         observer.next(map);
       });
       socket.emit('getSources');
     });
     this.allNames = new Observable((observer) => {
-      socket.on('nameMap', (names) => {
+      socket.on('names', (names) => {
         let map = new Map<string, TypedPerson>(names);
         observer.next(map);
       });

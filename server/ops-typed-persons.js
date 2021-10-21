@@ -29,35 +29,32 @@ listUrl.searchParams.append("fields", "Play vs Sleep");
 listUrl.searchParams.append("fields", "Biological Sex");
 listUrl.searchParams.append("fields", "Transgender");
 
-const urlMap = new Map();
-urlMap.set("list", listUrl);
-
 const opsTypedPersons = {
   dbKey: OP_DB_KEY,
   table: OFFICIALLY_TYPED,
   view: BY_MBTI_TYPE,
   fields: [
-    'Name',
-    'Type',
-    'Tags',
-    'Picture',
-    'Sensory Sexual',
-    'De Sexual',
-    'Savior Observer',
-    'Savior Decider',
-    'Single Observer vs Decider',
-    'Decider Human Need',
-    'Observer Human Need',
-    'Energy vs Info Dom',
-    'Blast vs Consume',
-    'Play vs Sleep',
-    'Biological Sex',
-    'Transgender'
+    "Name",
+    "Type",
+    "Tags",
+    "Picture",
+    "Sensory Sexual",
+    "De Sexual",
+    "Savior Observer",
+    "Savior Decider",
+    "Single Observer vs Decider",
+    "Decider Human Need",
+    "Observer Human Need",
+    "Energy vs Info Dom",
+    "Blast vs Consume",
+    "Play vs Sleep",
+    "Biological Sex",
+    "Transgender",
   ],
-  converter: converter,
+  converter: () => {},
   callback: () => {
     typedPersonComplete = true;
-  }
+  },
 };
 
 // Exclude select names
@@ -80,6 +77,109 @@ const inclusionsList = [
   "Aiste Jonusaite",
 ];
 
-exports.urlMap = urlMap;
-exports.exclusions = exclusionsList;
-exports.inclusions = inclusionsList;
+function convertPersons(records) {
+  const typeMap = new Map();
+  const nameMap = new Map();
+  records.forEach((record) => {
+    const typedPerson = {
+      name: record.fields.Name,
+      type: record.fields.Type,
+      pictureUrl:
+        record.fields.Picture && record.fields.Picture.length > 0
+          ? record.fields.Picture[0].url
+          : "",
+      tags: record.fields.Tags,
+      coreNeed: record.fields["Single Observer vs Decider"]
+        ? record.fields["Single Observer vs Decider"] ===
+          "Single Decider / Double Observer"
+          ? "Decider"
+          : record.fields["Single Observer vs Decider"] ===
+            "Single Observer / Double Decider"
+          ? "Observer"
+          : ""
+        : "",
+      deciderNeed: record.fields["Decider Human Need"],
+      observerNeed: record.fields["Observer Human Need"],
+      observerLetter: record.fields["Savior Observer"]
+        ? record.fields["Savior Observer"] === "Sensory"
+          ? "S"
+          : record.fields["Savior Observer"] === "Intuition"
+          ? "N"
+          : ""
+        : "",
+      deciderLetter: record.fields["Savior Decider"]
+        ? record.fields["Savior Decider"] === "Feeling"
+          ? "F"
+          : record.fields["Savior Decider"] === "Thinking"
+          ? "T"
+          : ""
+        : "",
+      infoAnimal: record.fields["Blast vs Consume"]
+        ? record.fields["Blast vs Consume"] === "Blast"
+          ? "B"
+          : record.fields["Blast vs Consume"] === "Consume"
+          ? "C"
+          : ""
+        : "",
+      energyAnimal: record.fields["Play vs Sleep"]
+        ? record.fields["Play vs Sleep"] === "Play"
+          ? "P"
+          : record.fields["Play vs Sleep"] === "Sleep"
+          ? "S"
+          : ""
+        : "",
+      animalBalance: record.fields["Energy vs Info Dom"],
+      sensoryMod: record.fields["Sensory Sexual"]
+        ? record.fields["Sensory Sexual"] === "Masculine"
+          ? "M"
+          : record.fields["Sensory Sexual"] === "Feminine"
+          ? "F"
+          : ""
+        : "",
+      deMod: record.fields["De Sexual"]
+        ? record.fields["De Sexual"] === "Masculine"
+          ? "M"
+          : record.fields["De Sexual"] === "Feminine"
+          ? "F"
+          : ""
+        : "",
+      sex: record.fields["Biological Sex"],
+      trans: record.fields.Transgender,
+    };
+    if (exclusionsList.includes(record.fields.Name)) {
+      return;
+    }
+    let tagExclusionFound = false;
+    if (record.fields.Tags) {
+      record.fields.Tags.forEach((tag) => {
+        if (tag === "Community Member") {
+          tagExclusionFound = true;
+        }
+      });
+    }
+    if (
+      tagExclusionFound &&
+      !inclusionsList.includes(record.fields.Name)
+    ) {
+      return;
+    }
+    if (record.fields.Type) {
+      if (typeMap.get(record.fields.Type)) {
+        typeMap.get(record.fields.Type).push(typedPerson);
+      } else {
+        typeMap.set(record.fields.Type, [typedPerson]);
+      }
+    }
+    if (record.fields.Name) {
+      nameMap.set(record.fields.Name, typedPerson);
+    }
+  });
+  console.log("Convert Persons", nameMap.size, typeMap.size);
+  return {
+    types: typeMap,
+    names: nameMap,
+  };
+}
+
+exports.listUrl = listUrl;
+exports.convertPersons = convertPersons;
