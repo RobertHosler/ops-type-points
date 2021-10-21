@@ -496,7 +496,9 @@ export class TypePracticeComponent implements OnInit {
       if (this.exclusions.includes(name)) {
         return;
       }
-      if (!person.tags) {
+      if (!person.type) {
+        return;
+      } else if (!person.tags) {
         this.alltypedPersons.push(person);
       } else if (person.tags.includes('Class Typing')) {
         this.allClassOnlyPersons.push(person);
