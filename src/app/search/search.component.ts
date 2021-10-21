@@ -49,7 +49,7 @@ export class SearchComponent implements OnInit {
 
   allNamesArr: string[];
   allNamesArrUnsorted: string[];
-  sortByName = true;
+  sortByName = false;
 
   routerInit = false;
 
