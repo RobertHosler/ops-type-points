@@ -106,6 +106,7 @@ function mergeMaps(nameMap, eTypeMap) {
         trifix: eVal.trifix,
         pictureUrl: eVal.pictureUrl,
         fullEType: buildFullEType(eVal),
+        tags: ["Enneagram Type Only"],
       });
     }
   });
