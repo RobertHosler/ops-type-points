@@ -5,7 +5,7 @@ const HOST = "https://api.airtable.com/v0/apptRQDj4AV89IiNn/";
 const TABLE_NAME = "Enneagrammer DB";
 const VIEW = "Grid view";
 const MAX_RECORD = 10000;
-const fields = ["Name", "Instinct", "Type", "Trifix"];
+const fields = ["Name", "Instinct", "Type", "Trifix", 'Picture'];
 
 const url = new URL(HOST + TABLE_NAME);
 url.searchParams.append("view", VIEW);
@@ -25,6 +25,10 @@ function convertRecords(records) {
       eType: record.fields.Type,
       instinct: record.fields.Instinct,
       trifix: record.fields.Trifix,
+      pictureUrl:
+        record.fields.Picture && record.fields.Picture.length > 0
+          ? record.fields.Picture[0].url
+          : "",
     });
   });
   return result;
@@ -46,17 +50,38 @@ function buildFullEType(eType) {
 
 function mergeMaps(nameMap, eTypeMap) {
   const matches = [];
-  nameMap.forEach((nameVal, nameKey) => {
-    const eType = eTypeMap.get(nameKey);
-    if (eType) {
-      nameVal.eType = eType.eType;
-      nameVal.instinct = eType.instinct;
-      nameVal.trifix = eType.trifix;
-      nameVal.fullEType = buildFullEType(eType);
-      matches.push(nameKey);
+  let i = 0;
+  // nameMap.forEach((nameVal, nameKey) => {
+  //   const eType = eTypeMap.get(nameKey);
+  //   if (eType) {
+  //     nameVal.eType = eType.eType;
+  //     nameVal.instinct = eType.instinct;
+  //     nameVal.trifix = eType.trifix;
+  //     nameVal.fullEType = buildFullEType(eType);
+  //     matches.push(nameKey);
+  //   }
+  // });
+  eTypeMap.forEach((eVal, eKey) => {
+    const nameVal = nameMap.get(eKey);
+    if (nameVal) {
+      nameVal.eType = eVal.eType;
+      nameVal.instinct = eVal.instinct;
+      nameVal.trifix = eVal.trifix;
+      nameVal.fullEType = buildFullEType(eVal);
+      matches.push(eKey);
+    } else {
+      // Add to nameMap
+      i++;
+      nameMap.set(eKey, {
+        name: eKey,
+        instinct: eVal.instinct,
+        trifix: eVal.trifix,
+        pictureUrl: eVal.pictureUrl,
+        fullEType: buildFullEType(eVal)
+      });
     }
   });
-  console.log("E-Type and OP-Type Matches", matches.length);
+  console.log("E-Type and OP-Type Matches", matches.length, "New Persons", i);
 }
 
 exports.url = url;

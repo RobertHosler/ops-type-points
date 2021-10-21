@@ -10,13 +10,15 @@
 <div *ngIf="!loading">
   <div class="image-row">
     <div *ngFor="let typeRecord of typeRecords" class="type-record">
-      <div class="image-col" *ngIf="typeRecord.type">
+      <div class="image-col" *ngIf="typeRecord.type || typeRecord.fullEType">
         <div class="image-text">
           <div class="name-wrapper">
             <div class="image-name">
               <div class="">{{ typeRecord.name }}</div>
             </div>
-            <div *ngIf="showMolecule && !displayPracticeLink">
+            <div
+              *ngIf="typeRecord.type && showMolecule && !displayPracticeLink"
+            >
               <app-type-indicator
                 [option]="1"
                 [type]="typeRecord.type"
@@ -33,16 +35,20 @@
         </div>
         <div class="image-wrapper">
           <div
-            *ngIf="typeRecord.pictureUrl"
             class="image-img"
+            [ngClass]="{'image-missing': !typeRecord.pictureUrl}"
             [ngStyle]="{
-              'background-image': 'url(' + typeRecord.pictureUrl + ')'
+              'background-image': 'url(' + (typeRecord.pictureUrl ? typeRecord.pictureUrl : '/assets/images/sp-logo-no-bg.png') + ')'
             }"
-          ></div>
+          >
+            <span class="image-missing-text" *ngIf="!typeRecord.pictureUrl">
+              Image Missing
+            </span>
+        </div>
         </div>
         <div class="image-text-bottom text-center">
           <div class="type-wrapper">
-            <div class="image-type" *ngIf="!displayPracticeLink">
+            <div class="image-type" *ngIf="!displayPracticeLink && typeRecord.type">
               <a
                 class="analyzer-link"
                 *ngIf="linkToAnalyzer && typeRecord.type.length === 16"
@@ -58,9 +64,9 @@
               <span *ngIf="!linkToAnalyzer || typeRecord.type.length !== 16">{{
                 typeRecord.type
               }}</span>
-              <div *ngIf="typeRecord.fullEType">
-                {{ typeRecord.fullEType }}
-              </div>
+            </div>
+            <div class="image-type" *ngIf="typeRecord.fullEType">
+              {{ typeRecord.fullEType }}
             </div>
           </div>
           <div class="image-tags">
