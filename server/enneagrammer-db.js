@@ -5,7 +5,7 @@ const HOST = "https://api.airtable.com/v0/apptRQDj4AV89IiNn/";
 const TABLE_NAME = "Enneagrammer DB";
 const VIEW = "Grid view";
 const MAX_RECORD = 10000;
-const fields = ["Name", "Instinct", "Type", "Trifix", 'Picture'];
+const fields = ["Name", "Instinct", "Type", "Trifix", "Picture"];
 
 const url = new URL(HOST + TABLE_NAME);
 url.searchParams.append("view", VIEW);
@@ -15,11 +15,40 @@ fields.forEach((field) => {
   url.searchParams.append("fields", field);
 });
 
+const converterList = [
+  { org: "Dr. Phil", result: "Dr. Phil McGraw" },
+  { org: "Ellen Degeneres", result: "Ellen DeGeneres" },
+  { org: "Gordon Ramsey", result: "Gordon Ramsay" },
+  { org: "Gwenyth Paltrow", result: "Gwyneth Paltrow" },
+  { org: "Hilary Clinton", result: "Hillary Clinton" },
+  { org: "Jay Z", result: "Jay-Z" },
+  { org: "John Jones (UFC)", result: "Jon Jones" },
+  { org: "Judge Judyy", result: "Judge Judy" },
+  { org: "Lady GaGa", result: "Lady Gaga" },
+  { org: "Oprah", result: "Oprah Winfrey" },
+  { org: "Ross Matthews", result: "Ross Mathews" },
+  { org: "Russel Crowe", result: "Russell Crowe" },
+  { org: "Russel Brand", result: "Russell Brand" },
+  { org: "Samuel L Jackson", result: "Samuel L. Jackson" },
+  { org: "Shaq", result: "Shaquille O’Neal" },
+  { org: "Whoopi Goldberg", result: "Whoopie Goldberg" },
+];
+function convertName(name) {
+  name = name.trim();
+  converterList.forEach((converter) => {
+    if (converter.org === name) {
+      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
+      name = converter.result;
+    }
+  });
+  return name;
+}
+
 function convertRecords(records) {
   const result = new Map();
   records.forEach((record) => {
     //TODO: put in map
-    const name = record.fields.Name;
+    const name = convertName(record.fields.Name);
     result.set(name, {
       name: name,
       eType: record.fields.Type,
@@ -77,7 +106,7 @@ function mergeMaps(nameMap, eTypeMap) {
         instinct: eVal.instinct,
         trifix: eVal.trifix,
         pictureUrl: eVal.pictureUrl,
-        fullEType: buildFullEType(eVal)
+        fullEType: buildFullEType(eVal),
       });
     }
   });
