@@ -45,11 +45,11 @@ function broadcast(event, data) {
 function ioSetup(shared) {
   console.log("IO Setup");
   io.on("connection", function (socket) {
-    console.log("new socket");
+    console.log("new socketio connection");
     sockets.push(socket);
 
     socket.on("disconnect", function () {
-      console.log("removed socket");
+      console.log("removed socketio connection");
       sockets.splice(sockets.indexOf(socket), 1);
     });
 
