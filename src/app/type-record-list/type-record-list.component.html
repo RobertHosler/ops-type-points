@@ -17,11 +17,12 @@
               <div class="">{{ typeRecord.name }}</div>
             </div>
             <div
-              *ngIf="typeRecord.type && showMolecule && !displayPracticeLink"
+              *ngIf="!displayPracticeLink"
             >
               <app-type-indicator
                 [option]="1"
                 [type]="typeRecord.type"
+                [eType]="typeRecord.fullEType"
               ></app-type-indicator>
             </div>
           </div>
@@ -36,15 +37,22 @@
         <div class="image-wrapper">
           <div
             class="image-img"
-            [ngClass]="{'image-missing': !typeRecord.pictureUrl}"
+            [ngClass]="{ 'image-missing': !typeRecord.pictureUrl }"
             [ngStyle]="{
-              'background-image': 'url(' + (typeRecord.pictureUrl ? typeRecord.pictureUrl : '/assets/images/sp-logo-no-bg.png') + ')'
+              'background-image':
+                'url(' +
+                (typeRecord.pictureUrl
+                  ? typeRecord.pictureUrl
+                  : '/assets/images/sp-logo-no-bg.png') +
+                ')'
             }"
           >
             <span class="image-missing-text" *ngIf="!typeRecord.pictureUrl">
-              Image Missing
+              <a [href]="missingImageLink(typeRecord.name)" target="_blank">
+                Image Missing</a
+              >
             </span>
-        </div>
+          </div>
         </div>
         <div class="image-text-bottom text-center">
           <div class="type-wrapper" *ngIf="!displayPracticeLink">

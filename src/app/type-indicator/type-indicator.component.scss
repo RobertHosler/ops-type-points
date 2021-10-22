@@ -69,6 +69,7 @@
   $border-radius: 7px;
   border: 1px solid;
   border-radius: $border-radius;
+  color: black;
   .type-row > div {
     width: 50%;
   }
@@ -83,13 +84,13 @@
   .type-table-s1 {
     border-top-left-radius: $border-radius;
     // border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid;
     font-weight: 600;
   }
   .type-table-s2 {
     border-top-right-radius: $border-radius;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
+    border-left: 1px solid;
+    border-bottom: 1px solid;
     font-size: 0.85rem;
     font-weight: 600;
   }
@@ -101,7 +102,7 @@
   }
   .type-table-animals {
     border-bottom-right-radius: $border-radius;
-    border-left: 1px solid black;
+    border-left: 1px solid ;
     // border-top: 1px solid black;
     font-size: 0.7rem;
   }
@@ -306,4 +307,72 @@
 .animal-SC,
 .animal-CS {
   background-color: #9ce2ff !important;
+}
+
+// Instincts
+.animal-so,
+.modality-so {
+  background-color: #87aebe !important;
+}
+.animal-sp,
+.modality-sp {
+  background-color: #ad8769 !important;
+}
+.animal-sx,
+.modality-sx {
+  background-color: #888888 !important;
+}
+
+.function-9,
+.function-w9 {
+  background-color: #758ecf !important;
+}
+.function-8,
+.function-w8 {
+  background-color: #5abdad !important;
+}
+.function-7,
+.function-w7 {
+  background-color: #9fe17a !important;
+}
+.function-6,
+.function-w6 {
+  background-color: #fff27e !important;
+}
+.function-5,
+.function-w5 {
+  background-color: #f1bd65  !important;
+}
+.function-4,
+.function-w4 {
+  background-color: #f36c52 !important;
+}
+.function-3,
+.function-w3 {
+  background-color: #e36666 !important;
+}
+.function-2,
+.function-w2 {
+  background-color: #c874cf !important;
+}
+.function-1,
+.function-w1 {
+  background-color: #8f72dd !important;
+}
+
+.e-indicator {
+  .type-table-mod {
+    font-size: .8rem;
+  }
+  .type-table-1 {
+    .type-row .type-table-s1,
+    .type-row .type-table-mod {
+      width: 55%;
+    }
+    .type-row .type-table-s2,
+    .type-row .type-table-animals {
+      width: 45%;
+      font-size: .75rem;
+    }
+  }
 }

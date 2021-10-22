@@ -1,4 +1,4 @@
-<div *ngIf="display">
+<div *ngIf="display" [ngClass]="{'e-indicator': displayEType}">
   <div *ngIf="option === 1" class="type-indicator mt-2 mr-2">
     <div [class]="'function-s1 function-' + s1.toLowerCase()">
       <div *ngIf="showLetters">
@@ -98,4 +98,5 @@
       </div>
     </div>
   </div>
+
 </div>
