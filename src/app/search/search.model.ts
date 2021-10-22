@@ -313,52 +313,68 @@ const clusters = [
 
 const eTypes = [
   {
-    name: '1',
-    wings: ['9', '2']
-  },
-  {
     name: '2',
-    wings: ['1', '3']
+    wings: ['1', '3'],
   },
   {
     name: '3',
-    wings: ['2', '4']
+    wings: ['2', '4'],
   },
   {
     name: '4',
-    wings: ['3', '5']
+    wings: ['3', '5'],
   },
   {
     name: '5',
-    wings: ['4', '6']
+    wings: ['4', '6'],
   },
   {
     name: '6',
-    wings: ['5', '7']
+    wings: ['5', '7'],
   },
   {
     name: '7',
-    wings: ['6', '8']
+    wings: ['6', '8'],
   },
   {
     name: '8',
-    wings: ['7', '9']
+    wings: ['7', '9'],
   },
   {
     name: '9',
-    wings: ['8', '1']
+    wings: ['8', '1'],
+  },
+  {
+    name: '1',
+    wings: ['9', '2'],
+  },
+];
+
+const instincts = [
+  {
+    name: 'sp',
+    secondary: ['so', 'sx'],
+  },
+  {
+    name: 'sx',
+    secondary: ['so', 'sp'],
+  },
+  {
+    name: 'so',
+    secondary: ['sp', 'sx'],
   },
 ];
 
 export const searchModel = {
-    functions: functions,
-    observerFunctions: observerFunctions,
-    needClusters: needClusters,
-    letterClusters: letterClusters,
-    animalClusters: animalClusters,
-    firstAnimals: firstAnimals,
-    lastAnimals: lastAnimals,
-    modalityClusters: modalityClusters,
-    clusters: clusters,
-    eTypes: eTypes
+  functions: functions,
+  observerFunctions: observerFunctions,
+  needClusters: needClusters,
+  letterClusters: letterClusters,
+  animalClusters: animalClusters,
+  firstAnimals: firstAnimals,
+  lastAnimals: lastAnimals,
+  modalityClusters: modalityClusters,
+  clusters: clusters,
+  eTypes: eTypes,
+  instincts: instincts,
 };

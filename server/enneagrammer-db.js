@@ -57,7 +57,7 @@ function convertRecords(records) {
       coreEType: record.fields.Type.substring(0, 1),
       wing: record.fields.Type.substring(2, 3),
       eType: record.fields.Type,
-      instinct: record.fields.Instinct ? record.fields.Instinct.toLowerCase() : '',
+      instinct: record.fields.Instinct ? record.fields.Instinct.toLowerCase() : '??/??',
       trifix: record.fields.Trifix,
       pictureUrl:
         record.fields.Picture && record.fields.Picture.length > 0

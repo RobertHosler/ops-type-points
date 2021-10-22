@@ -18,6 +18,8 @@ export class SearchComponent implements OnInit {
   typeString: string;
   activeEType;
   activeWing;
+  activeInstinct;
+  activeInstinct2;
 
   displayedRecords: TypedPerson[];
   maxRecords = 10000;
@@ -40,6 +42,7 @@ export class SearchComponent implements OnInit {
   modalityClusters = searchModel.modalityClusters;
   clusters = searchModel.clusters;
   eTypes = searchModel.eTypes;
+  instincts = searchModel.instincts;
 
   allNames: Map<string, TypedPerson>;
 
@@ -83,13 +86,18 @@ export class SearchComponent implements OnInit {
         this.typeString = params.get('type');
         this.searchType = 'Type';
         this.onSubmitType(null);
-      } else if (params.get('et')) {
-
+      } else if (params.get('et') || params.get('i1')) {
         this.eTypes.forEach(eType => {
           if (eType.name === params.get('et')) {
             this.activeEType = eType;
           }
         });
+        this.instincts.forEach(instinct => {
+          if (instinct.name === params.get('i1')) {
+            this.activeInstinct = instinct;
+          }
+        });
+        this.activeInstinct2 = params.get('i2');
         this.activeWing = params.get('w');
         this.searchType = 'Enneagram';
         this.searchEType();
@@ -429,8 +437,10 @@ export class SearchComponent implements OnInit {
       nameList.forEach((name: string) => {
         let value = this.allNames.get(name);
         if (
-          this.activeEType.name !== value.coreEType ||
-          (this.activeWing && this.activeWing !== value.wing)
+          (this.activeEType && this.activeEType.name !== value.coreEType) ||
+          (this.activeWing && this.activeWing !== value.wing) ||
+          (this.activeInstinct && (!value.instinct || this.activeInstinct.name !== value.instinct.substring(0,2))) ||
+          (this.activeInstinct2 && this.activeInstinct2 !== value.instinct.substring(3,5))
         ) {
           return;
         }
@@ -451,8 +461,10 @@ export class SearchComponent implements OnInit {
     const queryParams: Params = {
       name: this.nameString,
       type: this.typeString,
-      et: this.activeEType.name,
+      et: this.activeEType ? this.activeEType.name : null,
       w: this.activeWing,
+      i1: this.activeInstinct ? this.activeInstinct.name : null,
+      i2: this.activeInstinct2
     };
     this.options.forEach((option) => {
       if (option.val) {
@@ -473,8 +485,30 @@ export class SearchComponent implements OnInit {
     this.typeString = null;
     this.activeEType = null;
     this.activeWing = null;
+    this.activeInstinct = null;
+    this.activeInstinct2 = null;
     this.options.forEach((option) => {
       option.val = null;
     });
+  }
+
+  toggleEType(eType) {
+    if (this.activeEType === eType) {
+      this.activeEType = null;
+      this.activeWing = null;
+    } else {
+      this.activeEType = eType;
+      this.activeWing = null;
+    }
+  }
+
+  toggleInstinct(instinct) {
+    if (this.activeInstinct === instinct) {
+      this.activeInstinct = null;
+      this.activeInstinct2 = null;
+    } else {
+      this.activeInstinct = instinct;
+      this.activeInstinct2 = null;
+    }
   }
 }

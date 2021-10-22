@@ -240,27 +240,34 @@
     </form>
   </div>
 
-  <div class="search-coins mb-5" *ngIf="searchType === 'Enneagram'">
+  <div
+    class="search-coins search-enneagram mb-5"
+    *ngIf="searchType === 'Enneagram'"
+  >
     <div class="d-flex mb-3">
       <div class="mr-3">
         <label class="type-label">Type</label>
-        <button
-          *ngFor="let eType of eTypes"
-          class="btn btn-gray mx-1"
-          [ngClass]="{ active: activeEType === eType }"
-          (click)="activeWing = null; activeEType = eType"
-        >
-          {{ eType.name }}
-        </button>
+        <span *ngFor="let eType of eTypes; let i = index">
+          <button
+            class="btn btn-gray mx-1 my-1"
+            [ngClass]="{ active: activeEType === eType }"
+            (click)="toggleEType(eType)"
+          >
+            {{ eType.name }}
+          </button>
+          <br *ngIf="(i + 1) % 3 === 0"
+        /></span>
       </div>
-      <div>
+      <div class="mr-3">
         <label class="type-label">Wing</label>
         <div *ngIf="activeEType">
           <button
             *ngFor="let wing of activeEType.wings"
             class="btn btn-gray mx-1"
             [ngClass]="{ active: activeWing === wing }"
-            (click)="activeWing === wing ? activeWing = null : activeWing = wing"
+            (click)="
+              activeWing === wing ? (activeWing = null) : (activeWing = wing)
+            "
           >
             {{ wing }}
           </button>
@@ -269,12 +276,43 @@
           <button class="btn btn-gray mx-1" *ngFor="let x of [1, 2]">?</button>
         </div>
       </div>
+      <div class="mr-3">
+        <label class="type-label">Instinct</label>
+        <button
+          *ngFor="let instinct of instincts"
+          class="btn btn-gray mx-1"
+          [ngClass]="{ active: activeInstinct === instinct }"
+          (click)="toggleInstinct(instinct)"
+        >
+          {{ instinct.name }}
+        </button>
+      </div>
+      <div>
+        <label class="type-label">Second Instinct</label>
+        <div *ngIf="activeInstinct">
+          <button
+            *ngFor="let second of activeInstinct.secondary"
+            class="btn btn-gray mx-1"
+            [ngClass]="{ active: activeInstinct2 === second }"
+            (click)="
+              activeInstinct2 === second
+                ? (activeInstinct2 = null)
+                : (activeInstinct2 = second)
+            "
+          >
+            {{ second }}
+          </button>
+        </div>
+        <div *ngIf="!activeInstinct">
+          <button class="btn btn-gray mx-1" *ngFor="let x of [1, 2]">?</button>
+        </div>
+      </div>
     </div>
     <div>
       <button
         class="btn btn-lg btn-primary mr-3"
         (click)="searchEType()"
-        [disabled]="!activeEType || searchLoading"
+        [disabled]="(!activeEType && !activeInstinct) || searchLoading"
       >
         Search
       </button>
