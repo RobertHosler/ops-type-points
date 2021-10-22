@@ -7,11 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TypeIndicatorComponent implements OnInit {
   @Input()
-  type;
-  // = 'MM-Te/Se-PC/S(B)';
+  type;// = 'MM-Te/Se-PC/S(B)';
 
   @Input()
-  eType = 'sp/sx - 9w8 - 936';
+  eType;// = 'sp/sx - 9w8 - 936';
 
   @Input()
   option = 4;
