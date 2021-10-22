@@ -32,6 +32,9 @@ const converterList = [
   { org: "Samuel L Jackson", result: "Samuel L. Jackson" },
   { org: "Shaq", result: "Shaquille O’Neal" },
   { org: "Ave Gardner", result: "Ava Gardner" },
+  { org: "Mr. Rogers", result: "Fred Rogers" },
+  { org: "Dr. Drew", result: "Dr. Drew Pinsky" },
+  { org: "Kris Jenner", result: "Kris Kardashian Jenner" },
 ];
 function convertName(name) {
   name = name.trim();
