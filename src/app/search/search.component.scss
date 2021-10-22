@@ -1,5 +1,8 @@
 @import "~src/assets/variables";
 
+.search-type-group {
+  flex-wrap: wrap;
+}
 .search-type-group .btn {
   min-width: 80px;
   height: 40px;
@@ -152,5 +155,9 @@ input.form-control {
   .btn-gray {
     min-width: 55px;
     min-height: 45px;
+  }
+  .search-ewrapper {
+    display: flex;
+    flex-wrap: wrap;
   }
 }

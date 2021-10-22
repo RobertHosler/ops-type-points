@@ -244,8 +244,8 @@
     class="search-coins search-enneagram mb-5"
     *ngIf="searchType === 'Enneagram'"
   >
-    <div class="d-flex mb-3">
-      <div class="mr-3">
+    <div class="search-ewrapper mb-3">
+      <div class="search-etype mr-3">
         <label class="type-label">Type</label>
         <span *ngFor="let eType of eTypes; let i = index">
           <button
@@ -258,7 +258,7 @@
           <br *ngIf="(i + 1) % 3 === 0"
         /></span>
       </div>
-      <div class="mr-3">
+      <div class="search-wing mr-3">
         <label class="type-label">Wing</label>
         <div *ngIf="activeEType">
           <button
@@ -276,7 +276,7 @@
           <button class="btn btn-gray mx-1" *ngFor="let x of [1, 2]">?</button>
         </div>
       </div>
-      <div class="mr-3">
+      <div class="search-instinct mr-3">
         <label class="type-label">Instinct</label>
         <button
           *ngFor="let instinct of instincts"
@@ -287,7 +287,7 @@
           {{ instinct.name }}
         </button>
       </div>
-      <div>
+      <div class="search-instinct2">
         <label class="type-label">Second Instinct</label>
         <div *ngIf="activeInstinct">
           <button
