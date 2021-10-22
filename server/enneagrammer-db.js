@@ -31,6 +31,7 @@ const converterList = [
   { org: "Russel Brand", result: "Russell Brand" },
   { org: "Samuel L Jackson", result: "Samuel L. Jackson" },
   { org: "Shaq", result: "Shaquille O’Neal" },
+  { org: "Ave Gardner", result: "Ava Gardner" },
 ];
 function convertName(name) {
   name = name.trim();
@@ -51,7 +52,7 @@ function convertRecords(records) {
     result.set(name, {
       name: name,
       eType: record.fields.Type,
-      instinct: record.fields.Instinct,
+      instinct: record.fields.Instinct ? record.fields.Instinct.toLowerCase() : '',
       trifix: record.fields.Trifix,
       pictureUrl:
         record.fields.Picture && record.fields.Picture.length > 0
