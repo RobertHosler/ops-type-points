@@ -66,4 +66,9 @@ export class TypeRecordListComponent implements OnInit {
       return '';
     }
   }
+
+  missingImageLink(name: string) {
+    return 'https://www.google.com/search?q=' + name + '&tbm=isch';
+    //&hl=en&tbs=il:cl&rlz=1C1CHBF_enUS827US827&sa=X&ved=0CAAQ1vwEahcKEwioxM_gsNzzAhUAAAAAHQAAAAAQAg&biw=1903&bih=880#imgrc=DwdoIiO6d18ywM'
+  }
 }
