@@ -71,6 +71,7 @@
         <label
           *ngFor="let st of searchTypes"
           class="btn btn-primary"
+          (click)="changeTab()"
           [ngClass]="{ active: searchType === st }"
         >
           <input
@@ -240,11 +241,51 @@
   </div>
 
   <div class="search-coins mb-5" *ngIf="searchType === 'Enneagram'">
-    <p>Coming Soon...</p>
-    <p>
-      For now you can search for parts of an enneagram type on the types tab.
-      Ex: 'So/Sp' or '9w1'
-    </p>
+    <div class="d-flex mb-3">
+      <div class="mr-3">
+        <label class="type-label">Type</label>
+        <button
+          *ngFor="let eType of eTypes"
+          class="btn btn-gray mx-1"
+          [ngClass]="{ active: activeEType === eType }"
+          (click)="activeWing = null; activeEType = eType"
+        >
+          {{ eType.name }}
+        </button>
+      </div>
+      <div>
+        <label class="type-label">Wing</label>
+        <div *ngIf="activeEType">
+          <button
+            *ngFor="let wing of activeEType.wings"
+            class="btn btn-gray mx-1"
+            [ngClass]="{ active: activeWing === wing }"
+            (click)="activeWing === wing ? activeWing = null : activeWing = wing"
+          >
+            {{ wing }}
+          </button>
+        </div>
+        <div *ngIf="!activeEType">
+          <button class="btn btn-gray mx-1" *ngFor="let x of [1, 2]">?</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button
+        class="btn btn-lg btn-primary mr-3"
+        (click)="searchEType()"
+        [disabled]="!activeEType || searchLoading"
+      >
+        Search
+      </button>
+      <button
+        class="btn btn-secondary mr-3"
+        type="button"
+        (click)="activeEType = null; activeWing = null"
+      >
+        Reset
+      </button>
+    </div>
   </div>
 
   <p class="text-notice" *ngIf="false">

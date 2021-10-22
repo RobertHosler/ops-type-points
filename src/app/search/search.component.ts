@@ -2,12 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Coin, coinMap, coinSideMap } from '../model/coin';
-import {
-  OpsDataService,
-  TypedPerson,
-  TypeRecord,
-  TypeRoot,
-} from '../service/ops-data.service';
+import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 import { searchModel } from './search.model';
 
 @Component({
@@ -16,12 +11,13 @@ import { searchModel } from './search.model';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-
   enneagrammerLink = 'https://www.enneagrammer.com/database-list';
   enneagrammerPinterest = 'https://www.pinterest.ca/enneagrammer/boards/';
 
   nameString: string;
   typeString: string;
+  activeEType;
+  activeWing;
 
   displayedRecords: TypedPerson[];
   maxRecords = 10000;
@@ -43,6 +39,7 @@ export class SearchComponent implements OnInit {
   animalClusters = searchModel.animalClusters;
   modalityClusters = searchModel.modalityClusters;
   clusters = searchModel.clusters;
+  eTypes = searchModel.eTypes;
 
   allNames: Map<string, TypedPerson>;
 
@@ -60,7 +57,7 @@ export class SearchComponent implements OnInit {
     this.opsDataService.allNames.subscribe((result) => {
       this.allNames = result;
       this.allNamesArr = [];
-      this.allNames.forEach(record => {
+      this.allNames.forEach((record) => {
         this.allNamesArr.push(record.name);
       });
       this.allNamesArrUnsorted = this.allNamesArr.slice();
@@ -86,6 +83,16 @@ export class SearchComponent implements OnInit {
         this.typeString = params.get('type');
         this.searchType = 'Type';
         this.onSubmitType(null);
+      } else if (params.get('et')) {
+
+        this.eTypes.forEach(eType => {
+          if (eType.name === params.get('et')) {
+            this.activeEType = eType;
+          }
+        });
+        this.activeWing = params.get('w');
+        this.searchType = 'Enneagram';
+        this.searchEType();
       } else {
         this.searchType = 'Coins';
         this.options.forEach((option) => {
@@ -293,7 +300,7 @@ export class SearchComponent implements OnInit {
       } else {
         nameList = this.allNamesArrUnsorted;
       }
-      nameList.forEach((name:string) => {
+      nameList.forEach((name: string) => {
         let value = this.allNames.get(name);
         if (
           this.options.get('hn1').val &&
@@ -387,7 +394,7 @@ export class SearchComponent implements OnInit {
         this.displayedRecords.push(value);
       });
       this.searchLoading = false;
-    }, 200);
+    }, 0);
     const queryParams: Params = {
       name: null,
       type: null,
@@ -406,10 +413,68 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  searchEType() {
+    if (this.searchLoading) {
+      return;
+    }
+    this.searchLoading = true;
+    this.displayedRecords = [];
+    setTimeout(() => {
+      let nameList: string[];
+      if (this.sortByName) {
+        nameList = this.allNamesArr;
+      } else {
+        nameList = this.allNamesArrUnsorted;
+      }
+      nameList.forEach((name: string) => {
+        let value = this.allNames.get(name);
+        if (
+          this.activeEType.name !== value.coreEType ||
+          (this.activeWing && this.activeWing !== value.wing)
+        ) {
+          return;
+        }
+        this.displayedRecords.push(value);
+      });
+      this.searchLoading = false;
+    }, 0);
+    this.updateRoute();
+  }
+
   resetCoins() {
     this.options.forEach((option) => {
       option.val = '';
     });
   }
 
+  updateRoute() {
+    const queryParams: Params = {
+      name: this.nameString,
+      type: this.typeString,
+      et: this.activeEType.name,
+      w: this.activeWing,
+    };
+    this.options.forEach((option) => {
+      if (option.val) {
+        queryParams[option.coin.param] = option.val;
+      } else {
+        queryParams[option.coin.param] = null;
+      }
+    });
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  changeTab() {
+    this.nameString = null;
+    this.typeString = null;
+    this.activeEType = null;
+    this.activeWing = null;
+    this.options.forEach((option) => {
+      option.val = null;
+    });
+  }
 }

@@ -311,6 +311,45 @@ const clusters = [
   },
 ];
 
+const eTypes = [
+  {
+    name: '1',
+    wings: ['9', '2']
+  },
+  {
+    name: '2',
+    wings: ['1', '3']
+  },
+  {
+    name: '3',
+    wings: ['2', '4']
+  },
+  {
+    name: '4',
+    wings: ['3', '5']
+  },
+  {
+    name: '5',
+    wings: ['4', '6']
+  },
+  {
+    name: '6',
+    wings: ['5', '7']
+  },
+  {
+    name: '7',
+    wings: ['6', '8']
+  },
+  {
+    name: '8',
+    wings: ['7', '9']
+  },
+  {
+    name: '9',
+    wings: ['8', '1']
+  },
+];
+
 export const searchModel = {
     functions: functions,
     observerFunctions: observerFunctions,
@@ -320,5 +359,6 @@ export const searchModel = {
     firstAnimals: firstAnimals,
     lastAnimals: lastAnimals,
     modalityClusters: modalityClusters,
-    clusters: clusters
+    clusters: clusters,
+    eTypes: eTypes
 };

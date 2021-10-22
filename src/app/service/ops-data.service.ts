@@ -241,6 +241,8 @@ export class TypedPerson {
   eType?: string;
   instinct?: string;
   trifix?: string;
+  coreEType?: string;
+  wing?: string;
   fullEType?: string;
 }
 

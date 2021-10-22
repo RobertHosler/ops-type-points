@@ -51,6 +51,8 @@ function convertRecords(records) {
     const name = convertName(record.fields.Name);
     result.set(name, {
       name: name,
+      coreEType: record.fields.Type.substring(0, 1),
+      wing: record.fields.Type.substring(2, 3),
       eType: record.fields.Type,
       instinct: record.fields.Instinct ? record.fields.Instinct.toLowerCase() : '',
       trifix: record.fields.Trifix,
@@ -65,12 +67,21 @@ function convertRecords(records) {
 
 function buildFullEType(eType) {
   let fullEType;
-  if (eType.instinct && eType.trifix) {
-    fullEType = eType.instinct + " - " + eType.eType + " - " + eType.trifix;
+  let coreType;
+  let trifix;
+  if (eType.trifix && eType.trifix.startsWith(eType.eType)) {
+    // full fix (9w1 3w4 6w7) in place of core type (9w1) for reduced redundancy
+    coreType = eType.trifix;
+  } else {
+    coreType = eType.eType;
+    trifix = eType.trifix;
+  }
+  if (eType.instinct && trifix) {
+    fullEType = eType.instinct + " - " + coreType + " - " + trifix;
   } else if (eType.instinct) {
-    fullEType = eType.instinct + " - " + eType.eType;
-  } else if (eType.instinct && eType.trifix) {
-    fullEType = eType.eType + " - " + eType.trifix;
+    fullEType = eType.instinct + " - " + coreType;
+  } else if (eType.instinct && trifix) {
+    fullEType = eType.eType + " - " + trifix;
   } else {
     fullEType = eType.eType;
   }
@@ -80,22 +91,14 @@ function buildFullEType(eType) {
 function mergeMaps(nameMap, eTypeMap) {
   const matches = [];
   let i = 0;
-  // nameMap.forEach((nameVal, nameKey) => {
-  //   const eType = eTypeMap.get(nameKey);
-  //   if (eType) {
-  //     nameVal.eType = eType.eType;
-  //     nameVal.instinct = eType.instinct;
-  //     nameVal.trifix = eType.trifix;
-  //     nameVal.fullEType = buildFullEType(eType);
-  //     matches.push(nameKey);
-  //   }
-  // });
   eTypeMap.forEach((eVal, eKey) => {
     const nameVal = nameMap.get(eKey);
     if (nameVal) {
-      nameVal.eType = eVal.eType;
-      nameVal.instinct = eVal.instinct;
-      nameVal.trifix = eVal.trifix;
+      nameVal.coreEType = eVal.coreEType; // 9
+      nameVal.wing = eVal.wing; // 1
+      nameVal.eType = eVal.eType; // 9w1
+      nameVal.instinct = eVal.instinct; // so/sp
+      nameVal.trifix = eVal.trifix; // 963 or 9w1 6w7 3w4
       nameVal.fullEType = buildFullEType(eVal);
       matches.push(eKey);
     } else {
@@ -103,6 +106,8 @@ function mergeMaps(nameMap, eTypeMap) {
       i++;
       nameMap.set(eKey, {
         name: eKey,
+        coreEType: eVal.coreEType,
+        wing: eVal.wing,
         instinct: eVal.instinct,
         trifix: eVal.trifix,
         pictureUrl: eVal.pictureUrl,
