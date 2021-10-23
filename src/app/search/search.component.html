@@ -47,7 +47,6 @@
         <label
           *ngFor="let st of searchTypes"
           class="btn btn-primary"
-          (click)="changeTab()"
           [ngClass]="{ active: searchType === st }"
         >
           <input
@@ -142,7 +141,7 @@
         class="btn btn-lg btn-primary mr-3"
         type="button"
         [disabled]="searchLoading"
-        (click)="searchCoins()"
+        (click)="searchAll()"
       >
         Search
       </button>
@@ -156,7 +155,6 @@
     </div>
   </div>
   <div class="mb-5 search-name" *ngIf="searchType === 'Name'">
-    <form (ngSubmit)="onSubmitName(nameForm)" #nameForm="ngForm">
       <div class="form-group">
         <label for="name" class="name-label">Name</label>
         <input
@@ -176,17 +174,15 @@
       <div>
         <button
           class="btn btn-lg btn-primary mr-3"
-          type="submit"
+          (click)="searchAll()"
           [disabled]="searchLoading"
         >
           Search
         </button>
       </div>
-    </form>
   </div>
 
   <div class="search-coins mb-5" *ngIf="searchType === 'Type'">
-    <form (ngSubmit)="onSubmitType(typeForm)" #typeForm="ngForm">
       <div class="form-group">
         <label for="type" class="type-label">Type</label>
         <input
@@ -207,13 +203,12 @@
       <div>
         <button
           class="btn btn-lg btn-primary mr-3"
-          type="submit"
+          (click)="searchAll()"
           [disabled]="searchLoading"
         >
           Search
         </button>
       </div>
-    </form>
   </div>
 
   <div
@@ -287,7 +282,7 @@
     <div>
       <button
         class="btn btn-lg btn-primary mr-3"
-        (click)="searchEType()"
+        (click)="searchAll()"
         [disabled]="(!activeEType && !activeInstinct) || searchLoading"
       >
         Search
@@ -310,7 +305,7 @@
     Search found {{ displayedRecords.length }} results.
   </p>
 </div>
-<div class="container-fluid records-bg">
+<div class="container-fluid records-bg" #recordList>
   <app-type-record-list
     [typeRecords]="displayedRecords"
     [loading]="searchLoading"

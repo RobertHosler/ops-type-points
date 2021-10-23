@@ -16,7 +16,6 @@ import { TypedPerson, TypeRecord } from '../service/ops-data.service';
   styleUrls: ['./type-record-list.component.scss'],
 })
 export class TypeRecordListComponent implements OnInit, OnChanges {
-
   enneagrammerLink = appLinks.enneagrammerDb;
   enneagrammerPinterest = appLinks.enneagrammerPinterest;
   opsDbInfo = appLinks.opsDbInfo;
@@ -149,7 +148,10 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
 
   scrollToLoaded() {
     if (this.loadedEl) {
-      window.scrollTo(this.loadedEl.nativeElement.yPosition);
+      setTimeout(() => {
+        let top = this.loadedEl.nativeElement.offsetTop;
+        window.scrollTo(0, top - 56);
+      });
     }
   }
 }

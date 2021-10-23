@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Coin, coinMap, coinSideMap } from '../model/coin';
@@ -56,6 +56,10 @@ export class SearchComponent implements OnInit {
 
   routerInit = false;
 
+  @ViewChild('recordList') recordList: ElementRef;
+
+  initialLoad = true;
+
   constructor(
     private opsDataService: OpsDataService,
     private route: ActivatedRoute,
@@ -85,18 +89,16 @@ export class SearchComponent implements OnInit {
       if (params.get('name')) {
         this.nameString = params.get('name');
         this.searchType = 'Name';
-        this.onSubmitName(null);
       } else if (params.get('type')) {
         this.typeString = params.get('type');
         this.searchType = 'Type';
-        this.onSubmitType(null);
       } else if (params.get('et') || params.get('i1')) {
-        this.eTypes.forEach(eType => {
+        this.eTypes.forEach((eType) => {
           if (eType.name === params.get('et')) {
             this.activeEType = eType;
           }
         });
-        this.instincts.forEach(instinct => {
+        this.instincts.forEach((instinct) => {
           if (instinct.name === params.get('i1')) {
             this.activeInstinct = instinct;
           }
@@ -104,7 +106,6 @@ export class SearchComponent implements OnInit {
         this.activeInstinct2 = params.get('i2');
         this.activeWing = params.get('w');
         this.searchType = 'Enneagram';
-        this.searchEType();
       } else {
         this.searchType = 'Coins';
         this.options.forEach((option) => {
@@ -112,8 +113,8 @@ export class SearchComponent implements OnInit {
             ? params.get(option.coin.param)
             : '';
         });
-        this.searchCoins();
       }
+      this.searchAll();
     });
   }
 
@@ -231,228 +232,163 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  onSubmitName(form: NgForm) {
-    if (this.searchLoading || !this.nameString) {
-      return;
-    }
-    this.searchLoading = true;
-    this.displayedRecords = [];
-    setTimeout(() => {
-      this.allNames.forEach((value, key) => {
-        if (value.name.toLowerCase().includes(this.nameString.toLowerCase())) {
-          this.displayedRecords.push(value);
-        }
-      });
-      this.searchLoading = false;
-    }, 200);
-    const queryParams: Params = {
-      name: this.nameString,
-      type: null,
-    };
-    this.options.forEach((option) => {
-      queryParams[option.coin.param] = null;
-    });
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: queryParams,
-      queryParamsHandling: 'merge',
-    });
-  }
-
-  onSubmitType(form: NgForm) {
-    if (this.searchLoading || !this.typeString) {
-      return;
-    }
-    this.searchLoading = true;
-    this.displayedRecords = [];
-    setTimeout(() => {
-      this.allNames.forEach((value, key) => {
-        if (
-          value.type &&
-          value.type.toLowerCase().includes(this.typeString.toLowerCase())
-        ) {
-          this.displayedRecords.push(value);
-        } else if (
-          value.fullEType &&
-          value.fullEType.toLowerCase().includes(this.typeString.toLowerCase())
-        ) {
-          this.displayedRecords.push(value);
-        }
-      });
-      this.searchLoading = false;
-    }, 200);
-    const queryParams: Params = {
-      name: null,
-      type: this.typeString,
-    };
-    this.options.forEach((option) => {
-      queryParams[option.coin.param] = null;
-    });
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: queryParams,
-      queryParamsHandling: 'merge',
-    });
-  }
-
-  onSubmitClusters(form: NgForm) {
-    this.searchCoins();
-  }
-
-  searchCoins() {
+  searchAll() {
     if (this.searchLoading) {
       return;
     }
     this.searchLoading = true;
     this.displayedRecords = [];
     setTimeout(() => {
-      let nameList;
-      if (this.sortByName) {
-        nameList = this.allNamesArr;
-      } else {
-        nameList = this.allNamesArrUnsorted;
-      }
-      nameList.forEach((name: string) => {
-        let value = this.allNames.get(name);
-        if (
-          this.options.get('hn1').val &&
-          this.options.get('hn1').val !== value.coreNeed
-        ) {
-          return;
-        }
-        if (
-          this.options.get('dhn').val &&
-          this.options.get('dhn').val !== value.deciderNeed
-        ) {
-          return;
-        }
-        if (
-          this.options.get('ohn').val &&
-          this.options.get('ohn').val !== value.observerNeed
-        ) {
-          return;
-        }
-        if (
-          this.options.get('ol').val &&
-          this.options.get('ol').val !== value.observerLetter
-        ) {
-          return;
-        }
-        if (
-          this.options.get('dl').val &&
-          this.options.get('dl').val !== value.deciderLetter
-        ) {
-          return;
-        }
-        if (
-          this.options.get('ia').val &&
-          this.options.get('ia').val !== value.infoAnimal
-        ) {
-          return;
-        }
-        if (
-          this.options.get('ea').val &&
-          this.options.get('ea').val !== value.energyAnimal
-        ) {
-          return;
-        }
-        if (
-          this.options.get('dom').val &&
-          this.options.get('dom').val !== value.animalBalance
-        ) {
-          return;
-        }
-        if (
-          this.options.get('smod').val &&
-          this.options.get('smod').val !== value.sensoryMod
-        ) {
-          return;
-        }
-        if (
-          this.options.get('demod').val &&
-          this.options.get('demod').val !== value.deMod
-        ) {
-          return;
-        }
-        if (
-          this.options.get('sex').val &&
-          ((!value.trans && this.options.get('sex').val !== value.sex) ||
-            (value.trans && this.options.get('sex').val === value.sex))
-        ) {
-          return;
-        }
-        if (
-          this.options.get('co').val === 'Class Only' &&
-          (!value.tags || !value.tags.includes('Class Typing'))
-        ) {
-          return;
-        }
-        if (
-          this.options.get('hi') &&
-          this.options.get('hi').val === 't' &&
-          value.tags &&
-          value.tags.includes('Incomplete')
-        ) {
-          return;
-        }
-        if (
-          this.options.get('hs') &&
-          this.options.get('hs').val === 't' &&
-          value.tags &&
-          value.tags.includes('Speculation')
-        ) {
-          return;
-        }
-        this.displayedRecords.push(value);
-      });
+      this.searchNames();
       this.searchLoading = false;
-    }, 1000);
-    const queryParams: Params = {
-      name: null,
-      type: null,
-    };
-    this.options.forEach((option) => {
-      if (option.val) {
-        queryParams[option.coin.param] = option.val;
-      } else {
-        queryParams[option.coin.param] = null;
-      }
-    });
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: queryParams,
-      queryParamsHandling: 'merge',
-    });
-  }
-
-  searchEType() {
-    if (this.searchLoading) {
-      return;
-    }
-    this.searchLoading = true;
-    this.displayedRecords = [];
-    setTimeout(() => {
-      let nameList: string[];
-      if (this.sortByName) {
-        nameList = this.allNamesArr;
-      } else {
-        nameList = this.allNamesArrUnsorted;
-      }
-      nameList.forEach((name: string) => {
-        let value = this.allNames.get(name);
-        if (
-          (this.activeEType && this.activeEType.name !== value.coreEType) ||
-          (this.activeWing && this.activeWing !== value.wing) ||
-          (this.activeInstinct && (!value.instinct || this.activeInstinct.name !== value.instinct.substring(0,2))) ||
-          (this.activeInstinct2 && this.activeInstinct2 !== value.instinct.substring(3,5))
-        ) {
-          return;
-        }
-        this.displayedRecords.push(value);
-      });
-      this.searchLoading = false;
-    }, 0);
+    }, 1500);
     this.updateRoute();
+  }
+
+  private searchNames() {
+    let nameList: string[];
+    if (this.sortByName) {
+      nameList = this.allNamesArr;
+    } else {
+      nameList = this.allNamesArrUnsorted;
+    }
+    nameList.forEach((name: string) => {
+      let person = this.allNames.get(name);
+      if (
+        !this.matchCoins(person) ||
+        !this.matchName(person) ||
+        !this.matchType(person) ||
+        !this.matchEnnea(person)
+      ) {
+        return;
+      }
+      this.displayedRecords.push(person);
+    });
+  }
+
+  private matchEnnea(person): boolean {
+    if (
+      (this.activeEType && this.activeEType.name !== person.coreEType) ||
+      (this.activeWing && this.activeWing !== person.wing) ||
+      (this.activeInstinct &&
+        (!person.instinct ||
+          this.activeInstinct.name !== person.instinct.substring(0, 2))) ||
+      (this.activeInstinct2 &&
+        this.activeInstinct2 !== person.instinct.substring(3, 5))
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  private matchName(person: TypedPerson): boolean {
+    return (
+      !this.nameString ||
+      person.name.toLowerCase().includes(this.nameString.toLowerCase())
+    );
+  }
+
+  private matchType(person: TypedPerson): boolean {
+    return (
+      !this.typeString ||
+      (person.type &&
+        person.type.toLowerCase().includes(this.typeString.toLowerCase())) ||
+      (person.fullEType &&
+        person.fullEType.toLowerCase().includes(this.typeString.toLowerCase()))
+    );
+  }
+
+  private matchCoins(person: TypedPerson): boolean {
+    if (
+      this.options.get('hn1').val &&
+      this.options.get('hn1').val !== person.coreNeed
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('dhn').val &&
+      this.options.get('dhn').val !== person.deciderNeed
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('ohn').val &&
+      this.options.get('ohn').val !== person.observerNeed
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('ol').val &&
+      this.options.get('ol').val !== person.observerLetter
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('dl').val &&
+      this.options.get('dl').val !== person.deciderLetter
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('ia').val &&
+      this.options.get('ia').val !== person.infoAnimal
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('ea').val &&
+      this.options.get('ea').val !== person.energyAnimal
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('dom').val &&
+      this.options.get('dom').val !== person.animalBalance
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('smod').val &&
+      this.options.get('smod').val !== person.sensoryMod
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('demod').val &&
+      this.options.get('demod').val !== person.deMod
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('sex').val &&
+      ((!person.trans && this.options.get('sex').val !== person.sex) ||
+        (person.trans && this.options.get('sex').val === person.sex))
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('co').val === 'Class Only' &&
+      (!person.tags || !person.tags.includes('Class Typing'))
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('hi') &&
+      this.options.get('hi').val === 't' &&
+      person.tags &&
+      person.tags.includes('Incomplete')
+    ) {
+      return false;
+    }
+    if (
+      this.options.get('hs') &&
+      this.options.get('hs').val === 't' &&
+      person.tags &&
+      person.tags.includes('Speculation')
+    ) {
+      return false;
+    }
+    return true;
   }
 
   resetCoins() {
@@ -468,7 +404,7 @@ export class SearchComponent implements OnInit {
       et: this.activeEType ? this.activeEType.name : null,
       w: this.activeWing,
       i1: this.activeInstinct ? this.activeInstinct.name : null,
-      i2: this.activeInstinct2
+      i2: this.activeInstinct2,
     };
     this.options.forEach((option) => {
       if (option.val) {
@@ -484,7 +420,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  changeTab() {
+  resetAll() {
     this.nameString = null;
     this.typeString = null;
     this.activeEType = null;
@@ -513,6 +449,17 @@ export class SearchComponent implements OnInit {
     } else {
       this.activeInstinct = instinct;
       this.activeInstinct2 = null;
+    }
+  }
+
+  scrollToList() {
+    if (!this.initialLoad) {
+      setTimeout(() => {
+        let top = this.recordList.nativeElement.offsetTop;
+        window.scrollTo(0, top - 56);
+      });
+    } else {
+      this.initialLoad = false;
     }
   }
 }

@@ -126,14 +126,14 @@
     <div class="btn-group">
       <button
         class="btn btn-secondary"
-        (click)="currentPage = 1"
+        (click)="currentPage = 1; scrollToLoaded();"
         [disabled]="currentPage === 1"
       >
         First
       </button>
       <button
         class="btn btn-secondary"
-        (click)="currentPage = currentPage - 1"
+        (click)="currentPage = currentPage - 1; scrollToLoaded();"
         [disabled]="currentPage === 1"
       >
         Previous
@@ -141,14 +141,14 @@
       <button class="btn btn-secondary" *ngFor="let page; of"></button>
       <button
         class="btn btn-secondary"
-        (click)="currentPage = currentPage + 1"
+        (click)="currentPage = currentPage + 1; scrollToLoaded();"
         [disabled]="currentPage === this.displayPages.length"
       >
         Next
       </button>
       <button
         class="btn btn-secondary"
-        (click)="currentPage = this.displayPages.length"
+        (click)="currentPage = this.displayPages.length; scrollToLoaded();"
         [disabled]="currentPage === this.displayPages.length"
       >
         Last
