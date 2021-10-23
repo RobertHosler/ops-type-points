@@ -110,6 +110,8 @@ const converterList = [
   {org: "Hustle Standard a/k/a Charley", result: "Charley - Hustle Standard"},
   {org: "Sarah", result: "Sarah, the ISTJ"},
   { org: "Whoopie Goldberg", result: "Whoopi Goldberg" },
+  { org: "Linus Tech Tips", result: "Linus Sebastian" },
+  { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
   //shift+alt+downArrow to copy line
 ];
 

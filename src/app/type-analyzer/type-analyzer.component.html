@@ -176,7 +176,7 @@
           </div>
         </div>
         <h3>Type Twins</h3>
-        <div>
+        <div class="mb-2">
           <button
             class="btn btn-gray mr-2"
             (click)="twin('modality')"
@@ -203,6 +203,7 @@
           style="min-height: 300px;"
           [typeRecords]="twinPersons"
           [showMolecule]="true"
+          [showSource]="false"
           [loading]="typeTwinsLoading"
           loadingMessage="Type Twins are loading..."
           notFoundMessage="Sorry, no type twins for this type yet..."

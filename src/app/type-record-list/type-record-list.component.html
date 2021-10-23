@@ -7,18 +7,20 @@
   />
 </div>
 
-<div *ngIf="!loading">
+<div #loaded *ngIf="!loading">
+  <ng-container *ngTemplateOutlet="pagination"></ng-container>
   <div class="image-row">
-    <div *ngFor="let typeRecord of typeRecords" class="type-record">
+    <div
+      *ngFor="let typeRecord of displayPages[currentPage - 1]"
+      class="type-record"
+    >
       <div class="image-col" *ngIf="typeRecord.type || typeRecord.fullEType">
         <div class="image-text">
           <div class="name-wrapper">
             <div class="image-name">
               <div class="">{{ typeRecord.name }}</div>
             </div>
-            <div
-              *ngIf="!displayPracticeLink"
-            >
+            <div *ngIf="!displayPracticeLink">
               <app-type-indicator
                 [option]="1"
                 [type]="typeRecord.type"
@@ -90,19 +92,70 @@
     <p>{{ notFoundMessage }}</p>
     <img height="400px" src="/assets/images/type-twin-404.jpg" />
   </div>
-  <div class="mt-2">
-    <div class="mb-2 text-center">
-      Type records courtesy of the
-      <a
-        target="_blank"
-        href="https://airtable.com/shrQ6IoDtlXpzmC1l/tblyUDDV5zVyuX5VL/viweXFJuHAQpi5as3"
-        >Objective Personality Database</a
-      >, a project by Ryan and Jana based on typings by Dave and Shannon Powers.
-      <a
-        target="_blank"
-        href="https://subjectivepersonality.wordpress.com/2021/05/07/objective-personality-database/"
-        >Learn More</a
-      >
+  <ng-container *ngTemplateOutlet="pagination"></ng-container>
+  <div *ngIf="showSource" class="small help container my-2 p-1">
+    <div class="">
+      <div class="mb-1 d-inline-block">
+        OPS type records courtesy of the
+        <a target="_blank" [href]="opsDbSource"
+          >Objective Personality Database</a
+        >, a project by Ryan and Jana based on typings by Dave and Shannon
+        Powers. <a target="_blank" [href]="opsDbInfo">Learn More</a>
+      </div>
+      <div class="mb-1">
+        If you a community member in the OPS database, this adaptation of the
+        database currently filters out all but select community members.
+        However, if you would like to be included here, you can
+        <a [href]="appLinks.contact" target="_blank">contact me</a>
+        to be added.
+      </div>
+    </div>
+    <div class="">
+      Enneagram type records are sourced from the
+      <a [href]="enneagrammerLink" target="_blank">Enneagrammer Database</a>.
+      Continue to explore on their
+      <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
+      learn more about their take on the Enneagram at
+      <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>
     </div>
   </div>
 </div>
+
+<ng-template #pagination>
+  <div class="text-center my-2" *ngIf="pages.length > 1">
+    <div class="btn-group">
+      <button
+        class="btn btn-secondary"
+        (click)="currentPage = 1"
+        [disabled]="currentPage === 1"
+      >
+        First
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="currentPage = currentPage - 1"
+        [disabled]="currentPage === 1"
+      >
+        Previous
+      </button>
+      <button class="btn btn-secondary" *ngFor="let page; of"></button>
+      <button
+        class="btn btn-secondary"
+        (click)="currentPage = currentPage + 1"
+        [disabled]="currentPage === this.displayPages.length"
+      >
+        Next
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="currentPage = this.displayPages.length"
+        [disabled]="currentPage === this.displayPages.length"
+      >
+        Last
+      </button>
+    </div>
+    <div>
+      Displaying {{ currentDisplay }} of {{ this.typeRecords.length }} records
+    </div>
+  </div>
+</ng-template>

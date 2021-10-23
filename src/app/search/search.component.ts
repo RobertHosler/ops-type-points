@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Coin, coinMap, coinSideMap } from '../model/coin';
+import { appLinks } from '../model/links';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 import { searchModel } from './search.model';
 
@@ -11,8 +12,11 @@ import { searchModel } from './search.model';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  enneagrammerLink = 'https://www.enneagrammer.com/database-list';
-  enneagrammerPinterest = 'https://www.pinterest.ca/enneagrammer/boards/';
+  enneagrammerLink = appLinks.enneagrammerDb;
+  enneagrammerPinterest = appLinks.enneagrammerPinterest;
+  opsDbInfo = appLinks.opsDbInfo;
+  opsDbSource = appLinks.opsDbSource;
+  appLinks = appLinks;
 
   nameString: string;
   typeString: string;
@@ -402,7 +406,7 @@ export class SearchComponent implements OnInit {
         this.displayedRecords.push(value);
       });
       this.searchLoading = false;
-    }, 0);
+    }, 1000);
     const queryParams: Params = {
       name: null,
       type: null,
