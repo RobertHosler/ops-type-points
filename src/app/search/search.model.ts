@@ -311,7 +311,12 @@ const clusters = [
   },
 ];
 
-const eTypes = [
+export class ETypeModel {
+  name: string;
+  wings: string[];
+}
+
+const eTypes: ETypeModel[] = [
   {
     name: '2',
     wings: ['1', '3'],
@@ -350,7 +355,13 @@ const eTypes = [
   },
 ];
 
-const instincts = [
+
+export class InstinctModel {
+  name: string;
+  secondary: string[];
+}
+
+const instincts: InstinctModel[] = [
   {
     name: 'sp',
     secondary: ['so', 'sx'],

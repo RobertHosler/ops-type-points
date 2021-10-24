@@ -345,6 +345,51 @@ export const customCoin: Coin = {
   ],
 };
 
+const sexCoin: Coin = {
+  name: 'Sex',
+  param: 'sex',
+  sides: [
+    {
+      name: 'Male',
+      val: 'Male',
+    },
+    {
+      name: 'Female',
+      val: 'Female',
+    },
+  ],
+};
+const classCoin: Coin = {
+  name: 'Class',
+  param: 'co',
+  sides: [
+    {
+      name: 'Class Only',
+      val: 'Class Only',
+    },
+  ],
+};
+const incompleteCoin: Coin = {
+  name: 'Incomplete',
+  param: 'hi',
+  sides: [
+    {
+      name: 'Hide Incomplete',
+      val: 't',
+    },
+  ],
+};
+const speculationCoin: Coin = {
+  name: 'Speculation',
+  param: 'hs',
+  sides: [
+    {
+      name: 'Hide Speculation',
+      val: 't',
+    },
+  ],
+};
+
 export const coinMap = new Map();
 coinMap.set('hn1', hn1Coin);
 coinMap.set('dhn', dNeedCoin);
@@ -392,3 +437,9 @@ coinSideMap.set('fde', fde);
 coinSideMap.set('mde', mde);
 
 //Update search component to use sides - similar to functions/clusters
+
+export const extraCoins = new Map();
+extraCoins.set('sex', sexCoin);
+extraCoins.set('class', classCoin);
+extraCoins.set('incomplete', incompleteCoin);
+extraCoins.set('speculation', speculationCoin);

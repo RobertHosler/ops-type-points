@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Coin, coinMap, coinSideMap } from '../model/coin';
+import { Coin, coinMap, coinSideMap, extraCoins } from '../model/coin';
 import { appLinks } from '../model/links';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
-import { searchModel } from './search.model';
+import { ETypeModel, InstinctModel, searchModel } from './search.model';
 
 @Component({
   selector: 'app-search',
@@ -19,12 +19,10 @@ export class SearchComponent implements OnInit {
   appLinks = appLinks;
 
   textString: string;
-  nameString: string;
-  typeString: string;
-  activeEType;
-  activeWing;
-  activeInstinct;
-  activeInstinct2;
+  activeEType: ETypeModel;
+  activeWing: string;
+  activeInstinct: InstinctModel;
+  activeInstinct2: string;
 
   displayedRecords: TypedPerson[];
   maxRecords = 10000;
@@ -33,21 +31,27 @@ export class SearchComponent implements OnInit {
 
   searchType = '';
   searchTypes = ['Coins', 'Name', 'Type', 'Enneagram'];
-  opsToggle = { name: 'OPS', active: false };
-  enneaToggle = { name: 'Enneagram', active: false };
+  opsToggle = {
+    name: 'OPS',
+    active: false,
+    reset: () => {
+      this.resetAllOptions();
+    },
+  };
+  enneaToggle = {
+    name: 'Enneagram',
+    active: false,
+    reset: () => {
+      this.resetEnnea();
+    },
+  };
   searchToggles = [this.opsToggle, this.enneaToggle];
 
   searchLoading = false;
 
-  options = new Map(); //ESMap<string, { val: string; coin: Coin }>;
-  optionValues;
+  options = new Map<string, OptionModel>();
+  optionValues: OptionModel[];
 
-  functions = searchModel.functions;
-  observerFunctions = searchModel.observerFunctions;
-  needClusters = searchModel.needClusters;
-  letterClusters = searchModel.letterClusters;
-  animalClusters = searchModel.animalClusters;
-  modalityClusters = searchModel.modalityClusters;
   clusters = searchModel.clusters;
   eTypes = searchModel.eTypes;
   instincts = searchModel.instincts;
@@ -126,80 +130,17 @@ export class SearchComponent implements OnInit {
     Array.from(coinMap.values()).forEach((coin) => {
       this.options.set(coin.param, { coin: coin, val: '' });
     });
-    // this.options.set('coin', {
-    //   coin: customCoin,
-    //   val: '',
-    // });
-    const sexCoin: Coin = {
-      name: 'Sex',
-      param: 'sex',
-      sides: [
-        {
-          name: 'Male',
-          val: 'Male',
-        },
-        {
-          name: 'Female',
-          val: 'Female',
-        },
-      ],
-    };
-    this.options.set('sex', {
-      coin: sexCoin,
-      val: '',
-    });
-    const classCoin: Coin = {
-      name: 'Class',
-      param: 'co',
-      sides: [
-        {
-          name: 'Class Only',
-          val: 'Class Only',
-        },
-      ],
-    };
-    const incompleteCoin: Coin = {
-      name: 'Incomplete',
-      param: 'hi',
-      sides: [
-        {
-          name: 'Hide Incomplete',
-          val: 't',
-        },
-      ],
-    };
-    const speculationCoin: Coin = {
-      name: 'Speculation',
-      param: 'hs',
-      sides: [
-        {
-          name: 'Hide Speculation',
-          val: 't',
-        },
-      ],
-    };
-    this.options.set('co', {
-      coin: classCoin,
-      val: '',
-    });
-    this.options.set('hi', {
-      coin: incompleteCoin,
-      val: '',
-    });
-    this.options.set('hs', {
-      coin: speculationCoin,
-      val: '',
+    extraCoins.forEach((coin, key) => {
+      this.options.set(coin.param, { coin: coin, val: '' });
     });
     this.optionValues = Array.from(this.options.values());
   }
 
-  isSide(optionKey: string, sideKey: string) {
-    return (
-      this.options.get(optionKey).val ===
-      (coinSideMap.get(sideKey) ? coinSideMap.get(sideKey).val : '')
-    );
-  }
-
+  /**
+   * Determines if a cluster is active based on its corresponding coin side list.
+   *
+   * Ex: NF is active if Intuition and Feeling are active.
+   */
   isCoins(coins: { optionKey: string; sideKey: string }[]) {
     let result = true;
     coins.forEach((coin) => {
@@ -210,12 +151,23 @@ export class SearchComponent implements OnInit {
     return result;
   }
 
-  setSide(optionKey: string, sideKey: string) {
-    this.options.get(optionKey).val = coinSideMap.get(sideKey)
-      ? coinSideMap.get(sideKey).val
-      : '';
+  /**
+   * Determines if the coin is set to the value of the provided side.
+   *
+   * Ex: Determine if Feeling/Thinking coin is Feeling or Thinking side
+   */
+  private isSide(optionKey: string, sideKey: string) {
+    return (
+      this.options.get(optionKey).val ===
+      (coinSideMap.get(sideKey) ? coinSideMap.get(sideKey).val : '')
+    );
   }
 
+  /**
+   * Sets the coins to the sides in a given cluster
+   *
+   * Ex: Fe sets Decider Need to Tribe and F vs T to Feeling
+   */
   setCoins(coins: { optionKey: string; sideKey: string }[]) {
     let alreadySet = true;
     coins.forEach((coin) => {
@@ -236,6 +188,15 @@ export class SearchComponent implements OnInit {
     }
   }
 
+  private setSide(optionKey: string, sideKey: string) {
+    this.options.get(optionKey).val = coinSideMap.get(sideKey)
+      ? coinSideMap.get(sideKey).val
+      : '';
+  }
+
+  /**
+   * Initiate search for all possible options.
+   */
   searchAll() {
     if (this.searchLoading) {
       return;
@@ -249,6 +210,9 @@ export class SearchComponent implements OnInit {
     this.updateRoute();
   }
 
+  /**
+   * For each name, see if the person matches the selected criteria.
+   */
   private searchNames() {
     let nameList: string[];
     if (this.sortByName) {
@@ -269,6 +233,9 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  /**
+   * Determine if the person matches the selected enneagram options.
+   */
   private matchEnnea(person): boolean {
     if (
       (this.activeEType && this.activeEType.name !== person.coreEType) ||
@@ -284,6 +251,9 @@ export class SearchComponent implements OnInit {
     return true;
   }
 
+  /**
+   * Split up the text string by spaces and apply text matching for each part.
+   */
   private matchText(person: TypedPerson): boolean {
     if (!this.textString) {
       return true;
@@ -432,12 +402,6 @@ export class SearchComponent implements OnInit {
     return true;
   }
 
-  resetCoins() {
-    this.options.forEach((option) => {
-      option.val = '';
-    });
-  }
-
   updateRoute() {
     const queryParams: Params = {
       type: null, //legacy
@@ -464,13 +428,8 @@ export class SearchComponent implements OnInit {
 
   resetAll() {
     this.textString = null;
-    this.activeEType = null;
-    this.activeWing = null;
-    this.activeInstinct = null;
-    this.activeInstinct2 = null;
-    this.options.forEach((option) => {
-      option.val = null;
-    });
+    this.resetEnnea();
+    this.resetAllOptions();
   }
 
   toggleEType(eType) {
@@ -498,6 +457,22 @@ export class SearchComponent implements OnInit {
       if (toggle.name === searchType) {
         toggle.active = !toggle.active;
       }
+      if (!toggle.active) {
+        toggle.reset();
+      }
+    });
+  }
+
+  private resetEnnea() {
+    this.activeEType = null;
+    this.activeWing = null;
+    this.activeInstinct = null;
+    this.activeInstinct2 = null;
+  }
+
+  private resetAllOptions() {
+    this.options.forEach((option) => {
+      option.val = null;
     });
   }
 
@@ -511,4 +486,9 @@ export class SearchComponent implements OnInit {
       this.initialLoad = false;
     }
   }
+}
+
+class OptionModel {
+  coin: Coin;
+  val: string;
 }

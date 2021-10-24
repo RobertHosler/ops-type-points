@@ -53,17 +53,28 @@
   <div class="clear-right"></div>
   <div class="mb-3">
     <div class="form-group">
-      <input
-        id="name"
-        type="text"
-        class="form-control"
-        minlength="2"
-        required
-        placeholder="Try '9 ni'"
-        (keyup.enter)="searchAll()"
-        [(ngModel)]="textString"
-        name="name"
-      />
+      <div class="input-group">
+        <input
+          #nameInput
+          id="name"
+          type="text"
+          class="form-control border-primary"
+          minlength="2"
+          required
+          placeholder="Try '9 ni'"
+          (keyup.enter)="searchAll()"
+          [(ngModel)]="textString"
+          name="name"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-primary"
+            (click)="textString = ''; nameInput.focus()"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
       <div class="help small mb-3">
         Searches for the text within the name and types field of the person
         record. Examples:
@@ -84,7 +95,7 @@
         <button
           *ngFor="let st of searchToggles"
           class="btn btn-gray mr-2"
-          (click)="st.active = !st.active"
+          (click)="toggleSearchOptions(st.name)"
           [ngClass]="{ active: st.active }"
         >
           {{ st.name }}
@@ -105,11 +116,7 @@
       >
         Search
       </button>
-      <button
-        class="btn btn-secondary mr-3"
-        type="button"
-        (click)="resetAll()"
-      >
+      <button class="btn btn-secondary mr-3" type="button" (click)="resetAll()">
         Reset
       </button>
     </div>
