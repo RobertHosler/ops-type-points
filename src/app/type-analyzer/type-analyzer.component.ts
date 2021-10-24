@@ -38,7 +38,7 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   isValidAnimals: boolean;
   typeValid: boolean;
 
-  typeTwinsLoading = false;
+  typeTwinsLoading = true;
   twinType = 'modality';
   twinMod = true;
   twinNeed = false;
@@ -82,6 +82,7 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
       (opsTypes: OpsType[]) => {
         // console.log(opsTypes);
         this.opsTypes = opsTypes;
+        this.typeTwinsLoading = false;
       }
     );
     this.opsDataService.allTypes.subscribe((result) => {
@@ -173,12 +174,6 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
         this.opsTypeService.addOpsType(type);
         this.fetchTwins(type);
 
-        this.opsDataService
-          .getRecords(type.s1String, type.s2String, type.animalStringFormal)
-          .subscribe((result: TypeRoot) => {
-            type.twins = result.records;
-            // console.log(result.records);
-          });
         const queryParams: Params = {
           m: this.modalityString,
           s1: this.s1String,
@@ -197,28 +192,24 @@ export class TypeAnalyzerComponent implements OnInit, OnDestroy {
   }
 
   private fetchTwins(type: OpsType) {
-    this.typeTwinsLoading = true;
     this.twinPersons = [];
-    setTimeout(() => {
-      if (this.allTypes && type) {
-        this.fetchExactTwins(type);
-        if (this.twinMod) {
-          this.fetchModTwins(type);
-        }
-        if (this.twinNeed) {
-          this.fetchNeedTwins(type);
-        }
-        if (this.twinDom) {
-          this.fetchDomTwins(type);
-        }
-        this.typeTwinsLoading = false;
-      } else {
-        setTimeout(() => {
-          this.fetchTwins(type);
-        }, 200);
+    if (this.allTypes && type) {
+      this.fetchExactTwins(type);
+      if (this.twinMod) {
+        this.fetchModTwins(type);
+      }
+      if (this.twinNeed) {
+        this.fetchNeedTwins(type);
+      }
+      if (this.twinDom) {
+        this.fetchDomTwins(type);
       }
       this.typeTwinsLoading = false;
-    }, 0);
+    } else {
+      setTimeout(() => {
+        this.fetchTwins(type);
+      }, 0);
+    }
   }
 
   private fetchModTwins(type: OpsType) {

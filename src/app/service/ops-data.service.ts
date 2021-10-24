@@ -161,19 +161,6 @@ export class OpsDataService {
     }
   }
 
-  //Exact Type / Type Twins
-  getRecords(
-    s1: string,
-    s2: string,
-    animalStack: string
-  ): Observable<TypeRoot> {
-    return this.getList(this.recordsPath, {
-      maxRecords: '1000',
-      s1: s1,
-      s2: s2,
-      as: animalStack,
-    });
-  }
 }
 
 export class Greeting {
