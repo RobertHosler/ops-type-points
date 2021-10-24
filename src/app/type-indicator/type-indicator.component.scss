@@ -21,7 +21,6 @@
   text-align: center;
   top: 0px;
   left: 0px;
-  // box-shadow: -3px 2px 5px #333;
 }
 .type-indicator > .function-s1 {
   height: 32px;
@@ -32,6 +31,7 @@
   font-weight: 600;
   left: 0px;
   top: -6px;
+  box-shadow: inset 2px -2px 4px #333;
 }
 .type-indicator > .function-s2 {
   top: 8px;
@@ -42,6 +42,7 @@
   width: 28px;
   font-size: .8rem;
   line-height: 1.5rem;
+  box-shadow: inset 2px -2px 4px #333;
 }
 .type-indicator > .animals {
   left: 28px;
@@ -49,6 +50,7 @@
   width: 1.75rem;
   height: 1.45rem;
   z-index: 8;
+  box-shadow: inset 1px -1px 3px #333;
 }
 .type-indicator > .modality {
   top: 20px;
@@ -56,6 +58,7 @@
   width: 1.75rem;
   height: 1.45rem;
   line-height: 1.45rem;
+  box-shadow: inset 1px -1px 3px #333;
 }
 
 .type-table {
