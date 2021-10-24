@@ -15,15 +15,15 @@
       class="type-record"
     >
       <div class="image-col" *ngIf="typeRecord.type || typeRecord.fullEType">
-        <div class="image-text">
-          <div class="name-wrapper">
-            <div class="image-name">
-              <div class="">{{ typeRecord.name }}</div>
-            </div>
-            <div *ngIf="!displayPracticeLink">
+        <div class="image-text-top">
+          <div class="">
+            <div class="image-indicator-row" *ngIf="!displayPracticeLink">
               <app-type-indicator
                 [option]="1"
                 [type]="typeRecord.type"
+              ></app-type-indicator>
+              <app-type-indicator
+                [option]="1"
                 [eType]="typeRecord.fullEType"
               ></app-type-indicator>
             </div>
@@ -57,6 +57,9 @@
           </div>
         </div>
         <div class="image-text-bottom text-center">
+          <div class="image-name">
+            <div class=""><a href="https://www.google.com/search?q={{ typeRecord.name }}" target="_blank">{{ typeRecord.name }}</a></div>
+          </div>
           <div class="type-wrapper" *ngIf="!displayPracticeLink">
             <div class="image-type" *ngIf="typeRecord.type">
               <a

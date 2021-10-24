@@ -238,12 +238,12 @@ export class TypedPerson {
   deMod?: string;
   sex?: string;
   trans?: boolean;
-  eType?: string;
-  instinct?: string;
-  trifix?: string;
-  coreEType?: string;
-  wing?: string;
-  fullEType?: string;
+  eType?: string;// 9w1
+  instinct?: string;// so/sp
+  trifix?: string;// 963 or 9w1 6w5 3w4
+  coreEType?: string;//9
+  wing?: string;//1
+  fullEType?: string;// so/sp - 9w1 - 963
 }
 
 export class Parent {

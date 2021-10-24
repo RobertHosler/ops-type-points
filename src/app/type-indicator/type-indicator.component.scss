@@ -375,4 +375,42 @@
       font-size: .75rem;
     }
   }
+  .type-indicator {
+    & > .function-s1 {
+      z-index: 9;
+    }
+    & > .modality {
+      font-size: .75rem;
+      width: 1.7rem;
+      height: 1.7rem;
+      line-height: 1.65rem;
+      top: 18px;
+      border-radius: 0px;
+      border-bottom-left-radius: 7px;
+      // transform: rotate(-45deg);
+      & > div {
+        // transform: rotate(45deg);
+      }
+    }
+    & > .function-s2 {
+      left: 27px;
+      top: -5px;
+    }
+    & > .animals {
+      left: 24px;
+      top: 18px;
+      width: 1.7rem;
+      height: 1.7rem;
+      line-height: 1.65rem;
+      z-index: 0;
+      border-radius: 0px;
+      // border-bottom-right-radius: 7px;
+      text-align: right;
+      padding-right: 5px;
+      // transform: rotate(-45deg);
+      & > div {
+        // transform: rotate(45deg);
+      }
+    }
+  }
 }

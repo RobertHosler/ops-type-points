@@ -365,6 +365,56 @@ const instincts = [
   },
 ];
 
+const typeOnlyStrings = [
+  'te',
+  'ti',
+  'fe',
+  'fi',
+  'ne',
+  'ni',
+  'se',
+  'si',
+  'mf',
+  'mm',
+  'fm',
+  'ff',
+  'pc',
+  'cp',
+  'sb',
+  'bs',
+  'bp',
+  'pb',
+  'sc',
+  'cs',
+];
+
+const coreETypeStrings = [];
+const eTypeStrings = [];
+const trifixStrings = [];
+
+const head = ['5', '6', '7'];
+const heart = ['2', '3', '4'];
+const gut = ['8', '9', '1'];
+
+eTypes.forEach((eType) => {
+  coreETypeStrings.push(eType.name);
+  eType.wings.forEach((wing) => {
+    eTypeStrings.push(eType.name + 'w' + wing);
+  });
+});
+gut.forEach((gutType) => {
+  heart.forEach((heartType) => {
+    head.forEach((headType) => {
+      trifixStrings.push(gutType+heartType+headType);
+      trifixStrings.push(gutType+headType+heartType);
+      trifixStrings.push(heartType+headType+gutType);
+      trifixStrings.push(heartType+gutType+headType);
+      trifixStrings.push(headType+gutType+heartType);
+      trifixStrings.push(headType+heartType+gutType);
+    });
+  });
+});
+
 export const searchModel = {
   functions: functions,
   observerFunctions: observerFunctions,
@@ -377,4 +427,8 @@ export const searchModel = {
   clusters: clusters,
   eTypes: eTypes,
   instincts: instincts,
+  typeOnlyStrings: typeOnlyStrings,
+  coreETypeStrings: coreETypeStrings,
+  eTypeStrings: eTypeStrings,
+  trifixStrings: trifixStrings
 };

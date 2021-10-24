@@ -18,6 +18,7 @@ export class SearchComponent implements OnInit {
   opsDbSource = appLinks.opsDbSource;
   appLinks = appLinks;
 
+  textString: string;
   nameString: string;
   typeString: string;
   activeEType;
@@ -30,8 +31,11 @@ export class SearchComponent implements OnInit {
 
   isMaxRecords = false;
 
-  searchType = 'Coins';
+  searchType = '';
   searchTypes = ['Coins', 'Name', 'Type', 'Enneagram'];
+  opsToggle = { name: 'OPS', active: false };
+  enneaToggle = { name: 'Enneagram', active: false };
+  searchToggles = [this.opsToggle, this.enneaToggle];
 
   searchLoading = false;
 
@@ -47,8 +51,10 @@ export class SearchComponent implements OnInit {
   clusters = searchModel.clusters;
   eTypes = searchModel.eTypes;
   instincts = searchModel.instincts;
+  typeOnlyStrings = searchModel.typeOnlyStrings;
 
   allNames: Map<string, TypedPerson>;
+  recordCount = 0;
 
   allNamesArr: string[];
   allNamesArrUnsorted: string[];
@@ -68,8 +74,10 @@ export class SearchComponent implements OnInit {
     this.opsDataService.allNames.subscribe((result) => {
       this.allNames = result;
       this.allNamesArr = [];
+      this.recordCount = 0;
       this.allNames.forEach((record) => {
         this.allNamesArr.push(record.name);
+        this.recordCount++;
       });
       this.allNamesArrUnsorted = this.allNamesArr.slice();
       this.allNamesArr.sort();
@@ -86,34 +94,30 @@ export class SearchComponent implements OnInit {
 
   private initRouter() {
     this.route.queryParamMap.subscribe((params) => {
-      if (params.get('name')) {
-        this.nameString = params.get('name');
-        this.searchType = 'Name';
-      } else if (params.get('type')) {
-        this.typeString = params.get('type');
-        this.searchType = 'Type';
-      } else if (params.get('et') || params.get('i1')) {
-        this.eTypes.forEach((eType) => {
-          if (eType.name === params.get('et')) {
-            this.activeEType = eType;
-          }
-        });
-        this.instincts.forEach((instinct) => {
-          if (instinct.name === params.get('i1')) {
-            this.activeInstinct = instinct;
-          }
-        });
-        this.activeInstinct2 = params.get('i2');
-        this.activeWing = params.get('w');
-        this.searchType = 'Enneagram';
-      } else {
-        this.searchType = 'Coins';
-        this.options.forEach((option) => {
-          option.val = params.get(option.coin.param)
-            ? params.get(option.coin.param)
-            : '';
-        });
+      this.textString = params.get('text');
+      if (!this.textString) {
+        this.textString = params.get('type');
       }
+      if (!this.textString) {
+        this.textString = params.get('name');
+      }
+      this.eTypes.forEach((eType) => {
+        if (eType.name === params.get('et')) {
+          this.activeEType = eType;
+        }
+      });
+      this.instincts.forEach((instinct) => {
+        if (instinct.name === params.get('i1')) {
+          this.activeInstinct = instinct;
+        }
+      });
+      this.activeInstinct2 = params.get('i2');
+      this.activeWing = params.get('w');
+      this.options.forEach((option) => {
+        option.val = params.get(option.coin.param)
+          ? params.get(option.coin.param)
+          : '';
+      });
       this.searchAll();
     });
   }
@@ -255,9 +259,8 @@ export class SearchComponent implements OnInit {
     nameList.forEach((name: string) => {
       let person = this.allNames.get(name);
       if (
+        !this.matchText(person) ||
         !this.matchCoins(person) ||
-        !this.matchName(person) ||
-        !this.matchType(person) ||
         !this.matchEnnea(person)
       ) {
         return;
@@ -281,21 +284,45 @@ export class SearchComponent implements OnInit {
     return true;
   }
 
-  private matchName(person: TypedPerson): boolean {
-    return (
-      !this.nameString ||
-      person.name.toLowerCase().includes(this.nameString.toLowerCase())
-    );
-  }
-
-  private matchType(person: TypedPerson): boolean {
-    return (
-      !this.typeString ||
-      (person.type &&
-        person.type.toLowerCase().includes(this.typeString.toLowerCase())) ||
-      (person.fullEType &&
-        person.fullEType.toLowerCase().includes(this.typeString.toLowerCase()))
-    );
+  private matchText(person: TypedPerson): boolean {
+    if (!this.textString) {
+      return true;
+    }
+    let strings = this.textString.toLowerCase().split(' ');
+    let result = true;
+    strings.forEach((string) => {
+      let s = string.toLowerCase();
+      if (
+        this.typeOnlyStrings.includes(s) &&
+        (!person.type || !person.type.toLowerCase().includes(s))
+      ) {
+        result = false;
+      } else if (
+        searchModel.coreETypeStrings.includes(s) &&
+        (!person.fullEType || !person.coreEType.toLowerCase().includes(s))
+      ) {
+        result = false;
+      } else if (
+        searchModel.eTypeStrings.includes(s) &&
+        (!person.eType || !person.eType.toLowerCase().includes(s))
+      ) {
+        result = false;
+      } else if (
+        searchModel.trifixStrings.includes(s) &&
+        (!person.trifix || !person.trifix.toLowerCase().includes(s))
+      ) {
+        result = false;
+      } else if (
+        !(
+          person.name.toLowerCase().includes(s) ||
+          (person.type && person.type.toLowerCase().includes(s)) ||
+          (person.fullEType && person.fullEType.toLowerCase().includes(s))
+        )
+      ) {
+        result = false;
+      }
+    });
+    return result;
   }
 
   private matchCoins(person: TypedPerson): boolean {
@@ -399,8 +426,9 @@ export class SearchComponent implements OnInit {
 
   updateRoute() {
     const queryParams: Params = {
-      name: this.nameString,
-      type: this.typeString,
+      type: null, //legacy
+      name: null, //legacy
+      text: this.textString,
       et: this.activeEType ? this.activeEType.name : null,
       w: this.activeWing,
       i1: this.activeInstinct ? this.activeInstinct.name : null,
@@ -421,8 +449,7 @@ export class SearchComponent implements OnInit {
   }
 
   resetAll() {
-    this.nameString = null;
-    this.typeString = null;
+    this.textString = null;
     this.activeEType = null;
     this.activeWing = null;
     this.activeInstinct = null;
@@ -450,6 +477,14 @@ export class SearchComponent implements OnInit {
       this.activeInstinct = instinct;
       this.activeInstinct2 = null;
     }
+  }
+
+  toggleSearchOptions(searchType: string) {
+    this.searchToggles.forEach((toggle) => {
+      if (toggle.name === searchType) {
+        toggle.active = !toggle.active;
+      }
+    });
   }
 
   scrollToList() {

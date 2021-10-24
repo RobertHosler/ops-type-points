@@ -4,18 +4,27 @@
   </div>
   <div class="search-top">
     <h1>
-      <span class="search-heading">Search the OPS </span
+      <span class="search-heading">Search the </span
       ><span class="sp-branding">Database</span>
     </h1>
     <div>
-      <p class="lead d-none">
-        Want to know if someone has been typed by Objective Personality?
+      <p class="lead">
+        Search the database of <strong>{{ recordCount }}</strong> people typed
+        in the <strong>Objective Personality System</strong> and
+        <strong>Enneagram</strong>.
       </p>
-      <p>
-        Search the database below by Coin, Name, or Type string as needed to
-        find what you are looking for! The url updates as you search so you can
-        share these search results with others.
-      </p>
+      <div>Select a search type below to find what you are looking for:</div>
+      <ul>
+        <li>Looking for a specific person? Search by name, Ex: "john cena"</li>
+        <li>
+          Want to see those of a similar type? Search by parts, Ex: Gather +
+          Intuition (Ne) or Social 9
+        </li>
+        <li>
+          Just want to type out the type? Search the type, Ex: "sx/so - 9w1" or
+          "FF-Ne/Ti"
+        </li>
+      </ul>
     </div>
     <div class="d-none d-sm-flex my-2">
       <app-type-indicator [option]="1"></app-type-indicator>
@@ -38,35 +47,86 @@
         ></app-type-indicator>
       </div>
     </div>
-    <div>
-      <span class="search-type-label">Select Search Type</span>
-      <div
-        class="btn-group btn-group-toggle search-type-group"
-        data-toggle="buttons"
-      >
-        <label
-          *ngFor="let st of searchTypes"
-          class="btn btn-primary"
-          [ngClass]="{ active: searchType === st }"
-        >
-          <input
-            type="radio"
-            name="options"
-            id="coinsOption"
-            [(ngModel)]="searchType"
-            [value]="st"
-            autocomplete="off"
-          />
-          {{ st }}
-        </label>
-      </div>
-    </div>
   </div>
 
   <hr class="" />
   <div class="clear-right"></div>
+  <div class="mb-3">
+    <div class="form-group">
+      <input
+        id="name"
+        type="text"
+        class="form-control"
+        minlength="2"
+        required
+        placeholder="Try '9 ni'"
+        [(ngModel)]="textString"
+        name="name"
+      />
+      <div class="help small mb-3">
+        Searches for the text within the name and types field of the person
+        record. Examples:
+        <a [routerLink]="['/search']" [queryParams]="{ text: 'john cena' }"
+          >john cena</a
+        >,
+        <a [routerLink]="['/search']" [queryParams]="{ text: 'sp/so - 6w7' }"
+          >sp/so - 6w7</a
+        >,
+        <a [routerLink]="['/search']" [queryParams]="{ text: 'ff-ti/se' }"
+          >ff-ti/se</a
+        >
+      </div>
+    </div>
+    <div class="mb-3">
+      <span class="search-type-label">Additional Search Options</span>
+      <div>
+        <button
+          *ngFor="let st of searchToggles"
+          class="btn btn-gray mr-2"
+          (click)="st.active = !st.active"
+          [ngClass]="{ active: st.active }"
+        >
+          {{ st.name }}
+        </button>
+      </div>
+    </div>
+    <div [ngClass]="{ 'd-none': !enneaToggle.active }">
+      <ng-component *ngTemplateOutlet="ennea"></ng-component>
+    </div>
+    <div [ngClass]="{ 'd-none': !opsToggle.active }">
+      <ng-component *ngTemplateOutlet="ops"></ng-component>
+    </div>
+    <div>
+      <button
+        class="btn btn-lg btn-primary mr-3"
+        (click)="searchAll()"
+        [disabled]="searchLoading"
+      >
+        Search
+      </button>
+      <button
+        class="btn btn-secondary mr-3"
+        type="button"
+        (click)="resetAll()"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+  <p *ngIf="displayedRecords && displayedRecords.length > 0" class="text-info">
+    Search found {{ displayedRecords.length }} results.
+  </p>
+</div>
+<div class="container-fluid records-bg" #recordList>
+  <app-type-record-list
+    [typeRecords]="displayedRecords"
+    [loading]="searchLoading"
+    [linkToAnalyzer]="true"
+  ></app-type-record-list>
+</div>
 
-  <div class="search-coins mb-5" *ngIf="searchType === 'Coins'">
+<ng-template #ops>
+  <div class="search-coins mb-5">
     <div class="row">
       <div class="col-md-4">
         <div *ngIf="options" class="coin-groups">
@@ -120,7 +180,7 @@
       </div>
       <div class="col-md-8">
         <div *ngFor="let cluster of clusters">
-          <span class="coin-label" *ngIf="false">{{ cluster.name }}</span>
+          <span class="coin-label d-none">{{ cluster.name }}</span>
           <div class="coin-groups">
             <div class="btn-group">
               <label
@@ -136,85 +196,11 @@
         </div>
       </div>
     </div>
-    <div class="coin-search-btn-group">
-      <button
-        class="btn btn-lg btn-primary mr-3"
-        type="button"
-        [disabled]="searchLoading"
-        (click)="searchAll()"
-      >
-        Search
-      </button>
-      <button
-        class="btn btn-secondary mr-3"
-        type="button"
-        (click)="resetCoins()"
-      >
-        Reset
-      </button>
-    </div>
   </div>
-  <div class="mb-5 search-name" *ngIf="searchType === 'Name'">
-      <div class="form-group">
-        <label for="name" class="name-label">Name</label>
-        <input
-          id="name"
-          type="text"
-          class="form-control"
-          minlength="2"
-          required
-          [(ngModel)]="nameString"
-          name="name"
-        />
-        <div class="help small">
-          Searches for the text within the name field of the person record. Ex1:
-          'Jan', Ex2: 'Jon'
-        </div>
-      </div>
-      <div>
-        <button
-          class="btn btn-lg btn-primary mr-3"
-          (click)="searchAll()"
-          [disabled]="searchLoading"
-        >
-          Search
-        </button>
-      </div>
-  </div>
+</ng-template>
 
-  <div class="search-coins mb-5" *ngIf="searchType === 'Type'">
-      <div class="form-group">
-        <label for="type" class="type-label">Type</label>
-        <input
-          id="type"
-          type="text"
-          class="form-control"
-          minlength="2"
-          required
-          [(ngModel)]="typeString"
-          name="type"
-        />
-        <div class="help small">
-          Enter some part of a full type. Performs a search of the full type
-          string (including dashes and parenthesis). Ex1: MF, Ex2: Ne/Ti, Ex3:
-          CP/S(B). Ex4: FF-Fe/Se
-        </div>
-      </div>
-      <div>
-        <button
-          class="btn btn-lg btn-primary mr-3"
-          (click)="searchAll()"
-          [disabled]="searchLoading"
-        >
-          Search
-        </button>
-      </div>
-  </div>
-
-  <div
-    class="search-coins search-enneagram mb-5"
-    *ngIf="searchType === 'Enneagram'"
-  >
+<ng-template #ennea>
+  <div class="search-coins search-enneagram mb-5">
     <div class="search-ewrapper mb-3">
       <div class="search-etype mr-3">
         <label class="type-label">Type</label>
@@ -279,36 +265,5 @@
         </div>
       </div>
     </div>
-    <div>
-      <button
-        class="btn btn-lg btn-primary mr-3"
-        (click)="searchAll()"
-        [disabled]="(!activeEType && !activeInstinct) || searchLoading"
-      >
-        Search
-      </button>
-      <button
-        class="btn btn-secondary mr-3"
-        type="button"
-        (click)="activeEType = null; activeWing = null"
-      >
-        Reset
-      </button>
-    </div>
   </div>
-
-  <p class="text-notice" *ngIf="false">
-    There is currently a max of {{ maxRecords }} records returned. Narrow your
-    search if possible, but I should be able to increase this soon.
-  </p>
-  <p *ngIf="displayedRecords && displayedRecords.length > 0" class="text-info">
-    Search found {{ displayedRecords.length }} results.
-  </p>
-</div>
-<div class="container-fluid records-bg" #recordList>
-  <app-type-record-list
-    [typeRecords]="displayedRecords"
-    [loading]="searchLoading"
-    [linkToAnalyzer]="true"
-  ></app-type-record-list>
-</div>
+</ng-template>
