@@ -129,7 +129,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
         pageCount++;
         this.pages.push(pageCount);
       }
-      this.scrollToLoaded();
+      // this.scrollToLoaded();
     }
   }
 

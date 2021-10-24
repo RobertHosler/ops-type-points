@@ -26,7 +26,7 @@
         </li>
       </ul>
     </div>
-    <div class="d-none d-sm-flex my-2">
+    <div class="d-none d-sm-flex my-2" *ngIf="false">
       <app-type-indicator [option]="1"></app-type-indicator>
       <div class="mx-3">
         <app-type-indicator
@@ -62,14 +62,14 @@
           minlength="2"
           required
           placeholder="Try '9 ni'"
-          (keyup.enter)="searchAll()"
+          (keyup)="searchAll()"
           [(ngModel)]="textString"
           name="name"
         />
         <div class="input-group-append">
           <button
             class="btn btn-outline-primary"
-            (click)="textString = ''; nameInput.focus()"
+            (click)="textString = ''; nameInput.focus(); searchAll();"
           >
             Clear
           </button>

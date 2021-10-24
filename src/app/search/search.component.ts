@@ -47,7 +47,7 @@ export class SearchComponent implements OnInit {
   };
   searchToggles = [this.opsToggle, this.enneaToggle];
 
-  searchLoading = false;
+  searchLoading = true;
 
   options = new Map<string, OptionModel>();
   optionValues: OptionModel[];
@@ -198,16 +198,10 @@ export class SearchComponent implements OnInit {
    * Initiate search for all possible options.
    */
   searchAll() {
-    if (this.searchLoading) {
-      return;
-    }
-    this.searchLoading = true;
     this.displayedRecords = [];
-    setTimeout(() => {
-      this.searchNames();
-      this.searchLoading = false;
-    }, 1500);
+    this.searchNames();
     this.updateRoute();
+    this.searchLoading = false;
   }
 
   /**
@@ -505,16 +499,6 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  scrollToList() {
-    if (!this.initialLoad) {
-      setTimeout(() => {
-        let top = this.recordList.nativeElement.offsetTop;
-        window.scrollTo(0, top - 56);
-      });
-    } else {
-      this.initialLoad = false;
-    }
-  }
 }
 
 class OptionModel {
