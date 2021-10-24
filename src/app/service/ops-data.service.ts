@@ -240,7 +240,7 @@ export class TypedPerson {
   trans?: boolean;
   eType?: string;// 9w1
   instinct?: string;// so/sp
-  trifix?: string;// 963 or 9w1 6w5 3w4
+  trifix?: string;// 963 (no wings)
   coreEType?: string;//9
   wing?: string;//1
   fullEType?: string;// so/sp - 9w1 - 963

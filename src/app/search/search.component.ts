@@ -277,26 +277,29 @@ export class SearchComponent implements OnInit {
 
   private matchTextParts(person: TypedPerson, s: string) {
     let result = true;
-    if (
-      this.typeOnlyStrings.includes(s) &&
-      (!person.type || !person.type.toLowerCase().includes(s))
-    ) {
-      result = false;
-    } else if (
-      searchModel.coreETypeStrings.includes(s) &&
-      (!person.fullEType || !person.coreEType.toLowerCase().includes(s))
-    ) {
-      result = false;
-    } else if (
-      searchModel.eTypeStrings.includes(s) &&
-      (!person.eType || !person.eType.toLowerCase().includes(s))
-    ) {
-      result = false;
-    } else if (
-      searchModel.trifixStrings.includes(s) &&
-      (!person.trifix || !person.trifix.toLowerCase().includes(s))
-    ) {
-      result = false;
+    if (person.name === 'Taylor Swift') {
+      console.log('person', person);
+    }
+    if (this.typeOnlyStrings.includes(s)) {
+      // fe, mm, sb, etc
+      if (!person.type || !person.type.toLowerCase().includes(s)) {
+        result = false;
+      }
+    } else if (searchModel.coreETypeStrings.includes(s)) {
+      // 3, 4, etc
+      if (!person.fullEType || !person.coreEType.toLowerCase().includes(s)) {
+        result = false;
+      }
+    } else if (searchModel.eTypeStrings.includes(s)) {
+      // 9w1, 6w7, etc
+      if (!person.eType || !person.eType.toLowerCase().includes(s)) {
+        result = false;
+      }
+    } else if (searchModel.trifixStrings.includes(s)) {
+      // 936, 541, etc
+      if (person.trifix !== s) {
+        result = false;
+      }
     } else if (
       !(
         person.name.toLowerCase().includes(s) ||

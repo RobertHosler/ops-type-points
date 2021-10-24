@@ -425,6 +425,7 @@ gut.forEach((gutType) => {
     });
   });
 });
+trifixStrings.sort();
 
 export const searchModel = {
   functions: functions,
