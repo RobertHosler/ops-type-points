@@ -35,6 +35,7 @@ const converterList = [
   { org: "Mr. Rogers", result: "Fred Rogers" },
   { org: "Dr. Drew", result: "Dr. Drew Pinsky" },
   { org: "Kris Jenner", result: "Kris Kardashian Jenner" },
+  { org: "Kim Kardashian", result: "Kim Kardashian West" },
 ];
 function convertName(name) {
   name = name.trim();
