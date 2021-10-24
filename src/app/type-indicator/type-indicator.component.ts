@@ -41,15 +41,15 @@ export class TypeIndicatorComponent implements OnInit {
       this.a12 = this.type.substring(9, 11);
       this.animals = this.type.substring(10, 13);
       this.display = true;
-    } else if (this.eType && this.eType.length > 10) {
+    } else if (this.eType && this.eType.length > 8) {
       this.mod = this.eType.substring(0, 2);
       this.animals = this.eType.substring(3, 5);
       this.a12 = this.animals;
-      this.s1 = this.eType.substring(8, 9);
-      this.s2 = this.eType.substring(9, 11);
+      this.s1 = this.eType.substring(6, 7);
+      this.s2 = this.eType.substring(7, 9);
       this.display = true;
       this.displayEType = true;
-      this.option = 2;
+      this.option = 1;
     }
   }
 

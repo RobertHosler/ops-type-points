@@ -80,11 +80,11 @@ function buildFullEType(eType) {
     trifix = eType.trifix;
   }
   if (eType.instinct && trifix) {
-    fullEType = eType.instinct + " - " + coreType + " - " + trifix;
+    fullEType = eType.instinct + " " + coreType + " " + trifix;
   } else if (eType.instinct) {
-    fullEType = eType.instinct + " - " + coreType;
+    fullEType = eType.instinct + " " + coreType;
   } else if (eType.instinct && trifix) {
-    fullEType = eType.eType + " - " + trifix;
+    fullEType = eType.eType + " " + trifix;
   } else {
     fullEType = eType.eType;
   }
@@ -111,6 +111,7 @@ function mergeMaps(nameMap, eTypeMap) {
         name: eKey,
         coreEType: eVal.coreEType,
         wing: eVal.wing,
+        eType: eVal.eType, // 9w1
         instinct: eVal.instinct,
         trifix: eVal.trifix,
         pictureUrl: eVal.pictureUrl,
