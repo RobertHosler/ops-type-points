@@ -9,20 +9,26 @@
     </h1>
     <div>
       <p class="lead">
-        Search the database of <strong>{{ recordCount }}</strong> people typed
-        in the <strong>Objective Personality System</strong> and
+        <strong>{{ recordCount }}</strong> people typed in the
+        <strong>Objective Personality System</strong> and
         <strong>Enneagram</strong>.
       </p>
-      <div>Select a search type below to find what you are looking for:</div>
-      <ul>
-        <li>Looking for a specific person? Search by name, Ex: "john cena"</li>
+      <ul class="search-tips">
         <li>
-          Want to see those of a similar type? Search by parts, Ex: Gather +
-          Intuition (Ne) or Social 9
+          <a [routerLink]="['/search']" [queryParams]="{ text: 'Kardashian' }"
+            >Looking for a specific person? Search by name, Ex: "Kardashian"</a
+          >
         </li>
         <li>
-          Just want to type out the type? Search the type, Ex: "sx/so - 9w1" or
-          "FF-Ne/Ti"
+          <a [routerLink]="['/search']" [queryParams]="{ text: 'mm exxj fe' }">
+          Want to see those of a similar type? Search by parts. Ex: "mm exxj fe"</a>
+        </li>
+        <li>
+          <a [routerLink]="['/search']" [queryParams]="{ text: 'ennea' }">
+          Only want to see those with an Enneagram type?  Add "Ennea" or "Enneagram" to your search.</a>
+        </li>
+        <li>
+          Just try some things out! If you find a keyword isn't working as you might expect, <a [href]="appLinks.contact" target="_blank">let me know!</a>
         </li>
       </ul>
     </div>
@@ -53,6 +59,9 @@
   <div class="clear-right"></div>
   <div class="mb-3">
     <div class="form-group">
+      <label for="name" class="name-label"
+        >Search by Name or Type:</label
+      >
       <div class="input-group">
         <input
           #nameInput
@@ -61,7 +70,7 @@
           class="form-control border-primary"
           minlength="2"
           required
-          placeholder="Try '9 ni'"
+          [placeholder]="placeholderText"
           (keyup)="searchAll()"
           [(ngModel)]="textString"
           name="name"
@@ -69,13 +78,13 @@
         <div class="input-group-append">
           <button
             class="btn btn-outline-primary"
-            (click)="textString = ''; nameInput.focus(); searchAll();"
+            (click)="textString = ''; nameInput.focus(); searchAll()"
           >
             Clear
           </button>
         </div>
       </div>
-      <div class="help small mb-3">
+      <div class="help small mb-3" *ngIf="false">
         Searches for the text within the name and types field of the person
         record. Examples:
         <a [routerLink]="['/search']" [queryParams]="{ text: 'john cena' }"
@@ -89,24 +98,26 @@
         >
       </div>
     </div>
-    <div class="mb-3">
-      <span class="search-type-label">Additional Search Options</span>
-      <div>
-        <button
-          *ngFor="let st of searchToggles"
-          class="btn btn-gray mr-2"
-          (click)="toggleSearchOptions(st.name)"
-          [ngClass]="{ active: st.active }"
-        >
-          {{ st.name }}
-        </button>
+    <div *ngIf="false">
+      <div class="mb-3">
+        <span class="search-type-label">Additional Search Options</span>
+        <div>
+          <button
+            *ngFor="let st of searchToggles"
+            class="btn btn-gray mr-2"
+            (click)="toggleSearchOptions(st.name)"
+            [ngClass]="{ active: st.active }"
+          >
+            {{ st.name }}
+          </button>
+        </div>
       </div>
-    </div>
-    <div [ngClass]="{ 'd-none': !enneaToggle.active }">
-      <ng-component *ngTemplateOutlet="ennea"></ng-component>
-    </div>
-    <div [ngClass]="{ 'd-none': !opsToggle.active }">
-      <ng-component *ngTemplateOutlet="ops"></ng-component>
+      <div [ngClass]="{ 'd-none': !enneaToggle.active }">
+        <ng-component *ngTemplateOutlet="ennea"></ng-component>
+      </div>
+      <div [ngClass]="{ 'd-none': !opsToggle.active }">
+        <ng-component *ngTemplateOutlet="ops"></ng-component>
+      </div>
     </div>
     <div>
       <button

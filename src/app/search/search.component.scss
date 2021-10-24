@@ -85,7 +85,20 @@ $coins: (
 }
 
 input.form-control {
-  max-width: 300px;
+  // max-width: 300px;
+}
+
+.search-tips {
+  padding-left: 1.5rem;
+  li {
+    margin-bottom: 0.25rem;
+  }
+  a {
+    color: $secondary;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 @media (max-width: 600px) {
@@ -95,9 +108,9 @@ input.form-control {
       font-size: 2rem;
     }
   }
-  .search-heading {
-    display: block;
-  }
+  // .search-heading {
+  //   display: block;
+  // }
   .coin-btn {
     $width-sm: 90px;
     // min-width: $width-sm !important;
@@ -117,6 +130,10 @@ input.form-control {
     $width-xs: 66px;
     // min-width: $width-xs !important;
     // width: $width-xs !important;
+  }
+  h1 .sp-branding,
+  h1 {
+    font-size: 1.5rem;
   }
 }
 

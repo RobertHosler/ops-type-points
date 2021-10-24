@@ -29,6 +29,8 @@ export class SearchComponent implements OnInit {
 
   isMaxRecords = false;
 
+  placeholderText = 'Try \"so 9 ni\", \"class oi ti observer\", or \"male enfj jumper\"';
+
   searchType = '';
   searchTypes = ['Coins', 'Name', 'Type', 'Enneagram'];
   opsToggle = {
@@ -67,6 +69,7 @@ export class SearchComponent implements OnInit {
   routerInit = false;
 
   @ViewChild('recordList') recordList: ElementRef;
+  @ViewChild('nameInput') nameInput: ElementRef;
 
   initialLoad = true;
 
@@ -201,7 +204,10 @@ export class SearchComponent implements OnInit {
     this.displayedRecords = [];
     this.searchNames();
     this.updateRoute();
-    this.searchLoading = false;
+    if (this.searchLoading) {
+      this.searchLoading = false;
+      this.nameInput.nativeElement.focus();
+    }
   }
 
   /**
