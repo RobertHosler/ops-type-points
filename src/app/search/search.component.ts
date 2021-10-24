@@ -276,11 +276,37 @@ export class SearchComponent implements OnInit {
   }
 
   private matchTextParts(person: TypedPerson, s: string) {
-    let result = true;
-    if (person.name === 'Taylor Swift') {
-      console.log('person', person);
+    if (searchModel.comboTerms.get(s)) {
+      let result = false;
+      searchModel.comboTerms.get(s).strings.forEach((subS: string) => {
+        if (!result) {
+          result = this.matchTextPartsDecoded(person, subS);
+        }
+      });
+      return result;
+    } else {
+      return this.matchTextPartsDecoded(person, s);
     }
-    if (this.typeOnlyStrings.includes(s)) {
+  }
+
+  private matchTextPartsDecoded(person: TypedPerson, s: string) {
+    let result = true;
+    if (searchModel.personTerms.get(s)) {
+      if (!searchModel.personTerms.get(s).match(person)) {
+        result = false;
+      }
+    } else if (searchModel.tagTerms.includes(s)) {
+      if (!person.tags) {
+        result = false;
+      } else {
+        result = false;
+        person.tags.forEach((tag) => {
+          if (!result && tag.toLowerCase().includes(s)) {
+            result = true;
+          }
+        });
+      }
+    } else if (this.typeOnlyStrings.includes(s)) {
       // fe, mm, sb, etc
       if (!person.type || !person.type.toLowerCase().includes(s)) {
         result = false;

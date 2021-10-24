@@ -120,6 +120,7 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.instinct = eVal.instinct; // so/sp
       nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
       nameVal.fullEType = buildFullEType(eVal);
+      nameVal.tags ? nameVal.tags.push("Enneagram Typed") : nameVal.tags = ["Enneagram Typed"];
       matches.push(eKey);
     } else {
       // Add to nameMap
@@ -133,13 +134,11 @@ function mergeMaps(nameMap, eTypeMap) {
         trifix: buildTritype(eVal.trifix),
         pictureUrl: eVal.pictureUrl,
         fullEType: buildFullEType(eVal),
-        tags: ["Enneagram Type Only"],
+        tags: ["Enneagram Typed"],
       });
     }
   });
   console.log("E-Type and OP-Type Matches", matches.length, "New Persons", i);
-  console.log(nameMap.get('Taylor Swift'));
-  console.log(nameMap.get('Tiger Woods'));
 }
 
 exports.url = url;

@@ -1,3 +1,5 @@
+import { TypedPerson } from '../service/ops-data.service';
+
 const functions = [
   {
     label: 'Fe',
@@ -355,7 +357,6 @@ const eTypes: ETypeModel[] = [
   },
 ];
 
-
 export class InstinctModel {
   name: string;
   secondary: string[];
@@ -397,6 +398,14 @@ const typeOnlyStrings = [
   'pb',
   'sc',
   'cs',
+  'oi',
+  'oe',
+  'di',
+  'de',
+  '(p)',
+  '(s)',
+  '(b)',
+  '(c)',
 ];
 
 const coreETypeStrings = [];
@@ -416,16 +425,250 @@ eTypes.forEach((eType) => {
 gut.forEach((gutType) => {
   heart.forEach((heartType) => {
     head.forEach((headType) => {
-      trifixStrings.push(gutType+heartType+headType);
-      trifixStrings.push(gutType+headType+heartType);
-      trifixStrings.push(heartType+headType+gutType);
-      trifixStrings.push(heartType+gutType+headType);
-      trifixStrings.push(headType+gutType+heartType);
-      trifixStrings.push(headType+heartType+gutType);
+      trifixStrings.push(gutType + heartType + headType);
+      trifixStrings.push(gutType + headType + heartType);
+      trifixStrings.push(heartType + headType + gutType);
+      trifixStrings.push(heartType + gutType + headType);
+      trifixStrings.push(headType + gutType + heartType);
+      trifixStrings.push(headType + heartType + gutType);
     });
   });
 });
 trifixStrings.sort();
+
+const comboTerms = new Map();
+comboTerms.set('infp', { strings: ['fi/ne', 'fi/si', 'infp'] });
+comboTerms.set('isfp', { strings: ['fi/se', 'fi/ni', 'isfp'] });
+comboTerms.set('intp', { strings: ['ti/ne', 'ti/si', 'intp'] });
+comboTerms.set('istp', { strings: ['ti/se', 'ti/ni', 'istp'] });
+comboTerms.set('ixxp', {
+  strings: [
+    'fi/ne',
+    'fi/si',
+    'infp',
+    'fi/se',
+    'fi/ni',
+    'isfp',
+    'ti/ne',
+    'ti/si',
+    'intp',
+    'ti/se',
+    'ti/ni',
+    'istp',
+  ],
+});
+comboTerms.set('entp', { strings: ['ne/ti', 'ne/fe', 'entp'] });
+comboTerms.set('estp', { strings: ['se/ti', 'se/fe', 'estp'] });
+comboTerms.set('enfp', { strings: ['ne/fi', 'ne/te', 'enfp'] });
+comboTerms.set('esfp', { strings: ['se/fi', 'se/te', 'esfp'] });
+comboTerms.set('exxp', {
+  strings: [
+    'ne/ti',
+    'ne/fe',
+    'entp',
+    'se/ti',
+    'se/fe',
+    'estp',
+    'ne/fi',
+    'ne/te',
+    'enfp',
+    'se/fi',
+    'se/te',
+    'esfp',
+  ],
+});
+comboTerms.set('istj', { strings: ['si/te', 'si/fi', 'istj'] });
+comboTerms.set('intj', { strings: ['ni/te', 'ni/fi', 'intj'] });
+comboTerms.set('isfj', { strings: ['si/fe', 'si/ti', 'isfj'] });
+comboTerms.set('infj', { strings: ['ni/fe', 'ni/ti', 'infj'] });
+comboTerms.set('ixxj', {
+  strings: [
+    'si/te',
+    'si/fi',
+    'istj',
+    'ni/te',
+    'ni/fi',
+    'intj',
+    'si/fe',
+    'si/ti',
+    'isfj',
+    'ni/fe',
+    'ni/ti',
+    'infj',
+  ],
+});
+comboTerms.set('estj', { strings: ['te/si', 'te/ne', 'estj'] });
+comboTerms.set('entj', { strings: ['te/ni', 'te/se', 'entj'] });
+comboTerms.set('esfj', { strings: ['fe/si', 'fe/ne', 'esfj'] });
+comboTerms.set('enfj', { strings: ['fe/ni', 'fe/se', 'enfj'] });
+comboTerms.set('exxj', {
+  strings: [
+    'fe/ni',
+    'fe/se',
+    'enfj',
+    'fe/si',
+    'fe/ne',
+    'esfj',
+    'te/ni',
+    'te/se',
+    'entj',
+    'te/si',
+    'te/ne',
+    'estj',
+  ],
+});
+comboTerms.set('oe', { strings: ['se', 'ne', 'oe'] });
+comboTerms.set('gather', { strings: ['se', 'ne', 'oe'] });
+comboTerms.set('oi', { strings: ['si', 'ni', 'oi'] });
+comboTerms.set('organize', { strings: ['si', 'ni', 'oi'] });
+comboTerms.set('di', { strings: ['fi', 'ti', 'di'] });
+comboTerms.set('self', { strings: ['fi', 'ti', 'di'] });
+comboTerms.set('de', { strings: ['fe', 'te', 'de'] });
+comboTerms.set('tribe', { strings: ['fe', 'te', 'de'] });
+comboTerms.set('feeling', { strings: ['fe', 'fi'] });
+comboTerms.set('thinking', { strings: ['te', 'ti'] });
+comboTerms.set('sensing', { strings: ['se', 'si'] });
+comboTerms.set('sensory', { strings: ['se', 'si'] });
+comboTerms.set('intuition', { strings: ['ne', 'ni'] });
+comboTerms.set('xf', { strings: ['mf', 'ff', '?f'] });
+comboTerms.set('fde', { strings: ['mf', 'ff', '?f'] });
+comboTerms.set('xm', { strings: ['mm', 'fm', '?m'] });
+comboTerms.set('mde', { strings: ['mm', 'fm', '?m'] });
+comboTerms.set('mx', { strings: ['mm', 'mf', 'm?'] });
+comboTerms.set('ms', { strings: ['mm', 'mf', 'm?'] });
+comboTerms.set('msensory', { strings: ['mm', 'mf', 'm?'] });
+comboTerms.set('fx', { strings: ['fm', 'ff', 'f?'] });
+comboTerms.set('fs', { strings: ['fm', 'ff', 'f?'] });
+comboTerms.set('fsensory', { strings: ['fm', 'ff', 'f?'] });
+comboTerms.set('info', { strings: ['(p)', '(s)'] });
+comboTerms.set('energy', { strings: ['(b)', '(c)'] });
+comboTerms.set('energy', { strings: ['(b)', '(c)'] });
+
+const oi = ['ni', 'si', 'oi'];
+const oe = ['ne', 'se', 'oe'];
+const di = ['fi', 'ti', 'di'];
+const de = ['fe', 'te', 'de'];
+
+const oidi = [];
+const dioi = [];
+oi.forEach((o) => {
+  di.forEach((d) => {
+    oidi.push(o + '/' + d);
+    dioi.push(d + '/' + o);
+  });
+});
+comboTerms.set('oi/di', { strings: oidi });
+comboTerms.set('di/oi', { strings: dioi });
+
+const oide = [];
+const deoi = [];
+oi.forEach((o) => {
+  de.forEach((d) => {
+    oide.push(o + '/' + d);
+    deoi.push(d + '/' + o);
+  });
+});
+comboTerms.set('oi/de', { strings: oide });
+comboTerms.set('de/oi', { strings: deoi });
+
+const oede = [];
+const deoe = [];
+oe.forEach((o) => {
+  de.forEach((d) => {
+    oede.push(o + '/' + d);
+    deoe.push(d + '/' + o);
+  });
+});
+comboTerms.set('oe/de', { strings: oede });
+comboTerms.set('de/oe', { strings: deoe });
+
+const oedi = [];
+const dioe = [];
+oe.forEach((o) => {
+  di.forEach((d) => {
+    oedi.push(o + '/' + d);
+    dioe.push(d + '/' + o);
+  });
+});
+comboTerms.set('oe/di', { strings: oedi });
+comboTerms.set('di/oe', { strings: dioe });
+
+const personTerms = new Map();
+personTerms.set('nf', {
+  match: (person: TypedPerson) => {
+    return person.observerLetter === 'N' && person.deciderLetter === 'F';
+  },
+});
+personTerms.set('nt', {
+  match: (person: TypedPerson) => {
+    return person.observerLetter === 'N' && person.deciderLetter === 'T';
+  },
+});
+personTerms.set('sf', {
+  match: (person: TypedPerson) => {
+    return person.observerLetter === 'S' && person.deciderLetter === 'F';
+  },
+});
+personTerms.set('st', {
+  match: (person: TypedPerson) => {
+    return person.observerLetter === 'S' && person.deciderLetter === 'T';
+  },
+});
+personTerms.set('jumper', {
+  match: (person: TypedPerson) => {
+    return (person.deciderNeed === 'De' && person.observerNeed === 'Oe') ||
+    (person.deciderNeed === 'Di' && person.observerNeed === 'Oi');
+  },
+});
+personTerms.set('decider', {
+  match: (person: TypedPerson) => {
+    return person.coreNeed === 'Decider';
+  },
+});
+personTerms.set('observer', {
+  match: (person: TypedPerson) => {
+    return person.coreNeed === 'Observer';
+  },
+});
+personTerms.set('sleep', {
+  match: (person: TypedPerson) => {
+    return person.energyAnimal === 'S';
+  },
+});
+personTerms.set('play', {
+  match: (person: TypedPerson) => {
+    return person.energyAnimal === 'P';
+  },
+});
+personTerms.set('consume', {
+  match: (person: TypedPerson) => {
+    return person.infoAnimal === 'C';
+  },
+});
+personTerms.set('blast', {
+  match: (person: TypedPerson) => {
+    return person.infoAnimal === 'B';
+  },
+});
+personTerms.set('male', {
+  match: (person: TypedPerson) => {
+    return person.sex === 'Male';
+  },
+});
+personTerms.set('female', {
+  match: (person: TypedPerson) => {
+    return person.sex === 'Female';
+  },
+});
+
+const tagTerms = [
+  'class',
+  'spec',
+  'speculation',
+  'incomplete',
+  'ennea',
+  'enneagram',
+];
 
 export const searchModel = {
   functions: functions,
@@ -442,5 +685,8 @@ export const searchModel = {
   typeOnlyStrings: typeOnlyStrings,
   coreETypeStrings: coreETypeStrings,
   eTypeStrings: eTypeStrings,
-  trifixStrings: trifixStrings
+  trifixStrings: trifixStrings,
+  comboTerms: comboTerms,
+  tagTerms: tagTerms,
+  personTerms: personTerms
 };
