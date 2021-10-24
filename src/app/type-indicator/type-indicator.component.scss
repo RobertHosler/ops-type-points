@@ -50,7 +50,7 @@
   width: 1.75rem;
   height: 1.45rem;
   z-index: 8;
-  box-shadow: inset 1px -1px 3px #333;
+  box-shadow: inset 1px -1px 4px #333;
 }
 .type-indicator > .modality {
   top: 20px;
@@ -58,7 +58,7 @@
   width: 1.75rem;
   height: 1.45rem;
   line-height: 1.45rem;
-  box-shadow: inset 1px -1px 3px #333;
+  box-shadow: inset 1px -1px 4px #333;
 }
 
 .type-table {
@@ -388,8 +388,8 @@
       font-size: .75rem;
       width: 1.7rem;
       height: 1.7rem;
-      line-height: 1.65rem;
-      top: 18px;
+      line-height: 1.95rem;
+      top: 14px;
       border-radius: 0px;
       border-bottom-left-radius: 7px;
       // transform: rotate(-45deg);
@@ -403,10 +403,10 @@
     }
     & > .animals {
       left: 24px;
-      top: 18px;
+      top: 14px;
       width: 1.7rem;
       height: 1.7rem;
-      line-height: 1.65rem;
+      line-height: 1.95rem;
       z-index: 0;
       border-radius: 0px;
       // border-bottom-right-radius: 7px;
