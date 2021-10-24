@@ -60,6 +60,7 @@
         minlength="2"
         required
         placeholder="Try '9 ni'"
+        (keyup.enter)="searchAll()"
         [(ngModel)]="textString"
         name="name"
       />
