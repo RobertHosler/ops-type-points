@@ -291,37 +291,51 @@ export class SearchComponent implements OnInit {
     let strings = this.textString.toLowerCase().split(' ');
     let result = true;
     strings.forEach((string) => {
-      let s = string.toLowerCase();
-      if (
-        this.typeOnlyStrings.includes(s) &&
-        (!person.type || !person.type.toLowerCase().includes(s))
-      ) {
-        result = false;
-      } else if (
-        searchModel.coreETypeStrings.includes(s) &&
-        (!person.fullEType || !person.coreEType.toLowerCase().includes(s))
-      ) {
-        result = false;
-      } else if (
-        searchModel.eTypeStrings.includes(s) &&
-        (!person.eType || !person.eType.toLowerCase().includes(s))
-      ) {
-        result = false;
-      } else if (
-        searchModel.trifixStrings.includes(s) &&
-        (!person.trifix || !person.trifix.toLowerCase().includes(s))
-      ) {
-        result = false;
-      } else if (
-        !(
-          person.name.toLowerCase().includes(s) ||
-          (person.type && person.type.toLowerCase().includes(s)) ||
-          (person.fullEType && person.fullEType.toLowerCase().includes(s))
-        )
-      ) {
-        result = false;
+      if (result) {
+        let s = string.toLowerCase();
+        if (s.startsWith('!')) {
+          // inverse matching
+          s = s.substring(1);
+          result = !this.matchTextParts(person, s);
+        } else {
+          result = this.matchTextParts(person, s);
+        }
       }
     });
+    return result;
+  }
+
+  private matchTextParts(person: TypedPerson, s: string) {
+    let result = true;
+    if (
+      this.typeOnlyStrings.includes(s) &&
+      (!person.type || !person.type.toLowerCase().includes(s))
+    ) {
+      result = false;
+    } else if (
+      searchModel.coreETypeStrings.includes(s) &&
+      (!person.fullEType || !person.coreEType.toLowerCase().includes(s))
+    ) {
+      result = false;
+    } else if (
+      searchModel.eTypeStrings.includes(s) &&
+      (!person.eType || !person.eType.toLowerCase().includes(s))
+    ) {
+      result = false;
+    } else if (
+      searchModel.trifixStrings.includes(s) &&
+      (!person.trifix || !person.trifix.toLowerCase().includes(s))
+    ) {
+      result = false;
+    } else if (
+      !(
+        person.name.toLowerCase().includes(s) ||
+        (person.type && person.type.toLowerCase().includes(s)) ||
+        (person.fullEType && person.fullEType.toLowerCase().includes(s))
+      )
+    ) {
+      result = false;
+    }
     return result;
   }
 
