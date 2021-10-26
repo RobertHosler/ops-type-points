@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-
+console.time('setup');
 const setup = "Server Setup";
 console.time(setup);
 const express = require("express");
@@ -43,7 +43,7 @@ function broadcast(event, data) {
 }
 
 function ioSetup(shared) {
-  console.log("IO Setup");
+  console.timeEnd('setup');
   io.on("connection", function (socket) {
     console.log("new socketio connection");
     sockets.push(socket);

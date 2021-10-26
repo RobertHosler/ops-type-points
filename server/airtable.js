@@ -20,22 +20,14 @@ function buildUrl(dbKey, table, view, fields) {
  * Wrap getData call to ensure we aren't calling it too often.
  */
 let requests = 0;
+const maxRequests = 5; // max per second
 function getDataSafe(input, offset, callback) {
-  requests++;
-  if (requests < 5) {
+  if (requests < maxRequests) {
     // console.log("safe request", input.name, requests);
-    getData(input.url, offset, callback);
-    setTimeout(() => {
-      requests--;
-    //   console.log("safe request", input.name, "COMPLETE", requests);
-      if (requests === 0) {
-          console.log("safe requests queue empty");
-      }
-    }, 1000);
+    getData(input, offset, callback);
   } else {
     // console.log("safety pause", input.name, requests);
     setTimeout(() => {
-      requests--;
       getDataSafe(input, offset, callback);
     }, 200);
   }
@@ -48,9 +40,12 @@ function getDataSafe(input, offset, callback) {
  * @param {*} callback
  * @param {*} offset
  */
-function getData(url, offset, callback) {
-  let host = url.host;
-  let path = url.pathname + url.search + (offset ? "&offset=" + offset : "");
+function getData(input, offset, callback) {
+  requests++;
+  let host = input.url.host;
+  let path = input.url.pathname + input.url.search + (offset ? "&offset=" + offset : "");
+  const timerName = input.name + "|" + offset;
+  console.time(timerName);
   // console.log(host, path);
   https
     .request(
@@ -69,6 +64,14 @@ function getData(url, offset, callback) {
         //the whole response has been received, so we just print it out here
         response.on("end", () => {
           callback(str);
+          setTimeout(() => {
+            requests--;
+            console.timeEnd(timerName);
+            //   console.log("safe request", input.name, "COMPLETE", requests);
+            if (requests === 0) {
+              // console.log("safe requests queue empty");
+            }
+          }, 1000);
         });
       }
     )
