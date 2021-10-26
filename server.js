@@ -1,5 +1,4 @@
 /*jshint esversion: 6 */
-console.time('setup');
 const setup = "Server Setup";
 console.time(setup);
 const express = require("express");
@@ -36,31 +35,112 @@ function fireBlob(blob) {
   }
 }
 
-function broadcast(event, data) {
-  sockets.forEach((socket) => {
-    socket.emit(event, data);
-  });
-}
+const ioState = {
+  sockets: [],
+  nineTypesMap: new Map(),
+  termMap: new Map(),
+  sourceMap: new Map(),
+  typeMap: new Map(),
+  nameMap: new Map(),
+  childrenMap: new Map(),
+  eTypeMap: new Map(),
+  shared: [
+    {
+      listener: "getNames",
+      trigger: "names",
+      getVal: () => {
+        return Array.from(ioState.nameMap);
+      },
+    },
+    {
+      listener: "getTerms",
+      trigger: "terms",
+      getVal: () => {
+        return Array.from(ioState.termMap);
+      },
+    },
+    {
+      listener: "getSources",
+      trigger: "sources",
+      getVal: () => {
+        return Array.from(ioState.sourceMap);
+      },
+    },
+    {
+      listener: "getParents",
+      trigger: "parents",
+      getVal: () => {
+        return Array.from(ioState.childrenMap);
+      },
+    },
+    {
+      listener: "getTypes",
+      trigger: "types",
+      getVal: () => {
+        return Array.from(ioState.typeMap);
+      },
+    },
+    {
+      listener: "getNineTypes",
+      trigger: "nineTypes",
+      getVal: () => {
+        return Array.from(ioState.nineTypesMap);
+      },
+    },
+  ],
+  broadcast: (event, data) => {
+    ioState.sockets.forEach((socket) => {
+      socket.emit(event, data);
+    });
+  },
+};
 
-function ioSetup(shared) {
-  console.timeEnd('setup');
+function ioSetup(ioState) {
   io.on("connection", function (socket) {
     console.log("new socketio connection");
-    sockets.push(socket);
+    ioState.sockets.push(socket);
 
     socket.on("disconnect", function () {
       console.log("removed socketio connection");
-      sockets.splice(sockets.indexOf(socket), 1);
+      ioState.sockets.splice(ioState.sockets.indexOf(socket), 1);
     });
 
-    shared.forEach((retrievable) => {
-      socket.on(retrievable.listener, () => {
-        socket.emit(retrievable.trigger, retrievable.val);
+    socket.on("authenticate", function (pw) {
+      if (pw === (process.env.OP_DATABASE_KEY || require("./server/local-api").key)) {
+        socket.emit('authenticateComplete', true);
+      } else {
+        socket.emit('authenticateComplete', false);
+      }
+    });
+
+    socket.on("refresh", function () {
+      fetchAirtableData().then((result) => {
+        // once complete, emit that refresh is complete and broadcast updates
+        ioState.nineTypesMap = result.nineTypesMap;
+        ioState.termMap = result.termMap;
+        ioState.sourceMap = result.sourceMap;
+        ioState.typeMap = result.typeMap;
+        ioState.nameMap = result.nameMap;
+        ioState.childrenMap = result.childrenMap;
+        ioState.eTypeMap = result.eTypeMap;
+        socket.emit("refreshComplete", "complete");
+        ioState.shared.forEach((retrievable) => {
+          ioState.broadcast(retrievable.trigger, retrievable.getVal());
+        });
+      }, () => {
+
       });
-      socket.emit(retrievable.trigger, retrievable.val);
+    });
+
+    ioState.shared.forEach((retrievable) => {
+      socket.on(retrievable.listener, () => {
+        socket.emit(retrievable.trigger, retrievable.getVal());
+      });
+      socket.emit(retrievable.trigger, retrievable.getVal());
     });
   });
 }
+ioSetup(ioState);
 
 const typedPersons = require("./server/ops-typed-persons");
 const terms = require("./server/ops-terms");
@@ -68,82 +148,114 @@ const nineTypes = require("./server/e9-terms");
 const enneagrammer = require("./server/enneagrammer-db");
 const airtable = require("./server/airtable");
 
-var sockets = [];
-let nineTypesMap;
-let termMap;
-let sourceMap;
-let typeMap;
-let nameMap;
-let childrenMap;
-let eTypeMap;
-
 function errorHandler(reason) {
   console.log("promise rejected with reason...", reason);
 }
 
-// get Persons
-airtable
-  .getAll({
-    name: "OP Database",
-    url: typedPersons.listUrl,
-  })
-  .then((records) => {
-    // handle Persons
-    const result = typedPersons.convertPersons(records);
-    typeMap = result.types;
-    nameMap = result.names;
-  }, errorHandler)
-  .then(() => {
-    return airtable.getAll({
-      name: "Enneagrammer DB",
-      url: enneagrammer.url,
-    });
-  }, errorHandler)
-  .then((records) => {
-    const result = enneagrammer.convertRecords(records);
-    eTypeMap = result;
-  })
-  .then(() => {
-    enneagrammer.mergeMaps(nameMap, eTypeMap);
-  })
-  .then(startIo);
+function fetchAirtableData() {
+  console.time("fetch-airtable-data");
+  return new Promise((resolve, reject) => {
+    let personsComplete = false;
+    let definitionsComplete = false;
+    let nineTypesComplete = false;
+    let completeSteps = [personsComplete, definitionsComplete, nineTypesComplete];
+    let nineTypesMap;
+    let termMap;
+    let sourceMap;
+    let typeMap;
+    let nameMap;
+    let childrenMap;
+    let eTypeMap;
+    // get Persons
+    airtable
+      .getAll({
+        name: "OP Database",
+        url: typedPersons.listUrl,
+      })
+      .then((records) => {
+        // handle Persons
+        const result = typedPersons.convertPersons(records);
+        typeMap = result.types;
+        nameMap = result.names;
+      }, errorHandler)
+      .then(() => {
+        return airtable.getAll({
+          name: "Enneagrammer DB",
+          url: enneagrammer.url,
+        });
+      }, errorHandler)
+      .then((records) => {
+        const result = enneagrammer.convertRecords(records);
+        eTypeMap = result;
+      })
+      .then(() => {
+        enneagrammer.mergeMaps(nameMap, eTypeMap);
+      })
+      .then(() => {
+        personsComplete = true;
+        attemptResolve();
+      });
 
-// get Definitions
-airtable
-  .getAll({
-    name: "Definitions",
-    url: terms.urlMap.get("definitions"),
-  })
-  .then((records) => {
-    // handle Definitions
-    const result = terms.convertDefinitions(records);
-    termMap = result.terms;
-    sourceMap = result.sources;
-  }, errorHandler)
-  // get Children
-  .then(() => {
-    return airtable.getAll({
-      name: "Children",
-      url: terms.urlMap.get("children"),
-    });
-  }, errorHandler)
-  .then((records) => {
-    // handle Children
-    const result = terms.convertChildren(records, termMap);
-    childrenMap = result.children;
-  })
-  .then(startIo);
+    // get Definitions
+    airtable
+      .getAll({
+        name: "Definitions",
+        url: terms.urlMap.get("definitions"),
+      })
+      .then((records) => {
+        // handle Definitions
+        const result = terms.convertDefinitions(records);
+        termMap = result.terms;
+        sourceMap = result.sources;
+      }, errorHandler)
+      // get Children
+      .then(() => {
+        return airtable.getAll({
+          name: "Children",
+          url: terms.urlMap.get("children"),
+        });
+      }, errorHandler)
+      .then((records) => {
+        // handle Children
+        const result = terms.convertChildren(records, termMap);
+        childrenMap = result.children;
+      })
+      .then(() => {
+        definitionsComplete = true;
+        attemptResolve();
+      });
 
-airtable
-  .getAll({
-    name: "Nine Types",
-    url: nineTypes.nineTypesUrl,
-  })
-  .then((records) => {
-    const result = nineTypes.convert(records);
-    nineTypesMap = result.nineTypes;
-  }, errorHandler)
-  .then(startIo);
+    airtable
+      .getAll({
+        name: "Nine Types",
+        url: nineTypes.nineTypesUrl,
+      })
+      .then((records) => {
+        const result = nineTypes.convert(records);
+        nineTypesMap = result.nineTypes;
+      }, errorHandler)
+      .then(() => {
+        nineTypesComplete = true;
+        attemptResolve();
+      });
+
+      function attemptResolve() {
+        console.log('attempt resolve', completeSteps.every(v => v === true));
+        if (personsComplete && definitionsComplete && nineTypesComplete) {
+          console.timeEnd("fetch-airtable-data");
+          resolve({
+            nineTypesMap: nineTypesMap,
+            termMap: termMap,
+            sourceMap: sourceMap,
+            typeMap: typeMap,
+            nameMap: nameMap,
+            childrenMap: childrenMap,
+            eTypeMap: eTypeMap,
+          });
+        }
+      }
+  });
+}
 
 // Wait for maps to complete before starting the io
 function startIo() {

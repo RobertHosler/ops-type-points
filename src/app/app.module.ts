@@ -33,6 +33,7 @@ import { TermsComponent } from './terms/terms.component';
 import { environment } from 'src/environments/environment';
 import { TypeIndicatorComponent } from './type-indicator/type-indicator.component';
 import { NineTypesComponent } from './nine-types/nine-types.component';
+import { AdminComponent } from './admin/admin.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -59,7 +60,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     TypePracticeComponent,
     TermsComponent,
     TypeIndicatorComponent,
-    NineTypesComponent
+    NineTypesComponent,
+    AdminComponent
   ],
   imports: [
     HttpClientModule,

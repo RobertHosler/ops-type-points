@@ -9,6 +9,7 @@ import { SearchComponent } from './search/search.component';
 import { TypePracticeComponent } from './type-practice/type-practice.component';
 import { TermsComponent } from './terms/terms.component';
 import { NineTypesComponent } from './nine-types/nine-types.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,11 @@ const routes: Routes = [
     path: 'quiz',
     component: MainLayoutComponent,
     children: [{ path: '', component: TypeQuizComponent }],
+  },
+  {
+    path: 'admin',
+    component: MainLayoutComponent,
+    children: [{ path: '', component: AdminComponent }],
   },
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },

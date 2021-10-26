@@ -1,0 +1,36 @@
+<div class="container py-3">
+  <div *ngIf="!authenticated">
+    <div *ngIf="authMsg" class="alert alert-danger">
+      {{ authMsg }}
+    </div>
+    <div>Please authenticate</div>
+    <input class="form-control mb-2" type="password" [(ngModel)]="pw" />
+    <button class="btn btn-primary mb-2" (click)="auth()">Submit</button>
+  </div>
+
+  <div *ngIf="authenticated">
+    <h1>Admin</h1>
+
+    <div>
+        Refresh the server's mapped databases.
+    </div>
+    <button
+      class="btn btn-primary mb-2"
+      (click)="refresh()"
+      [disabled]="refreshing"
+    >
+      Refresh
+    </button>
+
+    <div
+      *ngIf="refreshMsg"
+      class="alert"
+      [ngClass]="{
+        'alert-warning': refreshing,
+        'alert-success': !refreshing
+      }"
+    >
+      {{ refreshMsg }}
+    </div>
+  </div>
+</div>
