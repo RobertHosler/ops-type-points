@@ -5,7 +5,7 @@ const HOST = "https://api.airtable.com/v0/apptRQDj4AV89IiNn/";
 const TABLE_NAME = "Enneagrammer DB";
 const VIEW = "Grid view";
 const MAX_RECORD = 10000;
-const fields = ["Name", "Instinct", "Type", "Trifix", "Picture"];
+const fields = ["Name", "Instinct", "Type", "Trifix", "Picture", "Sex"];
 
 const url = new URL(HOST + TABLE_NAME);
 url.searchParams.append("view", VIEW);
@@ -36,6 +36,10 @@ const converterList = [
   { org: "Dr. Drew", result: "Dr. Drew Pinsky" },
   { org: "Kris Jenner", result: "Kris Kardashian Jenner" },
   { org: "Kim Kardashian", result: "Kim Kardashian West" },
+  { org: "Neil deGrasse Tyson", result: "Neil DeGrasse Tyson" },
+  { org: "Joaquin Pheonix", result: "Joaquin Phoenix" },
+  { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
+  { org: "Alistair Crowley", result: "Aleister Crowley" },
 ];
 function convertName(name) {
   name = name.trim();
@@ -55,11 +59,12 @@ function convertRecords(records) {
     const name = convertName(record.fields.Name);
     result.set(name, {
       name: name,
-      coreEType: record.fields.Type.substring(0, 1),
-      wing: record.fields.Type.substring(2, 3),
+      coreEType: record.fields.Type && record.fields.Type.length > 0 ? record.fields.Type.substring(0, 1) : '?',
+      wing: record.fields.Type && record.fields.Type.length > 2 ? record.fields.Type.substring(2, 3) : '?',
       eType: record.fields.Type,
       instinct: record.fields.Instinct ? record.fields.Instinct.toLowerCase() : '??/??',
       trifix: record.fields.Trifix,
+      sex: record.fields.Sex,
       pictureUrl:
         record.fields.Picture && record.fields.Picture.length > 0
           ? record.fields.Picture[0].url
@@ -135,6 +140,8 @@ function mergeMaps(nameMap, eTypeMap) {
         pictureUrl: eVal.pictureUrl,
         fullEType: buildFullEType(eVal),
         tags: ["Enneagram Typed"],
+        sex: eVal.sex,
+        trans: false
       });
     }
   });

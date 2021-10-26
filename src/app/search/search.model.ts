@@ -616,8 +616,10 @@ personTerms.set('st', {
 });
 personTerms.set('jumper', {
   match: (person: TypedPerson) => {
-    return (person.deciderNeed === 'De' && person.observerNeed === 'Oe') ||
-    (person.deciderNeed === 'Di' && person.observerNeed === 'Oi');
+    return (
+      (person.deciderNeed === 'De' && person.observerNeed === 'Oe') ||
+      (person.deciderNeed === 'Di' && person.observerNeed === 'Oi')
+    );
   },
 });
 personTerms.set('decider', {
@@ -652,12 +654,20 @@ personTerms.set('blast', {
 });
 personTerms.set('male', {
   match: (person: TypedPerson) => {
-    return person.sex === 'Male';
+    return (
+      person.sex &&
+      ((!person.trans && person.sex === 'Male') ||
+        (person.trans && person.sex === 'Female'))
+    );
   },
 });
 personTerms.set('female', {
   match: (person: TypedPerson) => {
-    return person.sex === 'Female';
+    return (
+      person.sex &&
+      ((!person.trans && person.sex === 'Female') ||
+        (person.trans && person.sex === 'Male'))
+    );
   },
 });
 
@@ -688,5 +698,5 @@ export const searchModel = {
   trifixStrings: trifixStrings,
   comboTerms: comboTerms,
   tagTerms: tagTerms,
-  personTerms: personTerms
+  personTerms: personTerms,
 };
