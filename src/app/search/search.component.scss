@@ -178,3 +178,34 @@ input.form-control {
     flex-wrap: wrap;
   }
 }
+
+.previous-search-wrapper {
+  margin-left: -.5rem;
+  margin-right: -.5rem;
+}
+.previous-search {
+  display: inline-block;
+  margin-left: .5rem;
+  margin-right: .5rem;
+  margin-bottom: .5rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  border: 1px solid $primary;
+  border-radius: 50px;
+  background-color: #eee;
+  &:hover {
+    // border: 1px solid $cad-orange;
+    box-shadow: -1px 2px 5px 1px #777;
+  }
+  button {
+    margin-left: .5rem;
+    background: none;
+    border: none;
+    color: $primary;
+    &:hover {
+      color: $cad-orange;
+    }
+  }
+}

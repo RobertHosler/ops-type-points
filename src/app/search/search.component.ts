@@ -19,6 +19,7 @@ export class SearchComponent implements OnInit {
   appLinks = appLinks;
 
   textString: string;
+  previousTextString: string;
   activeEType: ETypeModel;
   activeWing: string;
   activeInstinct: InstinctModel;
@@ -74,6 +75,10 @@ export class SearchComponent implements OnInit {
   @ViewChild('nameInput') nameInput: ElementRef;
 
   initialLoad = true;
+  ignoreRouteUpdate = false;
+
+  searchTerms = [];
+  searches = new Map();
 
   constructor(
     private opsDataService: OpsDataService,
@@ -127,7 +132,12 @@ export class SearchComponent implements OnInit {
           ? params.get(option.coin.param)
           : '';
       });
-      this.searchAll();
+      if (!this.ignoreRouteUpdate) {
+        // console.log("routing search");
+        this.searchAll();
+      } else {
+        this.ignoreRouteUpdate = false;
+      }
     });
   }
 
@@ -206,17 +216,29 @@ export class SearchComponent implements OnInit {
     // initiate search
     this.searchRequests++;
     setTimeout(() => {
+      // console.log(this.searchRequests);
       if (this.searchRequests === 1) {
+        if (this.textString && this.previousTextString === this.textString.trim()) {
+          this.searchRequests--;
+          return;
+        } else {
+          this.previousTextString = this.textString ? this.textString.trim() : null;
+        }
         this.displayedRecords = [];
         this.searchNames();
         this.updateRoute();
         if (this.searchLoading) {
+          // only on first search
           this.searchLoading = false;
           this.nameInput.nativeElement.focus();
         }
+        if (this.initialLoad) {
+          this.initialLoad = false;
+        }
+        this.ignoreRouteUpdate = true;
       }
       this.searchRequests--;
-    }, 500);
+    }, 750);
   }
 
   /**
@@ -229,6 +251,7 @@ export class SearchComponent implements OnInit {
     } else {
       nameList = this.allNamesArrUnsorted;
     }
+    this.searchTerms = [];
     nameList.forEach((name: string) => {
       let person = this.allNames.get(name);
       if (
@@ -240,6 +263,17 @@ export class SearchComponent implements OnInit {
       }
       this.displayedRecords.push(person);
     });
+    if (
+      this.displayedRecords.length > 0 &&
+      this.textString &&
+      this.textString.length > 0 &&
+      !this.searches.get(this.textString.trim())
+    ) {
+      this.searches.set(this.textString.trim(), {
+        term: this.textString.trim(),
+        count: this.displayedRecords.length
+      });
+    }
   }
 
   /**
@@ -275,8 +309,10 @@ export class SearchComponent implements OnInit {
         if (s.startsWith('!')) {
           // inverse matching
           s = s.substring(1);
+          this.searchTerms.push(s);
           result = !this.matchTextParts(person, s);
         } else {
+          this.searchTerms.push(s);
           result = this.matchTextParts(person, s);
         }
       }

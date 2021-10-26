@@ -21,14 +21,20 @@
         </li>
         <li>
           <a [routerLink]="['/search']" [queryParams]="{ text: 'mm exxj fe' }">
-          Want to see those of a similar type? Search by parts. Ex: "mm exxj fe"</a>
+            Want to see those of a similar type? Search by parts. Ex: "mm exxj
+            fe"</a
+          >
         </li>
         <li>
           <a [routerLink]="['/search']" [queryParams]="{ text: 'ennea' }">
-          Only want to see those with an Enneagram type?  Add "Ennea" or "Enneagram" to your search.</a>
+            Only want to see those with an Enneagram type? Add "Ennea" or
+            "Enneagram" to your search.</a
+          >
         </li>
         <li>
-          Just try some things out! If you find a keyword isn't working as you might expect, <a [href]="appLinks.contact" target="_blank">let me know!</a>
+          Just try some things out! If you find a keyword isn't working as you
+          might expect,
+          <a [href]="appLinks.contact" target="_blank">let me know!</a>
         </li>
       </ul>
     </div>
@@ -59,9 +65,7 @@
   <div class="clear-right"></div>
   <div class="mb-3">
     <div class="form-group">
-      <label for="name" class="name-label"
-        >Search by Name or Type:</label
-      >
+      <label for="name" class="name-label">Search by Name or Type:</label>
       <div class="input-group">
         <input
           #nameInput
@@ -130,6 +134,25 @@
       <button class="btn btn-secondary mr-3" type="button" (click)="resetAll()">
         Reset
       </button>
+    </div>
+    <div class="mt-2" *ngIf="searches.size > 0">
+      <div>Previous Searches</div>
+      <div class="previous-search-wrapper">
+        <span
+          *ngFor="let previousSearch of searches | keyvalue"
+          class="previous-search"
+        >
+          <a
+            [routerLink]="['/search']"
+            [queryParams]="{ text: previousSearch.key }"
+            >{{ previousSearch.key }} - {{ previousSearch.value.count }}</a
+          >
+          <button (click)="searches.delete(previousSearch.key)">X</button>
+        </span>
+      </div>
+      <div>
+        <button (click)="searches.clear()" class="btn btn-secondary btn-sm">Clear All</button>
+      </div>
     </div>
   </div>
   <p *ngIf="displayedRecords && displayedRecords.length > 0" class="text-info">
