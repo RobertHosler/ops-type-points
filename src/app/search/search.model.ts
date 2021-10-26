@@ -682,6 +682,7 @@ const tagTerms = [
   'incomplete',
   'ennea',
   'enneagram',
+  'community',
 ];
 
 export const searchModel = {
