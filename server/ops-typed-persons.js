@@ -215,7 +215,7 @@ function convertPersons(records) {
     if (record.fields.Tags) {
       record.fields.Tags.forEach((tag) => {
         if (tag === "Community Member") {
-          tagExclusionFound = true;
+          tagExclusionFound = false;
         }
       });
     }
