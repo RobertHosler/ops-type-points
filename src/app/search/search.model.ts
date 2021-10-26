@@ -542,7 +542,11 @@ comboTerms.set('fs', { strings: ['fm', 'ff', 'f?'] });
 comboTerms.set('fsensory', { strings: ['fm', 'ff', 'f?'] });
 comboTerms.set('info', { strings: ['(p)', '(s)'] });
 comboTerms.set('energy', { strings: ['(b)', '(c)'] });
-comboTerms.set('energy', { strings: ['(b)', '(c)'] });
+
+comboTerms.set('alpha', { strings: [['si', 'ne'], ['ti', 'fe']] });
+comboTerms.set('beta', { strings: [['ni', 'se'], ['ti', 'fe']] });
+comboTerms.set('gamma', { strings: [['ni', 'se'], ['fi', 'te']] });
+comboTerms.set('delta', { strings: [['si', 'ne'], ['fi', 'te']] });
 
 const oi = ['ni', 'si', 'oi'];
 const oe = ['ne', 'se', 'oe'];

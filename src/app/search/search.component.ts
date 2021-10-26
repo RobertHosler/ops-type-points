@@ -29,7 +29,8 @@ export class SearchComponent implements OnInit {
 
   isMaxRecords = false;
 
-  placeholderText = 'Try \"so 9 ni\", \"class oi ti observer\", or \"male enfj jumper\"';
+  placeholderText =
+    'Try "so 9 ni", "class oi ti observer", or "male enfj jumper"';
 
   searchType = '';
   searchTypes = ['Coins', 'Name', 'Type', 'Enneagram'];
@@ -278,16 +279,53 @@ export class SearchComponent implements OnInit {
   private matchTextParts(person: TypedPerson, s: string) {
     if (searchModel.comboTerms.get(s)) {
       let result = false;
-      searchModel.comboTerms.get(s).strings.forEach((subS: string) => {
-        if (!result) {
-          result = this.matchTextPartsDecoded(person, subS);
-        }
-      });
+      let first = searchModel.comboTerms.get(s).strings[0];
+      if (Array.isArray(first)) {
+        // array of arrays - for each array - determine if successful
+        // all arrays must pass
+        let arrayResults = true;
+        let arrResult = false;
+        searchModel.comboTerms.get(s).strings.forEach((arr: string[]) => {
+          if (arrayResults) {
+            arrResult = false;
+            arr.forEach((comboS: string) => {
+              if (!arrResult) {
+                arrResult = this.matchTextPartsDecoded(person, comboS);
+              }
+            });
+            // if arrayResults indicate success - update to potential non-success
+            arrayResults = arrResult;
+          }
+        });
+        result = arrayResults;
+      } else {
+        searchModel.comboTerms.get(s).strings.forEach((subS: string) => {
+          if (!result) {
+            result = this.matchTextPartsDecoded(person, subS);
+          }
+        });
+      }
       return result;
     } else {
       return this.matchTextPartsDecoded(person, s);
     }
   }
+
+  // private processSubS(subS: string) {
+  //   // search until any match is found
+  //   if (!arrResult) {
+  //     arrResult = this.matchTextPartsDecoded(person, subS);
+  //   }
+  // }
+
+  // private processArr(arr: string[], arrayResults: boolean, arr) {
+  //   if (arrayResults) {
+  //     arrResult = false;
+  //     arr.forEach(this.processSubS);
+  //     // if arrayResults indicate success - update to potential non-success
+  //     arrayResults = arrResult;
+  //   }
+  // }
 
   private matchTextPartsDecoded(person: TypedPerson, s: string) {
     let result = true;
@@ -504,7 +542,6 @@ export class SearchComponent implements OnInit {
       option.val = null;
     });
   }
-
 }
 
 class OptionModel {
