@@ -114,22 +114,7 @@ function ioSetup(ioState) {
     });
 
     socket.on("refresh", function () {
-      fetchAirtableData().then((result) => {
-        // once complete, emit that refresh is complete and broadcast updates
-        ioState.nineTypesMap = result.nineTypesMap;
-        ioState.termMap = result.termMap;
-        ioState.sourceMap = result.sourceMap;
-        ioState.typeMap = result.typeMap;
-        ioState.nameMap = result.nameMap;
-        ioState.childrenMap = result.childrenMap;
-        ioState.eTypeMap = result.eTypeMap;
-        socket.emit("refreshComplete", "complete");
-        ioState.shared.forEach((retrievable) => {
-          ioState.broadcast(retrievable.trigger, retrievable.getVal());
-        });
-      }, () => {
-
-      });
+      refreshAirtableData(socket);
     });
 
     ioState.shared.forEach((retrievable) => {
@@ -151,6 +136,28 @@ const airtable = require("./server/airtable");
 function errorHandler(reason) {
   console.log("promise rejected with reason...", reason);
 }
+
+function refreshAirtableData(socket) {
+  fetchAirtableData().then((result) => {
+    // once complete, emit that refresh is complete and broadcast updates
+    ioState.nineTypesMap = result.nineTypesMap;
+    ioState.termMap = result.termMap;
+    ioState.sourceMap = result.sourceMap;
+    ioState.typeMap = result.typeMap;
+    ioState.nameMap = result.nameMap;
+    ioState.childrenMap = result.childrenMap;
+    ioState.eTypeMap = result.eTypeMap;
+    ioState.shared.forEach((retrievable) => {
+      ioState.broadcast(retrievable.trigger, retrievable.getVal());
+    });
+    if (socket) {
+      socket.emit("refreshComplete", "complete");
+    }
+  }, () => {
+    //rejected
+  });
+}
+refreshAirtableData();
 
 function fetchAirtableData() {
   console.time("fetch-airtable-data");
