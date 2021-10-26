@@ -232,6 +232,8 @@ export class TypedPerson {
   coreETypeLong?: string;//Nine
   wing?: string;//1
   fullEType?: string;// so/sp - 9w1 - 963
+  wssType?: string;
+  wssLink?: string;
 }
 
 export class Parent {

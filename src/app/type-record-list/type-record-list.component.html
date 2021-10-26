@@ -81,6 +81,18 @@
             <div class="image-type" *ngIf="typeRecord.fullEType">
               {{ typeRecord.fullEType }}
             </div>
+            <div class="image-type" *ngIf="typeRecord.wssType">
+              <a
+                *ngIf="typeRecord.wssLink"
+                [href]="typeRecord.wssLink"
+                target="_blank"
+              >
+                {{ typeRecord.wssType }}
+              </a>
+              <span *ngIf="!typeRecord.wssLink">
+                {{ typeRecord.wssType }}
+              </span>
+            </div>
           </div>
           <div class="image-tags">
             <div *ngFor="let tag of typeRecord.tags">
@@ -99,27 +111,41 @@
   <div *ngIf="showSource" class="small help container my-2 p-1">
     <div class="">
       <div class="mb-1 d-inline-block">
-        OPS type records courtesy of the
+        OPS type data courtesy of the
         <a target="_blank" [href]="opsDbSource"
           >Objective Personality Database</a
         >, a project by Ryan and Jana based on typings by Dave and Shannon
         Powers. <a target="_blank" [href]="opsDbInfo">Learn More</a>
       </div>
       <div class="mb-1">
-        If you a community member in the OPS database, this adaptation of the
-        database currently filters out all but select community members.
-        However, if you would like to be included here, you can
+        If you a community member in the OPS database,
         <a [href]="appLinks.contact" target="_blank">contact me</a>
-        to be added.
+        to be excluded from this app.
       </div>
     </div>
-    <div class="">
-      Enneagram type records are sourced from the
+    <div class="mb-1">
+      Enneagram type data are sourced from the
       <a [href]="enneagrammerLink" target="_blank">Enneagrammer Database</a>.
       Continue to explore on their
       <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
       learn more about their take on the Enneagram at
       <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>
+    </div>
+    <div>
+      Socionics type data sourced from the World Socionic's Society's
+      <a
+        href="https://www.facebook.com/notes/world-socionics-society/wss-public-figure-benchmark/1974788942540812/"
+        >Public Figure Benchmark</a
+      >. Learn more about WSS on their
+      <a href="https://www.facebook.com/groups/584205738265813" target="_blank"
+        >Facebook page</a
+      >
+      or
+      <a
+        href="https://www.youtube.com/c/WorldSocionicsSocietyWSS"
+        target="_blank"
+        >YouTube Channel</a
+      >.
     </div>
   </div>
 </div>
@@ -129,14 +155,14 @@
     <div class="btn-group">
       <button
         class="btn btn-secondary"
-        (click)="currentPage = 1; scrollToLoaded();"
+        (click)="currentPage = 1; scrollToLoaded()"
         [disabled]="currentPage === 1"
       >
         First
       </button>
       <button
         class="btn btn-secondary"
-        (click)="currentPage = currentPage - 1; scrollToLoaded();"
+        (click)="currentPage = currentPage - 1; scrollToLoaded()"
         [disabled]="currentPage === 1"
       >
         Previous
@@ -144,14 +170,14 @@
       <button class="btn btn-secondary" *ngFor="let page; of"></button>
       <button
         class="btn btn-secondary"
-        (click)="currentPage = currentPage + 1; scrollToLoaded();"
+        (click)="currentPage = currentPage + 1; scrollToLoaded()"
         [disabled]="currentPage === this.displayPages.length"
       >
         Next
       </button>
       <button
         class="btn btn-secondary"
-        (click)="currentPage = this.displayPages.length; scrollToLoaded();"
+        (click)="currentPage = this.displayPages.length; scrollToLoaded()"
         [disabled]="currentPage === this.displayPages.length"
       >
         Last

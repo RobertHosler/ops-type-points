@@ -420,6 +420,10 @@ export class SearchComponent implements OnInit {
       if (person.trifix !== s) {
         result = false;
       }
+    } else if (searchModel.socionicsTypes.includes(s)) {
+      if (!person.wssType || person.wssType.toLowerCase() !== s) {
+        result = false;
+      }
     } else if (
       !(
         person.name.toLowerCase().includes(s) ||

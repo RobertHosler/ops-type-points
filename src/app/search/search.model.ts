@@ -730,6 +730,29 @@ const tagTerms = [
   'ennea',
   'enneagram',
   'community',
+  'wss',
+];
+
+const socionicsTypes = [
+  'ile',
+  'lii',
+  'ese',
+  'sei',
+
+  'eie',
+  'iei',
+  'lsi',
+  'sle',
+
+  'lie',
+  'ili',
+  'see',
+  'esi',
+
+  'iee',
+  'eii',
+  'sli',
+  'lse',
 ];
 
 export const searchModel = {
@@ -753,4 +776,5 @@ export const searchModel = {
   tagTerms: tagTerms,
   personTerms: personTerms,
   predictions: predictions,
+  socionicsTypes: socionicsTypes,
 };

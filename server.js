@@ -131,6 +131,7 @@ const typedPersons = require("./server/ops-typed-persons");
 const terms = require("./server/ops-terms");
 const nineTypes = require("./server/e9-terms");
 const enneagrammer = require("./server/enneagrammer-db");
+const wss = require("./server/wss-db");
 const airtable = require("./server/airtable");
 
 function errorHandler(reason) {
@@ -173,6 +174,7 @@ function fetchAirtableData() {
     let nameMap;
     let childrenMap;
     let eTypeMap;
+    let wssMap;
     // get Persons
     airtable
       .getAll({
@@ -196,7 +198,18 @@ function fetchAirtableData() {
         eTypeMap = result;
       })
       .then(() => {
+        return airtable.getAll({
+          name: "WSS DB",
+          url: wss.url,
+        });
+      }, errorHandler)
+      .then((records) => {
+        const result = wss.convertRecords(records);
+        wssMap = result;
+      })
+      .then(() => {
         enneagrammer.mergeMaps(nameMap, eTypeMap);
+        wss.mergeMaps(nameMap, wssMap);
       })
       .then(() => {
         personsComplete = true;
