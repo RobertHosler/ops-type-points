@@ -315,44 +315,54 @@ const clusters = [
 
 export class ETypeModel {
   name: string;
+  long: string;
   wings: string[];
 }
 
 const eTypes: ETypeModel[] = [
   {
     name: '2',
+    long: 'two',
     wings: ['1', '3'],
   },
   {
     name: '3',
+    long: 'three',
     wings: ['2', '4'],
   },
   {
     name: '4',
+    long: 'four',
     wings: ['3', '5'],
   },
   {
     name: '5',
+    long: 'five',
     wings: ['4', '6'],
   },
   {
     name: '6',
+    long: 'six',
     wings: ['5', '7'],
   },
   {
     name: '7',
+    long: 'seven',
     wings: ['6', '8'],
   },
   {
     name: '8',
+    long: 'eight',
     wings: ['7', '9'],
   },
   {
     name: '9',
+    long: 'nine',
     wings: ['8', '1'],
   },
   {
     name: '1',
+    long: 'one',
     wings: ['9', '2'],
   },
 ];
@@ -409,6 +419,7 @@ const typeOnlyStrings = [
 ];
 
 const coreETypeStrings = [];
+const coreETypeLong = [];
 const eTypeStrings = [];
 const trifixStrings = [];
 
@@ -418,6 +429,7 @@ const gut = ['8', '9', '1'];
 
 eTypes.forEach((eType) => {
   coreETypeStrings.push(eType.name);
+  coreETypeLong.push(eType.long);
   eType.wings.forEach((wing) => {
     eTypeStrings.push(eType.name + 'w' + wing);
   });
@@ -435,6 +447,17 @@ gut.forEach((gutType) => {
   });
 });
 trifixStrings.sort();
+
+const predictions = [
+  { term: 'kinesthetic', count: 4 },
+  { term: 'sensory', count: 4 },
+  { term: 'sensing', count: 4 },
+  { term: 'thinking', count: 4 },
+  { term: 'feeling', count: 3 },
+  { term: 'intuition', count: 4 },
+  { term: 'organize', count: 3 },
+  { term: 'gather', count: 3 },
+];
 
 const comboTerms = new Map();
 comboTerms.set('infp', { strings: ['fi/ne', 'fi/si', 'infp'] });
@@ -540,13 +563,37 @@ comboTerms.set('msensory', { strings: ['mm', 'mf', 'm?'] });
 comboTerms.set('fx', { strings: ['fm', 'ff', 'f?'] });
 comboTerms.set('fs', { strings: ['fm', 'ff', 'f?'] });
 comboTerms.set('fsensory', { strings: ['fm', 'ff', 'f?'] });
+comboTerms.set('audio', { strings: ['mf'] });
+comboTerms.set('visual', { strings: ['fm'] });
+comboTerms.set('tester', { strings: ['ff'] });
+comboTerms.set('kinesthetic', { strings: ['mm'] });
 comboTerms.set('info', { strings: ['(p)', '(s)'] });
 comboTerms.set('energy', { strings: ['(b)', '(c)'] });
 
-comboTerms.set('alpha', { strings: [['si', 'ne'], ['ti', 'fe']] });
-comboTerms.set('beta', { strings: [['ni', 'se'], ['ti', 'fe']] });
-comboTerms.set('gamma', { strings: [['ni', 'se'], ['fi', 'te']] });
-comboTerms.set('delta', { strings: [['si', 'ne'], ['fi', 'te']] });
+comboTerms.set('alpha', {
+  strings: [
+    ['si', 'ne'],
+    ['ti', 'fe'],
+  ],
+});
+comboTerms.set('beta', {
+  strings: [
+    ['ni', 'se'],
+    ['ti', 'fe'],
+  ],
+});
+comboTerms.set('gamma', {
+  strings: [
+    ['ni', 'se'],
+    ['fi', 'te'],
+  ],
+});
+comboTerms.set('delta', {
+  strings: [
+    ['si', 'ne'],
+    ['fi', 'te'],
+  ],
+});
 
 const oi = ['ni', 'si', 'oi'];
 const oe = ['ne', 'se', 'oe'];
@@ -699,9 +746,11 @@ export const searchModel = {
   instincts: instincts,
   typeOnlyStrings: typeOnlyStrings,
   coreETypeStrings: coreETypeStrings,
+  coreETypeLong: coreETypeLong,
   eTypeStrings: eTypeStrings,
   trifixStrings: trifixStrings,
   comboTerms: comboTerms,
   tagTerms: tagTerms,
   personTerms: personTerms,
+  predictions: predictions,
 };

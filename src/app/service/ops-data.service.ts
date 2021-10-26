@@ -229,6 +229,7 @@ export class TypedPerson {
   instinct?: string;// so/sp
   trifix?: string;// 963 (no wings)
   coreEType?: string;//9
+  coreETypeLong?: string;//Nine
   wing?: string;//1
   fullEType?: string;// so/sp - 9w1 - 963
 }

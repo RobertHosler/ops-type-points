@@ -1,4 +1,4 @@
-<div class="container">
+<div #container class="container">
   <div class="img-right img-heading">
     <img src="/assets/images/database.png" />
   </div>
@@ -145,13 +145,15 @@
           <a
             [routerLink]="['/search']"
             [queryParams]="{ text: previousSearch.key }"
-            >{{ previousSearch.key }} - {{ previousSearch.value.count }}</a
+            >{{ previousSearch.key }} ({{ previousSearch.value.count }})</a
           >
           <button (click)="searches.delete(previousSearch.key)">X</button>
         </span>
       </div>
       <div>
-        <button (click)="searches.clear()" class="btn btn-secondary btn-sm">Clear All</button>
+        <button (click)="searches.clear()" class="btn btn-secondary btn-sm">
+          Clear All
+        </button>
       </div>
     </div>
   </div>

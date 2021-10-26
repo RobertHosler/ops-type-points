@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Coin, coinMap, coinSideMap, extraCoins } from '../model/coin';
@@ -73,6 +73,7 @@ export class SearchComponent implements OnInit {
 
   @ViewChild('recordList') recordList: ElementRef;
   @ViewChild('nameInput') nameInput: ElementRef;
+  @ViewChild("container") private container: ElementRef;
 
   initialLoad = true;
   ignoreRouteUpdate = false;
@@ -321,6 +322,12 @@ export class SearchComponent implements OnInit {
   }
 
   private matchTextParts(person: TypedPerson, s: string) {
+    searchModel.predictions.forEach(prediction => {
+      if (s.length > prediction.count && prediction.term.startsWith(s)) {
+        s = prediction.term;
+      }
+    });
+
     if (searchModel.comboTerms.get(s)) {
       let result = false;
       let first = searchModel.comboTerms.get(s).strings[0];
@@ -395,7 +402,12 @@ export class SearchComponent implements OnInit {
       }
     } else if (searchModel.coreETypeStrings.includes(s)) {
       // 3, 4, etc
-      if (!person.fullEType || !person.coreEType.toLowerCase().includes(s)) {
+      if (!person.coreEType || !person.coreEType.toLowerCase().includes(s)) {
+        result = false;
+      }
+    } else if (searchModel.coreETypeLong.includes(s)) {
+      // three, four, etc
+      if (!person.coreETypeLong || !person.coreETypeLong.toLowerCase().includes(s)) {
         result = false;
       }
     } else if (searchModel.eTypeStrings.includes(s)) {

@@ -59,10 +59,13 @@ function convertRecords(records) {
   records.forEach((record) => {
     //TODO: put in map
     const name = convertName(record.fields.Name);
+    const coreEType = record.fields.Type && record.fields.Type.length ? record.fields.Type.substring(0, 1) : '?';
+    const wing = record.fields.Type && record.fields.Type.length > 2 ? record.fields.Type.substring(2, 3) : '?';
     result.set(name, {
       name: name,
-      coreEType: record.fields.Type && record.fields.Type.length > 0 ? record.fields.Type.substring(0, 1) : '?',
-      wing: record.fields.Type && record.fields.Type.length > 2 ? record.fields.Type.substring(2, 3) : '?',
+      coreEType: coreEType,
+      coreETypeLong: getCoreETypeLong(coreEType),
+      wing: wing,
       eType: record.fields.Type,
       instinct: record.fields.Instinct ? record.fields.Instinct.toLowerCase() : '??/??',
       trifix: record.fields.Trifix,
@@ -112,6 +115,29 @@ function buildTritype(s) {
   }
 }
 
+function getCoreETypeLong(coreEType) {
+  switch(coreEType) {
+    case '1':
+      return 'One';
+    case '2':
+      return 'Two';
+    case '3':
+      return 'Three';
+    case '4':
+      return 'Four';
+    case '5':
+      return 'Five';
+    case '6':
+      return 'Six';
+    case '7':
+      return 'Seven';
+    case '8':
+      return 'Eight';
+    case '9':
+      return 'Nine';
+  }
+}
+
 function mergeMaps(nameMap, eTypeMap) {
   const matches = [];
   let i = 0;
@@ -119,6 +145,7 @@ function mergeMaps(nameMap, eTypeMap) {
     const nameVal = nameMap.get(eKey);
     if (nameVal) {
       nameVal.coreEType = eVal.coreEType; // 9
+      nameVal.coreETypeLong = eVal.coreETypeLong; // nine
       nameVal.wing = eVal.wing; // 1
       nameVal.eType = eVal.eType; // 9w1
       nameVal.instinct = eVal.instinct; // so/sp
@@ -132,6 +159,7 @@ function mergeMaps(nameMap, eTypeMap) {
       nameMap.set(eKey, {
         name: eKey,
         coreEType: eVal.coreEType,
+        coreETypeLong: eVal.coreETypeLong,
         wing: eVal.wing,
         eType: eVal.eType, // 9w1
         instinct: eVal.instinct,
