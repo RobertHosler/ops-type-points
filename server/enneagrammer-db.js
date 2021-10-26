@@ -1,5 +1,7 @@
 /*jshint esversion: 6 */
 
+const { getRecordPicture } = require("./airtable");
+
 const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
 const HOST = "https://api.airtable.com/v0/apptRQDj4AV89IiNn/";
 const TABLE_NAME = "Enneagrammer DB";
@@ -65,10 +67,7 @@ function convertRecords(records) {
       instinct: record.fields.Instinct ? record.fields.Instinct.toLowerCase() : '??/??',
       trifix: record.fields.Trifix,
       sex: record.fields.Sex,
-      pictureUrl:
-        record.fields.Picture && record.fields.Picture.length > 0
-          ? record.fields.Picture[0].url
-          : "",
+      pictureUrl: getRecordPicture(record)
     });
   });
   return result;

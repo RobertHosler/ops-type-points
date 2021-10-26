@@ -1,5 +1,7 @@
 /*jshint esversion: 6 */
 
+const { getRecordPicture } = require("./airtable");
+
 const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
 const OP_DB_HOST = "https://api.airtable.com/v0/appudq0aG1uwqIFX5/";
 const OP_DB_KEY = "appudq0aG1uwqIFX5";
@@ -147,10 +149,7 @@ function convertPersons(records) {
     const typedPerson = {
       name: name,
       type: record.fields.Type,
-      pictureUrl:
-        record.fields.Picture && record.fields.Picture.length > 0
-          ? record.fields.Picture[0].url
-          : "",
+      pictureUrl: getRecordPicture(record),
       tags: record.fields.Tags,
       coreNeed: record.fields["Single Observer vs Decider"]
         ? record.fields["Single Observer vs Decider"] ===
