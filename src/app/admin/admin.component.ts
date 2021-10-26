@@ -10,18 +10,17 @@ export class AdminComponent implements OnInit {
 
   authenticated = false;
   authMsg = '';
+  pw: string;
 
   refreshing = false;
-
   refreshMsg = '';
-
-  pw: string;
+  refreshStart;
 
   constructor(private socket: Socket) {
     this.socket.on('refreshComplete', (result) => {
       this.refreshing = false;
-      var endTime = performance.now()
-      this.refreshMsg = 'Refresh Complete in ' + Math.round(endTime / 10)/100 + ' seconds';
+      let refreshTime = performance.now() - this.refreshStart;
+      this.refreshMsg = 'Refresh Complete in ' + Math.round(refreshTime / 10)/100 + ' seconds';
     });
     this.socket.on('authenticateComplete', (result) => {
       this.authenticated = result;
@@ -36,7 +35,7 @@ export class AdminComponent implements OnInit {
 
   refresh() {
     this.refreshing = true;
-    var startTime = performance.now();
+    this.refreshStart = performance.now();
     this.refreshMsg = 'Refreshing';
     this.socket.emit('refresh');
   }
