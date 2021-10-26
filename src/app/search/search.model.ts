@@ -731,6 +731,7 @@ const tagTerms = [
   'enneagram',
   'community',
   'wss',
+  'ops',
 ];
 
 const socionicsTypes = [

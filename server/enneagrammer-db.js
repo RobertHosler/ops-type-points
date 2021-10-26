@@ -151,7 +151,7 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.instinct = eVal.instinct; // so/sp
       nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
       nameVal.fullEType = buildFullEType(eVal);
-      nameVal.tags ? nameVal.tags.push("Enneagram Typed") : nameVal.tags = ["Enneagram Typed"];
+      nameVal.tags ? nameVal.tags.push("Enneagrammer") : nameVal.tags = ["Enneagrammer"];
       matches.push(eKey);
     } else {
       // Add to nameMap
@@ -166,7 +166,7 @@ function mergeMaps(nameMap, eTypeMap) {
         trifix: buildTritype(eVal.trifix),
         pictureUrl: eVal.pictureUrl,
         fullEType: buildFullEType(eVal),
-        tags: ["Enneagram Typed"],
+        tags: ["Enneagrammer"],
         sex: eVal.sex,
         trans: false
       });

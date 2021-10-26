@@ -146,11 +146,13 @@ function convertPersons(records) {
   const nameMap = new Map();
   records.forEach((record) => {
     let name = convertName(record.fields.Name);
+    let tags = record.fields.Tags ? record.fields.Tags : [];
+    tags.push("OPS");
     const typedPerson = {
       name: name,
       type: record.fields.Type,
       pictureUrl: getRecordPicture(record),
-      tags: record.fields.Tags,
+      tags: tags,
       coreNeed: record.fields["Single Observer vs Decider"]
         ? record.fields["Single Observer vs Decider"] ===
           "Single Decider / Double Observer"
