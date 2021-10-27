@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Coin, coinMap, coinSideMap, extraCoins } from '../model/coin';
@@ -67,19 +67,23 @@ export class SearchComponent implements OnInit {
 
   allNamesArr: string[];
   allNamesArrUnsorted: string[];
-  sortByName = false;
+  sortBy = 'ops';
+  sortInvert = false;
+  searchSort = [];
 
   routerInit = false;
 
   @ViewChild('recordList') recordList: ElementRef;
   @ViewChild('nameInput') nameInput: ElementRef;
-  @ViewChild("container") private container: ElementRef;
+  @ViewChild('container') private container: ElementRef;
 
   initialLoad = true;
   ignoreRouteUpdate = false;
 
   searchTerms = [];
   searches = new Map();
+
+  grayscale = false;
 
   constructor(
     private opsDataService: OpsDataService,
@@ -109,12 +113,12 @@ export class SearchComponent implements OnInit {
 
   private initRouter() {
     this.route.queryParamMap.subscribe((params) => {
-      this.textString = params.get('text');
-      if (!this.textString) {
-        this.textString = params.get('type');
+      let newTextString = params.get('text');
+      if (!newTextString) {
+        newTextString = params.get('type');
       }
-      if (!this.textString) {
-        this.textString = params.get('name');
+      if (!newTextString) {
+        newTextString = params.get('name');
       }
       this.eTypes.forEach((eType) => {
         if (eType.name === params.get('et')) {
@@ -133,11 +137,9 @@ export class SearchComponent implements OnInit {
           ? params.get(option.coin.param)
           : '';
       });
-      if (!this.ignoreRouteUpdate) {
-        // console.log("routing search");
+      if (newTextString !== this.textString) {
+        this.textString = newTextString;
         this.searchAll();
-      } else {
-        this.ignoreRouteUpdate = false;
       }
     });
   }
@@ -210,6 +212,125 @@ export class SearchComponent implements OnInit {
       : '';
   }
 
+  resort(newSort?: string) {
+    if (newSort) {
+      if (newSort === this.sortBy) {
+        // ignore
+      } else {
+        this.sortBy = newSort;
+        this.displayedRecords.sort((a, b) => {
+          let result = 0;
+          if (this.sortBy === 'name') {
+            result = this.sortName(a, b);
+          } else if (this.sortBy === 'ennea') {
+            result = this.sortEType(a, b);
+            if (result === 0) {
+              result = this.sortOpsType(a, b);
+            }
+            if (result === 0) {
+              result = this.sortName(a, b);
+            }
+          } else {
+            result = this.sortOpsType(a, b);
+            if (result === 0) {
+              result = this.sortEType(a, b);
+            }
+            if (result === 0) {
+              result = this.sortName(a, b);
+            }
+          }
+          if (this.sortInvert) {
+            return result * -1;
+          } else {
+            return result;
+          }
+        });
+        this.displayedRecords = this.displayedRecords.splice(0);
+      }
+    }
+  }
+
+  private sortName(a, b) {
+    if (a.name > b.name) {
+      return 1;
+    }
+    if (b.name > a.name) {
+      return -1;
+    }
+    return 0;
+  }
+
+  private sortOpsType(a: TypedPerson, b: TypedPerson) {
+    if (a.type && (!b.type || b.type.length !== 16)) {
+      return -1;
+    } else if ((!a.type || a.type.length !== 16) && b.type) {
+      return 1;
+    } else if (
+      a.type &&
+      b.type &&
+      a.type.length === 16 &&
+      b.type.length === 16
+    ) {
+      if (a.s1 > b.s1) {
+        return -1;
+      }
+      if (a.s1 < b.s1) {
+        return 1;
+      }
+      if (a.s2 > b.s2) {
+        return -1;
+      }
+      if (a.s2 < b.s2) {
+        return 1;
+      }
+      if (a.animals > b.animals) {
+        return -1;
+      }
+      if (a.animals < b.animals) {
+        return 1;
+      }
+      if (a.mod > b.mod) {
+        return -1;
+      }
+      if (a.mod < b.mod) {
+        return 1;
+      }
+    }
+    return 0;
+  }
+
+  private sortEType(a: TypedPerson, b: TypedPerson) {
+    if (a.coreEType && !b.coreEType) {
+      return -1;
+    } else if (!a.coreEType && b.coreEType) {
+      return 1;
+    } else if (a.coreEType && b.coreEType) {
+      if (parseInt(a.coreEType) > parseInt(b.coreEType)) {
+        return 1;
+      }
+      if (parseInt(a.coreEType) < parseInt(b.coreEType)) {
+        return -1;
+      }
+      if (a.wing && b.wing) {
+        if (parseInt(a.wing) > parseInt(b.wing)) {
+          return 1;
+        }
+        if (parseInt(a.wing) < parseInt(b.wing)) {
+          return -1;
+        }
+        if (a.instinct && b.instinct) {
+          if (a.instinct < b.instinct) {
+            return 1;
+          }
+          if (a.instinct > b.instinct) {
+            return -1;
+          }
+        }
+      }
+    }
+    return 0;
+  }
+
   /**
    * Initiate search for all possible options.
    */
@@ -219,14 +340,21 @@ export class SearchComponent implements OnInit {
     setTimeout(() => {
       // console.log(this.searchRequests);
       if (this.searchRequests === 1) {
-        if (this.textString && this.previousTextString === this.textString.trim()) {
+        if (
+          this.textString &&
+          this.previousTextString === this.textString.trim()
+        ) {
           this.searchRequests--;
           return;
         } else {
-          this.previousTextString = this.textString ? this.textString.trim() : null;
+          this.previousTextString = this.textString
+            ? this.textString.trim()
+            : null;
         }
         this.displayedRecords = [];
+        this.searchSort = [];
         this.searchNames();
+        this.resort();
         this.updateRoute();
         if (this.searchLoading) {
           // only on first search
@@ -246,20 +374,10 @@ export class SearchComponent implements OnInit {
    * For each name, see if the person matches the selected criteria.
    */
   private searchNames() {
-    let nameList: string[];
-    if (this.sortByName) {
-      nameList = this.allNamesArr;
-    } else {
-      nameList = this.allNamesArrUnsorted;
-    }
     this.searchTerms = [];
-    nameList.forEach((name: string) => {
+    this.allNamesArrUnsorted.forEach((name: string) => {
       let person = this.allNames.get(name);
-      if (
-        !this.matchText(person) ||
-        !this.matchCoins(person) ||
-        !this.matchEnnea(person)
-      ) {
+      if (!this.matchText(person)) {
         return;
       }
       this.displayedRecords.push(person);
@@ -268,11 +386,11 @@ export class SearchComponent implements OnInit {
       this.displayedRecords.length > 0 &&
       this.textString &&
       this.textString.length > 0 &&
-      !this.searches.get(this.textString.trim())
+      !this.searches.get(this.textString.trim().toLowerCase())
     ) {
-      this.searches.set(this.textString.trim(), {
+      this.searches.set(this.textString.trim().toLowerCase(), {
         term: this.textString.trim(),
-        count: this.displayedRecords.length
+        count: this.displayedRecords.length,
       });
     }
   }
@@ -322,7 +440,7 @@ export class SearchComponent implements OnInit {
   }
 
   private matchTextParts(person: TypedPerson, s: string) {
-    searchModel.predictions.forEach(prediction => {
+    searchModel.predictions.forEach((prediction) => {
       if (s.length > prediction.count && prediction.term.startsWith(s)) {
         s = prediction.term;
       }
@@ -407,7 +525,10 @@ export class SearchComponent implements OnInit {
       }
     } else if (searchModel.coreETypeLong.includes(s)) {
       // three, four, etc
-      if (!person.coreETypeLong || !person.coreETypeLong.toLowerCase().includes(s)) {
+      if (
+        !person.coreETypeLong ||
+        !person.coreETypeLong.toLowerCase().includes(s)
+      ) {
         result = false;
       }
     } else if (searchModel.eTypeStrings.includes(s)) {

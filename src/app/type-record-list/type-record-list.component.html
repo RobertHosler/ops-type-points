@@ -39,7 +39,7 @@
         <div class="image-wrapper">
           <div
             class="image-img"
-            [ngClass]="{ 'image-missing': !typeRecord.pictureUrl }"
+            [ngClass]="{ 'image-missing': !typeRecord.pictureUrl, 'grayscale': grayscale }"
             [ngStyle]="{
               'background-image':
                 'url(' +
@@ -186,7 +186,6 @@
       >
         Previous
       </button>
-      <button class="btn btn-secondary" *ngFor="let page; of"></button>
       <button
         class="btn btn-secondary"
         (click)="currentPage = currentPage + 1; scrollToLoaded()"

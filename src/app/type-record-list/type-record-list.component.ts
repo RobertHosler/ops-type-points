@@ -57,6 +57,9 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   showSource = true;
 
   activeTag = '';
+  
+  @Input()
+  grayscale = false;
 
   constructor() {}
 

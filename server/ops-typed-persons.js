@@ -30,6 +30,7 @@ listUrl.searchParams.append("fields", "Blast vs Consume");
 listUrl.searchParams.append("fields", "Play vs Sleep");
 listUrl.searchParams.append("fields", "Biological Sex");
 listUrl.searchParams.append("fields", "Transgender");
+listUrl.searchParams.append("fields", "Type Number");
 
 const opsTypedPersons = {
   dbKey: OP_DB_KEY,
@@ -78,39 +79,57 @@ const inclusionsList = [
   "Aiste Jonusaite",
 ];
 const converterList = [
-  {org: "", result: "Missingno"},
-  {org: "Robert (Bob) Iger", result: "Bob Iger"},
-  {org: "Wolf of Wall Street (aka Jordan Belfort)", result: "Jordan Belfort"},
-  {org: "Simon (Goonzsquad)", result: "Goonzsquad - Simon"},
-  {org: "Billy (Goonzsquad)", result: "Goonzsquad - Billy"},
-  {org: "MrBeast (aka Jimmy Donaldson)", result: "Jimmy Donaldson"},
-  {org: "Mykie (Glam&Gore)", result: "Мykie - Glam & Gore"},
-  {org: "Barepantrytalk (Barbara)", result: "Barbara - BarePantryTalk"},
-  {org: "Mini Ladd a/k/a Craig Thompson", result: "Craig Thompson"},
-  {org: "Ultimate Warrior a/k/a James Brian Hellwig", result: "James Brian Hellwig"},
-  {org: "Unbox Therapy a/k/a Lewis Hilsenteger", result: "Lewis Hilsenteger"},
-  {org: "Classroom Diva a/k/a Jessica Nichols", result: "Jessica Nichols"},
-  {org: "Happy Classroom a/k/a Vanessa/Fernanda", result: "Vanessa/Fernanda"},
-  {org: "SadPanda a/k/a Adria Killen", result: "Adria Killen"},
-  {org: "Mytoecold a/k/a Drew Monson", result: "Drew Monson"},
-  {org: "KetoDiet a/k/a Martina Slajerova", result: "Martina Slajerova"},
-  {org: "Depersonalization Manual a/k/a Shaun O'Connor", result: "Shaun O'Connor"},
-  {org: "Olivia a/k/a Thinker of Everything", result: "Olivia - Thinker of Everything"},
-  {org: "ATHLEAN-X™ a/k/a Jeff Cavaliere", result: "Jeff Cavaliere"},
-  {org: "Engineering Explained a/k/a Jason Fenske", result: "Jason Fenske"},
-  {org: "Alexandria Ocasio-Cortez a/k/a AOC", result: "Alexandria Ocasio-Cortez"},
-  {org: "Expression a/k/a Scott Ste Marie", result: "Scott Ste Marie"},
-  {org: "One Minute Workbench a/k/a Tommy Rich", result: "Tommy Rich"},
-  {org: "FemmeLife/FemmeHead a/k/a Victoria Zimmerman", result: "Victoria Zimmerman"},
-  {org: "Dynamo a/k/a Steven Frayne", result: "Steven Frayne"},
-  {org: "Yeshua's Servant a/k/a Queen Devoryah Michaela", result: "Queen Devoryah Michaela"},
-  {org: "Kevin a/k/a Chug", result: "Kevin \"Chug\""},
-  {org: "Bignoknow a/k/a Noah Thomas", result: "Noah Thomas"},
-  {org: "Redfoo (aka Stephen Kendal Gordy)", result: "Stephen Kendal Gordy"},
-  {org: "Physics Girl a/k/a Dianna Cowern", result: "Dianna Cowern"},
-  {org: "My Green Closet a/k/a Verina Erin", result: "Verina Erin"},
-  {org: "Hustle Standard a/k/a Charley", result: "Charley - Hustle Standard"},
-  {org: "Sarah", result: "Sarah, the ISTJ"},
+  { org: "", result: "Missingno" },
+  { org: "Robert (Bob) Iger", result: "Bob Iger" },
+  { org: "Wolf of Wall Street (aka Jordan Belfort)", result: "Jordan Belfort" },
+  { org: "Simon (Goonzsquad)", result: "Goonzsquad - Simon" },
+  { org: "Billy (Goonzsquad)", result: "Goonzsquad - Billy" },
+  { org: "MrBeast (aka Jimmy Donaldson)", result: "Jimmy Donaldson" },
+  { org: "Mykie (Glam&Gore)", result: "Мykie - Glam & Gore" },
+  { org: "Barepantrytalk (Barbara)", result: "Barbara - BarePantryTalk" },
+  { org: "Mini Ladd a/k/a Craig Thompson", result: "Craig Thompson" },
+  {
+    org: "Ultimate Warrior a/k/a James Brian Hellwig",
+    result: "James Brian Hellwig",
+  },
+  { org: "Unbox Therapy a/k/a Lewis Hilsenteger", result: "Lewis Hilsenteger" },
+  { org: "Classroom Diva a/k/a Jessica Nichols", result: "Jessica Nichols" },
+  { org: "Happy Classroom a/k/a Vanessa/Fernanda", result: "Vanessa/Fernanda" },
+  { org: "SadPanda a/k/a Adria Killen", result: "Adria Killen" },
+  { org: "Mytoecold a/k/a Drew Monson", result: "Drew Monson" },
+  { org: "KetoDiet a/k/a Martina Slajerova", result: "Martina Slajerova" },
+  {
+    org: "Depersonalization Manual a/k/a Shaun O'Connor",
+    result: "Shaun O'Connor",
+  },
+  {
+    org: "Olivia a/k/a Thinker of Everything",
+    result: "Olivia - Thinker of Everything",
+  },
+  { org: "ATHLEAN-X™ a/k/a Jeff Cavaliere", result: "Jeff Cavaliere" },
+  { org: "Engineering Explained a/k/a Jason Fenske", result: "Jason Fenske" },
+  {
+    org: "Alexandria Ocasio-Cortez a/k/a AOC",
+    result: "Alexandria Ocasio-Cortez",
+  },
+  { org: "Expression a/k/a Scott Ste Marie", result: "Scott Ste Marie" },
+  { org: "One Minute Workbench a/k/a Tommy Rich", result: "Tommy Rich" },
+  {
+    org: "FemmeLife/FemmeHead a/k/a Victoria Zimmerman",
+    result: "Victoria Zimmerman",
+  },
+  { org: "Dynamo a/k/a Steven Frayne", result: "Steven Frayne" },
+  {
+    org: "Yeshua's Servant a/k/a Queen Devoryah Michaela",
+    result: "Queen Devoryah Michaela",
+  },
+  { org: "Kevin a/k/a Chug", result: 'Kevin "Chug"' },
+  { org: "Bignoknow a/k/a Noah Thomas", result: "Noah Thomas" },
+  { org: "Redfoo (aka Stephen Kendal Gordy)", result: "Stephen Kendal Gordy" },
+  { org: "Physics Girl a/k/a Dianna Cowern", result: "Dianna Cowern" },
+  { org: "My Green Closet a/k/a Verina Erin", result: "Verina Erin" },
+  { org: "Hustle Standard a/k/a Charley", result: "Charley - Hustle Standard" },
+  { org: "Sarah", result: "Sarah, the ISTJ" },
   { org: "Whoopie Goldberg", result: "Whoopi Goldberg" },
   { org: "Linus Tech Tips", result: "Linus Sebastian" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
@@ -120,7 +139,7 @@ const converterList = [
 
 function convertName(name) {
   name = name.trim();
-  converterList.forEach(converter => {
+  converterList.forEach((converter) => {
     if (converter.org === name) {
       // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
       name = converter.result;
@@ -130,13 +149,13 @@ function convertName(name) {
   if (slashIndex > -1) {
     const beforeName = name;
     name = name.substring(0, slashIndex).trim();
-    console.log('Trimmed Name () - ', beforeName, '- to |' + name + '|');
+    console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
   }
   const akaIndex = name.indexOf("a/k/a");
   if (akaIndex > -1) {
     const beforeName = name;
     name = name.substring(0, akaIndex).trim();
-    console.log('Trimmed Name aka - ', beforeName, '- to |' + name + '|');
+    console.log("Trimmed Name aka - ", beforeName, "- to |" + name + "|");
   }
   return name;
 }
@@ -151,8 +170,13 @@ function convertPersons(records) {
     const typedPerson = {
       name: name,
       type: record.fields.Type,
+      typeNumber: record.fields["Type Number"],
       pictureUrl: getRecordPicture(record),
       tags: tags,
+      mod: "??",
+      s1: "??",
+      s2: "??",
+      animals: "??/?(?)",
       coreNeed: record.fields["Single Observer vs Decider"]
         ? record.fields["Single Observer vs Decider"] ===
           "Single Decider / Double Observer"
@@ -210,6 +234,12 @@ function convertPersons(records) {
       sex: record.fields["Biological Sex"],
       trans: record.fields.Transgender,
     };
+    if (typedPerson.type && typedPerson.type.length === 16) {
+      typedPerson.s1 = typedPerson.type.substring(3, 5);
+      typedPerson.s2 = typedPerson.type.substring(6, 8);
+      typedPerson.mod = typedPerson.type.substring(0, 2);
+      typedPerson.animals = typedPerson.type.substring(9, 13);
+    }
     if (exclusionsList.includes(name)) {
       return;
     }
@@ -221,10 +251,7 @@ function convertPersons(records) {
         }
       });
     }
-    if (
-      tagExclusionFound &&
-      !inclusionsList.includes(name)
-    ) {
+    if (tagExclusionFound && !inclusionsList.includes(name)) {
       return;
     }
     if (record.fields.Type) {

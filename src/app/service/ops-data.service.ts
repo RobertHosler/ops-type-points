@@ -212,6 +212,7 @@ export class TypedPerson {
   name: string;
   pictureUrl?: string;
   type?: string;
+  typeNumber?: string;
   tags?: string[];
   coreNeed?: string;
   deciderNeed?: string;
@@ -223,6 +224,10 @@ export class TypedPerson {
   animalBalance?: string;
   sensoryMod?: string;
   deMod?: string;
+  mod?: string;
+  s1?: string;
+  s2?: string;
+  animals?: string;
   sex?: string;
   trans?: boolean;
   eType?: string;// 9w1

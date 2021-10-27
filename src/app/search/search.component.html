@@ -123,18 +123,48 @@
         <ng-component *ngTemplateOutlet="ops"></ng-component>
       </div>
     </div>
-    <div>
-      <button
-        class="btn btn-lg btn-primary mr-3"
-        (click)="searchAll()"
-        [disabled]="searchLoading"
-      >
-        Search
-      </button>
-      <button class="btn btn-secondary mr-3" type="button" (click)="resetAll()">
-        Reset
-      </button>
+    <div class="button-wrapper">
+      <div class="btn-group">
+        <button
+          class="btn btn-gray btn-sm"
+          [ngClass]="{ active: grayscale }"
+          (click)="grayscale = !grayscale"
+        >
+          Gray
+        </button>
+        <button
+          class="btn btn-gray btn-sm"
+          [ngClass]="{ active: !grayscale }"
+          (click)="grayscale = !grayscale"
+        >
+          Color
+        </button>
+      </div>
+      <div class="btn-group">
+        <button
+          class="btn btn-gray btn-sm"
+          [ngClass]="{ active: sortBy === 'name' }"
+          (click)="resort('name');"
+        >
+          Name
+        </button>
+        <button
+          class="btn btn-gray btn-sm"
+          [ngClass]="{ active: sortBy === 'ops' }"
+          (click)="resort('ops');"
+        >
+          OPS
+        </button>
+        <button
+          class="btn btn-gray btn-sm"
+          [ngClass]="{ active: sortBy === 'ennea' }"
+          (click)="resort('ennea');"
+        >
+          Ennea
+        </button>
+      </div>
     </div>
+    <div></div>
     <div class="mt-2" *ngIf="searches.size > 0">
       <div>Previous Searches</div>
       <div class="previous-search-wrapper">
@@ -145,13 +175,13 @@
           <a
             [routerLink]="['/search']"
             [queryParams]="{ text: previousSearch.key }"
-            >{{ previousSearch.key }} ({{ previousSearch.value.count }})</a
+            >{{ previousSearch.value.term }} ({{
+              previousSearch.value.count
+            }})</a
           >
           <button (click)="searches.delete(previousSearch.key)">X</button>
         </span>
-      </div>
-      <div>
-        <button (click)="searches.clear()" class="btn btn-secondary btn-sm">
+        <button *ngIf="searches.size > 4" (click)="searches.clear()" class="previous-search previous-search-clear">
           Clear All
         </button>
       </div>
@@ -166,6 +196,7 @@
     [typeRecords]="displayedRecords"
     [loading]="searchLoading"
     [linkToAnalyzer]="true"
+    [grayscale]="grayscale"
   ></app-type-record-list>
 </div>
 
