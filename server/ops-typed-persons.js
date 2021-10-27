@@ -134,17 +134,13 @@ const converterList = [
   { org: "Linus Tech Tips", result: "Linus Sebastian" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
   { org: "Kim Kardashian", result: "Kim Kardashian West" },
+  { org: "50 Cent", result: "Curtis '50 Cent' Jackson" },
+  { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
   //shift+alt+downArrow to copy line
 ];
 
 function convertName(name) {
   name = name.trim();
-  converterList.forEach((converter) => {
-    if (converter.org === name) {
-      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
-      name = converter.result;
-    }
-  });
   const slashIndex = name.indexOf("(");
   if (slashIndex > -1) {
     const beforeName = name;
@@ -157,6 +153,12 @@ function convertName(name) {
     name = name.substring(0, akaIndex).trim();
     console.log("Trimmed Name aka - ", beforeName, "- to |" + name + "|");
   }
+  converterList.forEach((converter) => {
+    if (converter.org === name) {
+      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
+      name = converter.result;
+    }
+  });
   return name;
 }
 

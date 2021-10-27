@@ -17,7 +17,10 @@ fields.forEach((field) => {
   url.searchParams.append("fields", field);
 });
 
-const converterList = [{ org: "Dr. Phil", result: "Dr. Phil McGraw" }];
+const converterList = [
+  { org: "Dr. Phil", result: "Dr. Phil McGraw" },
+  { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
+];
 function convertName(name) {
   name = name.trim();
   converterList.forEach((converter) => {
@@ -26,6 +29,12 @@ function convertName(name) {
       name = converter.result;
     }
   });
+  const slashIndex = name.indexOf("(");
+  if (slashIndex > -1) {
+    const beforeName = name;
+    name = name.substring(0, slashIndex).trim();
+    console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
+  }
   return name;
 }
 
@@ -51,9 +60,7 @@ function mergeMaps(nameMap, wssMap) {
     if (nameVal) {
       nameVal.wssType = wssVal.type;
       nameVal.wssLink = wssVal.link;
-      nameVal.tags
-        ? nameVal.tags.push("WSS")
-        : (nameVal.tags = ["WSS"]);
+      nameVal.tags ? nameVal.tags.push("WSS") : (nameVal.tags = ["WSS"]);
       matches.push(wssKey);
     } else {
       // Add to nameMap
@@ -69,7 +76,7 @@ function mergeMaps(nameMap, wssMap) {
       }
     }
   });
-  console.log(matches);
+  // console.log(matches);
   console.log("WSS Matches", matches.length, "New Persons", i);
 }
 

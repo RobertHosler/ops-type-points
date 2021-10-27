@@ -42,6 +42,10 @@ const converterList = [
   { org: "Joaquin Pheonix", result: "Joaquin Phoenix" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
   { org: "Alistair Crowley", result: "Aleister Crowley" },
+  { org: "\"The Situation\"", result: "Mike 'The Situation' Sorrentino" },
+  { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
+  { org: "50 Cent", result: "Curtis '50 Cent' Jackson" },
+  { org: "R Kelly", result: "Robert Kelly" },
 ];
 function convertName(name) {
   name = name.trim();
@@ -51,6 +55,12 @@ function convertName(name) {
       name = converter.result;
     }
   });
+  const slashIndex = name.indexOf("(");
+  if (slashIndex > -1) {
+    const beforeName = name;
+    name = name.substring(0, slashIndex).trim();
+    console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
+  }
   return name;
 }
 
