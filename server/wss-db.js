@@ -8,6 +8,7 @@ const TABLE_NAME = "WSS DB";
 const VIEW = "Grid view";
 const MAX_RECORD = 12000;
 const fields = ["Name", "Type", "Picture", "Sex", "Link"];
+const hideMissingPictures = true;
 
 const url = new URL(HOST + TABLE_NAME);
 url.searchParams.append("view", VIEW);
@@ -20,6 +21,9 @@ fields.forEach((field) => {
 const converterList = [
   { org: "Dr. Phil", result: "Dr. Phil McGraw" },
   { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
+  { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
+  { org: "George R. R. Martin", result: "George RR Martin" },
+  { org: "Martin Luther King, Jr.", result: "Martin Luther King Jr." },
 ];
 function convertName(name) {
   name = name.trim();
@@ -65,7 +69,7 @@ function mergeMaps(nameMap, wssMap) {
     } else {
       // Add to nameMap
       i++;
-      if (wssVal.pictureUrl) {
+      if (!hideMissingPictures || (hideMissingPictures && wssVal.pictureUrl)) {
         nameMap.set(wssKey, {
           name: wssKey,
           wssType: wssVal.type,

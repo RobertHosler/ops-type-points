@@ -14,7 +14,7 @@
       *ngFor="let typeRecord of displayPages[currentPage - 1]"
       class="type-record"
     >
-      <div class="image-col" *ngIf="typeRecord.type || typeRecord.fullEType">
+      <div class="image-col" *ngIf="typeRecord.type || typeRecord.fullEType || typeRecord.wssType">
         <div class="image-text-top">
           <div class="">
             <div class="image-indicator-row" *ngIf="!displayPracticeLink">

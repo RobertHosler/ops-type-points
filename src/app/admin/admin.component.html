@@ -11,26 +11,52 @@
   <div *ngIf="authenticated">
     <h1>Admin</h1>
 
-    <div>
-        Refresh the server's mapped databases.
-    </div>
-    <button
-      class="btn btn-primary mb-2"
-      (click)="refresh()"
-      [disabled]="refreshing"
-    >
-      Refresh
-    </button>
+    <div class="mb-3">
+      <div>Refresh the server's mapped databases.</div>
+      <button
+        class="btn btn-primary mb-2"
+        (click)="refresh()"
+        [disabled]="refreshing"
+      >
+        Refresh
+      </button>
 
-    <div
-      *ngIf="refreshMsg"
-      class="alert"
-      [ngClass]="{
-        'alert-warning': refreshing,
-        'alert-success': !refreshing
-      }"
-    >
-      {{ refreshMsg }}
+      <div
+        *ngIf="refreshMsg"
+        class="alert"
+        [ngClass]="{
+          'alert-warning': refreshing,
+          'alert-success': !refreshing
+        }"
+      >
+        {{ refreshMsg }}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div>Find similarar</div>
+      <button class="btn btn-primary mb-2" (click)="findSimilarNames2(6)">
+        Find
+      </button>
+      <div>
+        <div *ngFor="let names of similarNames | keyvalue">
+          <div *ngFor="let name of names.value.arr">
+            <!-- <span
+              *ngFor="let s of name.split(' ')"
+              [ngClass]="{ 'd-none': s.term.toLowerCase() == names.key }"
+            >
+              <span>
+                {{ s }}
+              </span>
+            </span> -->
+            <div>
+              <strong>{{ names.key }} - {{ name.term }}</strong>
+            </div>
+            <span class="similar-name" >{{ name.s1 }}</span><span class="similar-name" >{{ name.s2 }} </span>
+          </div>
+          <hr />
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -46,6 +46,8 @@ const converterList = [
   { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
   { org: "50 Cent", result: "Curtis '50 Cent' Jackson" },
   { org: "R Kelly", result: "Robert Kelly" },
+  { org: "Freddy Mercury", result: "Freddie Mercury" },
+  { org: "Leonardo Dicaprio", result: "Leonardo DiCaprio" },
 ];
 function convertName(name) {
   name = name.trim();

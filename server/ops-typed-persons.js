@@ -136,6 +136,10 @@ const converterList = [
   { org: "Kim Kardashian", result: "Kim Kardashian West" },
   { org: "50 Cent", result: "Curtis '50 Cent' Jackson" },
   { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
+  { org: "New Gingrich", result: "Newt Gingrich" },
+  { org: "Warren Buffet", result: "Warren Buffett" },
+  { org: "Alex McQueen", result: "Alexander McQueen" },
+  { org: "Michelle Rodriquez", result: "Michelle Rodriguez" },
   //shift+alt+downArrow to copy line
 ];
 
