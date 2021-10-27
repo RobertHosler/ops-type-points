@@ -61,6 +61,9 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   @Input()
   grayscale = false;
 
+  @Input()
+  cards = false;
+
   constructor() {}
 
   ngOnInit(): void {}

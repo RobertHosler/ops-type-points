@@ -84,6 +84,7 @@ export class SearchComponent implements OnInit {
   searches = new Map();
 
   grayscale = false;
+  cards = false;
 
   constructor(
     private opsDataService: OpsDataService,
@@ -213,40 +214,42 @@ export class SearchComponent implements OnInit {
   }
 
   resort(newSort?: string) {
+    let sort = true;
     if (newSort) {
       if (newSort === this.sortBy) {
-        // ignore
-      } else {
-        this.sortBy = newSort;
-        this.displayedRecords.sort((a, b) => {
-          let result = 0;
-          if (this.sortBy === 'name') {
-            result = this.sortName(a, b);
-          } else if (this.sortBy === 'ennea') {
-            result = this.sortEType(a, b);
-            if (result === 0) {
-              result = this.sortOpsType(a, b);
-            }
-            if (result === 0) {
-              result = this.sortName(a, b);
-            }
-          } else {
-            result = this.sortOpsType(a, b);
-            if (result === 0) {
-              result = this.sortEType(a, b);
-            }
-            if (result === 0) {
-              result = this.sortName(a, b);
-            }
-          }
-          if (this.sortInvert) {
-            return result * -1;
-          } else {
-            return result;
-          }
-        });
-        this.displayedRecords = this.displayedRecords.splice(0);
+        sort = false;
       }
+      this.sortBy = newSort;
+    }
+    if (sort) {
+      this.displayedRecords.sort((a, b) => {
+        let result = 0;
+        if (this.sortBy === 'name') {
+          result = this.sortName(a, b);
+        } else if (this.sortBy === 'ennea') {
+          result = this.sortEType(a, b);
+          if (result === 0) {
+            result = this.sortOpsType(a, b);
+          }
+          if (result === 0) {
+            result = this.sortName(a, b);
+          }
+        } else {
+          result = this.sortOpsType(a, b);
+          if (result === 0) {
+            result = this.sortEType(a, b);
+          }
+          if (result === 0) {
+            result = this.sortName(a, b);
+          }
+        }
+        if (this.sortInvert) {
+          return result * -1;
+        } else {
+          return result;
+        }
+      });
+      this.displayedRecords = this.displayedRecords.splice(0);
     }
   }
 

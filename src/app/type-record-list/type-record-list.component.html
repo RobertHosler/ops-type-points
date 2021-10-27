@@ -9,7 +9,7 @@
 
 <div #loaded *ngIf="!loading">
   <ng-container *ngTemplateOutlet="pagination"></ng-container>
-  <div class="image-row">
+  <div class="image-row" [ngClass]="{'image-cards': cards}">
     <div
       *ngFor="let typeRecord of displayPages[currentPage - 1]"
       class="type-record"

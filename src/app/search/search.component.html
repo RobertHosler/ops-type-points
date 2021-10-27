@@ -124,44 +124,69 @@
       </div>
     </div>
     <div class="button-wrapper">
-      <div class="btn-group">
-        <button
-          class="btn btn-gray btn-sm"
-          [ngClass]="{ active: grayscale }"
-          (click)="grayscale = !grayscale"
-        >
-          Gray
-        </button>
-        <button
-          class="btn btn-gray btn-sm"
-          [ngClass]="{ active: !grayscale }"
-          (click)="grayscale = !grayscale"
-        >
-          Color
-        </button>
+      <div class="d-inline-block">
+        <div>Sort:</div>
+        <div class="btn-group">
+          <button
+            class="btn btn-gray btn-sm"
+            [ngClass]="{ active: sortBy === 'name' }"
+            (click)="resort('name')"
+          >
+            Name
+          </button>
+          <button
+            class="btn btn-gray btn-sm"
+            [ngClass]="{ active: sortBy === 'ops' }"
+            (click)="resort('ops')"
+          >
+            OPS
+          </button>
+          <button
+            class="btn btn-gray btn-sm"
+            [ngClass]="{ active: sortBy === 'ennea' }"
+            (click)="resort('ennea')"
+          >
+            Ennea
+          </button>
+        </div>
       </div>
-      <div class="btn-group">
-        <button
-          class="btn btn-gray btn-sm"
-          [ngClass]="{ active: sortBy === 'name' }"
-          (click)="resort('name');"
-        >
-          Name
-        </button>
-        <button
-          class="btn btn-gray btn-sm"
-          [ngClass]="{ active: sortBy === 'ops' }"
-          (click)="resort('ops');"
-        >
-          OPS
-        </button>
-        <button
-          class="btn btn-gray btn-sm"
-          [ngClass]="{ active: sortBy === 'ennea' }"
-          (click)="resort('ennea');"
-        >
-          Ennea
-        </button>
+      <div class="d-inline-block">
+        <div>Color:</div>
+        <div class="btn-group">
+          <button
+            class="btn btn-gray btn-sm"
+            [ngClass]="{ active: grayscale }"
+            (click)="grayscale = !grayscale"
+          >
+            Gray
+          </button>
+          <button
+            class="btn btn-gray btn-sm"
+            [ngClass]="{ active: !grayscale }"
+            (click)="grayscale = !grayscale"
+          >
+            Default
+          </button>
+        </div>
+      </div>
+      <div class="d-inline-block">
+        <div>Display:</div>
+        <div class="btn-group">
+          <button
+            class="btn btn-gray btn-sm"
+            [ngClass]="{ active: cards }"
+            (click)="cards = !cards"
+          >
+            Cards
+          </button>
+          <button
+            class="btn btn-gray btn-sm"
+            [ngClass]="{ active: !cards }"
+            (click)="cards = !cards"
+          >
+            Default
+          </button>
+        </div>
       </div>
     </div>
     <div></div>
@@ -181,7 +206,11 @@
           >
           <button (click)="searches.delete(previousSearch.key)">X</button>
         </span>
-        <button *ngIf="searches.size > 4" (click)="searches.clear()" class="previous-search previous-search-clear">
+        <button
+          *ngIf="searches.size > 4"
+          (click)="searches.clear()"
+          class="previous-search previous-search-clear"
+        >
           Clear All
         </button>
       </div>
@@ -197,6 +226,7 @@
     [loading]="searchLoading"
     [linkToAnalyzer]="true"
     [grayscale]="grayscale"
+    [cards]="cards"
   ></app-type-record-list>
 </div>
 
