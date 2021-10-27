@@ -100,7 +100,7 @@
   flex-grow: 2;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100px;
   justify-content: space-between;
 }
 .image-col .image-name {
@@ -117,7 +117,7 @@
   font-weight: bold;
 }
 .type-wrapper {
-  height: 100%;
+  // height: 100%;
 }
 .image-col .image-tags,
 .image-col .image-type {
@@ -131,13 +131,14 @@
   margin-bottom: -.5rem;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .image-tag {
   display: inline-block;
   margin-left: .125rem;
   margin-right: .125rem;
-  padding-left: .25rem;
-  padding-right: .25rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
   border: 1px solid;
   border-radius: 50px;
   background-color: #eee;
@@ -162,7 +163,7 @@
     background-color: #c2e1eb;
   }
   &.tag-ennea {
-    background-color: #ffb2aa;
+    background-color: #c7c7c7;
   }
   &.tag-wss {
     background-color: #ede6b6;
@@ -174,10 +175,10 @@
     background-color: #f1c2c7;
   }
   &.tag-class {
-    background-color: #e3c7e3;
+    background-color: #bdb9fb;
   }
   &.tag-community {
-    background-color: #aabaff;
+    background-color: #bedbc9;
   }
 }
 .analyzer-link {
