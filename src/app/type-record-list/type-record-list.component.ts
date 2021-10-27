@@ -56,6 +56,8 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   @Input()
   showSource = true;
 
+  activeTag = '';
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -150,7 +152,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
     if (this.loadedEl) {
       setTimeout(() => {
         let top = this.loadedEl.nativeElement.offsetTop;
-        // window.scrollTo(0, top - 72);
+        window.scrollTo(0, top - 72);
       });
     }
   }

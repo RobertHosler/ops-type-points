@@ -58,7 +58,9 @@
         </div>
         <div class="image-text-bottom text-center">
           <div class="image-name">
-            <div class="">{{ typeRecord.name }}</div>
+            <div [ngClass]="{ 'image-name-label': true }">
+              {{ typeRecord.name }}
+            </div>
           </div>
           <div class="type-wrapper" *ngIf="!displayPracticeLink">
             <div class="image-type" *ngIf="typeRecord.type">
@@ -95,8 +97,22 @@
             </div>
           </div>
           <div class="image-tags">
-            <div *ngFor="let tag of typeRecord.tags">
-              {{ tag }}
+            <div
+              (click)="activeTag !== tag ? activeTag = tag: activeTag = ''"
+              class="image-tag"
+              [ngClass]="{
+                'tag-ops': tag === 'OPS',
+                'tag-ennea': tag === 'Enneagrammer',
+                'tag-wss': tag === 'WSS',
+                'tag-spec': tag === 'Speculation',
+                'tag-incomplete': tag === 'Incomplete',
+                'tag-class': tag === 'Class Typing',
+                'tag-community': tag === 'Community Member',
+                'active': activeTag === tag
+              }"
+              *ngFor="let tag of typeRecord.tags"
+            >
+              <span class="image-tag-text"> {{ tag }}</span>
             </div>
           </div>
         </div>

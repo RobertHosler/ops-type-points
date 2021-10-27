@@ -16,6 +16,14 @@
     justify-content: center;
   }
 }
+.image-name-label {
+  padding: 0 .5rem;
+  // display: inline-block;
+  // background-color: #ddd;
+  // border: 1px solid;
+  // border-radius: 10px;
+  border-bottom: 1px solid;
+}
 
 .image-text-top {
 }
@@ -90,6 +98,10 @@
 }
 .image-text-bottom {
   flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
 }
 .image-col .image-name {
   padding: 2px;
@@ -104,11 +116,69 @@
 .image-type {
   font-weight: bold;
 }
+.type-wrapper {
+  height: 100%;
+}
 .image-col .image-tags,
 .image-col .image-type {
   padding: 2px;
   font-size: 12px;
   min-height: 22px;
+}
+.image-tags {
+  // margin-left: -.125rem;
+  // margin-right: -.125rem;
+  margin-bottom: -.5rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.image-tag {
+  display: inline-block;
+  margin-left: .125rem;
+  margin-right: .125rem;
+  padding-left: .25rem;
+  padding-right: .25rem;
+  border: 1px solid;
+  border-radius: 50px;
+  background-color: #eee;
+  margin-bottom: .5rem;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  overflow-x: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  .image-tag-text {
+    display: none;
+  }
+  &.active {
+    // width: 100%;
+    justify-content: center;
+    // order: 100;
+    .image-tag-text {
+      display: inline-block;
+    }
+  }
+  &.tag-ops {
+    background-color: #c2e1eb;
+  }
+  &.tag-ennea {
+    background-color: #ffb2aa;
+  }
+  &.tag-wss {
+    background-color: #ede6b6;
+  }
+  &.tag-spec {
+    background-color: #f3d8c1;
+  }
+  &.tag-incomplete {
+    background-color: #f1c2c7;
+  }
+  &.tag-class {
+    background-color: #e3c7e3;
+  }
+  &.tag-community {
+    background-color: #aabaff;
+  }
 }
 .analyzer-link {
   color: $dark;
