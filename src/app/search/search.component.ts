@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Coin, coinMap, coinSideMap, extraCoins } from '../model/coin';
 import { appLinks } from '../model/links';
@@ -25,7 +24,7 @@ export class SearchComponent implements OnInit {
   activeInstinct: InstinctModel;
   activeInstinct2: string;
 
-  displayedRecords: TypedPerson[];
+  displayedRecords: TypedPerson[] =  [];
   maxRecords = 10000;
 
   isMaxRecords = false;
@@ -51,7 +50,8 @@ export class SearchComponent implements OnInit {
   };
   searchToggles = [this.opsToggle, this.enneaToggle];
 
-  searchLoading = true;
+  searchLoading = false;
+  searchInitiated = false;
   searchRequests = 0;
 
   options = new Map<string, OptionModel>();
@@ -85,6 +85,7 @@ export class SearchComponent implements OnInit {
 
   grayscale = false;
   cards = false;
+  showHelp = false;
 
   constructor(
     private opsDataService: OpsDataService,
@@ -344,7 +345,7 @@ export class SearchComponent implements OnInit {
       // console.log(this.searchRequests);
       if (this.searchRequests === 1) {
         if (
-          this.textString &&
+          !this.textString ||
           this.previousTextString === this.textString.trim()
         ) {
           this.searchRequests--;
@@ -359,14 +360,10 @@ export class SearchComponent implements OnInit {
         this.searchNames();
         this.resort();
         this.updateRoute();
-        if (this.searchLoading) {
-          // only on first search
-          this.searchLoading = false;
-          this.nameInput.nativeElement.focus();
-        }
         if (this.initialLoad) {
           this.initialLoad = false;
         }
+        this.searchInitiated = true;
         this.ignoreRouteUpdate = true;
       }
       this.searchRequests--;

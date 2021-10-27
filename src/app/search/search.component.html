@@ -1,8 +1,8 @@
 <div #container class="container">
-  <div class="img-right img-heading">
+  <div *ngIf="false" class="img-right img-heading">
     <img src="/assets/images/database.png" />
   </div>
-  <div class="search-top">
+  <div *ngIf="!searchInitiated" class="search-top">
     <h1>
       <span class="search-heading">Search the </span
       ><span class="sp-branding">Database</span>
@@ -10,33 +10,9 @@
     <div>
       <p class="lead">
         <strong>{{ recordCount }}</strong> people typed in the
-        <strong>Objective Personality System</strong> and
-        <strong>Enneagram</strong>.
+        <strong>Objective Personality System</strong>,
+        <strong>Enneagram</strong>, and <strong>Socionics</strong>.
       </p>
-      <ul class="search-tips">
-        <li>
-          <a [routerLink]="['/search']" [queryParams]="{ text: 'Kardashian' }"
-            >Looking for a specific person? Search by name, Ex: "Kardashian"</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="['/search']" [queryParams]="{ text: 'mm exxj fe' }">
-            Want to see those of a similar type? Search by parts. Ex: "mm exxj
-            fe"</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="['/search']" [queryParams]="{ text: 'ennea' }">
-            Only want to see those with an Enneagram type? Add "Ennea" or
-            "Enneagram" to your search.</a
-          >
-        </li>
-        <li>
-          Just try some things out! If you find a keyword isn't working as you
-          might expect,
-          <a [href]="appLinks.contact" target="_blank">let me know!</a>
-        </li>
-      </ul>
     </div>
     <div class="d-none d-sm-flex my-2" *ngIf="false">
       <app-type-indicator [option]="1"></app-type-indicator>
@@ -60,12 +36,10 @@
       </div>
     </div>
   </div>
-
-  <hr class="" />
   <div class="clear-right"></div>
-  <div class="mb-3">
+  <div class="my-3">
     <div class="form-group">
-      <label for="name" class="name-label">Search by Name or Type:</label>
+      <!-- <label for="name" class="name-label">Search by Name or Type:</label> -->
       <div class="input-group">
         <input
           #nameInput
@@ -125,7 +99,7 @@
     </div>
     <div class="button-wrapper">
       <div class="d-inline-block">
-        <div>Sort:</div>
+        <div class="small">Sort:</div>
         <div class="btn-group">
           <button
             class="btn btn-gray btn-sm"
@@ -151,7 +125,7 @@
         </div>
       </div>
       <div class="d-inline-block">
-        <div>Color:</div>
+        <div class="small">Color:</div>
         <div class="btn-group">
           <button
             class="btn btn-gray btn-sm"
@@ -170,7 +144,7 @@
         </div>
       </div>
       <div class="d-inline-block">
-        <div>Display:</div>
+        <div class="small">Display:</div>
         <div class="btn-group">
           <button
             class="btn btn-gray btn-sm"
@@ -188,8 +162,19 @@
           </button>
         </div>
       </div>
+      <div class="d-inline-block">
+        <button
+          class="btn btn-gray btn-sm"
+          [ngClass]="{ active: showHelp }"
+          (click)="showHelp = !showHelp"
+        >
+          Help
+        </button>
+      </div>
     </div>
-    <div></div>
+    <div *ngIf="showHelp" class="mt-2">
+      <ng-component *ngTemplateOutlet="tips"></ng-component>
+    </div>
     <div class="mt-2" *ngIf="searches.size > 0">
       <div>Previous Searches</div>
       <div class="previous-search-wrapper">
@@ -220,14 +205,16 @@
     Search found {{ displayedRecords.length }} results.
   </p>
 </div>
-<div class="container-fluid records-bg" #recordList>
-  <app-type-record-list
-    [typeRecords]="displayedRecords"
-    [loading]="searchLoading"
-    [linkToAnalyzer]="true"
-    [grayscale]="grayscale"
-    [cards]="cards"
-  ></app-type-record-list>
+<div class="record-wrapper">
+  <div *ngIf="searchInitiated" class="container-fluid records-bg" #recordList>
+    <app-type-record-list
+      [typeRecords]="displayedRecords"
+      [loading]="searchLoading"
+      [linkToAnalyzer]="true"
+      [grayscale]="grayscale"
+      [cards]="cards"
+    ></app-type-record-list>
+  </div>
 </div>
 
 <ng-template #ops>
@@ -371,4 +358,31 @@
       </div>
     </div>
   </div>
+</ng-template>
+
+<ng-template #tips>
+  <ul class="search-tips">
+    <li>
+      <a [routerLink]="['/search']" [queryParams]="{ text: 'Kardashian' }"
+        >Looking for a specific person? Search by name, Ex: "Kardashian"</a
+      >
+    </li>
+    <li>
+      <a [routerLink]="['/search']" [queryParams]="{ text: 'mm exxj fe' }">
+        Want to see those of a similar type? Search by parts. Ex: "mm exxj
+        fe"</a
+      >
+    </li>
+    <li>
+      <a [routerLink]="['/search']" [queryParams]="{ text: 'ennea' }">
+        Only want to see those with an Enneagram type? Add "Ennea" or
+        "Enneagram" to your search.</a
+      >
+    </li>
+    <li>
+      Just try some things out! If you find a keyword isn't working as you might
+      expect,
+      <a [href]="appLinks.contact" target="_blank">let me know!</a>
+    </li>
+  </ul>
 </ng-template>
