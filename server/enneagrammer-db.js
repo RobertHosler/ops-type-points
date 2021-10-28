@@ -48,6 +48,7 @@ const converterList = [
   { org: "R Kelly", result: "Robert Kelly" },
   { org: "Freddy Mercury", result: "Freddie Mercury" },
   { org: "Leonardo Dicaprio", result: "Leonardo DiCaprio" },
+  { org: "The Weekend", result: "The Weeknd" },
 ];
 function convertName(name) {
   name = name.trim();
