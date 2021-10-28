@@ -19,11 +19,8 @@ fields.forEach((field) => {
 });
 
 const converterList = [
-  { org: "Dr. Phil", result: "Dr. Phil McGraw" },
   { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
-  { org: "George R. R. Martin", result: "George RR Martin" },
-  { org: "Martin Luther King, Jr.", result: "Martin Luther King Jr." },
 ];
 function convertName(name) {
   name = name.trim();
