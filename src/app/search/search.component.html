@@ -97,7 +97,7 @@
         <ng-component *ngTemplateOutlet="ops"></ng-component>
       </div>
     </div>
-    <div class="button-wrapper">
+    <div class="button-wrapper" *ngIf="searchInitiated">
       <div class="d-inline-block">
         <div class="small">Sort:</div>
         <div class="btn-group">

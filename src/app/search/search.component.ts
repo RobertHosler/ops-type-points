@@ -141,7 +141,11 @@ export class SearchComponent implements OnInit {
       });
       if (newTextString !== this.textString) {
         this.textString = newTextString;
-        this.searchAll();
+        if (!newTextString) {
+          this.searchInitiated = false;
+        } else {
+          this.searchAll();
+        }
       }
     });
   }
@@ -344,6 +348,7 @@ export class SearchComponent implements OnInit {
     setTimeout(() => {
       // console.log(this.searchRequests);
       if (this.searchRequests === 1) {
+        this.searchInitiated = true;
         if (
           !this.textString ||
           this.previousTextString === this.textString.trim()
@@ -363,7 +368,6 @@ export class SearchComponent implements OnInit {
         if (this.initialLoad) {
           this.initialLoad = false;
         }
-        this.searchInitiated = true;
         this.ignoreRouteUpdate = true;
       }
       this.searchRequests--;
