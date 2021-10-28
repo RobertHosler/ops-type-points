@@ -34,8 +34,12 @@
     </div>
 
     <div class="mb-3">
-      <div>Find similarar</div>
-      <button class="btn btn-primary mb-2" (click)="findSimilarNames2(6)">
+      <div>Find similar names</div>
+      <button
+        class="btn btn-primary mb-2"
+        (click)="findSimilarNames2(6)"
+        [disabled]="finding"
+      >
         Find
       </button>
       <div>
@@ -52,7 +56,58 @@
             <div>
               <strong>{{ names.key }} - {{ name.term }}</strong>
             </div>
-            <span class="similar-name" >{{ name.s1 }}</span><span class="similar-name" >{{ name.s2 }} </span>
+            <span class="similar-name">{{ name.s1 }}</span
+            ><span class="similar-name">{{ name.s2 }} </span>
+            <div>
+              {{ "{ n1: '" + name.n1 + "', n2: '" + name.n2 + "' }," }}
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div>Find similar names 3.0</div>
+      <button
+        class="btn btn-primary mb-2"
+        (click)="findSimilarNames3(testArray)"
+        [disabled]="finding"
+      >
+        Find
+      </button>
+      <div *ngIf="findMsg">
+        {{findMsg}}
+      </div>
+      <div>
+        <div *ngFor="let record of similarRecords">
+          <div>
+            <span class="mr-1" *ngFor="let match of record.matches">
+              {{ match.s1 === match.s2 ? match.s1 : match.s1 + "|" + match.s2 }}
+            </span>
+          </div>
+          {{ record.n1 + " \<-> " + record.n2 }}
+          <hr />
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div>Find similar names 4.0</div>
+      <button
+        class="btn btn-primary mb-2"
+        (click)="findSimilarNames4(allNamesArr)"
+        [disabled]="finding"
+      >
+        Find
+      </button>
+      <div *ngIf="findMsg">
+        {{findMsg}}
+      </div>
+      <div>
+        <div *ngFor="let result of similarNameResults">
+          <div>
+            {{ result.n1 + " \<-> " + result.n2 + ' - ' + result.points + ' points'}}
           </div>
           <hr />
         </div>

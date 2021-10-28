@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { arrowReturnRight } from 'ngx-bootstrap-icons';
 import { Socket } from 'ngx-socket-io';
 import { OpsDataService } from '../service/ops-data.service';
 
@@ -14,13 +13,121 @@ export class AdminComponent implements OnInit {
   pw: string;
 
   refreshing = false;
+  finding = false;
   refreshMsg = '';
   refreshStart;
 
+  findStart;
+  findMsg = '';
+
+  allNames;
   allNamesArr = [];
   similarNames = new Map();
 
-  excludedStrings = ['of', 'the', 'i', 'ii', 'iii', 'iv'];
+  excludedStrings = [
+    ' ',
+    'of',
+    'de',
+    'the',
+    'i',
+    'ii',
+    'iii',
+    'iv',
+    'v',
+    'vi',
+    'vii',
+    'viii',
+    'ix',
+    'x',
+    'xi',
+    'xii',
+    'xiii',
+    'xiv',
+    'xv',
+    'xvi',
+    'xvii',
+    'xviii',
+    'xix',
+    'xx',
+    'england',
+    'great',
+    'britain',
+    'france',
+    'emperor',
+    'duke',
+    'king',
+    'and',
+    'royal',
+    'princess',
+    'holy',
+    'united',
+    'kingdom',
+    'russia',
+    'viscount',
+    'brazil',
+  ];
+
+  similarRecords = [];
+  similarNameResults = [];
+
+  testArray = [
+    'Mr. Rogers',
+    'Fred Rogers',
+    'Goonzsquad - Billy',
+    'Goonzsquad - Simon',
+    'Gordon Ramsay',
+    'Gordon Ramsey',
+    'Jeff Ramsay',
+    'Jeff Ramsi',
+    'Jay Z',
+    'Jay-Z',
+    'Shaq',
+    'Shaquille O’Neal',
+    'Dr. Drew',
+    'Dr. Drew Pinsky',
+    'R Kelly',
+    'Robert Kelly',
+    'J Spainy',
+    'Jay Spainey',
+    'richard black',
+    'richard blackwater',
+    'richard black water',
+    'john quincy adams',
+    'john adams',
+    'dr. phil water',
+    'dr. phillip',
+    'Robbie Tinman',
+    'Robby Tinman',
+    'Hillary Clinton',
+    'Hilary Clinton',
+    'Al Yankovic',
+    'Weird Al Yankovic',
+  ];
+
+  shortTerms = ['mr', 'dr', 'ms'];
+
+  /**
+   * List of potential matches confirmed to not be matches.
+   */
+  excludedMatches = [
+    { n1: 'richard burton', n2: 'richard francis burton' },
+    { n1: 'john adams', n2: 'john quincey adams' },
+    { n1: 'Muhammad Ali', n2: 'Muhammad Ali Jinnah' },
+    { n1: 'Pat Robertson', n2: 'Robert Pattinson' },
+    { n1: 'George H. W. Bush', n2: 'George W. Bush' },
+    { n1: 'Rich Benjamin', n2: 'Richard Benjamin' },
+    { n1: 'David Bayer', n2: 'David Ayer' },
+    { n1: 'Karl Ove Knarsgaard', n2: 'Karl Rove' },
+    { n1: 'Colleen Ballinger', n2: 'Lee Lin Chin' },
+    { n1: "Dwayne 'The Rock' Johnson", n2: 'John Wayne' },
+    { n1: 'William Pitt the Younger', n2: 'William Pitt, 1st Earl of Chatham' },
+    { n1: 'William James', n2: 'William James Sidis' },
+    { n1: 'Tom Jones', n2: 'Tommy Lee Jones' },
+    { n1: 'Martin Luther', n2: 'Martin Luther King Jr.' },
+    { n1: 'John Paul DeJoria', n2: 'John Paul White' },
+    { n1: 'Ron Paul', n2: 'Aaron Paul' },
+    { n1: 'Ian Douglas Smith', n2: 'Dr. Ian Smith' },
+  ];
 
   constructor(private opsDataService: OpsDataService, private socket: Socket) {
     this.socket.on('refreshComplete', (result) => {
@@ -42,6 +149,8 @@ export class AdminComponent implements OnInit {
       result.forEach((record) => {
         this.allNamesArr.push(record.name);
       });
+      this.allNames = result;
+      this.allNamesArr.sort();
     });
   }
 
@@ -110,15 +219,16 @@ export class AdminComponent implements OnInit {
 
   findSimilarNames2(count: number) {
     count = 3;
-    setTimeout(() => {
+    this.finding = true;
+    new Promise((resolve, reject) => {
       this.similarNames = new Map();
+      // Step 1 - find names with matching words
       this.allNamesArr.forEach((n1) => {
-        let n1Arr = this.cleanName(n1).split(' ');
-        // remove special chara
         this.allNamesArr.forEach((n2) => {
-          if (n1 === n2) {
-            return; // skip same names
+          if (n1 === n2 || this.excludedMatch(n1, n2)) {
+            return; // skip same names and known non-matches
           }
+          let n1Arr = this.cleanName(n1).split(' ');
           let n2Arr = this.cleanName(n2).split(' ');
           n1Arr.forEach((s1) => {
             n2Arr.forEach((s2) => {
@@ -134,12 +244,13 @@ export class AdminComponent implements OnInit {
           });
         });
       });
+      // Step 2 - determine if names also match on another string
       this.similarNames.forEach((value, key) => {
         let similarNames2 = [];
         value.arr.forEach((n1) => {
           value.arr.forEach((n2) => {
-            if (n1 === n2) {
-              return; //skip same name
+            if (n1 === n2 || this.excludedMatch(n1, n2)) {
+              return; // skip same names and known non-matches
             }
             // remove key from strings being compared
             let s1 = n1.toLowerCase().replace(key, '');
@@ -149,9 +260,16 @@ export class AdminComponent implements OnInit {
             let endIndex = count;
             while (endIndex < s1.length) {
               // make substring to compare to s2
-              const substring = s1.substring(0, endIndex);
+              const substring = s1.substring(0, endIndex).trim();
               startIndex++;
               endIndex++;
+              if (
+                substring.length < count ||
+                this.excludedStrings.includes(substring)
+              ) {
+                return;
+              }
+              // check if name without previous match has another small match
               if (s2.includes(substring)) {
                 let included = false;
                 similarNames2.forEach((sn) => {
@@ -165,6 +283,8 @@ export class AdminComponent implements OnInit {
                     term: substring,
                     s1: s1,
                     s2: s2,
+                    n1: n1,
+                    n2: n2,
                   });
                 }
                 // if (!similarNames2.includes(s1)) {
@@ -184,17 +304,328 @@ export class AdminComponent implements OnInit {
           this.similarNames.delete(key);
         }
       });
-    }, 0);
+      resolve('success');
+    }).then(() => {
+      this.finding = false;
+    });
+  }
+
+  findSimilarNames3(names: string[]) {
+    this.findStart = performance.now();
+    const checkedNames = [];
+    const results = [];
+    // for each name pair...
+    names.forEach((n1) => {
+      names.forEach((n2) => {
+        if (
+          n1 === n2 ||
+          this.excludedMatch(n1, n2) ||
+          checkedNames.includes(n2)
+        ) {
+          return; // skip same names, known non-matches, and already checked names as n1
+        }
+        // compare individual strings (removing special characters)
+        let n1Arr = this.cleanName(n1).split(' ');
+        let n2Arr = this.cleanName(n2).split(' ');
+        let matches = [];
+        const checkedStrings = [];
+        n1Arr.forEach((s1) => {
+          let matchFound = false;
+          n2Arr.forEach((s2) => {
+            if (matchFound || checkedStrings.includes(s2)) {
+              return; // already checked as s1
+            }
+            if (this.isSimilarString(s1, s2)) {
+              // similar name - matching term or includes term
+              matches.push({ s1: s1, s2: s2 });
+              matchFound = true;
+              checkedStrings.push(s1);
+              checkedStrings.push(s2);
+            } else {
+              // not similar
+            }
+          });
+          checkedStrings.push(s1);
+        });
+        if (
+          matches.length > 1 ||
+          (matches.length === 1 && this.singleMatchCheck(matches, n1Arr, n2Arr))
+        ) {
+          const result = {
+            n1: n1,
+            n2: n2,
+            matches: matches,
+          };
+          results.push(result);
+        }
+      });
+      checkedNames.push(n1); // no longer needs compared to other strings
+    });
+    let findTime = performance.now() - this.refreshStart;
+    this.findMsg =
+      'Find Complete in ' + Math.round(findTime / 10) / 100 + ' seconds';
+    this.similarRecords = results;
+  }
+
+  findSimilarNames4(names: string[]) {
+    this.findStart = performance.now();
+    const checkedNames = [];
+    const results = [];
+    const threshold = 11;
+    // for each name pair...
+    names.forEach((n1) => {
+      names.forEach((n2) => {
+        if (
+          n1 === n2 ||
+          // this.excludedMatch(n1, n2) ||
+          checkedNames.includes(n2) ||
+          this.communityMember(n1, n2)
+        ) {
+          return; // skip same names, known non-matches, and already checked names as n1
+        }
+        let points = 0;
+        // compare individual strings (removing special characters)
+        let n1Clean = this.cleanName(n1);
+        let n2Clean = this.cleanName(n2);
+        if (n1Clean === n2Clean) {
+          points++;
+        }
+        let n1NoSpace = n1Clean.replace(' ', '');
+        let n2NoSpace = n2Clean.replace(' ', '');
+        if (n1NoSpace === n2NoSpace) {
+          points++;
+        }
+
+        let n1Arr = n1Clean.split(' ');
+        let n2Arr = n2Clean.split(' ');
+
+        let includesAll1 = true;
+        let includesAll2 = true;
+        n1Arr.forEach((s1) => {
+          if (includesAll1) {
+            // set to false if the string doesn't contain one part
+            // ex: shaq in shaqelle o'neal
+            includesAll1 = n2Clean.includes(s1);
+          }
+          n2Arr.forEach((s2) => {
+            if (includesAll2) {
+              // set to false if the string doesn't contain one part
+              includesAll2 = n1Clean.includes(s2);
+            }
+            if (
+              s1.trim().length === 0 ||
+              s2.trim().length === 0 ||
+              this.excludedStrings.includes(s1) ||
+              this.excludedStrings.includes(s2)
+            ) {
+              return;
+            }
+            if (s1 === s2) {
+              points += 3;
+            } else {
+              if (this.replaceVowels(s1) === this.replaceVowels(s2)) {
+                points += 1;
+              }
+              if (this.removeVowels(s1) === this.removeVowels(s2)) {
+                points += 1;
+              }
+            }
+            if (this.matchMinusOne(s1, s2) || this.matchMinusOne(s2, s1)) {
+              points += 5;
+            }
+          });
+        });
+        if (includesAll1 || includesAll2) {
+          if (n1Arr.length === 1 || n2Arr.length === 1) {
+            points += threshold; // rare check - bonus points - unlikely to match anything else
+          } else if (n1Arr.length > 1 && n2Arr.length > 1) {
+            points += 4; // rare check - bonus points
+          } else {
+            points++; //short name
+          }
+        }
+
+        if (this.removeVowels(n1Clean) === this.removeVowels(n2Clean)) {
+          points += 2;
+        }
+        if (this.removeVowels(n1NoSpace) === this.removeVowels(n2NoSpace)) {
+          points += 2;
+        }
+        if (this.replaceVowels(n1Clean) === this.replaceVowels(n2Clean)) {
+          points += 2;
+        }
+        if (this.replaceVowels(n1NoSpace) === this.replaceVowels(n2NoSpace)) {
+          points += 2;
+        }
+        if (
+          this.matchMinusOne(n1Clean, n2Clean) ||
+          this.matchMinusOne(n2Clean, n1Clean)
+        ) {
+          points += 2;
+        }
+        if (
+          this.matchMinusOne(n1NoSpace, n2NoSpace) ||
+          this.matchMinusOne(n1NoSpace, n1NoSpace)
+        ) {
+          points += 2;
+        }
+
+        if (points > threshold-1) {
+          // Add Result
+          results.push({ points: points, n1: n1, n2: n2 });
+        }
+      });
+      checkedNames.push(n1); // no longer needs compared to other strings
+    });
+    // sort by points
+    results.sort((a, b) => {
+      if (a.points > b.points) {
+        return -1;
+      }
+      if (a.points < b.points) {
+        return 1;
+      }
+      return 0;
+    });
+    this.similarNameResults = results;
+  }
+
+  private communityMember(n1, n2) {
+    return (
+      (this.allNames.get(n1) &&
+        this.allNames.get(n1).tags.includes('Community Member')) ||
+      (this.allNames.get(n2) &&
+        this.allNames.get(n2).tags.includes('Community Member'))
+    );
+  }
+
+  private matchNoVowels(n1, n2) {
+    let n1NoVowel = this.removeVowels(n1);
+    let n2NoVowel = this.removeVowels(n2);
+    return n1NoVowel === n2NoVowel;
+  }
+
+  /**
+   * Determine if we should bypass the single match limit
+   *
+   * if name only has one word in it, ex: shaq
+   *
+   * if name is length 2 and includes a short term, ex: mr rogers vs fred rogers
+   *  - short term should not be the only match though, ex: mr rogers vs mr green
+   *
+   */
+  private singleMatchCheck(matches, n1Arr, n2Arr) {
+    let result = n1Arr.length === 1 || n2Arr.length === 1;
+    if (!result) {
+      // can't always expect these short terms to be included
+      this.shortTerms.forEach((st) => {
+        if (!result && (n1Arr.includes(st) || n2Arr.includes(st))) {
+          if (![matches[0].s1, matches[0].s2].includes(st)) {
+            result = true;
+          }
+        }
+      });
+    }
+    return result;
+  }
+
+  private isSimilarString(s1, s2) {
+    if (
+      this.excludedStrings.includes(s1) ||
+      this.excludedStrings.includes(s2)
+    ) {
+      return false;
+    }
+    return (
+      this.isMatch(s1, s2) ||
+      this.matchMinusVowels(s1, s2) ||
+      this.matchMinusOne(s1, s2) ||
+      this.matchMinusOne(s2, s1)
+    );
+  }
+
+  /**
+   * Same string or contains the other.
+   */
+  private isMatch(s1, s2) {
+    return (
+      s1 === s2 ||
+      ((s1.length > 2 || this.shortTerms.includes(s1)) && s2.includes(s1)) ||
+      ((s2.length > 2 || this.shortTerms.includes(s2)) && s1.includes(s2))
+    );
+  }
+
+  /**
+   * Compare the strings removing one char at a time.
+   *
+   * Ex: Billy match with Billie (since y will be removed)
+   */
+  private matchMinusOne(s1, s2) {
+    let result = false;
+    for (var i = 1; i < s1.length - 1; i++) {
+      let s1a = s1.slice(0, i) + s1.slice(i + 1);
+      if (this.excludedStrings.includes(s1a)) {
+        continue;
+      }
+      if (s1a === s2) {
+        result = true;
+        break;
+      }
+      if (s1.length === s2.length) {
+        // same length - possible letter off ex: Ramsey vs Ramsay
+        let s2a = s2.slice(0, i) + s2.slice(i + 1);
+        if (s2a === s1a) {
+          result = true;
+          break;
+        }
+      }
+    }
+    return result;
+  }
+
+  private matchMinusVowels(s1, s2) {
+    return this.removeVowels(s1) === this.removeVowels(s2);
+  }
+
+  private removeVowels(s: string) {
+    s = s.replace(/e/g, '');
+    s = s.replace(/a/g, '');
+    s = s.replace(/i/g, '');
+    s = s.replace(/o/g, '');
+    s = s.replace(/u/g, '');
+    s = s.replace(/y/g, '');
+    return s;
+  }
+
+  private replaceVowels(s: string) {
+    s = s.replace(/e/g, '@');
+    s = s.replace(/a/g, '@');
+    s = s.replace(/i/g, '@');
+    s = s.replace(/o/g, '@');
+    s = s.replace(/u/g, '@');
+    s = s.replace(/y/g, '@');
+    return s;
   }
 
   private cleanName(name: string) {
     name = name.toLowerCase();
+    let stFound = false;
+    this.shortTerms.forEach((st) => {
+      if (!stFound && name.startsWith(st)) {
+        name = name.replace(st, '');
+        stFound = true;
+      }
+    });
     name = name.replace('(', '');
     name = name.replace(')', '');
     name = name.replace("'", '');
     name = name.replace('"', '');
     name = name.replace('&', '');
-    return name;
+    name = name.replace(',', '');
+    name = name.replace('`', '');
+    name = name.replace('.', '');
+    name = name.replace('-', ' ');
+    return name.trim();
   }
 
   private addToMap(substring: string, n1: string, n2: string) {
@@ -210,5 +641,23 @@ export class AdminComponent implements OnInit {
         arr: [n1, n2],
       });
     }
+  }
+
+  private excludedMatch(n1: string, n2: string) {
+    let result = false;
+    this.excludedMatches.forEach((val) => {
+      if (result) {
+        return;
+      }
+      if (
+        (val.n1.toLowerCase().trim() === n1.toLowerCase().trim() &&
+          val.n2.toLowerCase().trim() === n2.toLowerCase().trim()) ||
+        (val.n1.toLowerCase().trim() === n2.toLowerCase().trim() &&
+          val.n2.toLowerCase().trim() === n1.toLowerCase().trim())
+      ) {
+        result = true;
+      }
+    });
+    return result;
   }
 }
