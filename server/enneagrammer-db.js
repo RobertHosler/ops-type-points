@@ -62,7 +62,7 @@ function convertName(name) {
   if (slashIndex > -1) {
     const beforeName = name;
     name = name.substring(0, slashIndex).trim();
-    console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
+    // console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
   }
   return name;
 }
@@ -71,6 +71,9 @@ function convertRecords(records) {
   const result = new Map();
   records.forEach((record) => {
     //TODO: put in map
+    if (!record.fields.Name || record.fields.Name.trim().length === 0) {
+      return;//skip empty names
+    }
     const name = convertName(record.fields.Name);
     const coreEType = record.fields.Type && record.fields.Type.length ? record.fields.Type.substring(0, 1) : '?';
     const wing = record.fields.Type && record.fields.Type.length > 2 ? record.fields.Type.substring(2, 3) : '?';

@@ -77,7 +77,7 @@
         Find
       </button>
       <div *ngIf="findMsg">
-        {{findMsg}}
+        {{ findMsg }}
       </div>
       <div>
         <div *ngFor="let record of similarRecords">
@@ -94,20 +94,49 @@
 
     <div class="mb-3">
       <div>Find similar names 4.0</div>
+      <div>
+        <span>
+          Threshold
+          <input [(ngModel)]="threshold"
+        /></span>
+        <span>
+          <label for="pictures"
+            >Skip Pictures
+            <input
+              id="pictures"
+              type="checkbox"
+              [(ngModel)]="skipPictures" /></label
+        ></span>
+        <span>
+          <label for="community"
+            >Skip Community
+            <input
+              id="community"
+              type="checkbox"
+              [(ngModel)]="skipCommunity" /></label
+        ></span>
+      </div>
       <button
         class="btn btn-primary mb-2"
-        (click)="findSimilarNames4(allNamesArr)"
+        (click)="findSimilarNames5()"
         [disabled]="finding"
       >
         Find
       </button>
       <div *ngIf="findMsg">
-        {{findMsg}}
+        {{ findMsg }}
       </div>
       <div>
         <div *ngFor="let result of similarNameResults">
           <div>
-            {{ result.n1 + " \<-> " + result.n2 + ' - ' + result.points + ' points'}}
+            {{
+              result.n1 +
+                " \<-> " +
+                result.n2 +
+                " - " +
+                result.points +
+                " points"
+            }}
           </div>
           <hr />
         </div>

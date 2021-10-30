@@ -64,9 +64,9 @@ function getData(input, offset, callback) {
         //the whole response has been received, so we just print it out here
         response.on("end", () => {
           callback(str);
+          console.timeEnd(timerName);
           setTimeout(() => {
             requests--;
-            console.timeEnd(timerName);
             //   console.log("safe request", input.name, "COMPLETE", requests);
             if (requests === 0) {
               // console.log("safe requests queue empty");
@@ -78,6 +78,9 @@ function getData(input, offset, callback) {
     .end();
 }
 
+/**
+ * Creates a promise which resolves once all datasets have been retrieved.
+ */
 function getAllData(input) {
   console.log("getAllData", input.name);
   const myPromise = new Promise((resolve, reject) => {

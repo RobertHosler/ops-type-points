@@ -19,6 +19,9 @@ export class AdminComponent implements OnInit {
 
   findStart;
   findMsg = '';
+  threshold = 11;
+  skipPictures = true;
+  skipCommunity = true;
 
   allNames;
   allNamesArr = [];
@@ -151,6 +154,13 @@ export class AdminComponent implements OnInit {
       });
       this.allNames = result;
       this.allNamesArr.sort();
+    });
+    this.socket.on('findSimilarComplete1', (result) => {
+      console.log('findSimilarComplete1', result);
+    });
+    this.socket.on('findSimilarComplete', (results) => {
+      console.log('findSimilarComplete', results.length);
+      this.similarNameResults = results;
     });
   }
 
@@ -367,11 +377,14 @@ export class AdminComponent implements OnInit {
     this.similarRecords = results;
   }
 
+  findSimilarNames5() {
+    this.socket.emit('findSimilar', this.threshold);
+  }
+
   findSimilarNames4(names: string[]) {
     this.findStart = performance.now();
     const checkedNames = [];
     const results = [];
-    const threshold = 11;
     // for each name pair...
     names.forEach((n1) => {
       names.forEach((n2) => {
@@ -379,7 +392,7 @@ export class AdminComponent implements OnInit {
           n1 === n2 ||
           // this.excludedMatch(n1, n2) ||
           checkedNames.includes(n2) ||
-          this.communityMember(n1, n2)
+          this.skipPerson(n1, n2)
         ) {
           return; // skip same names, known non-matches, and already checked names as n1
         }
@@ -437,7 +450,7 @@ export class AdminComponent implements OnInit {
         });
         if (includesAll1 || includesAll2) {
           if (n1Arr.length === 1 || n2Arr.length === 1) {
-            points += threshold; // rare check - bonus points - unlikely to match anything else
+            points += this.threshold; // rare check - bonus points - unlikely to match anything else
           } else if (n1Arr.length > 1 && n2Arr.length > 1) {
             points += 4; // rare check - bonus points
           } else {
@@ -470,7 +483,7 @@ export class AdminComponent implements OnInit {
           points += 2;
         }
 
-        if (points > threshold-1) {
+        if (points > this.threshold - 1) {
           // Add Result
           results.push({ points: points, n1: n1, n2: n2 });
         }
@@ -490,13 +503,23 @@ export class AdminComponent implements OnInit {
     this.similarNameResults = results;
   }
 
-  private communityMember(n1, n2) {
-    return (
-      (this.allNames.get(n1) &&
-        this.allNames.get(n1).tags.includes('Community Member')) ||
-      (this.allNames.get(n2) &&
-        this.allNames.get(n2).tags.includes('Community Member'))
-    );
+  private skipPerson(n1, n2) {
+    let p1 = this.allNames.get(n1);
+    let p2 = this.allNames.get(n2);
+    if (!p1 && !p2) {
+      return false;
+    }
+    if (
+      this.skipCommunity &&
+      (p1.tags.includes('Community Member') ||
+        p2.tags.includes('Community Member'))
+    ) {
+      return true;
+    }
+    if (this.skipPictures && p1.pictureUrl && p2.pictureUrl) {
+      return true;
+    }
+    return false;
   }
 
   private matchNoVowels(n1, n2) {

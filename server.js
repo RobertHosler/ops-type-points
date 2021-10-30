@@ -97,20 +97,27 @@ const ioState = {
 
 function ioSetup(ioState) {
   io.on("connection", function (socket) {
-    console.log("new socketio connection");
+    console.log("new socketio connection", socket.conn.id);
     ioState.sockets.push(socket);
 
     socket.on("disconnect", function () {
-      console.log("removed socketio connection");
+      console.log("removed socketio connection", socket.conn.id);
       ioState.sockets.splice(ioState.sockets.indexOf(socket), 1);
     });
 
     socket.on("authenticate", function (pw) {
-      if (pw === (process.env.OP_DATABASE_KEY || require("./server/local-api").key)) {
-        socket.emit('authenticateComplete', true);
+      if (
+        pw ===
+        (process.env.OP_DATABASE_KEY || require("./server/local-api").key)
+      ) {
+        socket.emit("authenticateComplete", true);
       } else {
-        socket.emit('authenticateComplete', false);
+        socket.emit("authenticateComplete", false);
       }
+    });
+
+    socket.on("findSimilar", function (max) {
+      findSimilarRecords(socket, max);
     });
 
     socket.on("refresh", function () {
@@ -133,40 +140,74 @@ const nineTypes = require("./server/e9-terms");
 const enneagrammer = require("./server/enneagrammer-db");
 const wss = require("./server/wss-db");
 const airtable = require("./server/airtable");
+const { findSimilar, findSimilarPromise } = require("./server/similar-names");
+const { resolve } = require("@angular/compiler-cli/src/ngtsc/file_system");
 
 function errorHandler(reason) {
   console.log("promise rejected with reason...", reason);
 }
 
-function refreshAirtableData(socket) {
-  fetchAirtableData().then((result) => {
-    // once complete, emit that refresh is complete and broadcast updates
-    ioState.nineTypesMap = result.nineTypesMap;
-    ioState.termMap = result.termMap;
-    ioState.sourceMap = result.sourceMap;
-    ioState.typeMap = result.typeMap;
-    ioState.nameMap = result.nameMap;
-    ioState.childrenMap = result.childrenMap;
-    ioState.eTypeMap = result.eTypeMap;
-    ioState.shared.forEach((retrievable) => {
-      ioState.broadcast(retrievable.trigger, retrievable.getVal());
-    });
-    if (socket) {
-      socket.emit("refreshComplete", "complete");
+function findSimilarRecords(socket, max) {
+  console.log("finding similar...");
+  findSimilarPromise(ioState.nameMap, max).then(
+    (results) => {
+      if (socket) {
+        try {
+          // console.log(JSON.stringify(results), socket.conn.id);
+          socket.emit("refreshComplete", "complete");
+          socket.emit("findSimilarComplete1", "success");
+          socket.emit("findSimilarComplete", results);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+    () => {
+      //rejected
     }
-  }, () => {
-    //rejected
-  });
+  );
+  console.log("finding similar... async...");
+}
+
+function refreshAirtableData(socket) {
+  fetchAirtableData().then(
+    (result) => {
+      // once complete, emit that refresh is complete and broadcast updates
+      ioState.nineTypesMap = result.nineTypesMap;
+      ioState.termMap = result.termMap;
+      ioState.sourceMap = result.sourceMap;
+      ioState.typeMap = result.typeMap;
+      ioState.nameMap = result.nameMap;
+      ioState.childrenMap = result.childrenMap;
+      ioState.eTypeMap = result.eTypeMap;
+      ioState.shared.forEach((retrievable) => {
+        ioState.broadcast(retrievable.trigger, retrievable.getVal());
+      });
+      if (socket) {
+        socket.emit("refreshComplete", "complete");
+      }
+    },
+    () => {
+      //rejected
+    }
+  );
 }
 refreshAirtableData();
 
+/**
+ * Creates a promise which does not resolve until all airtable requests have completed.
+ */
 function fetchAirtableData() {
   console.time("fetch-airtable-data");
   return new Promise((resolve, reject) => {
     let personsComplete = false;
     let definitionsComplete = false;
     let nineTypesComplete = false;
-    let completeSteps = [personsComplete, definitionsComplete, nineTypesComplete];
+    let completeSteps = [
+      personsComplete,
+      definitionsComplete,
+      nineTypesComplete,
+    ];
     let nineTypesMap;
     let termMap;
     let sourceMap;
@@ -259,21 +300,24 @@ function fetchAirtableData() {
         attemptResolve();
       });
 
-      function attemptResolve() {
-        console.log('attempt resolve', completeSteps.every(v => v === true));
-        if (personsComplete && definitionsComplete && nineTypesComplete) {
-          console.timeEnd("fetch-airtable-data");
-          resolve({
-            nineTypesMap: nineTypesMap,
-            termMap: termMap,
-            sourceMap: sourceMap,
-            typeMap: typeMap,
-            nameMap: nameMap,
-            childrenMap: childrenMap,
-            eTypeMap: eTypeMap,
-          });
-        }
+    function attemptResolve() {
+      console.log(
+        "attempt resolve",
+        completeSteps.every((v) => v === true)
+      );
+      if (personsComplete && definitionsComplete && nineTypesComplete) {
+        console.timeEnd("fetch-airtable-data");
+        resolve({
+          nineTypesMap: nineTypesMap,
+          termMap: termMap,
+          sourceMap: sourceMap,
+          typeMap: typeMap,
+          nameMap: nameMap,
+          childrenMap: childrenMap,
+          eTypeMap: eTypeMap,
+        });
       }
+    }
   });
 }
 

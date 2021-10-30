@@ -34,7 +34,7 @@ function convertName(name) {
   if (slashIndex > -1) {
     const beforeName = name;
     name = name.substring(0, slashIndex).trim();
-    console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
+    // console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
   }
   return name;
 }
