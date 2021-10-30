@@ -165,6 +165,9 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
       nameVal.fullEType = buildFullEType(eVal);
       nameVal.tags ? nameVal.tags.push("Enneagrammer") : nameVal.tags = ["Enneagrammer"];
+      if (eval.pictureUrl) {
+        nameVal.pictureUrl = eVal.pictureUrl;
+      }
       matches.push(eKey);
     } else {
       // Add to nameMap

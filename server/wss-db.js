@@ -62,6 +62,9 @@ function mergeMaps(nameMap, wssMap) {
       nameVal.wssType = wssVal.type;
       nameVal.wssLink = wssVal.link;
       nameVal.tags ? nameVal.tags.push("WSS") : (nameVal.tags = ["WSS"]);
+      if (wssVal.pictureUrl) {
+        nameVal.pictureUrl = wssVal.pictureUrl;
+      }
       matches.push(wssKey);
     } else {
       // Add to nameMap
