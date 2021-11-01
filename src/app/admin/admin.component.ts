@@ -12,6 +12,7 @@ export class AdminComponent implements OnInit {
   authMsg = '';
   pw: string;
 
+  comparingEnnea = false;
   refreshing = false;
   finding = false;
   refreshMsg = '';
@@ -72,6 +73,7 @@ export class AdminComponent implements OnInit {
 
   similarRecords = [];
   similarNameResults = [];
+  enneaDifferences;
 
   testArray = [
     'Mr. Rogers',
@@ -162,6 +164,11 @@ export class AdminComponent implements OnInit {
       console.log('findSimilarComplete', results.length);
       this.similarNameResults = results;
     });
+    this.socket.on('compareEnneaComplete', (results) => {
+      console.log('compareEnneaComplete', results);
+      this.enneaDifferences = results;
+      this.comparingEnnea = false;
+    });
   }
 
   ngOnInit(): void {}
@@ -176,6 +183,11 @@ export class AdminComponent implements OnInit {
   auth() {
     this.authMsg = '';
     this.socket.emit('authenticate', this.pw);
+  }
+
+  compareEnnea() {
+    this.comparingEnnea = true;
+    this.socket.emit('compareEnnea');
   }
 
   /**

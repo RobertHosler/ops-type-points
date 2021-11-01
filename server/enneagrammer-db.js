@@ -49,6 +49,11 @@ const converterList = [
   { org: "Freddy Mercury", result: "Freddie Mercury" },
   { org: "Leonardo Dicaprio", result: "Leonardo DiCaprio" },
   { org: "The Weekend", result: "The Weeknd" },
+  { org: "Doland Trump", result: "Donald Trump" },
+  { org: "Malcom X", result: "Malcolm X" },
+  { org: "William Buckley", result: "William F. Buckley" },
+  { org: "Mitch McConnell", result: "Mitch McConnel" },
+  { org: "Katharine Hepburn", result: "Katherine Hepburn" },
 ];
 function convertName(name) {
   name = name.trim();
@@ -165,8 +170,9 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.wing = eVal.wing; // 1
       nameVal.eType = eVal.eType; // 9w1
       nameVal.instinct = eVal.instinct; // so/sp
-      nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
       nameVal.fullEType = buildFullEType(eVal);
+      nameVal.fullTrifix = eVal.trifix; // 9w1 6w5 3w4 (may contain wings)
+      nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
       nameVal.tags ? nameVal.tags.push("Enneagrammer") : nameVal.tags = ["Enneagrammer"];
       if (eval.pictureUrl) {
         nameVal.pictureUrl = eVal.pictureUrl;
@@ -182,6 +188,7 @@ function mergeMaps(nameMap, eTypeMap) {
         wing: eVal.wing,
         eType: eVal.eType, // 9w1
         instinct: eVal.instinct,
+        fullTrifix: eVal.trifix,
         trifix: buildTritype(eVal.trifix),
         pictureUrl: eVal.pictureUrl,
         fullEType: buildFullEType(eVal),
@@ -197,3 +204,4 @@ function mergeMaps(nameMap, eTypeMap) {
 exports.url = url;
 exports.convertRecords = convertRecords;
 exports.mergeMaps = mergeMaps;
+exports.enneaConvertName = convertName;

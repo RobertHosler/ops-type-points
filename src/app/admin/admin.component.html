@@ -34,6 +34,50 @@
     </div>
 
     <div class="mb-3">
+      <div>Compare Ennea Sources</div>
+      <button
+        class="btn btn-primary mb-2"
+        (click)="compareEnnea()"
+        [disabled]="comparingEnnea"
+      >
+        Compare
+      </button>
+      <div *ngIf="enneaDifferences">
+        <div>
+          <div>Db Exclusives</div>
+          <div
+            class="ennea-difference"
+            *ngFor="let dbExclusive of enneaDifferences.exclusiveToDb"
+          >
+            {{ dbExclusive.name }}<br />
+            {{ dbExclusive.instinct }}|{{dbExclusive.eType}}|{{dbExclusive.trifix}}
+          </div>
+        </div>
+        <div>
+          <div>Scrape Exclusives</div>
+          <div
+            class="ennea-difference"
+            *ngFor="let scrapeExclusive of enneaDifferences.exclusiveToScrape"
+          >
+            {{ scrapeExclusive.name }}<br />
+            {{ scrapeExclusive.instinct }}|{{scrapeExclusive.type}}|{{scrapeExclusive.trifix}}
+          </div>
+        </div>
+        <div>
+          <div>Type Mismatches</div>
+          <div
+            class="ennea-difference"
+            *ngFor="let mismatch of enneaDifferences.typeMismatch"
+          >
+            {{ mismatch.name }}<br />
+            {{ mismatch.t1 }}<br />
+            {{ mismatch.t2 }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
       <div>Find similar names</div>
       <button
         class="btn btn-primary mb-2"

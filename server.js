@@ -120,6 +120,22 @@ function ioSetup(ioState) {
       findSimilarRecords(socket, max);
     });
 
+    socket.on("compareEnnea", function () {
+      scrape().then((result) => {
+        // const scrapeNames = [];
+        // result.forEach(row => {
+        //   scrapeNames.push(row.name.trim().toLowerCase());
+        // });
+        // const enneaDbNames = [];
+        // ioState.eTypeMap.forEach((val, key) => {
+        //   enneaDbNames.push(val.name.trim().toLowerCase());
+        // });
+        // console.log('comparing...', scrapeNames.length, enneaDbNames.length);
+        const nameDifferences = dbCompare.compareEnnea(result, ioState.eTypeMap);
+        socket.emit('compareEnneaComplete', nameDifferences);
+      });
+    });
+
     socket.on("refresh", function () {
       refreshAirtableData(socket);
     });
@@ -140,8 +156,9 @@ const nineTypes = require("./server/e9-terms");
 const enneagrammer = require("./server/enneagrammer-db");
 const wss = require("./server/wss-db");
 const airtable = require("./server/airtable");
-const { findSimilar, findSimilarPromise } = require("./server/similar-names");
-const { resolve } = require("@angular/compiler-cli/src/ngtsc/file_system");
+const {  findSimilarPromise } = require("./server/similar-names");
+const { scrape } = require("./server/enneagrammer-scrape");
+const { dbCompare } = require("./server/db-compare");
 
 function errorHandler(reason) {
   console.log("promise rejected with reason...", reason);

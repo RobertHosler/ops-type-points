@@ -1,3 +1,5 @@
+
+.ennea-difference,
 .similar-name {
     display: inline-block;
     margin: 0 .25rem .5rem;
@@ -5,4 +7,7 @@
     background-color: #ddd;
     border-radius: 50px;
     border: 1px solid;
+}
+.ennea-difference {
+    border-radius: 5px;
 }
