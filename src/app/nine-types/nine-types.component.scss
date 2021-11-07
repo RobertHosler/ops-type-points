@@ -15,7 +15,16 @@
     width: 100%;
     text-align: left;
     padding: 0.25rem;
+    div {
+      padding: .25rem .5rem;
+    }
+    div:not(:last-child) {
+      border-bottom: 1px solid $cad-orange;
+    }
   }
+}
+.source-row:nth-child(even) {
+  background-color: #ccc;
 }
 .source-row:not(:last-child),
 .number-source:not(:last-child) {

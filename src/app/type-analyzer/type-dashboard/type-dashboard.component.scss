@@ -1,9 +1,11 @@
 @import "~src/assets/variables";
+@import "~node_modules/bootstrap/scss/mixins/breakpoints";
 
 table {
   text-align: center;
   margin: 1px;
   width: 99%;
+  max-width: 700px;
 }
 table th {
   border-top: 0px;
@@ -32,4 +34,11 @@ tbody td:nth-child(6) {
   padding-bottom: 0px;
   color: $dark;
   text-decoration: underline;
+}
+@include media-breakpoint-down("xs", $grid-breakpoints) {
+  thead th,
+  tbody td {
+    padding: .25rem;
+    // width: 2rem;
+  }
 }

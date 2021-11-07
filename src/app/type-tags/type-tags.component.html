@@ -1,0 +1,20 @@
+<div class="image-tags" [ngClass]="{ allActive: allActive }">
+  <ng-container *ngFor="let tag of tags">
+    <div
+      (click)="activeTag !== tag ? (activeTag = tag) : (activeTag = '')"
+      class="image-tag"
+      [ngClass]="{
+        'tag-ops': tag === 'OPS',
+        'tag-ennea': tag === 'Enneagrammer',
+        'tag-wss': tag === 'WSS',
+        'tag-spec': tag === 'Speculation',
+        'tag-incomplete': tag === 'Incomplete',
+        'tag-class': tag === 'Class Typing',
+        'tag-community': tag === 'Community Member',
+        active: allActive || activeTag === tag
+      }"
+    >
+      <span class="image-tag-text"> {{ tag }}</span>
+    </div></ng-container
+  >
+</div>

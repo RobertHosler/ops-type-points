@@ -3,9 +3,23 @@
 .checklist {
   // margin: 0rem 1rem;
 }
+.checklist-header {
+  display: flex;
+  justify-content: space-between;
+}
+.coin {
+  h4 {
+    margin-top: 1rem;
+  }
+}
 
 .coin-side {
   padding: 0rem 1rem;
+  display: none;
+}
+
+.active-side {
+  display: block;
 }
 
 .coin-row {
@@ -25,6 +39,9 @@
   padding-top: 5px;
   padding-bottom: 5px;
 }
+.coin-box {
+  display: none;
+}
 
 .coin-label {
   background: #ccc;
@@ -37,4 +54,16 @@
 
 .coin-box {
   text-align: center;
+}
+
+.show-all {
+  .coin-box {
+    display: flex;
+  }
+  .coin-side {
+    display: block;
+  }
+  .coin {
+    margin-bottom: 1rem;
+  }
 }

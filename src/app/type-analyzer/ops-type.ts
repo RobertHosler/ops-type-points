@@ -1,7 +1,23 @@
-import { TypeRecord } from '../service/ops-data.service';
+import { TypedPerson, TypeRecord } from '../service/ops-data.service';
 import { Animal } from './animal';
 import { Function } from './function.model';
 import { AnimalStack } from './type-animal/animal-stack';
+
+function getPersonOpsType(person: TypedPerson) {
+  if (person.type && person.type.length === 16) {
+    let animals = person.type.substring(9, 16);
+    animals = animals.replace('(', '');
+    animals = animals.replace(')', '');
+    animals = animals.replace('/', '');
+    person.type;
+    return new OpsType(person.mod, person.s1, person.s2, animals);
+  }
+  return null; // cannot create
+}
+
+export const OpsTypeUtil = {
+  getPersonOpsType: getPersonOpsType,
+};
 
 export class OpsType {
   //Form values

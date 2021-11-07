@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
       ''
     ),
     new HomeLink(
-      'Terms',
+      'OPS Terms',
       '/terms',
       '',
       false,

@@ -1,0 +1,57 @@
+@import "~src/assets/variables";
+@import "~node_modules/bootstrap/scss/mixins/breakpoints";
+
+.person-picture {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.person-picture img {
+  border-radius: 5px;
+  max-height: 250px;
+  max-width: 250px;
+}
+.person-img {
+  text-align: center;
+}
+.ops-visual-row {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.person-molecule {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.type-options .btn {
+  min-width: 100px;
+}
+.person-indicator {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.ops-molecule {
+  display: none;
+}
+.ops-indicator {
+  display: flex;
+}
+@include media-breakpoint-up("lg", $grid-breakpoints) {
+  .ops-molecule {
+    display: block;
+  }
+  .ops-indicator {
+    display: none;
+  }
+}
+@include media-breakpoint-up("sm", $grid-breakpoints) {
+  .person-dashboard {
+    text-align: center;
+    app-type-dashboard {
+      display: inline-block;
+    }
+  }
+}

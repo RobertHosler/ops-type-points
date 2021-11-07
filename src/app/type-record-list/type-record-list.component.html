@@ -9,12 +9,15 @@
 
 <div #loaded *ngIf="!loading">
   <ng-container *ngTemplateOutlet="pagination"></ng-container>
-  <div class="image-row" [ngClass]="{'image-cards': cards}">
+  <div class="image-row" [ngClass]="{ 'image-cards': cards }">
     <div
       *ngFor="let typeRecord of displayPages[currentPage - 1]"
       class="type-record"
     >
-      <div class="image-col" *ngIf="typeRecord.type || typeRecord.fullEType || typeRecord.wssType">
+      <div
+        class="image-col"
+        *ngIf="typeRecord.type || typeRecord.fullEType || typeRecord.wssType"
+      >
         <div class="image-text-top">
           <div class="">
             <div class="image-indicator-row" *ngIf="!displayPracticeLink">
@@ -36,10 +39,19 @@
             >
           </div>
         </div>
-        <div class="image-wrapper">
+        <a
+          class="image-wrapper"
+          [routerLink]="['/search/person']"
+          [queryParams]="{
+            person: typeRecord.name
+          }"
+        >
           <div
             class="image-img"
-            [ngClass]="{ 'image-missing': !typeRecord.pictureUrl, 'grayscale': grayscale }"
+            [ngClass]="{
+              'image-missing': !typeRecord.pictureUrl,
+              grayscale: grayscale
+            }"
             [ngStyle]="{
               'background-image':
                 'url(' +
@@ -55,7 +67,7 @@
               >
             </span>
           </div>
-        </div>
+        </a>
         <div class="image-text-bottom text-center">
           <div class="image-name">
             <div [ngClass]="{ 'image-name-label': true }">

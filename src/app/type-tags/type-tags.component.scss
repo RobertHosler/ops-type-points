@@ -1,0 +1,64 @@
+.image-tags {
+  margin-bottom: -0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 60px;
+  padding: 2px;
+  font-size: 12px;
+  min-height: 22px;
+}
+.image-tag {
+  display: inline-block;
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border: 1px solid;
+  border-radius: 50px;
+  background-color: #eee;
+  margin-bottom: 0.5rem;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  overflow-x: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  align-self: center;
+  .image-tag-text {
+    display: none;
+  }
+  &.active {
+    // width: 100%;
+    justify-content: center;
+    // order: 100;
+    .image-tag-text {
+      display: inline-block;
+    }
+  }
+  &.tag-ops {
+    background-color: #c2e1eb;
+  }
+  &.tag-ennea {
+    background-color: #c7c7c7;
+  }
+  &.tag-wss {
+    background-color: #ede6b6;
+  }
+  &.tag-spec {
+    background-color: #f3d8c1;
+  }
+  &.tag-incomplete {
+    background-color: #f1c2c7;
+  }
+  &.tag-class {
+    background-color: #bdb9fb;
+  }
+  &.tag-community {
+    background-color: #bedbc9;
+  }
+}
+.allActive {
+  .image-tag {
+    cursor: default;
+  }
+}

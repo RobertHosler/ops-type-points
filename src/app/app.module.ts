@@ -34,6 +34,10 @@ import { environment } from 'src/environments/environment';
 import { TypeIndicatorComponent } from './type-indicator/type-indicator.component';
 import { NineTypesComponent } from './nine-types/nine-types.component';
 import { AdminComponent } from './admin/admin.component';
+import { TypeRecordExpandedComponent } from './type-record-expanded/type-record-expanded.component';
+import { TypeTagsComponent } from './type-tags/type-tags.component';
+import { SocionicsReferenceComponent } from './socionics-reference/socionics-reference.component';
+import { SocionicsShapeComponent } from './socionics-shape/socionics-shape.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -61,7 +65,11 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     TermsComponent,
     TypeIndicatorComponent,
     NineTypesComponent,
-    AdminComponent
+    AdminComponent,
+    TypeRecordExpandedComponent,
+    TypeTagsComponent,
+    SocionicsReferenceComponent,
+    SocionicsShapeComponent
   ],
   imports: [
     HttpClientModule,

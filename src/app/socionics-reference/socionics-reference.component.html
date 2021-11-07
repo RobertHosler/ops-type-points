@@ -1,0 +1,65 @@
+<div class="stack">
+  <div class="block-stack-row" *ngFor="let f of typeObj.stack">
+    <div class="stack-row">
+      <div>
+        <strong>{{ f.function.name }}</strong>
+      </div>
+      <app-socionics-shape
+        [functions]="[f.function.name]"
+      ></app-socionics-shape>
+      <div>{{ f.function.longName }}</div>
+      <div>{{ f.function.altName }}</div>
+    </div>
+    <div class="block-top">
+      {{ f.characteristics.block + " - " + f.characteristics.name }}
+    </div>
+    <div class="characteristics-row">
+      <span
+        class="char-accepting"
+        [ngClass]="{ 'char-producing': !f.characteristics.accepting }"
+        >{{ f.characteristics.accepting ? "Independent" : "Dependent" }}</span
+      >
+      <span
+        class="char-mental"
+        [ngClass]="{ 'char-vital': !f.characteristics.mental }"
+        >{{ f.characteristics.mental ? "Conscious" : "Unconscious" }}</span
+      >
+      <span
+        class="char-strong"
+        [ngClass]="{ 'char-weak': !f.characteristics.strong }"
+        >{{ f.characteristics.strong ? "Strong" : "Weak" }}</span
+      >
+      <span
+        class="char-valued"
+        [ngClass]="{ 'char-unvalued': !f.characteristics.valued }"
+        >{{ f.characteristics.valued ? "Valued" : "Unvalued" }}</span
+      >
+    </div>
+  </div>
+</div>
+
+<p>
+  <strong>Independent/Dependent</strong> - Independent functions can produce
+  without the constraint of the dependent functions. Dependent functions are
+  conversely constrained by the independent functions and conform to the
+  parameters set by them.
+</p>
+<p>
+  <strong>Conscious/Unconscoius</strong> - Functions either play a conscious
+  role in the verbalization of thought processing, or more of a background,
+  unconscious role. Conscious functions form the direction of thought, but rely
+  on the unconscious functions for additional support.
+</p>
+<p>
+  <strong>Strong/Weak</strong> - Strong functions have a higher capacity and
+  abilty to process information than the type's weak counterparts. Strong
+  functions give the type confidence and resilience in this area of processing.
+  Weak functions oversimplify the processing required and may instead lean on
+  others for help in these areas.
+</p>
+<p>
+  <strong>Valued/Unvalued</strong> - Valued functions contain the information the type cares
+  about. Strong valued functions form the backbone of the personality, while
+  weak valued functions serve as an aspect of processing the type may actively
+  seek help from others in generating.
+</p>

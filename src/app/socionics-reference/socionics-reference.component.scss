@@ -1,0 +1,81 @@
+@import "~src/assets/variables";
+@import "~node_modules/bootstrap/scss/mixins/breakpoints";
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+}
+.characteristics-row,
+.stack-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  > * {
+    padding: 0.25rem 0.5rem;
+    text-align: center;
+  }
+}
+.stack-row {
+  font-size: 1.25rem;
+}
+.block-stack-row {
+  padding: 0.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.block-top {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.characteristics-row {
+  justify-content: center;
+}
+.characteristics-row {
+  span {
+    display: inline-block;
+    border: 1px solid $dark;
+    background-color: #5d3789;
+    border-radius: 50px;
+    min-width: 80px;
+    font-size: 0.8rem;
+  }
+  span:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+  .char-accepting {
+    // background-color: rgb(223, 46, 46);
+    color: $light;
+  }
+  .char-producing {
+    background-color: pink;
+    background-color: #ccc;
+    color: $dark;
+  }
+  .char-mental {
+    //   background-color: rgb(95, 95, 206);
+    color: $light;
+  }
+  .char-vital {
+    background-color: lightblue;
+    background-color: #ccc;
+    color: $dark;
+  }
+  .char-strong {
+    //   background-color: rgb(32, 131, 32);
+    color: $light;
+  }
+  .char-weak {
+    background-color: lightgreen;
+    background-color: #ccc;
+    color: $dark;
+  }
+  .char-valued {
+    //   background-color: rgb(133, 4, 165);
+    color: $light;
+  }
+  .char-unvalued {
+    background-color: rgb(184, 141, 178);
+    background-color: #ccc;
+    color: $dark;
+  }
+}

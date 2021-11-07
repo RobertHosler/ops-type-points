@@ -1,15 +1,47 @@
-<div class="checklist">
-  <div class="mb-3 coin" *ngFor="let coin of coins">
-    <h4>{{coin.heading}}</h4>
-    <div class="coin-side" *ngFor="let side of coin.sides; let i = index;">
+<div class="checklist" [ngClass]="{ 'show-all': showAll }">
+  <div class="checklist-header">
+    <h3></h3>
+    <button
+      class="btn btn-gray"
+      (click)="showAll = !showAll"
+      [ngClass]="{ active: showAll }"
+    >
+      {{ showAll ? 'Hide Inactive': 'Show Inactive'}}
+    </button>
+  </div>
+  <div class="coin" *ngFor="let coin of coins">
+    <h4 *ngIf="coin.heading">{{ coin.heading }}</h4>
+    <div
+      class="coin-side"
+      *ngFor="let side of coin.sides; let i = index"
+      [ngClass]="{ 'active-side': coin.activeSide === i }"
+    >
       <div class="coin-row row">
         <div class="col-4 col-sm-2 col-md-1 coin-box">
-            {{side.activeLabel ? side.activeLabel : coin.activeSide === i ? 'X' : ''}}
+          {{
+            side.activeLabel
+              ? side.activeLabel
+              : coin.activeSide === i
+              ? "X"
+              : ""
+          }}
         </div>
-        <div class="col-8 col-sm-3 col-md-2 coin-label">
+        <div
+          class="col-sm-3 col-md-2 coin-label"
+          [ngClass]="{
+            'col-8': showAll,
+            'col-12': !showAll
+          }"
+        >
           <div *ngFor="let label of side.labels">{{ label }}</div>
         </div>
-        <div class="col-12 col-sm-7 col-md-9 coin-description">
+        <div
+          class="col-12 coin-description"
+          [ngClass]="{
+            'col-sm-7 col-md-9': showAll,
+            'col-sm-9 col-md-10': !showAll
+          }"
+        >
           <div *ngFor="let description of side.description">
             {{ description }}
           </div>

@@ -12,6 +12,8 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
 
   coins: Coin[];
 
+  showAll = false;
+
   //Human Needs
   obsDeciderCoin: Coin = {
     heading: 'Human Needs',

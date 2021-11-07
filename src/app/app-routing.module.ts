@@ -10,6 +10,7 @@ import { TypePracticeComponent } from './type-practice/type-practice.component';
 import { TermsComponent } from './terms/terms.component';
 import { NineTypesComponent } from './nine-types/nine-types.component';
 import { AdminComponent } from './admin/admin.component';
+import { TypeRecordExpandedComponent } from './type-record-expanded/type-record-expanded.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,10 @@ const routes: Routes = [
   {
     path: 'search',
     component: MainLayoutComponent,
-    children: [{ path: '', component: SearchComponent }],
+    children: [
+      { path: '', component: SearchComponent },
+      { path: 'person', component: TypeRecordExpandedComponent },
+    ],
   },
   {
     path: 'terms',

@@ -1,0 +1,107 @@
+@import "~src/assets/variables";
+
+$triangle-border: 4px;
+$triangle-size: 14px;
+.ni-shape,
+.ne-shape {
+  width: 0;
+  height: 0;
+  border-left: ($triangle-size + $triangle-border) solid transparent;
+  border-right: ($triangle-size + $triangle-border) solid transparent;
+  border-bottom: (($triangle-size * 2) + $triangle-border) solid black;
+  position: relative;
+}
+.ni-shape {
+  &:before {
+    position: absolute;
+    top: $triangle-border / 2 + 1;
+    left: $triangle-size * -1;
+    content: "";
+    border-left: $triangle-size solid transparent;
+    border-right: $triangle-size solid transparent;
+    border-bottom: ($triangle-size * 2 - 1) solid white;
+  }
+}
+
+$block-size: 32px;
+$block-border: 2px;
+.fi-shape,
+.fe-shape {
+  height: $block-size;
+  width: $block-size;
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: $block-size;
+    width: $block-size / 2;
+    border: $block-border solid black;
+  }
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: $block-border;
+    height: $block-size / 2;
+    width: $block-size / 2;
+    border: $block-border solid black;
+    border-left: $block-border solid white;
+  }
+}
+.fe-shape {
+  &:before,
+  &:after {
+    background-color: black;
+    border-color: black;
+  }
+}
+
+.fi-shape2,
+.fe-shape2 {
+  height: $block-size;
+  width: $block-size;
+  position: relative;
+  border: $block-border solid black;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: $block-size / 2;
+    width: $block-size / 2;
+    border: $block-border solid black;
+  }
+}
+.fe-shape2 {
+  &:before,
+  &:after {
+    background-color: black;
+    border-color: black;
+  }
+}
+
+.ti-shape,
+.te-shape {
+  height: $block-size;
+  width: $block-size;
+  border: $block-border solid black;
+}
+.te-shape {
+  background-color: black;
+}
+
+.se-shape,
+.si-shape {
+  height: $block-size;
+  width: $block-size;
+  border: $block-border solid black;
+  border-radius: 100%;
+}
+.se-shape {
+  background-color: black;
+}
