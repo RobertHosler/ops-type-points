@@ -38,6 +38,9 @@ import { TypeRecordExpandedComponent } from './type-record-expanded/type-record-
 import { TypeTagsComponent } from './type-tags/type-tags.component';
 import { SocionicsReferenceComponent } from './socionics-reference/socionics-reference.component';
 import { SocionicsShapeComponent } from './socionics-shape/socionics-shape.component';
+import { EnneagramTypeComponent } from './enneagram-type/enneagram-type.component';
+import { EnneagramInstinctComponent } from './enneagram-instinct/enneagram-instinct.component';
+import { EnneagramTrifixComponent } from './enneagram-trifix/enneagram-trifix.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -69,7 +72,10 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     TypeRecordExpandedComponent,
     TypeTagsComponent,
     SocionicsReferenceComponent,
-    SocionicsShapeComponent
+    SocionicsShapeComponent,
+    EnneagramTypeComponent,
+    EnneagramInstinctComponent,
+    EnneagramTrifixComponent
   ],
   imports: [
     HttpClientModule,

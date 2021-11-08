@@ -43,15 +43,15 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
           'Knows more about self vs others, me-story.',
           'Seeks Significance before Connection',
         ],
-        labels: ['Identity', 'Fi or Ti', 'Decider Introverted'],
+        labels: ['Di - Identity', 'Fi or Ti', 'Decider Introverted'],
       },
       {
         description: [
           "Prioritizes the spectrum of the tribe's values/reasons, then seeks their personal values/reasons.",
-          'Knows more about others vs self, frog in pocket.',
+          'Knows more about others vs self, "frog in pocket".',
           'Seeks Connection before Significance',
         ],
-        labels: ['Tribe', 'Fe or Te', 'Decider Extroverted'],
+        labels: ['De - Tribe', 'Fe or Te', 'Decider Extroverted'],
       },
     ],
   };
@@ -64,7 +64,7 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
           'Keeps circling back to the same known story, conclusions.',
           'Seeks Certainty before Variety',
         ],
-        labels: ['Organize', 'Ni or Si', 'Observer Introverted'],
+        labels: ['Oi - Organize', 'Ni or Si', 'Observer Introverted'],
       },
       {
         description: [
@@ -72,7 +72,7 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
           'Keeps channel changing and interrupting self, variety.',
           'Seeks Variety before Certainty',
         ],
-        labels: ['Gather', 'Ne or Se', 'Observer Extroverted'],
+        labels: ['Oe - Gather', 'Ne or Se', 'Observer Extroverted'],
       },
     ],
   };
@@ -276,7 +276,7 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
           'Imbalanced with work and rest, over or under exert',
           'Blast and Consume in top 3 animals, Play or Sleep last.'
         ],
-        labels: ['Info'],
+        labels: ['Info Dominant'],
       },
       {
         description: [
@@ -284,7 +284,7 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
           'Imbalanced in conversations, overshare or undershare information',
           'Play and Sleep in top 3 animals, Consume or Blast last.'
         ],
-        labels: ['Energy'],
+        labels: ['Energy Dominant'],
       },
     ],
   };

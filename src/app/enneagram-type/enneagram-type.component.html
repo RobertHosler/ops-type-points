@@ -1,0 +1,14 @@
+<h3>Core Type Description</h3>
+<div>
+  <div *ngFor="let x of display">
+    <div>
+      <strong>{{ x.name }}</strong>
+    </div>
+    <div *ngIf="x.text.length === 1">
+      <div>{{ x.text }}</div>
+    </div>
+    <div *ngIf="x.text.length > 1">
+      <div *ngFor="let s of x.text">{{ s }}</div>
+    </div>
+  </div>
+</div>

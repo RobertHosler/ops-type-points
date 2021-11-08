@@ -83,34 +83,13 @@
   </div>
   <div *ngIf="activeTab === 'Enneagram'">
     <div>
-      <app-type-indicator
-        [option]="1"
-        [eType]="person.fullEType"
-      ></app-type-indicator>
+      <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
     </div>
-    <div>Enneagram Info... various triads</div>
-    <div>Core Fear... Passions... Focus of Attention...</div>
     <div *ngIf="person.instinct">
-      <div>Instinct Stacking Description</div>
+      <app-enneagram-instinct [instinct]="person.instinct"></app-enneagram-instinct>
     </div>
     <div *ngIf="person.trifix">
-      Trifix Description
-      <table>
-        <tbody>
-          <tr>
-            <td>7</td>
-            <td>...</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>...</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>...</td>
-          </tr>
-        </tbody>
-      </table>
+      <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>
     </div>
   </div>
   <div *ngIf="activeTab === 'WSS'">

@@ -1,0 +1,21 @@
+<h3>Trifix Description</h3>
+<table class="trifix-table mb-2">
+  <tbody>
+    <tr *ngFor="let number of trifixArray">
+      <td>{{ number }}</td>
+      <td>{{ getDescription(number) }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="small">
+  <div class="mb-1">{{ getCenter("heart") }}</div>
+  <div class="mb-1">{{ getCenter("head") }}</div>
+  <div class="mb-1">{{ getCenter("gut") }}</div>
+  <div>
+    Source:
+    <a [href]="trifixModel.descriptionsSourceUrl"
+      >Enneagrammer.com Trifix Cheat Sheet</a
+    >
+  </div>
+</div>

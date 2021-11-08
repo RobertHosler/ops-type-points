@@ -41,10 +41,16 @@
         </div>
         <a
           class="image-wrapper"
-          [routerLink]="['/search/person']"
-          [queryParams]="{
-            person: typeRecord.name
-          }"
+          [routerLink]="
+            displayPracticeLink ? ['/practice'] : ['/search/person']
+          "
+          [queryParams]="
+            displayPracticeLink
+              ? { name: typeRecord.name }
+              : {
+                  person: typeRecord.name
+                }
+          "
         >
           <div
             class="image-img"
