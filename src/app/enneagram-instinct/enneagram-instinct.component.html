@@ -1,10 +1,71 @@
-<h3>Instinct Stacking Description</h3>
-<div *ngIf="social">
-    Social
+<h3>Instinct Stacking</h3>
+<table class="instinct-table mb-1">
+  <tbody>
+    <tr *ngFor="let x of stack; let i = index">
+      <td>
+        <ng-container *ngIf="i === 0">
+          <div
+            tabindex="0"
+            popoverTitle="Dominant"
+            [popover]="dominantContent"
+            triggers="mouseenter:mouseleave:click"
+          >
+            {{ x.name }}
+            <div class="small">Dominant</div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i === 1">
+          <div
+            tabindex="0"
+            popoverTitle="Playground"
+            [popover]="playContent"
+            triggers="mouseenter:mouseleave:click"
+          >
+            {{ x.name }}
+            <div class="small">Playground</div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="i === 2">
+          <div
+            tabindex="0"
+            popoverTitle="Blind Spot"
+            [popover]="blindContent"
+            triggers="mouseenter:mouseleave:click"
+          >
+            {{ x.name }}
+            <div class="small">Blind Spot</div>
+          </div>
+        </ng-container>
+      </td>
+      <td>
+        <div *ngFor="let y of x.description">{{ y }}</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="small text-center">
+  Source:
+  <a
+    href="https://oceanmoonshine9.wordpress.com/intro-to-instinctual-subtypes/"
+    target="_blank"
+  >
+    Intro to instrinctual subtypes
+  </a>
 </div>
-<div *ngIf="sexual">
-    Sexual
-</div>
-<div *ngIf="selfPres">
-    Self Preservation
-</div>
+
+<ng-template #dominantContent
+  >The Dominant Instinct is a "weakness which looks like a strength" in that it
+  is overdeveloped. The needs of this instinct are tended to, but there is an
+  overfixation which results in a detriment to the individual.</ng-template
+>
+<ng-template #playContent
+  >The Playground Instinct is a space that receives focus, but the stakes do not
+  feel as high as in the Dominant. The second instinct is thus often the
+  instinct which will cause us the least problems.</ng-template
+>
+<ng-template #blindContent
+  >The Blind Spot is the area we ignore and view as less important than the
+  others. The needs of this instinct are often satisfied indirectly through
+  strategies of the prior two instincts.</ng-template
+>

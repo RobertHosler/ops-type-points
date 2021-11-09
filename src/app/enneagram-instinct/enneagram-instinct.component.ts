@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { InstinctModel } from '../search/search.model';
+import { Instinct } from './instinct.model';
 
 @Component({
   selector: 'app-enneagram-instinct',
@@ -9,21 +11,25 @@ export class EnneagramInstinctComponent implements OnInit {
   @Input()
   instinct: string;
 
-  social = false;
-  sexual = false;
-  selfPres = false;
+  stack = [];
 
   constructor() {}
 
   ngOnInit(): void {
-    if (!this.instinct) {
-      // error
-    } else if (this.instinct.startsWith('so')) {
-      this.social = true;
-    } else if (this.instinct.startsWith('sx')) {
-      this.sexual = true;
-    } else if (this.instinct.startsWith('sp')) {
-      this.selfPres = true;
+    if (this.instinct) {
+      this.stack.push(this.getInstinct(this.instinct.substring(0,2)));
+      this.stack.push(this.getInstinct(this.instinct.substring(3,5)));
+      if (this.instinct.includes('so') && this.instinct.includes('sx')) {
+        this.stack.push(this.getInstinct('sp'));
+      } else if (this.instinct.includes('sp') && this.instinct.includes('sx')) {
+        this.stack.push(this.getInstinct('so'));
+      } else if (this.instinct.includes('so') && this.instinct.includes('sp')) {
+        this.stack.push(this.getInstinct('sx'));
+      }
     }
+  }
+
+  getInstinct(s: string) {
+    return Instinct.descriptions.get(s);
   }
 }

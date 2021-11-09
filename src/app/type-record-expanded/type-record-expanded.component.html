@@ -75,6 +75,11 @@
       <app-type-dashboard [opsType]="personOpsType"></app-type-dashboard>
       <!-- <app-type-points></app-type-points> -->
     </div>
+    <div *ngIf="activeTab === 'Enneagram'">
+      <div>
+        <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
+      </div>
+    </div>
   </div>
   <div *ngIf="activeTab === 'OPS'">
     <div *ngIf="personOpsType">
@@ -82,14 +87,15 @@
     </div>
   </div>
   <div *ngIf="activeTab === 'Enneagram'">
-    <div>
-      <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
-    </div>
-    <div *ngIf="person.instinct">
-      <app-enneagram-instinct [instinct]="person.instinct"></app-enneagram-instinct>
-    </div>
-    <div *ngIf="person.trifix">
-      <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>
+    <div class="row">
+      <div class="col-lg-6" *ngIf="person.instinct">
+        <app-enneagram-instinct
+          [instinct]="person.instinct"
+        ></app-enneagram-instinct>
+      </div>
+      <div class="col-lg-6" *ngIf="person.trifix">
+        <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>
+      </div>
     </div>
   </div>
   <div *ngIf="activeTab === 'WSS'">

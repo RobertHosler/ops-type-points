@@ -1,21 +1,49 @@
-<h3>Trifix Description</h3>
-<table class="trifix-table mb-2">
+<h3>Trifix Stacking</h3>
+<table class="trifix-table mb-1">
   <tbody>
     <tr *ngFor="let number of trifixArray">
-      <td>{{ number }}</td>
+      <td>
+        <div
+          *ngIf="['2', '3', '4'].includes(number)"
+          tabindex="0"
+          popoverTitle="Heart"
+          [popover]="getCenter('heart')"
+          triggers="mouseenter:mouseleave:click"
+        >
+          {{ number }}
+          <div class="small">Heart</div>
+        </div>
+        <div
+          *ngIf="['5', '6', '7'].includes(number)"
+          tabindex="0"
+          popoverTitle="Head"
+          [popover]="getCenter('head')"
+          triggers="mouseenter:mouseleave:click"
+        >
+          {{ number }}
+          <div class="small">Head</div>
+        </div>
+        <div
+          *ngIf="['8', '9', '1'].includes(number)"
+          tabindex="0"
+          popoverTitle="Gut"
+          [popover]="getCenter('gut')"
+          triggers="mouseenter:mouseleave:click"
+        >
+          {{ number }}
+          <div class="small">Gut</div>
+        </div>
+      </td>
       <td>{{ getDescription(number) }}</td>
     </tr>
   </tbody>
 </table>
 
-<div class="small">
-  <div class="mb-1">{{ getCenter("heart") }}</div>
-  <div class="mb-1">{{ getCenter("head") }}</div>
-  <div class="mb-1">{{ getCenter("gut") }}</div>
+<div class="small text-center">
   <div>
     Source:
-    <a [href]="trifixModel.descriptionsSourceUrl"
-      >Enneagrammer.com Trifix Cheat Sheet</a
+    <a [href]="trifixModel.descriptionsSourceUrl" target="_blank"
+      >Enneagrammer.com - Trifix Cheat Sheet</a
     >
   </div>
 </div>

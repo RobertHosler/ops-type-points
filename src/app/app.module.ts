@@ -10,6 +10,7 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { HeaderComponent } from './header/header.component';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeDescriptionComponent } from './type-analyzer/type-description/type-description.component';
 import { TypeAnimalComponent } from './type-analyzer/type-animal/type-animal.component';
@@ -85,6 +86,7 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     EmojiModule,
     SocketIoModule.forRoot(config),
     TabsModule.forRoot(),
+    PopoverModule.forRoot(),
     TooltipModule.forRoot(),
     ButtonsModule.forRoot(),
     NgxBootstrapIconsModule.pick(allIcons)
