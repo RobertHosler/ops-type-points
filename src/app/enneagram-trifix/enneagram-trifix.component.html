@@ -11,7 +11,14 @@
           triggers="mouseenter:mouseleave:click"
         >
           {{ number }}
-          <div class="small">Heart</div>
+          <div class="small">
+            Heart<i-bs
+              name="info-circle"
+              class="ml-1"
+              width=".8rem"
+              height=".8rem"
+            ></i-bs>
+          </div>
         </div>
         <div
           *ngIf="['5', '6', '7'].includes(number)"
@@ -21,7 +28,14 @@
           triggers="mouseenter:mouseleave:click"
         >
           {{ number }}
-          <div class="small">Head</div>
+          <div class="small">
+            Head<i-bs
+              name="info-circle"
+              class="ml-1"
+              width=".8rem"
+              height=".8rem"
+            ></i-bs>
+          </div>
         </div>
         <div
           *ngIf="['8', '9', '1'].includes(number)"
@@ -31,7 +45,14 @@
           triggers="mouseenter:mouseleave:click"
         >
           {{ number }}
-          <div class="small">Gut</div>
+          <div class="small">
+            Gut<i-bs
+              name="info-circle"
+              class="ml-1"
+              width=".8rem"
+              height=".8rem"
+            ></i-bs>
+          </div>
         </div>
       </td>
       <td>{{ getDescription(number) }}</td>
