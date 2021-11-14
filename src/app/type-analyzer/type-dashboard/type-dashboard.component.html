@@ -1,18 +1,28 @@
 <div class="table-wrapper mb-3">
   <table class="table">
     <thead>
-      <th *ngFor="let heading of headings;">
-        <button class="d-lg-none btn btn-link table-tip" type="button" placement="top" [tooltip]="heading.title" [adaptivePosition]="false">{{heading.letter}}</button>
-        <span class="d-none d-lg-inline">{{heading.title}}</span>
-      </th>
+      <ng-container *ngFor="let heading of headings">
+        <th>
+          <button
+            class="d-lg-none btn btn-link table-tip"
+            type="button"
+            placement="top"
+            [tooltip]="heading.title"
+            [adaptivePosition]="false"
+          >
+            {{ heading.letter }}
+          </button>
+          <span class="d-none d-lg-inline">{{ heading.title }}</span>
+        </th>
+      </ng-container>
     </thead>
     <tbody>
       <tr *ngFor="let function of functions; index as i">
-        <td>{{ function.activation }}</td>
+        <td>{{ opsType.activationValid ? function.activation : '?' }}</td>
         <td>{{ function.modality }}</td>
         <td>{{ function.name }}</td>
-        <td>{{ function.savior }}</td>
-        <td>{{ animals[i].savior }}</td>
+        <td>{{ function.savior ? function.savior : '?' }}</td>
+        <td>{{ animals[i].savior ? animals[i].savior : '?' }}</td>
         <td>{{ animals[i].shortName }}</td>
       </tr>
     </tbody>

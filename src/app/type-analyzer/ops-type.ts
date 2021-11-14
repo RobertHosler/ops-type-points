@@ -42,6 +42,7 @@ export class OpsType {
   animalStack: string[];
   animalEmojiStack: AnimalStack;
   animalStringFormal: string;
+  activationValid = false;
 
   jumper: boolean;
   decider: boolean;
@@ -89,6 +90,13 @@ export class OpsType {
   private sleep: Animal = new Animal('Sleep', 'S', false, false, true);
   private blast: Animal = new Animal('Blast', 'B', false, true, false);
   private consume: Animal = new Animal('Consume', 'C', true, false, false);
+  private unknownAnimal: Animal = new Animal(
+    'Unknown',
+    '?',
+    false,
+    false,
+    false
+  );
 
   //Default animal stacks for each lead animal variant, animals in dashboard order
   private playStack: Animal[] = [
@@ -154,6 +162,7 @@ export class OpsType {
         this.animals = this.sleepStack;
         break;
     }
+    let activationTotal = 0;
     this.animalStack.forEach((a: string, animalIndex: number) => {
       var animalSavior: string;
       switch (animalIndex) {
@@ -170,59 +179,65 @@ export class OpsType {
           animalSavior = '-';
           break;
         default:
-        //Error
+        // Error
       }
-      //Configure animal savior and demon values
+      // Configure animal savior and demon values
       var currentAnimal: Animal;
-      this.animals.forEach((animal) => {
-        if (animal.shortName === a) {
-          currentAnimal = animal;
-          animal.savior = animalSavior;
-          animal.index = animalIndex;
-          if (animalIndex < 2) {
-            animal.saviorBool = true;
-            animal.demon = false;
-            switch (animal.shortName) {
-              case 'P':
-                this.playSavior = true;
-                break;
-              case 'S':
-                this.sleepSavior = true;
-                break;
-              case 'B':
-                this.blastSavior = true;
-                break;
-              case 'C':
-                this.consumeSavior = true;
-                break;
-            }
-          } else {
-            animal.saviorBool = false;
-            animal.demon = true;
-            if (animalIndex === 3) {
+      if (a === '?') {
+        currentAnimal = this.unknownAnimal;
+        return;
+      } else {
+        this.animals.forEach((animal) => {
+          if (animal.shortName === a) {
+            currentAnimal = animal;
+            animal.savior = animalSavior;
+            animal.index = animalIndex;
+            if (animalIndex < 2) {
+              animal.saviorBool = true;
+              animal.demon = false;
               switch (animal.shortName) {
                 case 'P':
-                  this.playLast = true;
-                  this.infoDom = true;
+                  this.playSavior = true;
                   break;
                 case 'S':
-                  this.sleepLast = true;
-                  this.infoDom = true;
+                  this.sleepSavior = true;
                   break;
                 case 'B':
-                  this.blastLast = true;
-                  this.energyDom = true;
+                  this.blastSavior = true;
                   break;
                 case 'C':
-                  this.consumeLast = true;
-                  this.energyDom = true;
+                  this.consumeSavior = true;
                   break;
+              }
+            } else {
+              animal.saviorBool = false;
+              animal.demon = true;
+              if (animalIndex === 3) {
+                switch (animal.shortName) {
+                  case 'P':
+                    this.playLast = true;
+                    this.infoDom = true;
+                    break;
+                  case 'S':
+                    this.sleepLast = true;
+                    this.infoDom = true;
+                    break;
+                  case 'B':
+                    this.blastLast = true;
+                    this.energyDom = true;
+                    break;
+                  case 'C':
+                    this.consumeLast = true;
+                    this.energyDom = true;
+                    break;
+                }
               }
             }
           }
-        }
-      });
-      //Activate the functions
+        });
+
+      }
+      // Activate the functions
       this.functions.forEach((f) => {
         if (
           (currentAnimal.oe && f.oe) ||
@@ -230,9 +245,10 @@ export class OpsType {
           (currentAnimal.di && f.di) ||
           (currentAnimal.de && f.de)
         ) {
-          //Function is used in this animal
+          // Function is used in this animal
           if (animalIndex < 3) {
             f.activation++;
+            activationTotal++;
           }
           if (animalIndex === 1 && f.demon) {
             f.savior = 'A';
@@ -253,6 +269,9 @@ export class OpsType {
       currentAnimal.modality =
         currentAnimal.observerModality + currentAnimal.deciderModality;
     });
+    if (activationTotal === 6) {
+      this.activationValid = true;
+    }
   }
 
   private constructModalities() {
@@ -486,8 +505,10 @@ export class OpsType {
   private notModality(modality: string) {
     if (modality === 'M') {
       return 'F';
-    } else {
+    } else if (modality === 'F') {
       return 'M';
+    } else {
+      return '?';
     }
   }
 

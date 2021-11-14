@@ -42,7 +42,7 @@
     </div>
     <div class="person-molecule mx-3">
       <div *ngIf="activeTab === 'OPS'">
-        <div class="ops-molecule">
+        <div class="ops-molecule" *ngIf="person.type.length === 16">
           <app-type-bubbles
             class="text-center"
             [showOptions]="false"
@@ -71,7 +71,7 @@
         </div>
       </div>
     </div>
-    <div class="person-dashboard" *ngIf="activeTab === 'OPS'">
+    <div class="person-dashboard" *ngIf="activeTab === 'OPS' && person.type.length === 16">
       <app-type-dashboard [opsType]="personOpsType"></app-type-dashboard>
       <!-- <app-type-points></app-type-points> -->
     </div>
