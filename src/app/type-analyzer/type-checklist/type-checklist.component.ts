@@ -1,4 +1,4 @@
-  import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { OpsType } from '../ops-type';
 
 @Component({
@@ -12,7 +12,7 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
 
   coins: Coin[];
 
-  showAll = false;
+  showAll = true;
 
   //Human Needs
   obsDeciderCoin: Coin = {
@@ -243,30 +243,22 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
   animalsCombinedCoin: Coin = {
     sides: [
       {
-        description: [
-          'Deep inner world of taking in info and processing.',
-        ],
+        description: ['Deep inner world of taking in info and processing.'],
         labels: ['SC', 'Sleep + Consume'],
       },
       {
-        description: [
-          'Over gathers then wants to do something with it.',
-        ],
+        description: ['Over gathers then wants to do something with it.'],
         labels: ['CP', 'Consume + Play'],
       },
       {
-        description: [
-          'Expends energy and shares knowledge.',
-        ],
+        description: ['Expends energy and shares knowledge.'],
         labels: ['PB', 'Play + Blast'],
       },
       {
-        description: [
-          'Reworks same info and then shares knowledge.',
-        ],
+        description: ['Reworks same info and then shares knowledge.'],
         labels: ['BS', 'Blast + Sleep'],
       },
-    ]
+    ],
   };
   infoEnergyCoin: Coin = {
     sides: [
@@ -274,7 +266,7 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
         description: [
           'Relative balance in conversations, knowledge is power',
           'Imbalanced with work and rest, over or under exert',
-          'Blast and Consume in top 3 animals, Play or Sleep last.'
+          'Blast and Consume in top 3 animals, Play or Sleep last.',
         ],
         labels: ['Info Dominant'],
       },
@@ -282,7 +274,7 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
         description: [
           'Relative balance with work and rest, goofy',
           'Imbalanced in conversations, overshare or undershare information',
-          'Play and Sleep in top 3 animals, Consume or Blast last.'
+          'Play and Sleep in top 3 animals, Consume or Blast last.',
         ],
         labels: ['Energy Dominant'],
       },
@@ -348,7 +340,7 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
         this.feelingThinkingCoin.activeSide = 0;
         this.sensoryIntuitionCoin.activeSide = 0;
         this.temperamentCoin.activeSide = 0;
-        
+
         break;
       case 'NT':
         this.feelingThinkingCoin.activeSide = 1;
@@ -423,8 +415,12 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
         this.animalsCombinedCoin.activeSide = 3;
         break;
     }
-    this.infoEnergyCoin.activeSide = this.opsType.infoDom ? 0 : 1;
-    this.coins.push(this.infoEnergyCoin);
+    let lastAnimal = this.opsType.animalStack[3];
+    if (lastAnimal !== '?') {
+      this.infoEnergyCoin.activeSide = this.opsType.infoDom ? 0 : 1;
+      this.coins.push(this.infoEnergyCoin);
+    }
+    this.animalsCombinedCoin.activeSide = -1;
     if (this.opsType.sleepSavior && this.opsType.consumeSavior) {
       this.animalsCombinedCoin.activeSide = 0;
     } else if (this.opsType.playSavior && this.opsType.consumeSavior) {
@@ -434,28 +430,48 @@ export class TypeChecklistComponent implements OnInit, OnChanges {
     } else if (this.opsType.playSavior && this.opsType.blastSavior) {
       this.animalsCombinedCoin.activeSide = 2;
     }
-    this.coins.push(this.animalsCombinedCoin);
+    if (this.animalsCombinedCoin.activeSide !== -1) {
+      this.coins.push(this.animalsCombinedCoin);
+    }
 
     //Modalities
-    this.deModalitiesCoin.activeSide = this.opsType.deModality === 'F' ? 0 : 1;
-    this.sensoryModalitiesCoin.activeSide = this.opsType.modalities[0] === 'F' ? 0 : 1;
-    this.coins.push(this.deModalitiesCoin);
-    this.coins.push(this.sensoryModalitiesCoin);
+    this.deModalitiesCoin.activeSide = -1;
+    if (this.opsType.deModality === 'F') {
+      this.deModalitiesCoin.activeSide = 0;
+    } else if (this.opsType.deModality === 'M') {
+      this.deModalitiesCoin.activeSide = 1;
+    }
+    this.sensoryModalitiesCoin.activeSide = -1;
+    if (this.opsType.sensoryModality === 'F') {
+      this.sensoryModalitiesCoin.activeSide = 0;
+    } else if (this.opsType.sensoryModality === 'M') {
+      this.sensoryModalitiesCoin.activeSide = 1;
+    }
+    if (this.deModalitiesCoin.activeSide > -1) {
+      this.coins.push(this.deModalitiesCoin);
+    }
+    if (this.sensoryModalitiesCoin.activeSide > -1) {
+      this.coins.push(this.sensoryModalitiesCoin);
+    }
   }
 
   configAnimals(index: number) {
     switch (this.opsType.animals[index].name) {
       case 'Sleep':
-        this.animalsCoin.sides[0].activeLabel = this.opsType.animals[index].savior;
+        this.animalsCoin.sides[0].activeLabel =
+          this.opsType.animals[index].savior;
         break;
       case 'Play':
-        this.animalsCoin.sides[1].activeLabel = this.opsType.animals[index].savior;
+        this.animalsCoin.sides[1].activeLabel =
+          this.opsType.animals[index].savior;
         break;
       case 'Consume':
-        this.animalsCoin.sides[2].activeLabel = this.opsType.animals[index].savior;
+        this.animalsCoin.sides[2].activeLabel =
+          this.opsType.animals[index].savior;
         break;
       case 'Blast':
-        this.animalsCoin.sides[3].activeLabel = this.opsType.animals[index].savior;
+        this.animalsCoin.sides[3].activeLabel =
+          this.opsType.animals[index].savior;
         break;
     }
   }
