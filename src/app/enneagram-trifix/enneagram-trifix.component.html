@@ -5,7 +5,6 @@
       <td>
         <div
           *ngIf="['2', '3', '4'].includes(number)"
-          tabindex="0"
           popoverTitle="Heart"
           [popover]="getCenter('heart')"
           triggers="mouseenter:mouseleave:click"
@@ -22,7 +21,6 @@
         </div>
         <div
           *ngIf="['5', '6', '7'].includes(number)"
-          tabindex="0"
           popoverTitle="Head"
           [popover]="getCenter('head')"
           triggers="mouseenter:mouseleave:click"
@@ -39,7 +37,6 @@
         </div>
         <div
           *ngIf="['8', '9', '1'].includes(number)"
-          tabindex="0"
           popoverTitle="Gut"
           [popover]="getCenter('gut')"
           triggers="mouseenter:mouseleave:click"
@@ -60,7 +57,7 @@
   </tbody>
 </table>
 
-<div class="small text-center">
+<div class="small">
   <div>
     Source:
     <a [href]="trifixModel.descriptionsSourceUrl" target="_blank"
