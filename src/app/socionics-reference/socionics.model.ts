@@ -3,41 +3,49 @@ const functions = [
     name: 'Se',
     longName: 'Extroverted Sensation',
     altName: 'Force',
+    description: 'authority, influence, desire, political interest/personal investment, competition/struggle, willpower, impact, force, appearance, readiness, tactics, territory'
   },
   {
     name: 'Fe',
-    longName: 'Extroverted Feeling',
+    longName: 'Extroverted Ethics',
     altName: 'Emotions',
+    description: 'emotions and emotional expression, passion, mood, excitation, exuberance, romanticism, imitation, acting, not a moral arbiter of good/evil, how they are treated as opposed to how others are treated, sympathy, at certain instances disregards other people\'s humanity in certain situations, judgements are determined by the situation - at things being done'
   },
   {
     name: 'Ne',
     longName: 'Extroverted Intuition',
     altName: 'Ideas',
+    description: 'potential/possibility, the unique and unusual, ability, essence, perception of the whole, uncertainty, the unknown, search, internal makeup, suddenness, chance, being, permanence, impermanence'
   },
   {
     name: 'Te',
     longName: 'Extroverted Logic',
     altName: 'Pragmatism',
+    description: 'benefit, efficiency, action, knowledge, method, mechanism, act, work, motion, reason, technology, fact, expediency, economy, asks "why" to get information, facts, analysis collected data to make logical conclusions, law, legal right, generally accepted knowledge and rules/laws is more the realm of Te'
   },
   {
     name: 'Si',
     longName: 'Introverted Sensation',
     altName: 'Senses',
+    description: 'harmony, pleasure, health, comfort, pleasantness, satisfaction, convenience, quality, cosiness, aesthetics'
   },
   {
     name: 'Fi',
-    longName: 'Introverted Feeling',
+    longName: 'Introverted Ethics',
     altName: 'Relations',
+    description: 'like/dislike, decency and niceness, morals, good/bad, etiquette, humanism, attraction/repulsion, empathy, compassion, attitude towards other human beings, how others are treated, think about other\'s humanity "let\'s hear his side," judgements determined by people doing things'
   },
   {
     name: 'Ni',
     longName: 'Introverted Intuition',
     altName: 'Time',
+    description: 'development over time (processes), cause and effect, history, planning, forecasting, past/future, rhythm, speed, urgency, fantas'
   },
   {
     name: 'Ti',
     longName: 'Introverted Logic',
     altName: 'Laws',
+    description: 'analysis, hierarchy, classification, understanding, order, system, structure, formal logic'
   },
 ];
 
@@ -49,7 +57,8 @@ const functionCharacteristics = [
     mental: true,
     strong: true,
     valued: true,
-    block: 'Ego'
+    block: 'Ego',
+    description: 'Primary source of confidence and primary state of mind.  Personal motivator which shapes their life.'
   },
   {
     index: 2,
@@ -58,7 +67,8 @@ const functionCharacteristics = [
     mental: true,
     strong: true,
     valued: true,
-    block: 'Ego'
+    block: 'Ego',
+    description: 'Used to interact with others and solve problems.  Overuse can lead to irritation by others.'
   },
   {
     index: 3,
@@ -67,7 +77,8 @@ const functionCharacteristics = [
     mental: false,
     strong: false,
     valued: true,
-    block: 'Super-Id'
+    block: 'Super-Id',
+    description: 'Function is appreciated, but can be seen as overdone by others.  Can be seen as boring and become neglected or conversely, overindulged.'
   },
   {
     index: 4,
@@ -76,7 +87,8 @@ const functionCharacteristics = [
     mental: false,
     strong: false,
     valued: true,
-    block: 'Super-Id'
+    block: 'Super-Id',
+    description: 'Entertaining, soothing, and energizing.  Integration leads to self actualization.  Deficiency leads to attempts to self satisfy.'
   },
   {
     index: 5,
@@ -85,7 +97,8 @@ const functionCharacteristics = [
     mental: true,
     strong: false,
     valued: false,
-    block: 'Super-Ego'
+    block: 'Super-Ego',
+    description: 'Seen as personal weakness and something to improve.  Criticism causes irritation.  Activated when anxious.'
   },
   {
     index: 6,
@@ -94,7 +107,8 @@ const functionCharacteristics = [
     mental: true,
     strong: false,
     valued: false,
-    block: 'Super-Ego'
+    block: 'Super-Ego',
+    description: 'Usage is irritating and is avoided whenever possible. Developed through personal experience, but often ignored.'
   },
   {
     index: 7,
@@ -103,7 +117,8 @@ const functionCharacteristics = [
     mental: false,
     strong: true,
     valued: false,
-    block: 'Id'
+    block: 'Id',
+    description: 'Used often, but privately. Perceived as obvious and made fun of while still shaping worldview.'
   },
   {
     index: 8,
@@ -112,7 +127,8 @@ const functionCharacteristics = [
     mental: false,
     strong: true,
     valued: false,
-    block: 'Id'
+    block: 'Id',
+    description: 'Annoying, but can be used when needed, causes boredom and avoidance which makes it appear weak.'
   },
 ];
 

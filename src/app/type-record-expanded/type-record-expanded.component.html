@@ -67,7 +67,7 @@
       </div>
       <div *ngIf="activeTab === 'WSS'">
         <div class="person-indicator">
-          <app-socionics-shape [type]="person.wssType"></app-socionics-shape>
+          <app-socionics-shape [type]="person.wssType" [showName]="true"></app-socionics-shape>
         </div>
       </div>
     </div>
@@ -79,6 +79,9 @@
       <div>
         <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
       </div>
+    </div>
+    <div *ngIf="activeTab === 'WSS'">
+      <app-socionics-reference [type]="person.wssType"></app-socionics-reference>
     </div>
   </div>
   <div *ngIf="activeTab === 'OPS'">
@@ -99,7 +102,7 @@
     </div>
   </div>
   <div *ngIf="activeTab === 'WSS'">
-    <app-socionics-reference [type]="person.wssType"></app-socionics-reference>
+    <!-- <app-socionics-reference [type]="person.wssType"></app-socionics-reference> -->
   </div>
 </div>
 

@@ -42,6 +42,9 @@
   span:not(:last-child) {
     margin-right: 0.5rem;
   }
+  .char-valued,
+  .char-strong,
+  .char-mental,
   .char-accepting {
     // background-color: rgb(223, 46, 46);
     color: $light;
@@ -51,31 +54,56 @@
     background-color: #ccc;
     color: $dark;
   }
-  .char-mental {
-    //   background-color: rgb(95, 95, 206);
-    color: $light;
-  }
   .char-vital {
     background-color: lightblue;
     background-color: #ccc;
     color: $dark;
-  }
-  .char-strong {
-    //   background-color: rgb(32, 131, 32);
-    color: $light;
   }
   .char-weak {
     background-color: lightgreen;
     background-color: #ccc;
     color: $dark;
   }
-  .char-valued {
-    //   background-color: rgb(133, 4, 165);
-    color: $light;
-  }
   .char-unvalued {
     background-color: rgb(184, 141, 178);
     background-color: #ccc;
     color: $dark;
+  }
+}
+table {
+  th,
+  td {
+    padding: 0.25rem 0.5rem;
+    text-align: center;
+  }
+  td {
+    border: 1px solid $dark;
+    // background-color: #ccc;
+  }
+  thead {
+    // background-color: #ccc;
+    font-size: 0.8rem;
+  }
+  .char-col {
+    // background-color: #5d3789;
+    color: $light;
+  }
+  .active-col {
+    background-color: $light;
+    color: $dark;
+  }
+  .sm-text {
+    font-size: 0.8rem;
+  }
+}
+@include media-breakpoint-down("xs", $grid-breakpoints) {
+  .block {
+    display: none;
+  }
+  table {
+    th,
+    td {
+      padding: 0.25rem;
+    }
   }
 }

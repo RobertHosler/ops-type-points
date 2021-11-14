@@ -14,6 +14,9 @@ export class SocionicsShapeComponent implements OnInit {
   @Input()
   type; // Ex 'LII'
 
+  @Input()
+  showName = false;
+
   constructor() { }
 
   ngOnInit(): void {

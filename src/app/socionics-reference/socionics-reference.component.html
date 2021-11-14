@@ -1,4 +1,148 @@
-<div class="stack">
+<div class="d-inline-block">
+  <table>
+    <thead>
+      <tr>
+        <th class="block">Block</th>
+        <th class="position">
+          Posi<span class="d-none d-sm-inline">tion</span>
+        </th>
+        <th>Elem<span class="d-none d-sm-inline">ent</span></th>
+        <th>
+          <div
+            popoverTitle="Independent/Dependent"
+            [popover]="independent"
+            triggers="mouseenter:mouseleave:click"
+          >
+            I<span class="d-none d-sm-inline">nde</span><i-bs
+              name="info-circle"
+              class="ml-1"
+              width=".8rem"
+              height=".8rem"
+            ></i-bs>
+          </div>
+        </th>
+        <th>
+          <div
+            popoverTitle="Conscious/Unconscious"
+            [popover]="conscious"
+            triggers="mouseenter:mouseleave:click"
+          >
+            C<span class="d-none d-sm-inline">onc</span><i-bs
+              name="info-circle"
+              class="ml-1"
+              width=".8rem"
+              height=".8rem"
+            ></i-bs>
+          </div>
+        </th>
+        <th>
+          <div
+            popoverTitle="Strong/Weak"
+            [popover]="strong"
+            triggers="mouseenter:mouseleave:click"
+          >
+            S<span class="d-none d-sm-inline">tr</span><i-bs
+              name="info-circle"
+              class="ml-1"
+              width=".8rem"
+              height=".8rem"
+            ></i-bs>
+          </div>
+        </th>
+        <th>
+          <div
+            popoverTitle="Valued/Unvalued"
+            [popover]="valued"
+            triggers="mouseenter:mouseleave:click"
+          >
+            V<span class="d-none d-sm-inline">al</span><i-bs
+              name="info-circle"
+              class="ml-1"
+              width=".8rem"
+              height=".8rem"
+            ></i-bs>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let f of typeObj.stack">
+        <td class="sm-text block">{{ f.characteristics.block }}</td>
+        <td class="sm-text position">
+          <div
+            [popoverTitle]="f.characteristics.name"
+            [popover]="f.characteristics.description"
+            triggers="mouseenter:mouseleave:click"
+          >
+            <span class="d-sm-none">
+              {{ f.characteristics.name.substring(0, 4) }}</span
+            >
+
+            <span class="d-none d-sm-inline"> {{ f.characteristics.name }}</span
+            ><i-bs
+              name="info-circle"
+              class="ml-1"
+              width=".8rem"
+              height=".8rem"
+            ></i-bs>
+          </div>
+        </td>
+        <td class="">
+          <strong>
+            <div
+              [popoverTitle]="f.function.longName + ' - ' + f.function.altName"
+              [popover]="element"
+              [popoverContext]="{ element: f.function }"
+              triggers="mouseenter:mouseleave:click"
+            >
+              {{ f.function.name
+              }}<i-bs
+                name="info-circle"
+                class="ml-1"
+                width=".8rem"
+                height=".8rem"
+              ></i-bs>
+            </div>
+          </strong>
+        </td>
+        <td
+          class="sm-text char-col"
+          [ngClass]="{ 'active-col': f.characteristics.accepting }"
+        >
+          {{ f.characteristics.accepting ? "Y" : "N" }}
+        </td>
+        <td
+          class="sm-text char-col"
+          [ngClass]="{ 'active-col': f.characteristics.mental }"
+        >
+          {{ f.characteristics.mental ? "Y" : "N" }}
+        </td>
+        <td
+          class="sm-text char-col"
+          [ngClass]="{ 'active-col': f.characteristics.strong }"
+        >
+          {{ f.characteristics.strong ? "Y" : "N" }}
+        </td>
+        <td
+          class="sm-text char-col"
+          [ngClass]="{ 'active-col': f.characteristics.valued }"
+        >
+          {{ f.characteristics.valued ? "Y" : "N" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="small text-right">
+    <div>
+      Reference:
+      <a href="https://www.sociotype.com/socionics/model_a/" target="_blank"
+        >Sociotype.com - Model A</a
+      >
+    </div>
+  </div>
+</div>
+
+<div class="stack" *ngIf="false">
   <div class="block-stack-row" *ngFor="let f of typeObj.stack">
     <div class="stack-row">
       <div>
@@ -17,51 +161,108 @@
       <span
         class="char-accepting"
         [ngClass]="{ 'char-producing': !f.characteristics.accepting }"
-        >{{ f.characteristics.accepting ? "Independent" : "Dependent" }}</span
       >
+        <div
+          popoverTitle="Independent/Dependent"
+          [popover]="independent"
+          triggers="mouseenter:mouseleave:click"
+        >
+          {{ f.characteristics.accepting ? "Independent" : "Dependent"
+          }}<i-bs
+            name="info-circle"
+            class="ml-1"
+            width=".8rem"
+            height=".8rem"
+          ></i-bs>
+        </div>
+      </span>
       <span
         class="char-mental"
         [ngClass]="{ 'char-vital': !f.characteristics.mental }"
-        >{{ f.characteristics.mental ? "Conscious" : "Unconscious" }}</span
       >
+        <div
+          popoverTitle="Conscious/Unconscious"
+          [popover]="conscious"
+          triggers="mouseenter:mouseleave:click"
+        >
+          {{ f.characteristics.mental ? "Conscious" : "Unconscious"
+          }}<i-bs
+            name="info-circle"
+            class="ml-1"
+            width=".8rem"
+            height=".8rem"
+          ></i-bs></div
+      ></span>
       <span
         class="char-strong"
         [ngClass]="{ 'char-weak': !f.characteristics.strong }"
-        >{{ f.characteristics.strong ? "Strong" : "Weak" }}</span
       >
+        <div
+          popoverTitle="Strong/Weak"
+          [popover]="strong"
+          triggers="mouseenter:mouseleave:click"
+        >
+          {{ f.characteristics.strong ? "Strong" : "Weak"
+          }}<i-bs
+            name="info-circle"
+            class="ml-1"
+            width=".8rem"
+            height=".8rem"
+          ></i-bs>
+        </div>
+      </span>
       <span
         class="char-valued"
         [ngClass]="{ 'char-unvalued': !f.characteristics.valued }"
-        >{{ f.characteristics.valued ? "Valued" : "Unvalued" }}</span
       >
+        <div
+          popoverTitle="Valued/Unvalued"
+          [popover]="valued"
+          triggers="mouseenter:mouseleave:click"
+        >
+          {{ f.characteristics.valued ? "Valued" : "Unvalued"
+          }}<i-bs
+            name="info-circle"
+            class="ml-1"
+            width=".8rem"
+            height=".8rem"
+          ></i-bs></div
+      ></span>
     </div>
   </div>
 </div>
 
-<div class="small">
-<p class="mb-1">
-  <strong>Independent/Dependent</strong> - Independent functions can produce
-  without the constraint of the dependent functions. Dependent functions are
-  conversely constrained by the independent functions and conform to the
-  parameters set by them.
-</p>
-<p class="mb-1">
-  <strong>Conscious/Unconscoius</strong> - Functions either play a conscious
-  role in the verbalization of thought processing, or more of a background,
-  unconscious role. Conscious functions form the direction of thought, but rely
-  on the unconscious functions for additional support.
-</p>
-<p class="mb-1">
-  <strong>Strong/Weak</strong> - Strong functions have a higher capacity and
-  abilty to process information than the type's weak counterparts. Strong
-  functions give the type confidence and resilience in this area of processing.
+<ng-template #independent>
+  Independent functions can produce without the constraint of the dependent
+  functions.
+  <br />
+  Dependent functions are conversely constrained by the independent functions
+  and conform to the parameters set by them.
+</ng-template>
+<ng-template #conscious>
+  Functions either play a conscious role in the verbalization of thought
+  processing, or more of a background, unconscious role. Conscious functions
+  form the direction of thought, but rely on the unconscious functions for
+  additional support.
+</ng-template>
+<ng-template #strong>
+  Strong functions have a higher capacity and abilty to process information than
+  the type's weak counterparts.
+  <br />
+  Strong functions give the type confidence and resilience in this area of
+  processing.
+  <br />
   Weak functions oversimplify the processing required and may instead lean on
   others for help in these areas.
-</p>
-<p class="mb-1">
-  <strong>Valued/Unvalued</strong> - Valued functions contain the information the type cares
-  about. Strong valued functions form the backbone of the personality, while
-  weak valued functions serve as an aspect of processing the type may actively
-  seek help from others in generating.
-</p>
-</div>
+</ng-template>
+<ng-template #valued>
+  Valued functions contain the information the type cares about. Strong valued
+  functions form the backbone of the personality, while weak valued functions
+  serve as an aspect of processing the type may actively seek help from others
+  in generating.
+</ng-template>
+
+<ng-template #element let-element="element">
+  <app-socionics-shape [functions]="[element.name]"></app-socionics-shape>
+  {{ element.description }}
+</ng-template>

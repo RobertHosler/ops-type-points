@@ -1,3 +1,6 @@
 <div class="d-flex">
-  <div [class]="f.toLowerCase() + '-shape'" *ngFor="let f of functions"></div>
+  <div [class]="f.toLowerCase() + '-shape mr-1'" *ngFor="let f of functions"></div>
+</div>
+<div class="elements text-center" *ngIf="showName">
+  <span class="mr-1" *ngFor="let f of functions">{{f}}</span>
 </div>
