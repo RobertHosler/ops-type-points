@@ -23,7 +23,7 @@ export class TypeBubblesComponent implements OnInit {
   @Input() showType: boolean = true;
   @Input() showOptions: boolean = true;
   
-  sizing: string = 'activation';
+  sizing: string = 'adam';
 
   constructor(private opsTypeService : OpsTypeService) {
   }
