@@ -12,6 +12,8 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeDescriptionComponent } from './type-analyzer/type-description/type-description.component';
 import { TypeAnimalComponent } from './type-analyzer/type-animal/type-animal.component';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
@@ -91,6 +93,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     PopoverModule.forRoot(),
     TooltipModule.forRoot(),
     ButtonsModule.forRoot(),
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
     NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [],

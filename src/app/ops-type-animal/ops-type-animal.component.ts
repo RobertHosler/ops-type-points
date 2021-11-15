@@ -10,6 +10,8 @@ export class OpsTypeAnimalComponent implements OnInit {
 
   @Input()
   animalStack: string;
+  @Input()
+  size = 20;
 
   asObj: AnimalStack;
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
 import { OpsTypeService } from '../ops-type.service';
 import { Subscription } from 'rxjs';
 import { OpsType } from '../ops-type';
@@ -8,9 +8,15 @@ import { OpsType } from '../ops-type';
   templateUrl: './type-points.component.html',
   styleUrls: ['./type-points.component.scss'],
 })
-export class TypePointsComponent implements OnInit, OnDestroy {
+export class TypePointsComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input('index') index: number = 0;
+
+  @Input()
+  opsType: OpsType;
+
+  @Input()
+  simple = false;
 
   opsTypes: OpsType[];
   private opsTypesSub: Subscription;
@@ -76,9 +82,18 @@ export class TypePointsComponent implements OnInit, OnDestroy {
     this.opsTypesSub.unsubscribe();
   }
 
+  ngOnChanges(): void {
+    this.setup(this.opsTypes);
+  }
+
   setup(opsTypes: OpsType[]) {
-    this.opsTypes = opsTypes;
-    if (opsTypes.length >= this.index + 1) {
+    if (!this.opsType) {
+      this.opsTypes = opsTypes;
+    } else {
+      this.opsTypes = [this.opsType];
+      this.index = 0;
+    }
+    if (this.opsTypes.length >= this.index + 1) {
       // console.log("Type Points Update, index=" + this.index);
       this.assignPoints();
     }

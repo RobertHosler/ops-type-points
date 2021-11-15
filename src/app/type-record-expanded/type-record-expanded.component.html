@@ -86,12 +86,11 @@
   <div class="right-side">
     <div class="right-side-inner px-3 mt-3 pb-5">
       <div *ngIf="activeTab === 'OPS'">
-        <h2>{{ person.type }}</h2>
+        <h2>{{ person.type }}
+          <app-ops-type-animal size="32" [animalStack]="person.type.substring(9)"></app-ops-type-animal>
+        </h2>
         <div class="ops-visual-row">
-          <div>
-            <app-ops-type-animal [animalStack]="person.type.substring(9)"></app-ops-type-animal>
-          </div>
-          <div class="person-molecule mx-3">
+          <div class="flex-center mx-3">
             <div class="ops-molecule" *ngIf="person.type.length === 16">
               <app-type-bubbles
                 class="text-center"
@@ -106,12 +105,29 @@
             *ngIf="activeTab === 'OPS' && person.type.length === 16"
           >
             <app-type-dashboard [opsType]="personOpsType"></app-type-dashboard>
-            <!-- <app-type-points></app-type-points> -->
           </div>
         </div>
         <div></div>
         <div *ngIf="personOpsType">
-          <app-type-checklist [opsType]="personOpsType"></app-type-checklist>
+          <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                    aria-controls="dropdown-basic">
+              Display <span class="caret"></span>
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                role="menu" aria-labelledby="button-basic">
+              <li role="menuitem" *ngFor="let option of opsOptions"><a class="dropdown-item" (click)="activeOps = option" href="javascript:;">{{option}}</a></li>
+            </ul>
+          </div>
+          <div *ngIf="activeOps === 'Checklist'">
+            <app-type-checklist [opsType]="personOpsType"></app-type-checklist>
+          </div>
+          <div *ngIf="activeOps === 'Description'" class="pt-3">
+            <app-type-description [opsType]="personOpsType"></app-type-description>
+          </div>
+          <div *ngIf="activeOps === 'Points'" class="pt-3">
+            <app-type-points [opsType]="personOpsType" [simple]="true"></app-type-points>
+          </div>
         </div>
       </div>
       <div *ngIf="activeTab === 'Enneagram'">

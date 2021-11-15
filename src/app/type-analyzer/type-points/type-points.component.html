@@ -1,15 +1,18 @@
 <div>
-  <h2>Function Points Table</h2>
+  <h2 *ngIf="!simple">Function Points Table</h2>
   <p>
     Points calculated for each function based on Modality, Grant Order,
     Activation Count, and Savior Status (see dashboard). Points are largely a
     relative representation of how balanced a type is with their given
     functions. Its building off the idea of the activated column in the
     dashboard but acknowledging that saviors and the grant function order still
-    matter.
+    matter to a certain degree.
   </p>
-  <div class="table-wrapper mt-3 mb-3" *ngFor="let opsType of opsTypes; index as i">
-    <div class="">{{ opsType.opsCode }}</div>
+  <div
+    class="table-wrapper mt-3 mb-3"
+    *ngFor="let opsType of opsTypes; index as i"
+  >
+    <div class="" *ngIf="!simple">{{ opsType.opsCode }}</div>
     <table
       class="table dashboard-table"
       [ngClass]="{ 'full-table': displayFullTable }"
@@ -61,6 +64,7 @@
     </button>
     <button
       type="button"
+      *ngIf="!simple"
       class="btn btn-secondary mr-3"
       (click)="configureOptions = !configureOptions"
     >
