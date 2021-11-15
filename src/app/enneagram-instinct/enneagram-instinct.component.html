@@ -1,16 +1,17 @@
-<h3>Instinct Stacking</h3>
+<h4>Instinct Stacking</h4>
 <table class="instinct-table mb-1">
   <tbody>
     <tr *ngFor="let x of stack; let i = index">
-      <td>
+      <td class="stack">
         <ng-container *ngIf="i === 0">
           <div
+          
             tabindex="0"
             popoverTitle="Dominant"
             [popover]="dominantContent"
             triggers="mouseenter:mouseleave:click"
           >
-            {{ x.name }}
+            {{ x.name }}<br>
             <div class="small">
               Dominant<i-bs
                 name="info-circle"
@@ -28,7 +29,7 @@
             [popover]="playContent"
             triggers="mouseenter:mouseleave:click"
           >
-            {{ x.name }}
+            {{ x.name }}<br>
             <div class="small">
               Playground<i-bs
                 name="info-circle"
@@ -46,7 +47,7 @@
             [popover]="blindContent"
             triggers="mouseenter:mouseleave:click"
           >
-            {{ x.name }}
+            {{ x.name }}<br>
             <div class="small">
               Blind Spot<i-bs
                 name="info-circle"
@@ -65,7 +66,7 @@
   </tbody>
 </table>
 
-<div class="small text-center">
+<div class="small">
   Source:
   <a
     href="https://oceanmoonshine9.wordpress.com/intro-to-instinctual-subtypes/"

@@ -63,7 +63,7 @@
   .coin-side {
     display: block;
   }
-  .coin {
+  .coin:not(:last-child) {
     margin-bottom: 1rem;
   }
 }

@@ -756,6 +756,10 @@ const socionicsTypes = [
   'lse',
 ];
 
+const typeAhead = [];
+typeAhead.push(socionicsTypes);
+typeAhead.push(tagTerms);
+
 export const searchModel = {
   functions: functions,
   observerFunctions: observerFunctions,
@@ -778,4 +782,5 @@ export const searchModel = {
   personTerms: personTerms,
   predictions: predictions,
   socionicsTypes: socionicsTypes,
+  typeAhead: typeAhead
 };

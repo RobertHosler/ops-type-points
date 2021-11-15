@@ -6,7 +6,7 @@
       (click)="showAll = !showAll"
       [ngClass]="{ active: showAll }"
     >
-      {{ showAll ? 'Hide Inactive': 'Show Inactive'}}
+      {{ showAll ? "Hide Inactive" : "Show Inactive" }}
     </button>
   </div>
   <div class="coin" *ngFor="let coin of coins">
@@ -49,4 +49,14 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="small">
+  Source:
+  <a
+    href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit"
+    target="_blank"
+  >
+    Class Notes
+  </a>
 </div>

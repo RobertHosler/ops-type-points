@@ -73,7 +73,7 @@
 table {
   th,
   td {
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 1rem;
     text-align: center;
   }
   td {
@@ -82,28 +82,38 @@ table {
   }
   thead {
     // background-color: #ccc;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
   .char-col {
     // background-color: #5d3789;
-    color: $light;
+    color: $dark;
   }
   .active-col {
-    background-color: $light;
-    color: $dark;
+    // background-color: $light;
+    // color: $dark;
   }
   .sm-text {
     font-size: 0.8rem;
+  }
+  tbody {
+    tr:nth-child(1),
+    tr:nth-child(2),
+    tr:nth-child(5),
+    tr:nth-child(6) {
+      background-color: #ddd;
+    }
+  }
+}
+@include media-breakpoint-down("sm", $grid-breakpoints) {
+  table {
+    th,
+    td {
+      padding: 0.5rem;
+    }
   }
 }
 @include media-breakpoint-down("xs", $grid-breakpoints) {
   .block {
     display: none;
-  }
-  table {
-    th,
-    td {
-      padding: 0.25rem;
-    }
   }
 }

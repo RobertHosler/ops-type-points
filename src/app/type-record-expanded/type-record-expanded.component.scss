@@ -1,6 +1,96 @@
 @import "~src/assets/variables";
 @import "~node_modules/bootstrap/scss/mixins/breakpoints";
 
+.left-side {
+  background-color: #eee;
+}
+.person-row {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+.type-row {
+  display: flex;
+  padding-top: .5rem;
+  padding-bottom: 1rem;
+  .type-indicator {
+    width: 100px;
+  }
+}
+.type-selection > div {
+  margin-bottom: 1rem;
+}
+.type-selector {
+  .btn {
+    width: 100%;
+  }
+}
+
+@include media-breakpoint-up("lg", $grid-breakpoints) {
+  .person-row {
+    .left-side {
+      width: 33%;
+      border-right: 1px solid;
+    }
+    .left-side-inner {
+      max-width: 350px;
+      margin-left: auto;
+    }
+    .right-side {
+      width: 77%;
+    }
+    .right-side-inner {
+      max-width: 1000px;
+    }
+  }
+  .type-row {
+    width: 300px;
+  }
+  .type-selector {
+    padding-right: 1rem;
+  }
+}
+@include media-breakpoint-down("md", $grid-breakpoints) {
+  .person-row {
+    display: block;
+    .right-side,
+    .left-side {
+      width: 100%;
+      border-bottom: 1px solid;
+    }
+    .left-side-inner {
+      width: 100%;
+      margin-left: 0px;
+    }
+  }
+  .left-side-inner {
+    display: flex;
+    .type-selection {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 1rem;
+      border-left: 1px solid;
+      padding-left: 1rem;
+    }
+  }
+}
+@include media-breakpoint-down("xs", $grid-breakpoints) {
+  .left-side-inner {
+    display: block;
+    .type-selection {
+      margin-left: 0;
+      border-left: none;
+      padding-left: 0;
+    }
+  }
+}
+.person-wrapper {
+  max-width: 300px;
+  h1 {
+    margin: 0px;
+  }
+}
 .person-picture {
   display: flex;
   flex-direction: column;
@@ -34,25 +124,17 @@
   margin-bottom: 1rem;
   min-width: 100px;
 }
-.ops-molecule {
-  display: none;
-}
-.ops-indicator {
-  display: flex;
-}
-@include media-breakpoint-up("lg", $grid-breakpoints) {
-  .ops-molecule {
-    display: block;
-  }
-  .ops-indicator {
-    display: none;
-  }
-}
 @include media-breakpoint-up("sm", $grid-breakpoints) {
   .person-dashboard {
     text-align: center;
     app-type-dashboard {
       display: inline-block;
     }
+  }
+}
+
+@include media-breakpoint-up("md", $grid-breakpoints) {
+  .left-border {
+    border-left: 1px solid;
   }
 }

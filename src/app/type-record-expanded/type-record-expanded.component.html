@@ -1,108 +1,141 @@
-<div *ngIf="person" class="container mb-5">
-  <div class="text-center mb-3">
-    <h1>{{ person.name }}</h1>
-    <div class="mb-2">
-      <app-type-tags [tags]="person.tags" [allActive]="true"></app-type-tags>
-    </div>
-    <div class="btn-group type-options">
-      <button
-        class="btn btn-gray"
-        *ngIf="person.type"
-        (click)="activeTab = 'OPS'"
-        [ngClass]="{ active: activeTab === 'OPS' }"
-      >
-        {{ person.type }}
-      </button>
-      <button
-        class="btn btn-gray"
-        *ngIf="person.eType"
-        (click)="activeTab = 'Enneagram'"
-        [ngClass]="{ active: activeTab === 'Enneagram' }"
-      >
-        {{ person.fullEType }}
-      </button>
-      <button
-        class="btn btn-gray"
-        *ngIf="person.wssType"
-        (click)="activeTab = 'WSS'"
-        [ngClass]="{ active: activeTab === 'WSS' }"
-      >
-        {{ person.wssType }}
-      </button>
+<div class="person-row" *ngIf="person">
+  <div class="left-side">
+    <div class="left-side-inner pl-3 py-3">
+      <div class="person-wrapper">
+        <h1>{{ person.name }}</h1>
+        <div class="person-picture">
+          <div *ngIf="person.pictureUrl" class="person-img">
+            <img [src]="person.pictureUrl" />
+          </div>
+          <div *ngIf="!person.pictureUrl" class="person-img-missing">
+            <img src="/assets/images/sp-logo-no-bg.png" />
+          </div>
+        </div>
+        <div class="mb-2">
+          <app-type-tags
+            [tags]="person.tags"
+            [allActive]="true"
+          ></app-type-tags>
+        </div>
+      </div>
+      <div class="type-selection">
+        <div *ngIf="person.type">
+          <div class="type-selector">
+            <button
+              class="btn btn-gray"
+              *ngIf="person.type"
+              (click)="activeTab = 'OPS'"
+              [ngClass]="{ active: activeTab === 'OPS' }"
+            >
+              Objective Personality
+            </button>
+          </div>
+          <div class="type-row">
+            <app-type-indicator
+              class="type-indicator"
+              [option]="1"
+              [type]="person.type"
+            ></app-type-indicator>
+            <div><strong>{{ person.type }}</strong></div>
+          </div>
+        </div>
+        <div *ngIf="person.eType">
+          <div class="type-selector">
+            <button
+              class="btn btn-gray"
+              *ngIf="person.eType"
+              (click)="activeTab = 'Enneagram'"
+              [ngClass]="{ active: activeTab === 'Enneagram' }"
+            >
+              Enneagram
+            </button>
+          </div>
+          <div class="type-row">
+            <app-type-indicator
+              class="type-indicator"
+              [option]="1"
+              [eType]="person.fullEType"
+            ></app-type-indicator>
+            <div><strong>{{ person.fullEType }}</strong></div>
+          </div>
+        </div>
+        <div *ngIf="person.wssType">
+          <div class="type-selector">
+            <button
+              class="btn btn-gray"
+              *ngIf="person.wssType"
+              (click)="activeTab = 'WSS'"
+              [ngClass]="{ active: activeTab === 'WSS' }"
+            >
+              Socionics
+            </button>
+          </div>
+          <div class="type-row">
+            <app-socionics-shape
+              class="type-indicator"
+              [type]="person.wssType"
+            ></app-socionics-shape>
+            <div>
+              <div><strong>{{ person.wssType }}</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="ops-visual-row">
-    <div class="person-picture">
-      <div *ngIf="person.pictureUrl" class="person-img">
-        <img [src]="person.pictureUrl" />
-      </div>
-      <div *ngIf="!person.pictureUrl" class="person-img-missing">
-        <img src="/assets/images/sp-logo-no-bg.png" />
-      </div>
-    </div>
-    <div class="person-molecule mx-3">
+  <div class="right-side">
+    <div class="right-side-inner px-3 mt-3 pb-5">
       <div *ngIf="activeTab === 'OPS'">
-        <div class="ops-molecule" *ngIf="person.type.length === 16">
-          <app-type-bubbles
-            class="text-center"
-            [showOptions]="false"
-            [showType]="false"
-            [opsTypes]="[personOpsType]"
-          ></app-type-bubbles>
+        <h2>{{ person.type }}</h2>
+        <div class="ops-visual-row">
+          <div class="person-molecule mx-3">
+            <div class="ops-molecule" *ngIf="person.type.length === 16">
+              <app-type-bubbles
+                class="text-center"
+                [showOptions]="false"
+                [showType]="false"
+                [opsTypes]="[personOpsType]"
+              ></app-type-bubbles>
+            </div>
+          </div>
+          <div
+            class="person-dashboard"
+            *ngIf="activeTab === 'OPS' && person.type.length === 16"
+          >
+            <app-type-dashboard [opsType]="personOpsType"></app-type-dashboard>
+            <!-- <app-type-points></app-type-points> -->
+          </div>
         </div>
-        <div class="person-indicator ops-indicator">
-          <app-type-indicator
-            [option]="1"
-            [type]="person.type"
-          ></app-type-indicator>
+        <div></div>
+        <div *ngIf="personOpsType">
+          <app-type-checklist [opsType]="personOpsType"></app-type-checklist>
         </div>
       </div>
       <div *ngIf="activeTab === 'Enneagram'">
-        <div class="person-indicator">
-          <app-type-indicator
-            [option]="1"
-            [eType]="person.fullEType"
-          ></app-type-indicator>
+        <div>
+          <h2>{{ person.fullEType }}</h2>
+        </div>
+        <div>
+          <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
+        </div>
+        <div *ngIf="person.instinct">
+          <app-enneagram-instinct
+            [instinct]="person.instinct"
+          ></app-enneagram-instinct>
+        </div>
+        <div *ngIf="person.trifix">
+          <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>
         </div>
       </div>
       <div *ngIf="activeTab === 'WSS'">
-        <div class="person-indicator">
-          <app-socionics-shape [type]="person.wssType" [showName]="true"></app-socionics-shape>
+        <div>
+          <h2>{{ person.wssType }}</h2>
         </div>
+        <app-socionics-reference
+          [type]="person.wssType"
+        ></app-socionics-reference>
       </div>
     </div>
-    <div class="person-dashboard" *ngIf="activeTab === 'OPS' && person.type.length === 16">
-      <app-type-dashboard [opsType]="personOpsType"></app-type-dashboard>
-      <!-- <app-type-points></app-type-points> -->
-    </div>
-    <div *ngIf="activeTab === 'Enneagram'">
-      <div>
-        <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
-      </div>
-    </div>
-    <div *ngIf="activeTab === 'WSS'">
-      <app-socionics-reference [type]="person.wssType"></app-socionics-reference>
-    </div>
-  </div>
-  <div *ngIf="activeTab === 'OPS'">
-    <div *ngIf="personOpsType">
-      <app-type-checklist [opsType]="personOpsType"></app-type-checklist>
-    </div>
-  </div>
-  <div *ngIf="activeTab === 'Enneagram'">
-    <div class="row">
-      <div class="col-lg-6" *ngIf="person.instinct">
-        <app-enneagram-instinct
-          [instinct]="person.instinct"
-        ></app-enneagram-instinct>
-      </div>
-      <div class="col-lg-6" *ngIf="person.trifix">
-        <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="activeTab === 'WSS'">
-    <!-- <app-socionics-reference [type]="person.wssType"></app-socionics-reference> -->
   </div>
 </div>
 

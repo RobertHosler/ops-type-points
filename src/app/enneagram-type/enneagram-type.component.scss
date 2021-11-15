@@ -1,13 +1,12 @@
 .etype-table {
-  max-width: 750px;
-    td {
-      border: 1px solid;
-      min-width: 50px;
-      padding: .25rem .5rem;
-    }
-    td:first-child {
-        text-align: center;
-        background: #ccc;
-    }
+  width: 100%;
+  td {
+    border: 1px solid;
+    min-width: 50px;
+    padding: 0.25rem 0.5rem;
   }
-  
+  td:first-child {
+    text-align: center;
+    background: #ccc;
+  }
+}
