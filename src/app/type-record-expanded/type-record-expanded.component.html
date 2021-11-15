@@ -88,6 +88,9 @@
       <div *ngIf="activeTab === 'OPS'">
         <h2>{{ person.type }}</h2>
         <div class="ops-visual-row">
+          <div>
+            <app-ops-type-animal [animalStack]="person.type.substring(9)"></app-ops-type-animal>
+          </div>
           <div class="person-molecule mx-3">
             <div class="ops-molecule" *ngIf="person.type.length === 16">
               <app-type-bubbles
