@@ -21,8 +21,13 @@
   margin-bottom: 1rem;
 }
 .type-selector {
-  .btn {
+   & > .btn,
+  .btn-group {
     width: 100%;
+    max-width: 250px;
+    .dropdown-menu {
+      width: 100%;
+    }
   }
 }
 
