@@ -184,11 +184,11 @@ function mergeMaps(nameMap, interviewMap) {
           typeArr[1].startsWith("N") || typeArr[1].startsWith("S")
             ? "Observer"
             : "Decider";
-        deciderNeed = typeArr[1].includes("F") ? "F" : "T";
-        observerNeed = typeArr[1].includes("S") ? "S" : "N";
-        deciderLetter =
+        deciderLetter = typeArr[1].includes("F") ? "F" : "T";
+        observerLetter = typeArr[1].includes("S") ? "S" : "N";
+        deciderNeed =
           typeArr[1].includes("Fe") || typeArr[1].includes("Te") ? "De" : "Di";
-        observerLetter =
+        observerNeed =
           typeArr[1].includes("Se") || typeArr[1].includes("Ne") ? "Oe" : "Oi";
         let animals2 = typeArr[2].substring(0, 2);
         infoAnimal = animals2.includes("B") ? "B" : "C";
