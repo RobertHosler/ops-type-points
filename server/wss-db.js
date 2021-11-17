@@ -1,14 +1,22 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates } = require("./airtable");
 
 const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
 const HOST = "https://api.airtable.com/v0/apphGksK3AXCVIcCr/";
 const TABLE_NAME = "WSS DB";
 const VIEW = "Grid view";
 const MAX_RECORD = 12000;
-const fields = ["Name", "Type", "Picture", "Sex", "Link"];
-const hideMissingPictures = true;
+const fields = [
+  "Name",
+  "Type",
+  "Picture",
+  "Sex",
+  "Link",
+  "Last Modified",
+  "Created Date",
+];
+const hideMissingPictures = false;
 
 const url = new URL(HOST + TABLE_NAME);
 url.searchParams.append("view", VIEW);
@@ -48,6 +56,7 @@ function convertRecords(records) {
       type: record.fields.Type,
       link: record.fields.Link,
       pictureUrl: getRecordPicture(record),
+      lastModified: getLastModified(record)
     });
   });
   return result;
@@ -56,6 +65,7 @@ function convertRecords(records) {
 function mergeMaps(nameMap, wssMap) {
   const matches = [];
   let i = 0;
+  let j = 0;
   wssMap.forEach((wssVal, wssKey) => {
     const nameVal = nameMap.get(wssKey);
     if (nameVal) {
@@ -65,23 +75,29 @@ function mergeMaps(nameMap, wssMap) {
       if (wssVal.pictureUrl) {
         nameVal.pictureUrl = wssVal.pictureUrl;
       }
+      if (compareModifiedDates(nameVal.lastModified, wssVal.lastModified) > 0) {
+        nameVal.lastModified = wssVal.lastModified;
+      }
       matches.push(wssKey);
     } else {
       // Add to nameMap
-      i++;
+      j++;
       if (!hideMissingPictures || (hideMissingPictures && wssVal.pictureUrl)) {
+        i++;
         nameMap.set(wssKey, {
           name: wssKey,
+          tags: ["WSS"],
           wssType: wssVal.type,
           wssLink: wssVal.link,
           pictureUrl: wssVal.pictureUrl,
           sex: wssVal.sex,
+          lastModified: wssVal.lastModified
         });
       }
     }
   });
   // console.log(matches);
-  console.log("WSS Matches", matches.length, "New Persons", i);
+  console.log("WSS Matches", matches.length, "New Persons", i + '/' + j);
 }
 
 exports.url = url;

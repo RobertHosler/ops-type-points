@@ -133,13 +133,13 @@ exports.compareModifiedDates = (a, b) => {
   if (!a && !b) {
     return 0;
   }
-  if (a && !b || a > b) {
+  if (a && !b) {
     return 1;
   }
-  if (b && !a || b > a) {
+  if (b && !a) {
     return -1;
   }
-  return 0;
+  return Date.parse(b) - Date.parse(a);
 };
 
 exports.getLastModified = (record) => {

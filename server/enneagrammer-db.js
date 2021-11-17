@@ -1,13 +1,22 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates } = require("./airtable");
 
 const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
 const HOST = "https://api.airtable.com/v0/apptRQDj4AV89IiNn/";
 const TABLE_NAME = "Enneagrammer DB";
 const VIEW = "Grid view";
 const MAX_RECORD = 10000;
-const fields = ["Name", "Instinct", "Type", "Trifix", "Picture", "Sex"];
+const fields = [
+  "Name",
+  "Instinct",
+  "Type",
+  "Trifix",
+  "Picture",
+  "Sex",
+  "Last Modified",
+  "Created Date",
+];
 
 const url = new URL(HOST + TABLE_NAME);
 url.searchParams.append("view", VIEW);
@@ -42,7 +51,7 @@ const converterList = [
   { org: "Joaquin Pheonix", result: "Joaquin Phoenix" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
   { org: "Alistair Crowley", result: "Aleister Crowley" },
-  { org: "\"The Situation\"", result: "Mike 'The Situation' Sorrentino" },
+  { org: '"The Situation"', result: "Mike 'The Situation' Sorrentino" },
   { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
   { org: "50 Cent", result: "Curtis '50 Cent' Jackson" },
   { org: "R Kelly", result: "Robert Kelly" },
@@ -54,6 +63,7 @@ const converterList = [
   { org: "William Buckley", result: "William F. Buckley" },
   { org: "Mitch McConnell", result: "Mitch McConnel" },
   { org: "Katharine Hepburn", result: "Katherine Hepburn" },
+  { org: "W. A. Mozart", result: "Wolfgang Amadeus Mozart" },
 ];
 function convertName(name) {
   name = name.trim();
@@ -77,21 +87,30 @@ function convertRecords(records) {
   records.forEach((record) => {
     //TODO: put in map
     if (!record.fields.Name || record.fields.Name.trim().length === 0) {
-      return;//skip empty names
+      return; //skip empty names
     }
     const name = convertName(record.fields.Name);
-    const coreEType = record.fields.Type && record.fields.Type.length ? record.fields.Type.substring(0, 1) : '?';
-    const wing = record.fields.Type && record.fields.Type.length > 2 ? record.fields.Type.substring(2, 3) : '?';
+    const coreEType =
+      record.fields.Type && record.fields.Type.length
+        ? record.fields.Type.substring(0, 1)
+        : "?";
+    const wing =
+      record.fields.Type && record.fields.Type.length > 2
+        ? record.fields.Type.substring(2, 3)
+        : "?";
     result.set(name, {
       name: name,
       coreEType: coreEType,
       coreETypeLong: getCoreETypeLong(coreEType),
       wing: wing,
       eType: record.fields.Type,
-      instinct: record.fields.Instinct ? record.fields.Instinct.toLowerCase() : '??/??',
+      instinct: record.fields.Instinct
+        ? record.fields.Instinct.toLowerCase()
+        : "??/??",
       trifix: record.fields.Trifix,
       sex: record.fields.Sex,
-      pictureUrl: getRecordPicture(record)
+      pictureUrl: getRecordPicture(record),
+      lastModified: getLastModified(record)
     });
   });
   return result;
@@ -122,13 +141,16 @@ function buildFullEType(eType) {
 
 function buildTritype(s) {
   if (s && s.length === 11) {
-    const parts = s.split(' ');
+    const parts = s.split(" ");
     if (parts.length === 3) {
-      let tritype = parts[0].substring(0, 1) + parts[1].substring(0, 1) + parts[2].substring(0, 1);
+      let tritype =
+        parts[0].substring(0, 1) +
+        parts[1].substring(0, 1) +
+        parts[2].substring(0, 1);
       // console.log('tritype', tritype);
       return tritype;
     } else {
-      console.log('tritype part length issue', s);
+      console.log("tritype part length issue", s);
       return s;
     }
   } else {
@@ -137,25 +159,25 @@ function buildTritype(s) {
 }
 
 function getCoreETypeLong(coreEType) {
-  switch(coreEType) {
-    case '1':
-      return 'One';
-    case '2':
-      return 'Two';
-    case '3':
-      return 'Three';
-    case '4':
-      return 'Four';
-    case '5':
-      return 'Five';
-    case '6':
-      return 'Six';
-    case '7':
-      return 'Seven';
-    case '8':
-      return 'Eight';
-    case '9':
-      return 'Nine';
+  switch (coreEType) {
+    case "1":
+      return "One";
+    case "2":
+      return "Two";
+    case "3":
+      return "Three";
+    case "4":
+      return "Four";
+    case "5":
+      return "Five";
+    case "6":
+      return "Six";
+    case "7":
+      return "Seven";
+    case "8":
+      return "Eight";
+    case "9":
+      return "Nine";
   }
 }
 
@@ -174,9 +196,14 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.fullEType = buildFullEType(eVal);
       nameVal.fullTrifix = eVal.trifix; // 9w1 6w5 3w4 (may contain wings)
       nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
-      nameVal.tags ? nameVal.tags.push("Enneagrammer") : nameVal.tags = ["Enneagrammer"];
+      nameVal.tags
+        ? nameVal.tags.push("Enneagrammer")
+        : (nameVal.tags = ["Enneagrammer"]);
       if (eVal.pictureUrl) {
         nameVal.pictureUrl = eVal.pictureUrl;
+      }
+      if (compareModifiedDates(nameVal.lastModified, eVal.lastModified) > 0) {
+        nameVal.lastModified = eVal.lastModified;
       }
       matches.push(eKey);
     } else {
@@ -195,7 +222,8 @@ function mergeMaps(nameMap, eTypeMap) {
         fullEType: buildFullEType(eVal),
         tags: ["Enneagrammer"],
         sex: eVal.sex,
-        trans: false
+        trans: false,
+        lastModified: eVal.lastModified
       });
     }
   });
