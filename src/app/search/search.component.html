@@ -123,6 +123,13 @@
           >
             Ennea
           </button>
+          <button
+            class="btn btn-gray btn-sm"
+            [ngClass]="{ active: sortBy === 'modified' }"
+            (click)="resort('modified')"
+          >
+            Recent
+          </button>
         </div>
       </div>
       <div class="d-inline-block">

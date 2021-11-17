@@ -229,7 +229,9 @@ export class SearchComponent implements OnInit {
     if (sort) {
       this.displayedRecords.sort((a, b) => {
         let result = 0;
-        if (this.sortBy === 'name') {
+        if (this.sortBy === 'modified') {
+          result = this.sortModified(a.lastModified,b.lastModified);
+        } else if (this.sortBy === 'name') {
           result = this.sortName(a, b);
         } else if (this.sortBy === 'ennea') {
           result = this.sortEType(a, b);
@@ -256,6 +258,19 @@ export class SearchComponent implements OnInit {
       });
       this.displayedRecords = this.displayedRecords.splice(0);
     }
+  }
+
+  private sortModified(a:string, b:string) {
+    if (!a && !b) {
+      return 0;
+    }
+    if (a && !b) {
+      return 1;
+    }
+    if (b && !a) {
+      return -1;
+    }
+    return Date.parse(b) - Date.parse(a);
   }
 
   private sortName(a, b) {

@@ -128,3 +128,24 @@ exports.getRecordPicture = (record) => {
     return '';
   }
 };
+
+exports.compareModifiedDates = (a, b) => {
+  if (!a && !b) {
+    return 0;
+  }
+  if (a && !b || a > b) {
+    return 1;
+  }
+  if (b && !a || b > a) {
+    return -1;
+  }
+  return 0;
+};
+
+exports.getLastModified = (record) => {
+  let lastModified = record.fields["Last Modified"];
+  if (!lastModified) {
+    lastModified = record.fields["Created Date"];
+  }
+  return lastModified;
+}

@@ -165,6 +165,7 @@ function mergeMaps(nameMap, eTypeMap) {
   eTypeMap.forEach((eVal, eKey) => {
     const nameVal = nameMap.get(eKey);
     if (nameVal) {
+      // Merge
       nameVal.coreEType = eVal.coreEType; // 9
       nameVal.coreETypeLong = eVal.coreETypeLong; // nine
       nameVal.wing = eVal.wing; // 1
@@ -174,7 +175,7 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.fullTrifix = eVal.trifix; // 9w1 6w5 3w4 (may contain wings)
       nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
       nameVal.tags ? nameVal.tags.push("Enneagrammer") : nameVal.tags = ["Enneagrammer"];
-      if (eval.pictureUrl) {
+      if (eVal.pictureUrl) {
         nameVal.pictureUrl = eVal.pictureUrl;
       }
       matches.push(eKey);

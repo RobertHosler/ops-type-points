@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture } = require("./airtable");
+const { getRecordPicture, getLastModified } = require("./airtable");
 
 const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
 const OP_DB_HOST = "https://api.airtable.com/v0/appudq0aG1uwqIFX5/";
@@ -31,6 +31,8 @@ listUrl.searchParams.append("fields", "Play vs Sleep");
 listUrl.searchParams.append("fields", "Biological Sex");
 listUrl.searchParams.append("fields", "Transgender");
 listUrl.searchParams.append("fields", "Type Number");
+listUrl.searchParams.append("fields", "Last Modified");
+listUrl.searchParams.append("fields", "Created Date");
 
 const opsTypedPersons = {
   dbKey: OP_DB_KEY,
@@ -245,6 +247,7 @@ function convertPersons(records) {
         : "",
       sex: record.fields["Biological Sex"],
       trans: record.fields.Transgender,
+      lastModified: getLastModified(record),
     };
     if (typedPerson.type && typedPerson.type.length === 16) {
       typedPerson.s1 = typedPerson.type.substring(3, 5);

@@ -155,6 +155,7 @@ const terms = require("./server/ops-terms");
 const nineTypes = require("./server/e9-terms");
 const enneagrammer = require("./server/enneagrammer-db");
 const wss = require("./server/wss-db");
+const interviews = require("./server/interview-db");
 const airtable = require("./server/airtable");
 const {  findSimilarPromise } = require("./server/similar-names");
 const { scrape } = require("./server/enneagrammer-scrape");
@@ -233,6 +234,7 @@ function fetchAirtableData() {
     let childrenMap;
     let eTypeMap;
     let wssMap;
+    let interviewMap;
     // get Persons
     airtable
       .getAll({
@@ -266,6 +268,18 @@ function fetchAirtableData() {
         wssMap = result;
       })
       .then(() => {
+        return airtable.getAll({
+          name: "Interview DB",
+          url: interviews.url,
+        });
+      })
+      .then((records) => {
+        const result = interviews.convertRecords(records);
+        interviewMap = result;
+      })
+      .then(() => {
+        // Merge Map Results Together
+        interviews.mergeMaps(nameMap, interviewMap);
         enneagrammer.mergeMaps(nameMap, eTypeMap);
         wss.mergeMaps(nameMap, wssMap);
       })

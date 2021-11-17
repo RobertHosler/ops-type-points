@@ -239,6 +239,11 @@ export class TypedPerson {
   fullEType?: string;// so/sp - 9w1 - 963
   wssType?: string;
   wssLink?: string;
+  binLink?: string;
+  enfpLink?: string;
+  otherLinks?: string;
+  ytLink?: string;
+  lastModified?: string;
 }
 
 export class Parent {
