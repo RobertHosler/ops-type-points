@@ -1,5 +1,8 @@
 @import "~src/assets/variables";
 
+.top-bg {
+  background-color: purple;
+}
 .search-type-group {
   flex-wrap: wrap;
 }
@@ -178,11 +181,59 @@ input.form-control {
     flex-wrap: wrap;
   }
 }
+.fix-bg {
+  background-color: #eee;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.fix-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  & > div {
+    margin-left: .5rem;
+    margin-right: .5rem;
+    margin-bottom: 1rem;
+  }
+}
 
+@media (max-width: 550px) {
+  .fix-wrapper {
+    & > div {
+      width: 100%;
+    }
+  }
+}
+.search-instructions {
+  h2 {
+    text-align: right;
+    // font-size: 1.35rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+  .rules {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .rule {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: .25rem;
+    .rule-name {
+      min-width: 200px;
+      margin-left: 1rem;
+    }
+    .rule-example {
+      margin-left: 1.25rem;
+      min-width: 125px;
+    }
+  }
+}
 .previous-search-wrapper {
   margin-left: -0.25rem;
   margin-right: -0.25rem;
 }
+.fix-bubble,
 .previous-search {
   display: inline-block;
   margin-left: 0.25rem;
@@ -208,6 +259,9 @@ input.form-control {
       color: $cad-orange;
     }
   }
+}
+.fix-bg .fix-bubble {
+  background: #fff;
 }
 .previous-search-clear {
   color: $primary;

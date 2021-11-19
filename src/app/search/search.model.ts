@@ -422,6 +422,7 @@ const coreETypeStrings = [];
 const coreETypeLong = [];
 const eTypeStrings = [];
 const trifixStrings = [];
+const trifixStacks = [];
 
 const head = ['5', '6', '7'];
 const heart = ['2', '3', '4'];
@@ -437,6 +438,7 @@ eTypes.forEach((eType) => {
 gut.forEach((gutType) => {
   heart.forEach((heartType) => {
     head.forEach((headType) => {
+      trifixStacks.push(heartType + headType + gutType);
       trifixStrings.push(gutType + heartType + headType);
       trifixStrings.push(gutType + headType + heartType);
       trifixStrings.push(heartType + headType + gutType);
@@ -447,6 +449,7 @@ gut.forEach((gutType) => {
   });
 });
 trifixStrings.sort();
+trifixStacks.sort();
 
 const predictions = [
   { term: 'kinesthetic', count: 4 },
@@ -777,6 +780,7 @@ export const searchModel = {
   coreETypeLong: coreETypeLong,
   eTypeStrings: eTypeStrings,
   trifixStrings: trifixStrings,
+  trifixStacks: trifixStacks,
   comboTerms: comboTerms,
   tagTerms: tagTerms,
   personTerms: personTerms,

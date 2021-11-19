@@ -61,6 +61,7 @@ export class SearchComponent implements OnInit {
   eTypes = searchModel.eTypes;
   instincts = searchModel.instincts;
   typeOnlyStrings = searchModel.typeOnlyStrings;
+  searchModel = searchModel;
 
   allNames: Map<string, TypedPerson>;
   recordCount = 0;
@@ -766,6 +767,13 @@ export class SearchComponent implements OnInit {
     this.options.forEach((option) => {
       option.val = null;
     });
+  }
+
+  clearSearch() {
+    this.textString = '';
+    this.nameInput.nativeElement.focus();
+    this.searchInitiated = false;
+    this.updateRoute();
   }
 }
 

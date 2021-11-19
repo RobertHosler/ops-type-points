@@ -1,218 +1,402 @@
-<div #container class="container">
-  <div *ngIf="false" class="img-right img-heading">
-    <img src="/assets/images/database.png" />
+<div class="">
+  <div #container class="container mb-5">
+    <div *ngIf="false" class="img-right img-heading">
+      <img src="/assets/images/database.png" />
+    </div>
+    <div *ngIf="!searchInitiated" class="search-top">
+      <h1>
+        <span class="search-heading">Search the </span
+        ><span class="sp-branding">Database</span>
+      </h1>
+      <div>
+        <p class="lead">
+          <strong>{{ recordCount }}</strong> people typed in the
+          <strong>Objective Personality System</strong>,
+          <strong>Enneagram</strong>, and <strong>Socionics</strong>.
+        </p>
+      </div>
+      <div class="d-none d-sm-flex my-2" *ngIf="false">
+        <app-type-indicator [option]="1"></app-type-indicator>
+        <div class="mx-3">
+          <app-type-indicator
+            [option]="1"
+            type="MF-Fe/Ni-BP/C(S)"
+          ></app-type-indicator>
+        </div>
+        <div class="mx-3">
+          <app-type-indicator
+            [option]="1"
+            type="FM-Fi/Se-CS/B(P)"
+          ></app-type-indicator>
+        </div>
+        <div class="mx-3">
+          <app-type-indicator
+            [option]="1"
+            type="FF-Ti/Ni-SB/P(C)"
+          ></app-type-indicator>
+        </div>
+      </div>
+    </div>
+    <div class="clear-right"></div>
+    <div class="my-3">
+      <div class="form-group">
+        <!-- <label for="name" class="name-label">Search by Name or Type:</label> -->
+        <div class="input-group">
+          <input
+            #nameInput
+            id="name"
+            type="text"
+            class="form-control border-primary"
+            minlength="2"
+            required
+            autocomplete="off"
+            [placeholder]="placeholderText"
+            (keyup)="searchAll()"
+            [(ngModel)]="textString"
+            name="name"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" (click)="clearSearch()">
+              Clear
+            </button>
+          </div>
+        </div>
+        <div class="help small mb-3" *ngIf="false">
+          Searches for the text within the name and types field of the person
+          record. Examples:
+          <a [routerLink]="['/search']" [queryParams]="{ text: 'john cena' }"
+            >john cena</a
+          >,
+          <a [routerLink]="['/search']" [queryParams]="{ text: 'sp/so - 6w7' }"
+            >sp/so - 6w7</a
+          >,
+          <a [routerLink]="['/search']" [queryParams]="{ text: 'ff-ti/se' }"
+            >ff-ti/se</a
+          >
+        </div>
+      </div>
+      <div *ngIf="false">
+        <div class="mb-3">
+          <span class="search-type-label">Additional Search Options</span>
+          <div>
+            <button
+              *ngFor="let st of searchToggles"
+              class="btn btn-gray mr-2"
+              (click)="toggleSearchOptions(st.name)"
+              [ngClass]="{ active: st.active }"
+            >
+              {{ st.name }}
+            </button>
+          </div>
+        </div>
+        <div [ngClass]="{ 'd-none': !enneaToggle.active }">
+          <ng-component *ngTemplateOutlet="ennea"></ng-component>
+        </div>
+        <div [ngClass]="{ 'd-none': !opsToggle.active }">
+          <ng-component *ngTemplateOutlet="ops"></ng-component>
+        </div>
+      </div>
+      <div class="button-wrapper" *ngIf="searchInitiated">
+        <div class="d-inline-block">
+          <div class="small">Sort:</div>
+          <div class="btn-group">
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: sortBy === 'name' }"
+              (click)="resort('name')"
+            >
+              Name
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: sortBy === 'ops' }"
+              (click)="resort('ops')"
+            >
+              OPS
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: sortBy === 'ennea' }"
+              (click)="resort('ennea')"
+            >
+              Ennea
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: sortBy === 'modified' }"
+              (click)="resort('modified')"
+            >
+              Recent
+            </button>
+          </div>
+        </div>
+        <div class="d-inline-block">
+          <div class="small">Color:</div>
+          <div class="btn-group">
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: grayscale }"
+              (click)="grayscale = !grayscale"
+            >
+              Gray
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: !grayscale }"
+              (click)="grayscale = !grayscale"
+            >
+              Default
+            </button>
+          </div>
+        </div>
+        <div class="d-inline-block">
+          <div class="small">Display:</div>
+          <div class="btn-group">
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: cards }"
+              (click)="cards = !cards"
+            >
+              Cards
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: !cards }"
+              (click)="cards = !cards"
+            >
+              Default
+            </button>
+          </div>
+        </div>
+        <div class="d-inline-block">
+          <button
+            class="btn btn-gray btn-sm"
+            [ngClass]="{ active: showHelp }"
+            (click)="showHelp = !showHelp"
+          >
+            Help
+          </button>
+        </div>
+      </div>
+      <div *ngIf="showHelp" class="mt-2">
+        <ng-component *ngTemplateOutlet="tips"></ng-component>
+      </div>
+      <div class="mt-2" *ngIf="searches.size > 0">
+        <div>Previous Searches</div>
+        <div class="previous-search-wrapper">
+          <span
+            *ngFor="let previousSearch of searches | keyvalue"
+            class="previous-search"
+          >
+            <a
+              [routerLink]="['/search']"
+              [queryParams]="{ text: previousSearch.key }"
+              >{{ previousSearch.value.term }} ({{
+                previousSearch.value.count
+              }})</a
+            >
+            <button (click)="searches.delete(previousSearch.key)">X</button>
+          </span>
+          <button
+            *ngIf="searches.size > 4"
+            (click)="searches.clear()"
+            class="previous-search previous-search-clear"
+          >
+            Clear All
+          </button>
+        </div>
+      </div>
+    </div>
+    <p
+      *ngIf="displayedRecords && displayedRecords.length > 0"
+      class="text-info"
+    >
+      Search found {{ displayedRecords.length }} results.
+    </p>
   </div>
-  <div *ngIf="!searchInitiated" class="search-top">
-    <h1>
-      <span class="search-heading">Search the </span
-      ><span class="sp-branding">Database</span>
-    </h1>
-    <div>
-      <p class="lead">
-        <strong>{{ recordCount }}</strong> people typed in the
-        <strong>Objective Personality System</strong>,
-        <strong>Enneagram</strong>, and <strong>Socionics</strong>.
-      </p>
-    </div>
-    <div class="d-none d-sm-flex my-2" *ngIf="false">
-      <app-type-indicator [option]="1"></app-type-indicator>
-      <div class="mx-3">
-        <app-type-indicator
-          [option]="1"
-          type="MF-Fe/Ni-BP/C(S)"
-        ></app-type-indicator>
-      </div>
-      <div class="mx-3">
-        <app-type-indicator
-          [option]="1"
-          type="FM-Fi/Se-CS/B(P)"
-        ></app-type-indicator>
-      </div>
-      <div class="mx-3">
-        <app-type-indicator
-          [option]="1"
-          type="FF-Ti/Ni-SB/P(C)"
-        ></app-type-indicator>
-      </div>
-    </div>
-  </div>
-  <div class="clear-right"></div>
-  <div class="my-3">
-    <div class="form-group">
-      <!-- <label for="name" class="name-label">Search by Name or Type:</label> -->
-      <div class="input-group">
-        <input
-          #nameInput
-          id="name"
-          type="text"
-          class="form-control border-primary"
-          minlength="2"
-          required
-          autocomplete="off" 
-          [placeholder]="placeholderText"
-          (keyup)="searchAll()"
-          [(ngModel)]="textString"
-          name="name"
-        />
-        <div class="input-group-append">
-          <button
-            class="btn btn-outline-primary"
-            (click)="textString = ''; nameInput.focus(); searchAll()"
-          >
-            Clear
-          </button>
-        </div>
-      </div>
-      <div class="help small mb-3" *ngIf="false">
-        Searches for the text within the name and types field of the person
-        record. Examples:
-        <a [routerLink]="['/search']" [queryParams]="{ text: 'john cena' }"
-          >john cena</a
-        >,
-        <a [routerLink]="['/search']" [queryParams]="{ text: 'sp/so - 6w7' }"
-          >sp/so - 6w7</a
-        >,
-        <a [routerLink]="['/search']" [queryParams]="{ text: 'ff-ti/se' }"
-          >ff-ti/se</a
-        >
-      </div>
-    </div>
-    <div *ngIf="false">
-      <div class="mb-3">
-        <span class="search-type-label">Additional Search Options</span>
-        <div>
-          <button
-            *ngFor="let st of searchToggles"
-            class="btn btn-gray mr-2"
-            (click)="toggleSearchOptions(st.name)"
-            [ngClass]="{ active: st.active }"
-          >
-            {{ st.name }}
-          </button>
-        </div>
-      </div>
-      <div [ngClass]="{ 'd-none': !enneaToggle.active }">
-        <ng-component *ngTemplateOutlet="ennea"></ng-component>
-      </div>
-      <div [ngClass]="{ 'd-none': !opsToggle.active }">
-        <ng-component *ngTemplateOutlet="ops"></ng-component>
-      </div>
-    </div>
-    <div class="button-wrapper" *ngIf="searchInitiated">
-      <div class="d-inline-block">
-        <div class="small">Sort:</div>
-        <div class="btn-group">
-          <button
-            class="btn btn-gray btn-sm"
-            [ngClass]="{ active: sortBy === 'name' }"
-            (click)="resort('name')"
-          >
-            Name
-          </button>
-          <button
-            class="btn btn-gray btn-sm"
-            [ngClass]="{ active: sortBy === 'ops' }"
-            (click)="resort('ops')"
-          >
-            OPS
-          </button>
-          <button
-            class="btn btn-gray btn-sm"
-            [ngClass]="{ active: sortBy === 'ennea' }"
-            (click)="resort('ennea')"
-          >
-            Ennea
-          </button>
-          <button
-            class="btn btn-gray btn-sm"
-            [ngClass]="{ active: sortBy === 'modified' }"
-            (click)="resort('modified')"
-          >
-            Recent
-          </button>
-        </div>
-      </div>
-      <div class="d-inline-block">
-        <div class="small">Color:</div>
-        <div class="btn-group">
-          <button
-            class="btn btn-gray btn-sm"
-            [ngClass]="{ active: grayscale }"
-            (click)="grayscale = !grayscale"
-          >
-            Gray
-          </button>
-          <button
-            class="btn btn-gray btn-sm"
-            [ngClass]="{ active: !grayscale }"
-            (click)="grayscale = !grayscale"
-          >
-            Default
-          </button>
-        </div>
-      </div>
-      <div class="d-inline-block">
-        <div class="small">Display:</div>
-        <div class="btn-group">
-          <button
-            class="btn btn-gray btn-sm"
-            [ngClass]="{ active: cards }"
-            (click)="cards = !cards"
-          >
-            Cards
-          </button>
-          <button
-            class="btn btn-gray btn-sm"
-            [ngClass]="{ active: !cards }"
-            (click)="cards = !cards"
-          >
-            Default
-          </button>
-        </div>
-      </div>
-      <div class="d-inline-block">
-        <button
-          class="btn btn-gray btn-sm"
-          [ngClass]="{ active: showHelp }"
-          (click)="showHelp = !showHelp"
-        >
-          Help
-        </button>
-      </div>
-    </div>
-    <div *ngIf="showHelp" class="mt-2">
-      <ng-component *ngTemplateOutlet="tips"></ng-component>
-    </div>
-    <div class="mt-2" *ngIf="searches.size > 0">
-      <div>Previous Searches</div>
-      <div class="previous-search-wrapper">
-        <span
-          *ngFor="let previousSearch of searches | keyvalue"
-          class="previous-search"
-        >
-          <a
-            [routerLink]="['/search']"
-            [queryParams]="{ text: previousSearch.key }"
-            >{{ previousSearch.value.term }} ({{
-              previousSearch.value.count
-            }})</a
-          >
-          <button (click)="searches.delete(previousSearch.key)">X</button>
-        </span>
-        <button
-          *ngIf="searches.size > 4"
-          (click)="searches.clear()"
-          class="previous-search previous-search-clear"
-        >
-          Clear All
-        </button>
-      </div>
-    </div>
-  </div>
-  <p *ngIf="displayedRecords && displayedRecords.length > 0" class="text-info">
-    Search found {{ displayedRecords.length }} results.
-  </p>
 </div>
+
+<div class="search-instructions" *ngIf="!searchInitiated">
+  <div class="fix-bg">
+    <div class="container">
+      <h2>Enneagram</h2>
+      <div class="mb-3">
+        <h3>Search by...</h3>
+        <div class="rules">
+          <div class="rule">
+            <div class="rule-name">Core Type</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: '9' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">with Wing</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: '6w7' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Primary Instinct</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: 'sp/' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Playground Instinct</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: '/sx' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Blindspot Instinct</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: '!so' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Instinct not blind</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: 'so' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Instinct Stacking</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: 'sx/sp' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Trifix</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: '396' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div
+              class="rule-name"
+              popoverTitle="Trifix Grouping"
+              popover="Order doesn't matter for the trifix grouping search.  *369 and *936 will return the same results."
+              triggers="mouseenter:mouseleave:click"
+            >
+              Trifix Grouping
+              <i-bs
+                name="info-circle"
+                class="ml-1"
+                width=".8rem"
+                height=".8rem"
+              ></i-bs>
+            </div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: '*714' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Sex</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: '5w6 female' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Combine Searches</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: '9w8 !sp' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Ennea + OPS</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: 'sp MM' }"
+              ></ng-container>
+            </div>
+          </div>
+          <div class="rule">
+            <div class="rule-name">Ennea + Socionics</div>
+            <div class="rule-example">
+              <ng-container
+                *ngTemplateOutlet="searchlink; context: { text: 'so EIE' }"
+              ></ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3>Trifix Groupings</h3>
+      <div class="fix-wrapper">
+        <div>
+          <span
+            *ngFor="
+              let fix of searchModel.trifixStacks.slice(0, 9);
+              let i = index
+            "
+          >
+            <br *ngIf="i !== 0 && i % 3 === 0" />
+            <a
+              class="fix-bubble"
+              [routerLink]="['/search']"
+              [queryParams]="{ text: '*' + fix }"
+              >{{ fix }}</a
+            >
+          </span>
+        </div>
+        <div>
+          <span
+            *ngFor="
+              let fix of searchModel.trifixStacks.slice(9, 18);
+              let i = index
+            "
+          >
+            <br *ngIf="i !== 0 && i % 3 === 0" />
+            <a
+              class="fix-bubble"
+              [routerLink]="['/search']"
+              [queryParams]="{ text: '*' + fix }"
+              >{{ fix }}</a
+            >
+          </span>
+        </div>
+        <div>
+          <span
+            *ngFor="
+              let fix of searchModel.trifixStacks.slice(18, 27);
+              let i = index
+            "
+          >
+            <br *ngIf="i !== 0 && i % 3 === 0" />
+            <a
+              class="fix-bubble"
+              [routerLink]="['/search']"
+              [queryParams]="{ text: '*' + fix }"
+              >{{ fix }}</a
+            >
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="record-wrapper">
   <div *ngIf="searchInitiated" class="container-fluid records-bg" #recordList>
     <app-type-record-list
@@ -393,4 +577,8 @@
       <a [href]="appLinks.contact" target="_blank">let me know!</a>
     </li>
   </ul>
+</ng-template>
+
+<ng-template #searchlink let-text="text">
+  <a [routerLink]="['/search']" [queryParams]="{ text: text }">{{ text }}</a>
 </ng-template>
