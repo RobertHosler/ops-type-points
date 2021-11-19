@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
   activeInstinct: InstinctModel;
   activeInstinct2: string;
 
-  displayedRecords: TypedPerson[] =  [];
+  displayedRecords: TypedPerson[] = [];
   maxRecords = 10000;
 
   isMaxRecords = false;
@@ -230,7 +230,7 @@ export class SearchComponent implements OnInit {
       this.displayedRecords.sort((a, b) => {
         let result = 0;
         if (this.sortBy === 'modified') {
-          result = this.sortModified(a.lastModified,b.lastModified);
+          result = this.sortModified(a.lastModified, b.lastModified);
         } else if (this.sortBy === 'name') {
           result = this.sortName(a, b);
         } else if (this.sortBy === 'ennea') {
@@ -260,7 +260,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  private sortModified(a:string, b:string) {
+  private sortModified(a: string, b: string) {
     if (!a && !b) {
       return 0;
     }
@@ -444,7 +444,32 @@ export class SearchComponent implements OnInit {
     strings.forEach((string) => {
       if (result) {
         let s = string.toLowerCase();
-        if (s.startsWith('!')) {
+        if (s.startsWith('*')) {
+          s = s.substring(1);
+          if (s.length === 3 && /^\d+$/.test(s)) {
+            this.searchTerms.push(s);
+            let sArr = s.split('');
+            let found = false;
+            for (let i = 0; i !== sArr.length; i++) {
+              for (let j = 0; j !== sArr.length; j++) {
+                for (let k = 0; k !== sArr.length; k++) {
+                  if (
+                    !found &&
+                    sArr[i] !== sArr[j] &&
+                    sArr[i] !== sArr[k] &&
+                    sArr[j] !== sArr[k]
+                  ) {
+                    let abc = sArr[i] + sArr[j] + sArr[k];
+                    found = this.matchTextParts(person, abc);
+                  }
+                }
+              }
+            }
+            result = found;
+          } else {
+            result = false;
+          }
+        } else if (s.startsWith('!')) {
           // inverse matching
           s = s.substring(1);
           this.searchTerms.push(s);
