@@ -763,6 +763,143 @@ const typeAhead = [];
 typeAhead.push(socionicsTypes);
 typeAhead.push(tagTerms);
 
+const opsRules = [
+  {
+    label: 'All OPS Tagged',
+    examples: ['ops'],
+  },
+  {
+    label: 'Class Typings',
+    examples: ['ops class'],
+  },
+  {
+    label: 'Decider',
+    examples: ['exxj', 'ixxp', 'decider'],
+  },
+  {
+    label: 'Observer',
+    examples: ['exxp', 'ixxj', 'observer'],
+  },
+  {
+    label: 'Decider Need',
+    examples: ['Di', 'De', 'self', 'tribe'],
+  },
+  {
+    label: 'Observer Need',
+    examples: ['Oi', 'Oe', 'organize', 'gather'],
+  },
+  {
+    label: 'Decider Letter',
+    examples: ['think', 'feel'],
+  },
+  {
+    label: 'Observer Letter',
+    examples: ['intuition', 'sensing'],
+  },
+  {
+    label: 'Letters',
+    examples: ['SF', 'NT', 'ST', 'NF'],
+  },
+  {
+    label: 'Decider Functions',
+    examples: ['Fe', 'Te', 'Fi', 'Ti'],
+  },
+  {
+    label: 'Observer Functions',
+    examples: ['Ne', 'Se', 'Ni', 'Si'],
+  },
+  {
+    label: 'Info/Energy',
+    examples: ['info', 'energy'],
+  },
+  {
+    label: 'Last Animal',
+    examples: ['(b)', '(s)', '(c)', '(p)'],
+  },
+  {
+    label: 'Savior Animals',
+    examples: ['PC', 'SB', 'BP', 'CS'],
+  },
+  {
+    label: 'Animal Stacks',
+    examples: ['PC/S', 'SB/P', 'BP/S', 'CS/B'],
+  },
+  {
+    label: 'Modalities',
+    examples: ['MM', 'MF', 'FM', 'FF'],
+  },
+  {
+    label: 'Sensory Modality',
+    examples: ['Mx', 'Fx', 'MS', 'FS'],
+  },
+  {
+    label: 'De Modality',
+    examples: ['xM', 'xF', 'MDe', 'FDe'],
+  },
+  {
+    label: 'ExxJ',
+    examples: ['ENTJ', 'ESTJ', 'ESFJ', 'ENFJ'],
+  },
+  {
+    label: 'IxxP',
+    examples: ['ISTP', 'INTP', 'ISFP', 'INFP'],
+  },
+  {
+    label: 'ExxP',
+    examples: ['ENTP', 'ESTP', 'ESFP', 'ENFP'],
+  },
+  {
+    label: 'IxxJ',
+    examples: ['ISTJ', 'INTJ', 'ISFJ', 'INFJ'],
+  },
+  {
+    label: 'Jumper',
+    examples: ['Jumper ESFJ'],
+  },
+  {
+    label: 'Not Jumper',
+    examples: ['INFJ !Jumper'],
+  },
+  {
+    label: 'Quadra',
+    examples: ['Alpha', 'Beta', 'Gamma', 'Delta'],
+  },
+  {
+    label: 'Sex',
+    examples: ['ops Male', 'ops Female'],
+  },
+  {
+    label: 'Community Members',
+    examples: ['ops community'],
+  },
+  {
+    label: 'Exclude Speculative',
+    examples: ['ops !speculation'],
+  },
+  {
+    label: 'Exclude Incomplete',
+    examples: ['ops !incomplete'],
+  },
+];
+
+const enneaRules = [
+  {
+    label: 'Enneagram Tagged',
+    examples: ['ennea'],
+  },
+];
+
+const wssRules = [
+  {
+    label: 'WSS Tagged',
+    examples: ['wss'],
+  },
+  {
+    label: 'Compare with OPS',
+    examples: ['LII Ti', 'ILE Ne'],
+  },
+];
+
 export const searchModel = {
   functions: functions,
   observerFunctions: observerFunctions,
@@ -786,5 +923,8 @@ export const searchModel = {
   personTerms: personTerms,
   predictions: predictions,
   socionicsTypes: socionicsTypes,
-  typeAhead: typeAhead
+  typeAhead: typeAhead,
+  opsRules: opsRules,
+  enneaRules: enneaRules,
+  wssRules: wssRules,
 };
