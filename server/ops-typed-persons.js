@@ -142,6 +142,7 @@ const converterList = [
   { org: "Warren Buffet", result: "Warren Buffett" },
   { org: "Alex McQueen", result: "Alexander McQueen" },
   { org: "Michelle Rodriquez", result: "Michelle Rodriguez" },
+  { org: "NF", result: "Nathan 'NF' Feuerstein" },
   //shift+alt+downArrow to copy line
 ];
 
