@@ -82,6 +82,9 @@ function convertRecords(records) {
     const enfp = record.fields["ENFP Male"];
     const other = record.fields.Other;
     const tags = record.fields.Tags ? record.fields.Tags : [];
+    if (tags.includes("Hide")) {
+      return;
+    }
     if (opsType) {
       tags.push("OPS");
     }
