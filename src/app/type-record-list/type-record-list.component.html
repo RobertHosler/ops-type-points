@@ -132,30 +132,23 @@
   </div>
   <ng-container *ngTemplateOutlet="pagination"></ng-container>
   <div *ngIf="showSource" class="small help container my-2 p-1">
-    <div class="">
-      <div class="mb-1 d-inline-block">
-        OPS type data courtesy of the
-        <a target="_blank" [href]="opsDbSource"
-          >Objective Personality Database</a
-        >, a project by Ryan and Jana based on typings by Dave and Shannon
-        Powers. <a target="_blank" [href]="opsDbInfo">Learn More</a> Some
-        additional records sourced from YouTube type reveals and interviews.
-      </div>
-      <div class="mb-1">
-        <a [href]="appLinks.contact" target="_blank">Contact me</a>
-        to be included or excluded from this app and/or update your picture.
-      </div>
+    <div class="mb-1 d-inline-block">
+      <strong>Objective Personality</strong> type data courtesy of the
+      <a target="_blank" [href]="opsDbSource">Objective Personality Database</a
+      >, a project by Ryan and Jana based on typings by Dave and Shannon Powers.
+      <a target="_blank" [href]="opsDbInfo">Learn More</a>
     </div>
     <div class="mb-1">
-      Enneagram type data are sourced from the
+      <strong>Enneagram</strong> type data sourced from the
       <a [href]="enneagrammerLink" target="_blank">Enneagrammer Database</a>.
       Continue to explore on their
       <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
       learn more about their take on the Enneagram at
       <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>
     </div>
-    <div>
-      Socionics type data sourced from the World Socionic's Society's
+    <div class="mb-1">
+      <strong>Socionics</strong> type data sourced from the World Socionic's
+      Society's
       <a
         href="https://www.facebook.com/notes/world-socionics-society/wss-public-figure-benchmark/1974788942540812/"
         >Public Figure Benchmark</a
@@ -169,6 +162,11 @@
         target="_blank"
         >YouTube Channel</a
       >.
+    </div>
+    <div class="mb-1">
+      Some additional records added where YouTube type reveals and interviews
+      exist. <a [href]="appLinks.contact" target="_blank">Contact me</a>
+      to be included or excluded from this app and/or update your picture.
     </div>
   </div>
 </div>

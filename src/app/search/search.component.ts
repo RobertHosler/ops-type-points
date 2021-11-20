@@ -104,8 +104,8 @@ export class SearchComponent implements OnInit {
       this.allNamesArrUnsorted = this.allNamesArr.slice();
       this.allNamesArr.sort();
       if (!this.routerInit) {
-        this.routerInit = true;
         this.initRouter();
+        this.routerInit = true;
       }
     });
   }
@@ -144,6 +144,7 @@ export class SearchComponent implements OnInit {
         this.textString = newTextString;
         if (!newTextString) {
           this.searchInitiated = false;
+          this.initialLoad = false;
         } else {
           this.searchAll();
         }

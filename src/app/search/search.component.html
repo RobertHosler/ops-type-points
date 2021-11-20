@@ -1,4 +1,4 @@
-<div class="">
+<div *ngIf="routerInit && !initialLoad">
   <div #container class="container pt-3 mb-5">
     <div *ngIf="false" class="img-right img-heading">
       <img src="/assets/images/database.png" />
@@ -214,335 +214,345 @@
       Search found {{ displayedRecords.length }} results.
     </p>
   </div>
-</div>
 
-<div class="search-instructions" *ngIf="!searchInitiated">
-  <div class="fix-bg">
-    <div class="container">
-      <h2>Objective Personality</h2>
-      <h3>Search by...</h3>
-      <div class="rules">
-        <div class="rule" *ngFor="let rule of searchModel.opsRules">
-          <div class="rule-name">{{ rule.label }}</div>
-          <div class="rule-example">
-            <ng-container *ngFor="let example of rule.examples; let i = index">
-              <span class="mx-1" *ngIf="i > 0"></span>
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: example }"
-              ></ng-container>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-      <div class="mt-2">
-        Any of the above search terms can be combined together for advanced
-        search.
-        <div>
-          <span class="mx-3"
-            ><ng-container
-              *ngTemplateOutlet="
-                searchlink;
-                context: { text: 'MM ENTP Jumper' }
-              "
-            ></ng-container
-          ></span>
-          <span class="mx-3"
-            ><ng-container
-              *ngTemplateOutlet="searchlink; context: { text: 'xF ENFJ pc' }"
-            ></ng-container
-          ></span>
-          <span class="mx-3"
-            ><ng-container
-              *ngTemplateOutlet="searchlink; context: { text: 'intp female ff' }"
-            ></ng-container
-          ></span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="fix-bg e-bg">
-    <div class="container">
-      <h2>Enneagram</h2>
-      <div class="mb-3">
+  <div class="search-instructions" *ngIf="!searchInitiated">
+    <div class="fix-bg">
+      <div class="container">
+        <h2>Objective Personality</h2>
         <h3>Search by...</h3>
         <div class="rules">
-          <div class="rule">
-            <div class="rule-name">All Enneagram</div>
+          <div class="rule" *ngFor="let rule of searchModel.opsRules">
+            <div class="rule-name">{{ rule.label }}</div>
             <div class="rule-example">
               <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: 'ennea' }"
-              ></ng-container>
+                *ngFor="let example of rule.examples; let i = index"
+              >
+                <span class="mx-1" *ngIf="i > 0"></span>
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: example }"
+                ></ng-container>
+              </ng-container>
             </div>
           </div>
-          <div class="rule">
-            <div class="rule-name">Core Type</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: '9' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">with Wing</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: '6w7' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Primary Instinct</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: 'sp/' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Playground Instinct</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: '/sx' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Blindspot Instinct</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: '!so' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Instinct not blind</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: 'so' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Instinct Stacking</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: 'sx/sp' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Trifix</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: '396' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div
-              class="rule-name"
-              popoverTitle="Trifix Grouping"
-              popover="Order doesn't matter for the trifix grouping search.  *369 and *936 will return the same results."
-              triggers="mouseenter:mouseleave:click"
-            >
-              Trifix Grouping
-              <i-bs
-                name="info-circle"
-                class="ml-1"
-                width=".8rem"
-                height=".8rem"
-              ></i-bs>
-            </div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: '*714' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Sex</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: '5w6 female' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Combine Searches</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: '9w8 !sp' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Ennea + OPS</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: 'sp MM' }"
-              ></ng-container>
-            </div>
-          </div>
-          <div class="rule">
-            <div class="rule-name">Ennea + Socionics</div>
-            <div class="rule-example">
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: 'so EIE' }"
-              ></ng-container>
-            </div>
+        </div>
+        <div class="mt-2">
+          Any of the above search terms can be combined together for advanced
+          search.
+          <div>
+            <span class="mx-3"
+              ><ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: 'MM ENTP Jumper' }
+                "
+              ></ng-container
+            ></span>
+            <span class="mx-3"
+              ><ng-container
+                *ngTemplateOutlet="searchlink; context: { text: 'xF ENFJ pc' }"
+              ></ng-container
+            ></span>
+            <span class="mx-3"
+              ><ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: 'intp female ff' }
+                "
+              ></ng-container
+            ></span>
           </div>
         </div>
       </div>
-      <h3>Trifix Groupings</h3>
-      <div class="fix-wrapper">
-        <div>
-          <span
-            *ngFor="
-              let fix of searchModel.trifixStacks.slice(0, 9);
-              let i = index
-            "
-          >
-            <br *ngIf="i !== 0 && i % 3 === 0" />
-            <a
-              class="fix-bubble"
-              [routerLink]="['/search']"
-              [queryParams]="{ text: '*' + fix }"
-              >{{ fix }}</a
-            >
-          </span>
+    </div>
+    <div class="fix-bg e-bg">
+      <div class="container">
+        <h2>Enneagram</h2>
+        <div class="mb-3">
+          <h3>Search by...</h3>
+          <div class="rules">
+            <div class="rule">
+              <div class="rule-name">All Enneagram</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: 'ennea' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Core Type</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: '9' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">with Wing</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: '6w7' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Primary Instinct</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: 'sp/' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Playground Instinct</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: '/sx' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Blindspot Instinct</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: '!so' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Instinct not blind</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: 'so' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Instinct Stacking</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: 'sx/sp' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Trifix</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: '396' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div
+                class="rule-name"
+                popoverTitle="Trifix Grouping"
+                popover="Order doesn't matter for the trifix grouping search.  *369 and *936 will return the same results."
+                triggers="mouseenter:mouseleave:click"
+              >
+                Trifix Grouping
+                <i-bs
+                  name="info-circle"
+                  class="ml-1"
+                  width=".8rem"
+                  height=".8rem"
+                ></i-bs>
+              </div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: '*714' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Sex</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="
+                    searchlink;
+                    context: { text: '5w6 female' }
+                  "
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Combine Searches</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: '9w8 !sp' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Ennea + OPS</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: 'sp MM' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Ennea + Socionics</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: 'so EIE' }"
+                ></ng-container>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <span
-            *ngFor="
-              let fix of searchModel.trifixStacks.slice(9, 18);
-              let i = index
-            "
-          >
-            <br *ngIf="i !== 0 && i % 3 === 0" />
-            <a
-              class="fix-bubble"
-              [routerLink]="['/search']"
-              [queryParams]="{ text: '*' + fix }"
-              >{{ fix }}</a
+        <h3>Trifix Groupings</h3>
+        <div class="fix-wrapper">
+          <div>
+            <span
+              *ngFor="
+                let fix of searchModel.trifixStacks.slice(0, 9);
+                let i = index
+              "
             >
-          </span>
+              <br *ngIf="i !== 0 && i % 3 === 0" />
+              <a
+                class="fix-bubble"
+                [routerLink]="['/search']"
+                [queryParams]="{ text: '*' + fix }"
+                >{{ fix }}</a
+              >
+            </span>
+          </div>
+          <div>
+            <span
+              *ngFor="
+                let fix of searchModel.trifixStacks.slice(9, 18);
+                let i = index
+              "
+            >
+              <br *ngIf="i !== 0 && i % 3 === 0" />
+              <a
+                class="fix-bubble"
+                [routerLink]="['/search']"
+                [queryParams]="{ text: '*' + fix }"
+                >{{ fix }}</a
+              >
+            </span>
+          </div>
+          <div>
+            <span
+              *ngFor="
+                let fix of searchModel.trifixStacks.slice(18, 27);
+                let i = index
+              "
+            >
+              <br *ngIf="i !== 0 && i % 3 === 0" />
+              <a
+                class="fix-bubble"
+                [routerLink]="['/search']"
+                [queryParams]="{ text: '*' + fix }"
+                >{{ fix }}</a
+              >
+            </span>
+          </div>
         </div>
-        <div>
-          <span
-            *ngFor="
-              let fix of searchModel.trifixStacks.slice(18, 27);
-              let i = index
-            "
-          >
-            <br *ngIf="i !== 0 && i % 3 === 0" />
-            <a
-              class="fix-bubble"
-              [routerLink]="['/search']"
-              [queryParams]="{ text: '*' + fix }"
-              >{{ fix }}</a
+      </div>
+    </div>
+
+    <div class="fix-bg">
+      <div class="container">
+        <h2>Socionics</h2>
+        <h3>Search by...</h3>
+        <div class="rules">
+          <div class="rule" *ngFor="let rule of searchModel.wssRules">
+            <div class="rule-name">{{ rule.label }}</div>
+            <div class="rule-example">
+              <ng-container
+                *ngFor="let example of rule.examples; let i = index"
+              >
+                <span class="mx-1" *ngIf="i > 0"></span>
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: example }"
+                ></ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 fix-wrapper">
+          <div>
+            <div class="text-center">Alpha</div>
+            <span
+              *ngFor="
+                let type of searchModel.socionicsTypes.slice(0, 4);
+                let i = index
+              "
             >
-          </span>
+              <a
+                class="fix-bubble"
+                [routerLink]="['/search']"
+                [queryParams]="{ text: type }"
+                >{{ type.toUpperCase() }}</a
+              >
+            </span>
+          </div>
+          <div>
+            <div class="text-center">Beta</div>
+            <span
+              *ngFor="
+                let type of searchModel.socionicsTypes.slice(4, 8);
+                let i = index
+              "
+            >
+              <a
+                class="fix-bubble"
+                [routerLink]="['/search']"
+                [queryParams]="{ text: type }"
+                >{{ type.toUpperCase() }}</a
+              >
+            </span>
+          </div>
+          <div>
+            <div class="text-center">Gamma</div>
+            <span
+              *ngFor="
+                let type of searchModel.socionicsTypes.slice(8, 12);
+                let i = index
+              "
+            >
+              <a
+                class="fix-bubble"
+                [routerLink]="['/search']"
+                [queryParams]="{ text: type }"
+                >{{ type.toUpperCase() }}</a
+              >
+            </span>
+          </div>
+          <div>
+            <div class="text-center">Delta</div>
+            <span
+              *ngFor="
+                let type of searchModel.socionicsTypes.slice(12, 16);
+                let i = index
+              "
+            >
+              <a
+                class="fix-bubble"
+                [routerLink]="['/search']"
+                [queryParams]="{ text: type }"
+                >{{ type.toUpperCase() }}</a
+              >
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="fix-bg">
-    <div class="container">
-      <h2>Socionics</h2>
-      <h3>Search by...</h3>
-      <div class="rules">
-        <div class="rule" *ngFor="let rule of searchModel.wssRules">
-          <div class="rule-name">{{ rule.label }}</div>
-          <div class="rule-example">
-            <ng-container *ngFor="let example of rule.examples; let i = index">
-              <span class="mx-1" *ngIf="i > 0"></span>
-              <ng-container
-                *ngTemplateOutlet="searchlink; context: { text: example }"
-              ></ng-container>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-      <div class="mt-3 fix-wrapper">
-        <div>
-          <div class="text-center">Alpha</div>
-          <span
-            *ngFor="
-              let type of searchModel.socionicsTypes.slice(0, 4);
-              let i = index
-            "
-          >
-            <a
-              class="fix-bubble"
-              [routerLink]="['/search']"
-              [queryParams]="{ text: type }"
-              >{{ type.toUpperCase() }}</a
-            >
-          </span>
-        </div>
-        <div>
-          <div class="text-center">Beta</div>
-          <span
-            *ngFor="
-              let type of searchModel.socionicsTypes.slice(4, 8);
-              let i = index
-            "
-          >
-            <a
-              class="fix-bubble"
-              [routerLink]="['/search']"
-              [queryParams]="{ text: type }"
-              >{{ type.toUpperCase() }}</a
-            >
-          </span>
-        </div>
-        <div>
-          <div class="text-center">Gamma</div>
-          <span
-            *ngFor="
-              let type of searchModel.socionicsTypes.slice(8, 12);
-              let i = index
-            "
-          >
-            <a
-              class="fix-bubble"
-              [routerLink]="['/search']"
-              [queryParams]="{ text: type }"
-              >{{ type.toUpperCase() }}</a
-            >
-          </span>
-        </div>
-        <div>
-          <div class="text-center">Delta</div>
-          <span
-            *ngFor="
-              let type of searchModel.socionicsTypes.slice(12, 16);
-              let i = index
-            "
-          >
-            <a
-              class="fix-bubble"
-              [routerLink]="['/search']"
-              [queryParams]="{ text: type }"
-              >{{ type.toUpperCase() }}</a
-            >
-          </span>
-        </div>
-      </div>
+  <div class="record-wrapper">
+    <div *ngIf="searchInitiated" class="container-fluid records-bg" #recordList>
+      <app-type-record-list
+        [typeRecords]="displayedRecords"
+        [loading]="searchLoading"
+        [linkToAnalyzer]="true"
+        [grayscale]="grayscale"
+        [cards]="cards"
+      ></app-type-record-list>
     </div>
-  </div>
-</div>
-
-<div class="record-wrapper">
-  <div *ngIf="searchInitiated" class="container-fluid records-bg" #recordList>
-    <app-type-record-list
-      [typeRecords]="displayedRecords"
-      [loading]="searchLoading"
-      [linkToAnalyzer]="true"
-      [grayscale]="grayscale"
-      [cards]="cards"
-    ></app-type-record-list>
   </div>
 </div>
 
