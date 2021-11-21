@@ -1,10 +1,9 @@
-
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1200px
+  xl: 1200px,
 );
 
 $indian-red: #db5461;
@@ -36,8 +35,8 @@ $tertiary: $cad-orange;
 $tertiary-soft: $cad-orange-soft;
 
 // $coin-one: #1D85E0;
-$coin-one: #b28ddc; 
-$coin-two: $tertiary;//complementary
+$coin-one: #b28ddc;
+$coin-two: $tertiary; //complementary
 
 //needs
 // $decider-color: #DB7C24;
@@ -70,6 +69,11 @@ $energy-color: $coin-two;
 $masculine-color: $coin-one;
 $feminine-color: $coin-two;
 
+$ep-green: rgb(217, 234, 211);
+$ij-blue: rgb(201, 218, 248);
+$ej-red: rgb(244, 204, 204);
+$ip-gray: rgb(239, 239, 239);
+
 // $secondary: $cad-orange;
 // $primary: $royal-purple;
 // $success:       $green !default;
@@ -96,7 +100,7 @@ $nav-tabs-border-color: $purple;
 
 $gradient-border-width: 5px;
 
-$shadow:  0 2px 8px 0 #777;
+$shadow: 0 2px 8px 0 #777;
 
 $gradients: (
   "primary": (

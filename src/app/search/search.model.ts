@@ -854,11 +854,11 @@ const opsRules = [
   },
   {
     label: 'Jumper',
-    examples: ['Jumper ESFJ'],
+    examples: ['Jumper ESFJ', 'Fe/Ne'],
   },
   {
     label: 'Not Jumper',
-    examples: ['INFJ !Jumper'],
+    examples: ['INFJ !Jumper', 'Ni/Fe'],
   },
   {
     label: 'Quadra',

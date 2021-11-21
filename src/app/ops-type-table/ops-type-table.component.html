@@ -1,0 +1,171 @@
+<ng-template #searchlink let-text="text" let-query="query">
+  <a
+    [routerLink]="['/search']"
+    [queryParams]="{ text: query ? query : text }"
+    >{{ text }}</a
+  >
+</ng-template>
+
+<div class="mt-3 small text-right">
+  <button
+    class="btn btn-gray"
+    [ngClass]="{ active: displayCounts }"
+    (click)="fetchCounts()"
+  >
+    #
+  </button>
+</div>
+<div class="type-table-wrapper">
+  <table
+    class="ops-type-table"
+    [ngClass]="{ 'type-counts': displayCounts }"
+    *ngFor="let animalStack of opsTypeTable.animalStacks"
+  >
+    <thead>
+      <tr>
+        <th class="animal-heading" [attr.colspan]="displayCounts ? 5 : 4">
+          {{ animalStack.animal }}
+        </th>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let order of animalStack.orders; let j = index">
+          <th *ngIf="displayCounts && j === 0"></th>
+          <th>
+            <div class="d-none d-md-block">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: {
+                    text: order.stack,
+                    query: order.stack
+                  }
+                "
+              ></ng-container>
+            </div>
+            <div class="d-md-none">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: {
+                    text: order.stack.substring(0, 4),
+                    query: order.stack
+                  }
+                "
+              ></ng-container>
+            </div>
+            <div class="type-count" *ngIf="displayCounts">
+              {{ getCount(order.stack) }}
+            </div>
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of animalStack.orders[0].functions; let i = index">
+        <ng-container *ngFor="let order of animalStack.orders; let j = index">
+          <td *ngIf="displayCounts && j === 0">
+            <ng-container
+              *ngTemplateOutlet="
+                searchlink;
+                context: {
+                  text: order.functions[i],
+                  query: order.functions[i]
+                }
+              "
+            ></ng-container>
+            <div class="type-count">
+              {{ getCount("", order.functions[i]) }}
+            </div>
+          </td>
+          <td
+            [ngClass]="{
+              'ij-blue': isIj(order.functions[i]),
+              'ep-green': isEp(order.functions[i]),
+              'ip-gray': isIp(order.functions[i]),
+              'ej-red': isEj(order.functions[i])
+            }"
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                searchlink;
+                context: {
+                  text: order.functions[i],
+                  query: order.functions[i] + ' ' + order.stack
+                }
+              "
+            ></ng-container>
+            <div class="type-count" *ngIf="displayCounts">
+              {{ getCount(order.stack, order.functions[i]) }}
+            </div>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="need-wrapper">
+  <div class="need-wrapper">
+    <div
+      class="need-box ip-gray"
+      *ngFor="let x of ['IxxP', 'INTP', 'INFP', 'ISTP', 'ISFP']"
+    >
+      <ng-container
+        *ngTemplateOutlet="
+          searchlink;
+          context: {
+            text: x
+          }
+        "
+      ></ng-container>
+    </div>
+  </div>
+  <div class="need-wrapper">
+    <div
+      class="need-box ij-blue"
+      *ngFor="let x of ['IxxJ', 'INTJ', 'INFJ', 'ISTJ', 'ISFJ']"
+    >
+      <ng-container
+        *ngTemplateOutlet="
+          searchlink;
+          context: {
+            text: x
+          }
+        "
+      ></ng-container>
+    </div>
+  </div>
+</div>
+
+<div class="need-wrapper">
+  <div class="need-wrapper">
+    <div
+      class="need-box ep-green"
+      *ngFor="let x of ['ExxP', 'ENTP', 'ENFP', 'ESTP', 'ESFP']"
+    >
+      <ng-container
+        *ngTemplateOutlet="
+          searchlink;
+          context: {
+            text: x
+          }
+        "
+      ></ng-container>
+    </div>
+  </div>
+  <div class="need-wrapper">
+    <div
+      class="need-box ej-red"
+      *ngFor="let x of ['ExxJ', 'ENTJ', 'ENFJ', 'ESTJ', 'ESFJ']"
+    >
+      <ng-container
+        *ngTemplateOutlet="
+          searchlink;
+          context: {
+            text: x
+          }
+        "
+      ></ng-container>
+    </div>
+  </div>
+</div>
