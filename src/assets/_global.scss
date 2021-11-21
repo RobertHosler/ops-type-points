@@ -319,7 +319,19 @@ $inner-tab-border-width: 3px;
   text-decoration: underline;
 }
 
-
 popover-container {
   color: $dark;
+}
+
+.ij-blue {
+  background-color: $ij-blue;
+}
+.ip-gray {
+  background-color: $ip-gray;
+}
+.ej-red {
+  background-color: $ej-red;
+}
+.ep-green {
+  background-color: $ep-green;
 }

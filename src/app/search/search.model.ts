@@ -898,6 +898,10 @@ const wssRules = [
     label: 'Compare with OPS',
     examples: ['LII Ti', 'ILE Ne'],
   },
+  {
+    label: 'Compare with Ennea',
+    examples: ['SEI 9', 'SLE 8'],
+  },
 ];
 
 export const searchModel = {

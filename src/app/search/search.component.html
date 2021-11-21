@@ -12,7 +12,8 @@
         <p class="lead">
           <strong>{{ recordCount }}</strong> people typed in the
           <strong>Objective Personality System</strong>,
-          <strong>Enneagram</strong>, and <strong>Socionics</strong>.
+          <strong>Enneagram</strong>, and <strong>Socionics</strong>. Try
+          entering a type, a name, or scroll down to see more advanced tricks.
         </p>
       </div>
       <div class="d-none d-sm-flex my-2" *ngIf="false">
@@ -239,7 +240,7 @@
           Any of the above search terms can be combined together for advanced
           search.
           <div>
-            <span class="mx-3"
+            <span class="mx-3 d-inline-block"
               ><ng-container
                 *ngTemplateOutlet="
                   searchlink;
@@ -247,12 +248,12 @@
                 "
               ></ng-container
             ></span>
-            <span class="mx-3"
+            <span class="mx-3 d-inline-block"
               ><ng-container
                 *ngTemplateOutlet="searchlink; context: { text: 'xF ENFJ pc' }"
               ></ng-container
             ></span>
-            <span class="mx-3"
+            <span class="mx-3 d-inline-block"
               ><ng-container
                 *ngTemplateOutlet="
                   searchlink;
@@ -338,7 +339,20 @@
               </div>
             </div>
             <div class="rule">
-              <div class="rule-name">Trifix</div>
+              <div
+                class="rule-name"
+                popoverTitle="Trifix Stacking"
+                popover="Order matters for the trifix stacking search. 369 will not return 963 results."
+                triggers="mouseenter:mouseleave:click"
+              >
+                Trifix Stacking
+                <i-bs
+                  name="info-circle"
+                  class="ml-1"
+                  width=".8rem"
+                  height=".8rem"
+                ></i-bs>
+              </div>
               <div class="rule-example">
                 <ng-container
                   *ngTemplateOutlet="searchlink; context: { text: '396' }"
@@ -348,11 +362,11 @@
             <div class="rule">
               <div
                 class="rule-name"
-                popoverTitle="Trifix Grouping"
-                popover="Order doesn't matter for the trifix grouping search.  *369 and *936 will return the same results."
+                popoverTitle="Trifix Combinations"
+                popover="Order doesn't matter for the trifix combination search.  *369 and *936 will return the same results."
                 triggers="mouseenter:mouseleave:click"
               >
-                Trifix Grouping
+                Trifix Combinations
                 <i-bs
                   name="info-circle"
                   class="ml-1"
@@ -403,56 +417,62 @@
             </div>
           </div>
         </div>
-        <h3>Trifix Groupings</h3>
+        <h3>Trifix Combinations</h3>
         <div class="fix-wrapper">
-          <div>
-            <span
-              *ngFor="
-                let fix of searchModel.trifixStacks.slice(0, 9);
-                let i = index
-              "
-            >
-              <br *ngIf="i !== 0 && i % 3 === 0" />
-              <a
-                class="fix-bubble"
-                [routerLink]="['/search']"
-                [queryParams]="{ text: '*' + fix }"
-                >{{ fix }}</a
-              >
-            </span>
-          </div>
-          <div>
-            <span
-              *ngFor="
-                let fix of searchModel.trifixStacks.slice(9, 18);
-                let i = index
-              "
-            >
-              <br *ngIf="i !== 0 && i % 3 === 0" />
-              <a
-                class="fix-bubble"
-                [routerLink]="['/search']"
-                [queryParams]="{ text: '*' + fix }"
-                >{{ fix }}</a
-              >
-            </span>
-          </div>
-          <div>
-            <span
-              *ngFor="
-                let fix of searchModel.trifixStacks.slice(18, 27);
-                let i = index
-              "
-            >
-              <br *ngIf="i !== 0 && i % 3 === 0" />
-              <a
-                class="fix-bubble"
-                [routerLink]="['/search']"
-                [queryParams]="{ text: '*' + fix }"
-                >{{ fix }}</a
-              >
-            </span>
-          </div>
+          <table class="trifix-table ej-red">
+            <tbody>
+              <tr *ngFor="let x of [0, 1, 2]">
+                <td
+                  *ngFor="
+                    let fix of searchModel.trifixStacks.slice(x * 3, x * 3 + 3);
+                    let i = index
+                  "
+                >
+                  <a
+                    [routerLink]="['/search']"
+                    [queryParams]="{ text: '*' + fix }"
+                    >{{ fix }}</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="trifix-table ij-blue">
+            <tbody>
+              <tr *ngFor="let x of [3, 4, 5]">
+                <td
+                  *ngFor="
+                    let fix of searchModel.trifixStacks.slice(x * 3, x * 3 + 3);
+                    let i = index
+                  "
+                >
+                  <a
+                    [routerLink]="['/search']"
+                    [queryParams]="{ text: '*' + fix }"
+                    >{{ fix }}</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="trifix-table ep-green">
+            <tbody>
+              <tr *ngFor="let x of [6, 7, 8]">
+                <td
+                  *ngFor="
+                    let fix of searchModel.trifixStacks.slice(x * 3, x * 3 + 3);
+                    let i = index
+                  "
+                >
+                  <a
+                    [routerLink]="['/search']"
+                    [queryParams]="{ text: '*' + fix }"
+                    >{{ fix }}</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -477,69 +497,64 @@
           </div>
         </div>
         <div class="mt-3 fix-wrapper">
-          <div>
-            <div class="text-center">Alpha</div>
-            <span
-              *ngFor="
-                let type of searchModel.socionicsTypes.slice(0, 4);
-                let i = index
-              "
-            >
-              <a
-                class="fix-bubble"
-                [routerLink]="['/search']"
-                [queryParams]="{ text: type }"
-                >{{ type.toUpperCase() }}</a
+          <div
+            *ngFor="
+              let quadra of ['Alpha', 'Beta', 'Gamma', 'Delta'];
+              let x = index
+            "
+          >
+            <table class="trifix-table">
+              <thead>
+                <tr>
+                  <th colspan="2">
+                    <div class="text-center">{{ quadra }}</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                [ngClass]="{
+                  'ej-red': quadra === 'Alpha',
+                  'ij-blue': quadra === 'Beta',
+                  'ep-green': quadra === 'Gamma',
+                  'ip-gray': quadra === 'Delta'
+                }"
               >
-            </span>
-          </div>
-          <div>
-            <div class="text-center">Beta</div>
-            <span
-              *ngFor="
-                let type of searchModel.socionicsTypes.slice(4, 8);
-                let i = index
-              "
-            >
-              <a
-                class="fix-bubble"
-                [routerLink]="['/search']"
-                [queryParams]="{ text: type }"
-                >{{ type.toUpperCase() }}</a
-              >
-            </span>
-          </div>
-          <div>
-            <div class="text-center">Gamma</div>
-            <span
-              *ngFor="
-                let type of searchModel.socionicsTypes.slice(8, 12);
-                let i = index
-              "
-            >
-              <a
-                class="fix-bubble"
-                [routerLink]="['/search']"
-                [queryParams]="{ text: type }"
-                >{{ type.toUpperCase() }}</a
-              >
-            </span>
-          </div>
-          <div>
-            <div class="text-center">Delta</div>
-            <span
-              *ngFor="
-                let type of searchModel.socionicsTypes.slice(12, 16);
-                let i = index
-              "
-            >
-              <a
-                class="fix-bubble"
-                [routerLink]="['/search']"
-                [queryParams]="{ text: type }"
-                >{{ type.toUpperCase() }}</a
-              >
-            </span>
+                <tr>
+                  <td
+                    *ngFor="
+                      let type of searchModel.socionicsTypes.slice(
+                        x * 2,
+                        x * 2 + 2
+                      );
+                      let i = index
+                    "
+                  >
+                    <a
+                      [routerLink]="['/search']"
+                      [queryParams]="{ text: type }"
+                      >{{ type.toUpperCase() }}</a
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    *ngFor="
+                      let type of searchModel.socionicsTypes.slice(
+                        x * 2 + 2,
+                        x * 2 + 4
+                      );
+                      let i = index
+                    "
+                  >
+                    <a
+                      [routerLink]="['/search']"
+                      [queryParams]="{ text: type }"
+                      >{{ type.toUpperCase() }}</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

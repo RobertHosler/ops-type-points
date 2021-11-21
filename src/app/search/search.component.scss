@@ -191,19 +191,26 @@ input.form-control {
   display: flex;
   flex-wrap: wrap;
   & > div {
-    margin-left: .5rem;
-    margin-right: .5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     margin-bottom: 1rem;
   }
 }
-
-@media (max-width: 550px) {
-  .fix-wrapper {
-    & > div {
-      width: 100%;
+.trifix-table {
+  td {
+    border: 1px solid;
+    padding: 0.25rem .5rem;
+    text-align: center;
+    width: 50px;
+    a {
+      color: $dark;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
+
 .search-instructions {
   h2 {
     text-align: right;
@@ -219,13 +226,13 @@ input.form-control {
   .rule {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: .25rem;
+    margin-bottom: 0.25rem;
     .rule-name {
       min-width: 200px;
       margin-left: 1rem;
     }
     .rule-example {
-      margin-left: 1.25rem;
+      margin-left: 2rem;
       min-width: 200px;
     }
   }
@@ -271,12 +278,12 @@ input.form-control {
   }
 }
 .button-wrapper {
-  margin-left: -.5rem;
-  margin-right: -.5rem;
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
   margin-bottom: -1rem;
   & > * {
-    margin-left: .5rem;
-    margin-right: .5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     margin-bottom: 1rem;
   }
 }
