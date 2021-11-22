@@ -18,14 +18,11 @@ export class TypeRecordExpandedComponent implements OnInit {
 
   activeTab: string;
 
-  activeOps = "Summary";
+  activeOps = 'Summary';
 
-  opsOptions = [
-    'Summary',
-    'Checklist',
-    'Description',
-    'Points'
-  ];
+  opsOptions = ['Summary', 'Checklist', 'Description', 'Twins', 'Points'];
+
+  allNames: Map<string, TypedPerson>;
 
   constructor(
     private opsDataService: OpsDataService,
@@ -50,25 +47,32 @@ export class TypeRecordExpandedComponent implements OnInit {
       });
       this.initActiveTab();
     } else {
-      this.opsDataService.allNames.subscribe((allNamesMaps) => {
+      this.opsDataService.allNames.subscribe((allNamesMap) => {
+        this.allNames = allNamesMap;
         if (!this.personName) {
-          this.initRoute(); // get name from route
+          this.initRoute(); // get name from route - then setup
+        } else {
+          this.setupPerson();
         }
-        this.person = allNamesMaps.get(this.personName);
-        if (this.person.type) {
-          this.personOpsType = OpsTypeUtil.getPersonOpsType(this.person);
-        }
-        this.initActiveTab();
       });
     }
   }
 
-  private initRoute() {
+  private setupPerson() {
+    this.person = this.allNames.get(this.personName);
+    if (this.person.type) {
+      this.personOpsType = OpsTypeUtil.getPersonOpsType(this.person);
+    }
+    this.initActiveTab();
+  }
+
+  private initRoute(setup?) {
     this.route.queryParamMap.subscribe((params) => {
       this.personName = params.get('person');
       if (!this.personName) {
         // redirect to search
       }
+      this.setupPerson();
     });
   }
 

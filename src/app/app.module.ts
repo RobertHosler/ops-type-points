@@ -48,6 +48,7 @@ import { EnneagramTrifixComponent } from './enneagram-trifix/enneagram-trifix.co
 import { OpsTypeAnimalComponent } from './ops-type-animal/ops-type-animal.component';
 import { OpsTypeTableComponent } from './ops-type-table/ops-type-table.component';
 import { TypeDashboardAnimalsComponent } from './type-dashboard-animals/type-dashboard-animals.component';
+import { OpsTypeTwinsComponent } from './ops-type-twins/ops-type-twins.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -85,7 +86,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     EnneagramTrifixComponent,
     OpsTypeAnimalComponent,
     OpsTypeTableComponent,
-    TypeDashboardAnimalsComponent
+    TypeDashboardAnimalsComponent,
+    OpsTypeTwinsComponent
   ],
   imports: [
     HttpClientModule,

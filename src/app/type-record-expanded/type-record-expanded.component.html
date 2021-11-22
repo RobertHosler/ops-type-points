@@ -108,11 +108,11 @@
                   [opsType]="personOpsType"
                 ></app-type-dashboard>
               </div>
-            </div>
-            <div>
-              <app-type-dashboard-animals
-                [opsType]="personOpsType"
-              ></app-type-dashboard-animals>
+              <div>
+                <app-type-dashboard-animals
+                  [opsType]="personOpsType"
+                ></app-type-dashboard-animals>
+              </div>
             </div>
           </div>
           <div *ngIf="activeOps === 'Checklist'">
@@ -122,6 +122,9 @@
             <app-type-description
               [opsType]="personOpsType"
             ></app-type-description>
+          </div>
+          <div *ngIf="activeOps === 'Twins'" class="pt-3">
+            <app-ops-type-twins [opsType]="personOpsType"></app-ops-type-twins>
           </div>
           <div *ngIf="activeOps === 'Points'" class="pt-3">
             <app-type-points
