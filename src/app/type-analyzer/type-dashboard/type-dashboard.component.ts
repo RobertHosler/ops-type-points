@@ -15,6 +15,7 @@ export class TypeDashboardComponent implements OnInit, OnDestroy {
 
   @Input()
   opsType: OpsType;
+
   private opsTypesSub: Subscription;
 
   functions: Function[] = new Array<Function>();

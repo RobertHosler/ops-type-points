@@ -15,6 +15,7 @@ export class Animal {
 
     savior: string;//S1, S2, A, -
     index: number;//1,2,3,4
+    activation = 0;
 
     saviorBool: boolean;
     demon: boolean;
@@ -25,7 +26,9 @@ export class Animal {
 
     temperament: string;//NF,ST
     observerLetter: string;
+    observerFunction: string;
     deciderLetter: string;
+    deciderFunction: string;
 
     constructor(name: string, shortName: string, oe: boolean, de: boolean, energy: boolean) {
         this.name = name;

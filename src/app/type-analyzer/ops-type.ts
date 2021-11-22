@@ -235,7 +235,6 @@ export class OpsType {
             }
           }
         });
-
       }
       // Activate the functions
       this.functions.forEach((f) => {
@@ -258,9 +257,11 @@ export class OpsType {
           if (f.decider) {
             currentAnimal.deciderLetter = f.letter;
             currentAnimal.deciderModality = f.modality;
+            currentAnimal.deciderFunction = f.name;
           } else {
             currentAnimal.observerLetter = f.letter;
             currentAnimal.observerModality = f.modality;
+            currentAnimal.observerFunction = f.name;
           }
         }
       });

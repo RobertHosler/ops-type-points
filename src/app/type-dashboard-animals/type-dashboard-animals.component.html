@@ -1,0 +1,37 @@
+<div class="table-wrapper mb-3">
+  <table class="table">
+    <thead>
+      <ng-container *ngFor="let heading of headings">
+        <th>
+          <button
+            class="d-lg-none btn btn-link table-tip"
+            type="button"
+            placement="top"
+            [tooltip]="heading.title"
+            [adaptivePosition]="false"
+          >
+            {{ heading.letter }}
+          </button>
+          <span class="d-none d-lg-inline">{{ heading.title }}</span>
+        </th>
+      </ng-container>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let function of functions; index as i"
+        [ngClass]="{
+          'mm-row': animals[i].modality === 'MM',
+          'ff-row': animals[i].modality === 'FF'
+        }"
+      >
+        <td>{{ animals[i].name }}</td>
+        <td>{{ animals[i].savior ? animals[i].savior : "?" }}</td>
+        <td>{{ animals[i].modality }}</td>
+        <td>{{ animals[i].temperament }}</td>
+        <td>
+          {{ animals[i].observerFunction + "+" + animals[i].deciderFunction }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

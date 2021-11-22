@@ -12,6 +12,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { AccordionModule  } from 'ngx-bootstrap/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeDescriptionComponent } from './type-analyzer/type-description/type-description.component';
@@ -46,6 +47,7 @@ import { EnneagramInstinctComponent } from './enneagram-instinct/enneagram-insti
 import { EnneagramTrifixComponent } from './enneagram-trifix/enneagram-trifix.component';
 import { OpsTypeAnimalComponent } from './ops-type-animal/ops-type-animal.component';
 import { OpsTypeTableComponent } from './ops-type-table/ops-type-table.component';
+import { TypeDashboardAnimalsComponent } from './type-dashboard-animals/type-dashboard-animals.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -82,7 +84,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     EnneagramInstinctComponent,
     EnneagramTrifixComponent,
     OpsTypeAnimalComponent,
-    OpsTypeTableComponent
+    OpsTypeTableComponent,
+    TypeDashboardAnimalsComponent
   ],
   imports: [
     HttpClientModule,
@@ -97,6 +100,7 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     ButtonsModule.forRoot(),
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
+    AccordionModule.forRoot(),
     NgxBootstrapIconsModule.pick(allIcons)
   ],
   providers: [],

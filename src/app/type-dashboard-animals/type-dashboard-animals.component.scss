@@ -1,4 +1,14 @@
 @import "~src/assets/variables";
+
+.mm-row {
+//   background-color: $ej-red;
+  font-weight: bold;
+}
+.ff-row {
+//   background-color: #e8f0ff;
+}
+
+@import "~src/assets/variables";
 @import "~node_modules/bootstrap/scss/mixins/breakpoints";
 
 table {
@@ -10,6 +20,8 @@ table {
 table th {
   border-top: 0px;
   border-bottom: 0px;
+  font-weight: normal;
+  font-size: .9rem;
 }
 tbody {
   border-top: 1px solid black;
@@ -21,9 +33,8 @@ tbody td {
   border-left: 1px solid black;
   border-right: 1px solid black;
 }
-tbody td:nth-child(5),
-tbody td:nth-child(6) {
-  background: $tertiary-soft;
+tbody td:first-child {
+    background: #eee;
 }
 .table-wrapper {
   overflow-x: auto;

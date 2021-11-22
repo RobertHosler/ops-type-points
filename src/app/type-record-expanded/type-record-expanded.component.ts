@@ -18,9 +18,10 @@ export class TypeRecordExpandedComponent implements OnInit {
 
   activeTab: string;
 
-  activeOps = "Checklist";
+  activeOps = "Summary";
 
   opsOptions = [
+    'Summary',
     'Checklist',
     'Description',
     'Points'

@@ -17,102 +17,63 @@
             [allActive]="true"
           ></app-type-tags>
         </div>
+        <div class="type-row">
+          <app-type-indicator
+            class="type-indicator"
+            *ngIf="person.type"
+            [option]="1"
+            [type]="person.type"
+          ></app-type-indicator>
+          <app-type-indicator
+            class="type-indicator"
+            *ngIf="person.eType"
+            [option]="1"
+            [eType]="person.fullEType"
+          ></app-type-indicator>
+          <app-socionics-shape
+            class="type-indicator"
+            *ngIf="person.wssType"
+            [type]="person.wssType"
+          ></app-socionics-shape>
+        </div>
       </div>
       <div class="type-selection">
-        <div *ngIf="person.type">
-          <div class="type-selector">
-            <div class="btn-group" dropdown>
-              <button
-                class="btn btn-gray"
-                *ngIf="person.type"
-                (click)="activeTab = 'OPS'"
-                [ngClass]="{ active: activeTab === 'OPS' }"
-              >
-                Objective Personality
-              </button>
-              <button
-                dropdownToggle
-                type="button"
-                class="btn btn-gray dropdown-toggle"
-                aria-controls="dropdown-basic"
-                [ngClass]="{ active: activeTab === 'OPS' }"
-              >
-                <span class="caret"></span>
-              </button>
-              <ul
-                id="dropdown-basic"
-                *dropdownMenu
-                class="dropdown-menu"
-                role="menu"
-                aria-labelledby="button-basic"
-              >
-                <li role="menuitem" *ngFor="let option of opsOptions">
-                  <a
-                    class="dropdown-item"
-                    (click)="activeTab = 'OPS'; activeOps = option"
-                    href="javascript:;"
-                    >{{ option }}</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="type-row">
-            <app-type-indicator
-              class="type-indicator"
-              [option]="1"
-              [type]="person.type"
-            ></app-type-indicator>
-            <div>
-              <strong>{{ person.type }}</strong>
-            </div>
-          </div>
-        </div>
-        <div *ngIf="person.eType">
-          <div class="type-selector">
+        <accordion closeOthers="true">
+          <accordion-group
+            heading="Objective Personality"
+            *ngIf="person.type"
+            [isOpen]="activeTab === 'OPS'"
+            [ngClass]="{ active: activeTab === 'OPS' }"
+            (click)="activeTab = 'OPS'"
+          >
             <button
-              class="btn btn-gray"
-              *ngIf="person.eType"
-              (click)="activeTab = 'Enneagram'"
-              [ngClass]="{ active: activeTab === 'Enneagram' }"
+              class="btn btn-gray d-block w-100"
+              *ngFor="let option of opsOptions"
+              [ngClass]="{ active: activeOps === option }"
+              (click)="activeTab = 'OPS'; activeOps = option"
             >
-              Enneagram
+              {{ option }}
             </button>
-          </div>
-          <div class="type-row">
-            <app-type-indicator
-              class="type-indicator"
-              [option]="1"
-              [eType]="person.fullEType"
-            ></app-type-indicator>
-            <div>
-              <strong>{{ person.fullEType }}</strong>
-            </div>
-          </div>
-        </div>
-        <div *ngIf="person.wssType">
-          <div class="type-selector">
-            <button
-              class="btn btn-gray"
-              *ngIf="person.wssType"
-              (click)="activeTab = 'WSS'"
-              [ngClass]="{ active: activeTab === 'WSS' }"
-            >
-              Socionics
-            </button>
-          </div>
-          <div class="type-row">
-            <app-socionics-shape
-              class="type-indicator"
-              [type]="person.wssType"
-            ></app-socionics-shape>
-            <div>
-              <div>
-                <strong>{{ person.wssType }}</strong>
-              </div>
-            </div>
-          </div>
-        </div>
+          </accordion-group>
+          <accordion-group
+            heading="Enneagram"
+            *ngIf="person.eType"
+            (click)="activeTab = 'Enneagram'"
+            [isOpen]="activeTab === 'Enneagram'"
+            [ngClass]="{ active: activeTab === 'Enneagram' }"
+          >
+            <!-- <p>Some content</p> -->
+          </accordion-group>
+          <accordion-group
+            heading="Socionics"
+            *ngIf="person.wssType"
+            (click)="activeTab = 'WSS'"
+            [isOpen]="activeTab === 'WSS'"
+            [ngClass]="{ active: activeTab === 'WSS' }"
+          >
+            <!-- <p>Some content</p> -->
+          </accordion-group>
+        </accordion>
       </div>
     </div>
   </div>
@@ -126,26 +87,34 @@
             [animalStack]="person.type.substring(9)"
           ></app-ops-type-animal>
         </h2>
-        <div class="ops-visual-row">
-          <div class="flex-center mx-3">
-            <div class="ops-molecule" *ngIf="person.type.length === 16">
-              <app-type-bubbles
-                class="text-center"
-                [showOptions]="false"
-                [showType]="false"
-                [opsTypes]="[personOpsType]"
-              ></app-type-bubbles>
+        <div *ngIf="personOpsType">
+          <div *ngIf="activeOps === 'Summary'">
+            <div class="ops-visual-row">
+              <div class="flex-center mx-3">
+                <div class="ops-molecule" *ngIf="person.type.length === 16">
+                  <app-type-bubbles
+                    class="text-center"
+                    [showOptions]="false"
+                    [showType]="false"
+                    [opsTypes]="[personOpsType]"
+                  ></app-type-bubbles>
+                </div>
+              </div>
+              <div
+                class="person-dashboard"
+                *ngIf="activeTab === 'OPS' && person.type.length === 16"
+              >
+                <app-type-dashboard
+                  [opsType]="personOpsType"
+                ></app-type-dashboard>
+              </div>
+            </div>
+            <div>
+              <app-type-dashboard-animals
+                [opsType]="personOpsType"
+              ></app-type-dashboard-animals>
             </div>
           </div>
-          <div
-            class="person-dashboard"
-            *ngIf="activeTab === 'OPS' && person.type.length === 16"
-          >
-            <app-type-dashboard [opsType]="personOpsType"></app-type-dashboard>
-          </div>
-        </div>
-        <div></div>
-        <div *ngIf="personOpsType">
           <div *ngIf="activeOps === 'Checklist'">
             <app-type-checklist [opsType]="personOpsType"></app-type-checklist>
           </div>

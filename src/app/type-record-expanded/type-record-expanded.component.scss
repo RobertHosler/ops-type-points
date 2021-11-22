@@ -13,6 +13,7 @@
   display: flex;
   padding-top: .5rem;
   padding-bottom: 1rem;
+  justify-content: center;
   .type-indicator {
     width: 100px;
   }
@@ -73,7 +74,7 @@
     .type-selection {
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      // justify-content: center;
       margin-left: 1rem;
       border-left: 1px solid;
       padding-left: 1rem;

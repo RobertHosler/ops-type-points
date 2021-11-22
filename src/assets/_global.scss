@@ -335,3 +335,53 @@ popover-container {
 .ep-green {
   background-color: $ep-green;
 }
+
+.type-selection {
+  .btn-gray {
+    background-color: #eee;
+    &.active {
+      background-color: $secondary;
+    }
+  }
+  accordion {
+    .panel-body {
+      padding: 0px;
+    }
+    .panel-body .btn.active {
+      color: $light;
+    }
+    .panel,
+    .btn {
+      border-radius: 0px;
+      border: 0px;
+      text-align: left;
+    }
+    .card-header {
+      border: 0px;
+    }
+    .panel-body .btn {
+      padding: 0.75rem 3rem;
+      font-size: 0.9rem;
+    }
+    accordion-group.active > .panel {
+      background: $secondary;
+      .btn {
+        color: $light;
+      }
+      .panel-body {
+        .btn {
+          color: $dark;
+        }
+        .btn.active {
+          color: $light;
+        }
+      }
+    }
+    accordion-group > .panel {
+      background: #eee;
+      .btn {
+        color: $dark;
+      }
+    }
+  }
+}
