@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { AnimalStack, AnimalStackModel } from './animal-stack';
 import { OpsTypeService } from '../ops-type.service';
 import { OpsType } from '../ops-type';
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./type-animal.component.css'],
 })
 export class TypeAnimalComponent implements OnInit, OnDestroy {
-
+  @Input()
   opsTypes: OpsType[];
   private opsTypesSub: Subscription;
 
@@ -22,6 +22,9 @@ export class TypeAnimalComponent implements OnInit, OnDestroy {
   emojiAppUrl: string =
     'https://script.google.com/macros/s/AKfycbxMeATOVdtlI86buz2tPnkNe3KN7J2XPaLxsgp6v_AYVpl5-uHW/exec?fbclid=IwAR2BOOJF81bAAdjMF_ZtY07p5amnChzGcbdT4HwUhS3078HHrd-iaV3_H7k';
 
+  extroversionBlogUrl: string =
+    'https://subjectivepersonality.wordpress.com/2021/06/09/the-spectrum-of-extroversion/';
+
   animalStackGroups: { name: string; group: AnimalStack[] }[] = [
     { name: 'Sleep', group: AnimalStackModel.sleepFirst },
     { name: 'Consume', group: AnimalStackModel.consumeFirst },
@@ -29,20 +32,27 @@ export class TypeAnimalComponent implements OnInit, OnDestroy {
     { name: 'Play', group: AnimalStackModel.playFirst },
   ];
 
-  constructor(private opsTypeService: OpsTypeService) {
-    this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
-      this.opsTypes = opsTypes;
-      this.updateAnimalStackGroups();
-    });
-  }
+  constructor(private opsTypeService: OpsTypeService) {}
 
   ngOnInit(): void {
-    this.opsTypes = this.opsTypeService.opsTypes;
-    this.updateAnimalStackGroups();
+    if (!this.opsTypes) {
+      this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe(
+        (opsTypes: OpsType[]) => {
+          this.opsTypes = opsTypes;
+          this.updateAnimalStackGroups();
+        }
+      );
+      this.opsTypes = this.opsTypeService.opsTypes;
+      this.updateAnimalStackGroups();
+    } else {
+      this.updateAnimalStackGroups();
+    }
   }
 
   ngOnDestroy() {
-    this.opsTypesSub.unsubscribe();
+    if (this.opsTypesSub) {
+      this.opsTypesSub.unsubscribe();
+    }
   }
 
   updateAnimalStackGroups() {
@@ -64,5 +74,4 @@ export class TypeAnimalComponent implements OnInit, OnDestroy {
       });
     });
   }
-
 }

@@ -20,7 +20,14 @@ export class TypeRecordExpandedComponent implements OnInit {
 
   activeOps = 'Summary';
 
-  opsOptions = ['Summary', 'Checklist', 'Description', 'Twins', 'Points'];
+  opsOptions = [
+    'Summary',
+    'Checklist',
+    'Description',
+    'Twins',
+    'Points',
+    'Extroversion',
+  ];
 
   allNames: Map<string, TypedPerson>;
 

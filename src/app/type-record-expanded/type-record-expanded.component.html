@@ -126,6 +126,9 @@
           <div *ngIf="activeOps === 'Twins'" class="pt-3">
             <app-ops-type-twins [opsType]="personOpsType"></app-ops-type-twins>
           </div>
+          <div *ngIf="activeOps === 'Extroversion'" class="pt-3">
+            <app-type-animal [opsTypes]="[personOpsType]"></app-type-animal>
+          </div>
           <div *ngIf="activeOps === 'Points'" class="pt-3">
             <app-type-points
               [opsType]="personOpsType"
