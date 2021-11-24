@@ -1,12 +1,6 @@
 @import "~src/assets/variables";
 
 .ops-type-table {
-  a {
-    color: $dark;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
   th,
   td {
     padding: 0.25rem 0.25rem;

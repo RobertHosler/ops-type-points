@@ -1,5 +1,6 @@
 <ng-template #searchlink let-text="text" let-query="query">
   <a
+    class="dark-link"
     [routerLink]="['/search']"
     [queryParams]="{ text: query ? query : text }"
     >{{ text }}</a

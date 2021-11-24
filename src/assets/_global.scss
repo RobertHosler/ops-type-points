@@ -7,7 +7,7 @@ app-root {
   display: block;
 }
 
-$dark-mode-color: #333;
+$dark-mode-color: #222;
 .dark-mode {
   background-color: $dark-mode-color;
   color: $light;
@@ -97,7 +97,7 @@ a .card:before {
 .footer,
 .card {
   background: theme-color("secondary");
-  background: gradient("purple");
+  background: $secondary;
   color: theme-color("light");
   a {
     color: $highlight-green;
@@ -110,8 +110,8 @@ a .card:before {
   @include gradient-border();
 }
 .footer {
-  border-top: 5px solid theme-color("primary");
-  @include gradient-border();
+  // border-top: 5px solid theme-color("primary");
+  // @include gradient-border();
 }
 
 @each $gradient, $value in $gradients {
@@ -383,5 +383,26 @@ popover-container {
         color: $dark;
       }
     }
+  }
+}
+
+.bg-light-gray {
+  background-color: #eee;
+}
+.dark-mode .bg-light-gray {
+  background-color: #333;
+}
+
+
+a.dark-link {
+  color: $dark;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.dark-mode .ops-type-table {
+  a.dark-link {
+    color: $cad-orange;
   }
 }

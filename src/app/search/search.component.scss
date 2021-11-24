@@ -182,7 +182,6 @@ input.form-control {
   }
 }
 .fix-bg {
-  background-color: #eee;
   padding-top: 2rem;
   padding-bottom: 2rem;
   border-top: 1px solid #ccc;
@@ -199,7 +198,7 @@ input.form-control {
 .trifix-table {
   td {
     border: 1px solid;
-    padding: 0.25rem .5rem;
+    padding: 0.25rem 0.5rem;
     text-align: center;
     width: 50px;
     a {

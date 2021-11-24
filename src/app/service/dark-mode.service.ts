@@ -5,7 +5,7 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 })
 export class DarkModeService {
 
-  darkMode = false;
+  darkMode = true;
 
   private renderer: Renderer2;
 
