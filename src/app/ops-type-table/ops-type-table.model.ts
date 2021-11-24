@@ -1,5 +1,3 @@
-import { stack } from "ngx-bootstrap-icons";
-
 const sleepFunctions = [
   'Fi/Ni',
   'Fi/Si',
