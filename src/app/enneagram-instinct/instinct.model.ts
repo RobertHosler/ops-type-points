@@ -18,9 +18,12 @@ descriptions.set('sp', {
 descriptions.set('sx', {
   name: 'Sexual',
   description: [
-    'attraction and excitement',
-    'what expands and intensifies life',
-    'high expectations and ideals for partners',
+    // 'attraction and excitement',
+    // 'what expands and intensifies life',
+    // 'high expectations and ideals for partners',
+    'eroticizing the self and objects of interest (people and things)',
+    'reflexively seeking polarized energies for heightened charge',
+    'advertising sexual flavour in every facet of self-expression',
   ],
 });
 
