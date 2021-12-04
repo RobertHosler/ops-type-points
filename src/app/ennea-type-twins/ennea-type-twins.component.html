@@ -1,25 +1,12 @@
 <h3>Type Twins</h3>
 <div class="mb-2">
   <button
+    *ngFor="let option of options"
     class="btn btn-gray mr-2"
-    (click)="twin('modality')"
-    [ngClass]="{ active: twinMod }"
+    (click)="twin(option.mod)"
+    [ngClass]="{ active: activeMods.includes(option.mod) }"
   >
-    Ignoring Modality
-  </button>
-  <button
-    class="btn btn-gray mr-2"
-    (click)="twin('core-need')"
-    [ngClass]="{ active: twinNeed }"
-  >
-    Ignoring OO/DD
-  </button>
-  <button
-    class="btn btn-gray mr-2"
-    (click)="twin('info-energy')"
-    [ngClass]="{ active: twinDom }"
-  >
-    Ignoring Info/Energy
+    {{option.text}}
   </button>
 </div>
 <app-type-record-list

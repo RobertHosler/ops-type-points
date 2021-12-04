@@ -62,7 +62,28 @@
             [isOpen]="activeTab === 'Enneagram'"
             [ngClass]="{ active: activeTab === 'Enneagram' }"
           >
-            <!-- <p>Some content</p> -->
+            <button
+              class="btn btn-gray d-block w-100"
+              [ngClass]="{ active: activeEnnea === 'Summary' }"
+              (click)="activeTab = 'Enneagram'; activeEnnea = 'Summary'"
+            >
+              Summary
+            </button>
+            <button
+              class="btn btn-gray d-block w-100"
+              *ngIf="person.trifix"
+              [ngClass]="{ active: activeEnnea === 'Trifix' }"
+              (click)="activeTab = 'Enneagram'; activeEnnea = 'Trifix'"
+            >
+              Trifix
+            </button>
+            <button
+              class="btn btn-gray d-block w-100"
+              [ngClass]="{ active: activeEnnea === 'Twins' }"
+              (click)="activeTab = 'Enneagram'; activeEnnea = 'Twins'"
+            >
+              Twins
+            </button>
           </accordion-group>
           <accordion-group
             heading="Socionics"
@@ -138,22 +159,27 @@
         </div>
       </div>
       <div *ngIf="activeTab === 'Enneagram'">
-        <div>
-          <h2>{{ person.fullEType }}</h2>
+        <h2>{{ person.fullEType }}</h2>
+        <div *ngIf="activeEnnea === 'Summary'">
+          <div>
+            <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
+          </div>
+          <div *ngIf="person.instinct">
+            <app-enneagram-instinct
+              [instinct]="person.instinct"
+            ></app-enneagram-instinct>
+          </div>
         </div>
-        <div>
-          <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
-        </div>
-        <div *ngIf="person.instinct">
-          <app-enneagram-instinct
-            [instinct]="person.instinct"
-          ></app-enneagram-instinct>
-        </div>
-        <div *ngIf="person.trifix">
+        <div *ngIf="activeEnnea === 'Trifix'">
           <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>
           <div class="my-3">
-            <app-enneagram-trifix-combination [trifix]="person.trifix"></app-enneagram-trifix-combination>
+            <app-enneagram-trifix-combination
+              [trifix]="person.trifix"
+            ></app-enneagram-trifix-combination>
           </div>
+        </div>
+        <div *ngIf="activeEnnea === 'Twins'">
+          <app-ennea-type-twins [typedPerson]="person"></app-ennea-type-twins>
         </div>
       </div>
       <div *ngIf="activeTab === 'WSS'">

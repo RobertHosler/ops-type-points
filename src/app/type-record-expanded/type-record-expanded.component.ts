@@ -19,6 +19,7 @@ export class TypeRecordExpandedComponent implements OnInit {
   activeTab: string;
 
   activeOps = 'Summary';
+  activeEnnea = 'Summary';
 
   opsOptions = [
     'Summary',
@@ -58,7 +59,7 @@ export class TypeRecordExpandedComponent implements OnInit {
         this.allNames = allNamesMap;
         if (!this.personName) {
           this.initRoute(); // get name from route - then setup
-        } else {
+        } else if (!this.person) {
           this.setupPerson();
         }
       });

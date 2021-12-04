@@ -49,6 +49,7 @@ export class OpsTypeTwinsComponent implements OnInit {
       }, 0);
     }
   }
+
   private fetchExactTwins(type: OpsType) {
     this.concatTwins(type.opsCode);
   }
@@ -119,6 +120,9 @@ export class OpsTypeTwinsComponent implements OnInit {
     );
   }
 
+  /**
+   * Add twins with a specified type to the list.
+   */
   private concatTwins(key: string) {
     let twins = this.allTypes.get(key);
     if (twins) {
