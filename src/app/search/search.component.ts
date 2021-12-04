@@ -446,7 +446,17 @@ export class SearchComponent implements OnInit {
     strings.forEach((string) => {
       if (result) {
         let s = string.toLowerCase();
-        if (s.startsWith('*')) {
+        if (s.includes('|') ) {
+          let sArr = s.split('|');
+          let found = false;
+          for (let i = 0; i !== sArr.length; i++) {
+            found = this.matchTextParts(person, sArr[i]);
+            if (found) {
+              break;
+            }
+          }
+          result = found;
+        } else if (s.startsWith('*')) {
           s = s.substring(1);
           if (s.length === 3 && /^\d+$/.test(s)) {
             this.searchTerms.push(s);
