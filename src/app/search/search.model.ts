@@ -573,6 +573,78 @@ comboTerms.set('kinesthetic', { strings: ['mm'] });
 comboTerms.set('info', { strings: ['(p)', '(s)'] });
 comboTerms.set('energy', { strings: ['(b)', '(c)'] });
 
+comboTerms.set('pcsb', { strings: ['pc/s'] });
+comboTerms.set('pcs', { strings: ['pc/s'] });
+comboTerms.set('pcbs', { strings: ['pc/b'] });
+comboTerms.set('pcb', { strings: ['pc/b'] });
+comboTerms.set('pbcs', { strings: ['pb/c'] });
+comboTerms.set('pbc', { strings: ['pb/c'] });
+comboTerms.set('pbsc', { strings: ['pb/s'] });
+comboTerms.set('pbs', { strings: ['pb/s'] });
+
+comboTerms.set('sbc', { strings: ['sb/c'] });
+comboTerms.set('sbcp', { strings: ['sb/c'] });
+comboTerms.set('sbpc', { strings: ['sb/p'] });
+comboTerms.set('sbp', { strings: ['sb/p'] });
+comboTerms.set('scpb', { strings: ['sc/p'] });
+comboTerms.set('scp', { strings: ['sc/p'] });
+comboTerms.set('scbp', { strings: ['sc/b'] });
+comboTerms.set('scb', { strings: ['sc/b'] });
+
+comboTerms.set('csbp', { strings: ['cs/b'] });
+comboTerms.set('csb', { strings: ['cs/b'] });
+comboTerms.set('cspb', { strings: ['cs/p'] });
+comboTerms.set('csp', { strings: ['cs/p'] });
+comboTerms.set('cpsb', { strings: ['cp/s'] });
+comboTerms.set('cps', { strings: ['cp/s'] });
+comboTerms.set('cpbs', { strings: ['cp/b'] });
+comboTerms.set('cpb', { strings: ['cp/b'] });
+
+comboTerms.set('bspc', { strings: ['bs/p'] });
+comboTerms.set('bsp', { strings: ['bs/p'] });
+comboTerms.set('bscp', { strings: ['bs/c'] });
+comboTerms.set('bsc', { strings: ['bs/c'] });
+comboTerms.set('bpsc', { strings: ['bp/s'] });
+comboTerms.set('bps', { strings: ['bp/s'] });
+comboTerms.set('bpcs', { strings: ['bp/c'] });
+comboTerms.set('bpc', { strings: ['bp/c'] });
+
+comboTerms.set('tese', { strings: ['te/se'] });
+comboTerms.set('fese', { strings: ['fe/se'] });
+comboTerms.set('tene', { strings: ['te/ne'] });
+comboTerms.set('fene', { strings: ['fe/ne'] });
+comboTerms.set('sete', { strings: ['se/te'] });
+comboTerms.set('sefe', { strings: ['se/fe'] });
+comboTerms.set('nete', { strings: ['ne/te'] });
+comboTerms.set('nefe', { strings: ['ne/fe'] });
+
+comboTerms.set('tesi', { strings: ['te/si'] });
+comboTerms.set('fesi', { strings: ['fe/si'] });
+comboTerms.set('teni', { strings: ['te/ni'] });
+comboTerms.set('feni', { strings: ['fe/ni'] });
+comboTerms.set('site', { strings: ['si/te'] });
+comboTerms.set('sife', { strings: ['si/fe'] });
+comboTerms.set('nite', { strings: ['ni/te'] });
+comboTerms.set('nife', { strings: ['ni/fe'] });
+
+comboTerms.set('tise', { strings: ['te/si'] });
+comboTerms.set('fise', { strings: ['fe/si'] });
+comboTerms.set('tine', { strings: ['te/ni'] });
+comboTerms.set('fine', { strings: ['fe/ni'] });
+comboTerms.set('seti', { strings: ['si/te'] });
+comboTerms.set('sefi', { strings: ['si/fe'] });
+comboTerms.set('neti', { strings: ['ni/te'] });
+comboTerms.set('nefi', { strings: ['ni/fe'] });
+
+comboTerms.set('tisi', { strings: ['ti/si'] });
+comboTerms.set('fisi', { strings: ['fi/si'] });
+comboTerms.set('tini', { strings: ['ti/ni'] });
+comboTerms.set('fini', { strings: ['fi/ni'] });
+comboTerms.set('siti', { strings: ['si/ti'] });
+comboTerms.set('sifi', { strings: ['si/fi'] });
+comboTerms.set('niti', { strings: ['ni/ti'] });
+comboTerms.set('nifi', { strings: ['ni/fi'] });
+
 comboTerms.set('alpha', {
   strings: [
     ['si', 'ne'],
