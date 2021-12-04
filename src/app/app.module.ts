@@ -45,6 +45,7 @@ import { SocionicsShapeComponent } from './socionics-shape/socionics-shape.compo
 import { EnneagramTypeComponent } from './enneagram-type/enneagram-type.component';
 import { EnneagramInstinctComponent } from './enneagram-instinct/enneagram-instinct.component';
 import { EnneagramTrifixComponent } from './enneagram-trifix/enneagram-trifix.component';
+import { EnneagramTrifixCombinationComponent } from './enneagram-trifix-combination/enneagram-trifix-combination.component';
 import { OpsTypeAnimalComponent } from './ops-type-animal/ops-type-animal.component';
 import { OpsTypeTableComponent } from './ops-type-table/ops-type-table.component';
 import { TypeDashboardAnimalsComponent } from './type-dashboard-animals/type-dashboard-animals.component';
@@ -84,6 +85,7 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     EnneagramTypeComponent,
     EnneagramInstinctComponent,
     EnneagramTrifixComponent,
+    EnneagramTrifixCombinationComponent,
     OpsTypeAnimalComponent,
     OpsTypeTableComponent,
     TypeDashboardAnimalsComponent,

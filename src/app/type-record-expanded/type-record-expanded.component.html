@@ -151,6 +151,9 @@
         </div>
         <div *ngIf="person.trifix">
           <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>
+          <div class="my-3">
+            <app-enneagram-trifix-combination [trifix]="person.trifix"></app-enneagram-trifix-combination>
+          </div>
         </div>
       </div>
       <div *ngIf="activeTab === 'WSS'">
