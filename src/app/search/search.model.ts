@@ -627,14 +627,14 @@ comboTerms.set('sife', { strings: ['si/fe'] });
 comboTerms.set('nite', { strings: ['ni/te'] });
 comboTerms.set('nife', { strings: ['ni/fe'] });
 
-comboTerms.set('tise', { strings: ['te/si'] });
-comboTerms.set('fise', { strings: ['fe/si'] });
-comboTerms.set('tine', { strings: ['te/ni'] });
-comboTerms.set('fine', { strings: ['fe/ni'] });
-comboTerms.set('seti', { strings: ['si/te'] });
-comboTerms.set('sefi', { strings: ['si/fe'] });
-comboTerms.set('neti', { strings: ['ni/te'] });
-comboTerms.set('nefi', { strings: ['ni/fe'] });
+comboTerms.set('tise', { strings: ['ti/se'] });
+comboTerms.set('fise', { strings: ['fi/se'] });
+comboTerms.set('tine', { strings: ['ti/ne'] });
+comboTerms.set('fine', { strings: ['fi/ne'] });
+comboTerms.set('seti', { strings: ['se/ti'] });
+comboTerms.set('sefi', { strings: ['se/fi'] });
+comboTerms.set('neti', { strings: ['ne/ti'] });
+comboTerms.set('nefi', { strings: ['ne/fi'] });
 
 comboTerms.set('tisi', { strings: ['ti/si'] });
 comboTerms.set('fisi', { strings: ['fi/si'] });
