@@ -103,13 +103,13 @@ function convertRecords(records) {
     tags.push("Community Member");
     let ytLink = '';
     if (bin) {
-      ytLink = bin;
+      ytLink = bin.split('\n')[0];
     } else if (enfp) {
-      ytLink = enfp;
+      ytLink = enfp.split('\n')[0];
     } else if (wssLink) {
-      ytLink = wssLink;
+      ytLink = wssLink.split('\n')[0];
     } else if (other) {
-      ytLink = other;
+      ytLink = other.split('\n')[0];
     }
     result.set(name, {
       name: name,

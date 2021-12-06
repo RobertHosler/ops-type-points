@@ -242,6 +242,7 @@ export class TypedPerson {
   binLink?: string;
   enfpLink?: string;
   otherLinks?: string;
+  opsLinks?: string; // from ops database
   ytLink?: string;
   lastModified?: string;
 }

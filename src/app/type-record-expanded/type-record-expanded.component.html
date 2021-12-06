@@ -139,6 +139,9 @@
           <div *ngIf="activeOps === 'Checklist'">
             <app-type-checklist [opsType]="personOpsType"></app-type-checklist>
           </div>
+          <div *ngIf="activeOps === 'Links'">
+            <app-ops-type-links [typedPerson]="person"></app-ops-type-links>
+          </div>
           <div *ngIf="activeOps === 'Description'" class="pt-3">
             <app-type-description
               [opsType]="personOpsType"

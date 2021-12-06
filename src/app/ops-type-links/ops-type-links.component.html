@@ -1,0 +1,48 @@
+<div *ngIf="allEmpty">No Links Available</div>
+
+<div *ngIf="sanitizedEmbed">
+  <iframe
+    width="560"
+    height="315"
+    [src]="sanitizedEmbed"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
+</div>
+
+<div *ngIf="youtubeLinks.length > 0">
+  YouTube Links
+  <ul>
+    <li *ngFor="let link of youtubeLinks">
+      <a [href]="link.href" target="_blank">{{ link.text }}</a>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="classLinks.length > 0">
+  Objective Personality Class Links
+  <span
+    popoverTitle="Restricted Access"
+    popover="Links to videos in the Objective Personality Class require a paid subscription to class membership."
+  >
+    <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+  </span>
+  <ul>
+    <li *ngFor="let link of classLinks">
+      <a [href]="link.href" target="_blank">{{ link.text }}</a>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="links.length > 0">
+  Other Links
+  <ul>
+    <li *ngFor="let link of links">
+      <a [href]="link.href" target="_blank">{{ link.text }}</a>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="false" class="mb-3" style="overflow-wrap: break-word">
+  {{ typedPerson.opsLinks }}
+</div>

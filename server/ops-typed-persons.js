@@ -30,6 +30,7 @@ listUrl.searchParams.append("fields", "Blast vs Consume");
 listUrl.searchParams.append("fields", "Play vs Sleep");
 listUrl.searchParams.append("fields", "Biological Sex");
 listUrl.searchParams.append("fields", "Transgender");
+listUrl.searchParams.append("fields", "Links");
 listUrl.searchParams.append("fields", "Type Number");
 listUrl.searchParams.append("fields", "Last Modified");
 listUrl.searchParams.append("fields", "Created Date");
@@ -55,6 +56,7 @@ const opsTypedPersons = {
     "Play vs Sleep",
     "Biological Sex",
     "Transgender",
+    "Links",
   ],
   converter: () => {},
   callback: () => {
@@ -248,6 +250,7 @@ function convertPersons(records) {
         : "",
       sex: record.fields["Biological Sex"],
       trans: record.fields.Transgender,
+      opsLinks: record.fields.Links,
       lastModified: getLastModified(record),
     };
     if (typedPerson.type && typedPerson.type.length === 16) {

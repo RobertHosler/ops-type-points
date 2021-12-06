@@ -24,6 +24,7 @@ export class TypeRecordExpandedComponent implements OnInit {
   opsOptions = [
     'Summary',
     'Checklist',
+    'Links',
     'Description',
     'Twins',
     'Points',

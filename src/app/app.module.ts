@@ -51,6 +51,7 @@ import { OpsTypeTableComponent } from './ops-type-table/ops-type-table.component
 import { TypeDashboardAnimalsComponent } from './type-dashboard-animals/type-dashboard-animals.component';
 import { OpsTypeTwinsComponent } from './ops-type-twins/ops-type-twins.component';
 import { EnneaTypeTwinsComponent } from './ennea-type-twins/ennea-type-twins.component';
+import { OpsTypeLinksComponent } from './ops-type-links/ops-type-links.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -91,7 +92,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     OpsTypeTableComponent,
     TypeDashboardAnimalsComponent,
     OpsTypeTwinsComponent,
-    EnneaTypeTwinsComponent
+    EnneaTypeTwinsComponent,
+    OpsTypeLinksComponent
   ],
   imports: [
     HttpClientModule,

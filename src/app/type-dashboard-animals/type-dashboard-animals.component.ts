@@ -19,7 +19,7 @@ export class TypeDashboardAnimalsComponent implements OnInit {
     { letter: 'S', title: 'Saviors' },
     { letter: 'M', title: 'Modality' },
     { letter: 'L', title: 'Letters' },
-    { letter: 'A', title: 'Activation' },
+    { letter: 'F', title: 'Functions' },
   ];
 
   constructor() {}
