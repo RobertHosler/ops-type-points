@@ -52,6 +52,7 @@ import { TypeDashboardAnimalsComponent } from './type-dashboard-animals/type-das
 import { OpsTypeTwinsComponent } from './ops-type-twins/ops-type-twins.component';
 import { EnneaTypeTwinsComponent } from './ennea-type-twins/ennea-type-twins.component';
 import { OpsTypeLinksComponent } from './ops-type-links/ops-type-links.component';
+import { EnneaDescriptionComponent } from './ennea-description/ennea-description.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -93,7 +94,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     TypeDashboardAnimalsComponent,
     OpsTypeTwinsComponent,
     EnneaTypeTwinsComponent,
-    OpsTypeLinksComponent
+    OpsTypeLinksComponent,
+    EnneaDescriptionComponent
   ],
   imports: [
     HttpClientModule,

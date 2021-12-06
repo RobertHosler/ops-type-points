@@ -79,6 +79,13 @@
             </button>
             <button
               class="btn btn-gray d-block w-100"
+              [ngClass]="{ active: activeEnnea === 'Description' }"
+              (click)="activeTab = 'Enneagram'; activeEnnea = 'Description'"
+            >
+              Description
+            </button>
+            <button
+              class="btn btn-gray d-block w-100"
               [ngClass]="{ active: activeEnnea === 'Twins' }"
               (click)="activeTab = 'Enneagram'; activeEnnea = 'Twins'"
             >
@@ -180,6 +187,9 @@
               [trifix]="person.trifix"
             ></app-enneagram-trifix-combination>
           </div>
+        </div>
+        <div *ngIf="activeEnnea === 'Description'">
+          <app-ennea-description [typedPerson]="person"></app-ennea-description>
         </div>
         <div *ngIf="activeEnnea === 'Twins'">
           <app-ennea-type-twins [typedPerson]="person"></app-ennea-type-twins>

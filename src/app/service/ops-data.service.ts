@@ -230,12 +230,12 @@ export class TypedPerson {
   animals?: string;
   sex?: string;
   trans?: boolean;
-  eType?: string;// 9w1
-  instinct?: string;// so/sp
-  trifix?: string;// 963 (no wings)
-  coreEType?: string;//9
-  coreETypeLong?: string;//Nine
-  wing?: string;//1
+  eType?: string; // 9w1
+  instinct?: string; // so/sp
+  trifix?: string; // 963 (no wings)
+  coreEType?: string; // 9
+  coreETypeLong?: string; // Nine
+  wing?: string; // 1
   fullEType?: string;// so/sp - 9w1 - 963
   wssType?: string;
   wssLink?: string;

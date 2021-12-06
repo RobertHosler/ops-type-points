@@ -1,0 +1,24 @@
+<div>
+  <p>
+    Type description below from John Luckovich's article on
+    <a [href]="model.source" target="_blank">{{ model.sourceTitle }}</a
+    >. You can also
+    <a [href]="model.buyBook" target="_blank">buy his book on Amazon</a> to
+    support him and read more.
+  </p>
+</div>
+<div *ngFor="let ds of descriptions">
+  <h4>
+    {{ ds.heading }}
+    <span
+      *ngIf="ds.disclaimer"
+      popoverTitle="Please Note"
+      [popover]="ds.disclaimer"
+    >
+      <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+    </span>
+  </h4>
+  <p *ngFor="let p of ds.description">
+    {{ p }}
+  </p>
+</div>
