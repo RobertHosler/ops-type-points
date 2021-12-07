@@ -719,7 +719,114 @@ oe.forEach((o) => {
 comboTerms.set('oe/di', { strings: oedi });
 comboTerms.set('di/oe', { strings: dioe });
 
+const isMasculineFeeling = function (person: TypedPerson) {
+  return (
+    // M Fe Savior
+    (person.deMod === 'M' &&
+      person.deciderLetter === 'F' &&
+      person.deciderNeed === 'De') ||
+    // M Fe Demon
+    (person.deMod === 'M' &&
+      person.deciderLetter === 'T' &&
+      person.deciderNeed === 'Di') ||
+    // M Fi Savior
+    (person.deMod === 'F' &&
+      person.deciderLetter === 'F' &&
+      person.deciderNeed === 'Di') ||
+    // M Fi Demon
+    (person.deMod === 'F' &&
+      person.deciderLetter === 'T' &&
+      person.deciderNeed === 'De')
+  );
+};
+const isMasculineOi = function (person: TypedPerson) {
+  return (
+    // M Si Savior
+    (person.sensoryMod === 'M' &&
+      person.observerNeed === 'Oi' &&
+      person.observerLetter === 'S') ||
+    // M Si Demon
+    (person.sensoryMod === 'M' &&
+      person.observerNeed === 'Oe' &&
+      person.observerLetter === 'N') ||
+    // M Ni Savior
+    (person.sensoryMod === 'F' &&
+      person.observerNeed === 'Oi' &&
+      person.observerLetter === 'N') ||
+    // M Ni Demon
+    (person.sensoryMod === 'F' &&
+      person.observerNeed === 'Oe' &&
+      person.observerLetter === 'S')
+  );
+};
+
 const personTerms = new Map();
+personTerms.set('mdi', {
+  match: (person: TypedPerson) => {
+    return person.deMod && person.deMod === 'F';
+  },
+});
+personTerms.set('fdi', {
+  match: (person: TypedPerson) => {
+    return person.deMod && person.deMod === 'M';
+  },
+});
+personTerms.set('mfeeling', {
+  match: (person: TypedPerson) => {
+    return isMasculineFeeling(person);
+  },
+});
+personTerms.set('ffeeling', {
+  match: (person: TypedPerson) => {
+    if (person.deMod && person.deciderLetter && person.deciderNeed) {
+      return !isMasculineFeeling(person);
+    } else {
+      return false;
+    }
+  },
+});
+personTerms.set('mthinking', {
+  match: (person: TypedPerson) => {
+    if (person.deMod && person.deciderLetter && person.deciderNeed) {
+      return !isMasculineFeeling(person);
+    } else {
+      return false;
+    }
+  },
+});
+personTerms.set('fthinking', {
+  match: (person: TypedPerson) => {
+    return isMasculineFeeling(person);
+  },
+});
+personTerms.set('moi', {
+  match: (person: TypedPerson) => {
+    return isMasculineOi(person);
+  },
+});
+personTerms.set('moe', {
+  match: (person: TypedPerson) => {
+    if (person.sensoryMod && person.observerLetter && person.observerNeed) {
+      return !isMasculineOi(person);
+    } else {
+      return false;
+    }
+  },
+});
+personTerms.set('foi', {
+  match: (person: TypedPerson) => {
+    if (person.sensoryMod && person.observerLetter && person.observerNeed) {
+      return !isMasculineOi(person);
+    } else {
+      return false;
+    }
+  },
+});
+personTerms.set('foe', {
+  match: (person: TypedPerson) => {
+    return isMasculineOi(person);
+  },
+});
 personTerms.set('nf', {
   match: (person: TypedPerson) => {
     return person.observerLetter === 'N' && person.deciderLetter === 'F';
