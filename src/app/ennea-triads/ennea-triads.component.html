@@ -1,0 +1,22 @@
+<div class="overflow-wrapper">
+    <table>
+        <thead>
+            <th>Part</th>
+            <th>Number</th>
+            <th>Center</th>
+            <th>Harmonics</th>
+            <th>Hornvevian</th>
+            <th>Object Relations</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of rows">
+                <td>{{row.name}}</td>
+                <td><strong>{{row.number}}</strong></td>
+                <td>{{row.center}}</td>
+                <td>{{row.harmonics}}</td>
+                <td>{{row.hornevian}}</td>
+                <td>{{row.objectRelations}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

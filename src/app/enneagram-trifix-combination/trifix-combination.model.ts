@@ -19,7 +19,7 @@ const combinations = [
     withdrawn: 0,
     attachment: 0,
     frustration: 0,
-    rejection: 0
+    rejection: 0,
   },
   {
     numbers: '478',
@@ -273,6 +273,10 @@ const combinations = [
   },
 ];
 
+const gut = [8, 9, 1];
+const head = [5, 6, 7];
+const heart = [2, 3, 4];
+
 const reactive = [4, 6, 8];
 const positive = [2, 7, 9];
 const competency = [1, 3, 5];
@@ -415,4 +419,77 @@ combinations.forEach((combo) => {
 
 export const TrifixCombinations = {
   descriptions: combinations,
+  getCenter: function(number: number) {
+    if (TrifixCombinations.isGut(number)) {
+      return 'Gut';
+    } else if (TrifixCombinations.isHead(number)) {
+      return 'Head';
+    } else if (TrifixCombinations.isHeart(number)) {
+      return 'Heart';
+    }
+    return '';
+  },
+  isGut: function (number: number) {
+    return gut.includes(number);
+  },
+  isHead: function (number: number) {
+    return head.includes(number);
+  },
+  isHeart: function (number: number) {
+    return heart.includes(number);
+  },
+  getHarmonics(number: number) {
+    if (TrifixCombinations.isReactive(number)) {
+      return 'Reactive';
+    } else if (TrifixCombinations.isPositive(number)) {
+      return 'Positive';
+    } else if (TrifixCombinations.isCompetency(number)) {
+      return 'Competency';
+    }
+  },
+  isReactive: function (number: number) {
+    return reactive.includes(number);
+  },
+  isPositive: function (number: number) {
+    return positive.includes(number);
+  },
+  isCompetency: function (number: number) {
+    return competency.includes(number);
+  },
+  getHornevian(number: number) {
+    if (TrifixCombinations.isAssertive(number)) {
+      return 'Assertive';
+    } else if (TrifixCombinations.isCompliant(number)) {
+      return 'Compliant';
+    } else if (TrifixCombinations.isWithdrawn(number)) {
+      return 'Withdrawn';
+    }
+  },
+  isAssertive: function (number: number) {
+    return assertive.includes(number);
+  },
+  isCompliant: function (number: number) {
+    return compliant.includes(number);
+  },
+  isWithdrawn: function (number: number) {
+    return withdrawn.includes(number);
+  },
+  coreNumber(number: number) {
+    if (TrifixCombinations.isAttachment(number)) {
+      return 'Attachment';
+    } else if (TrifixCombinations.isRejection(number)) {
+      return 'Rejection';
+    } else if (TrifixCombinations.isFrustration(number)) {
+      return 'Frustration';
+    }
+  },
+  isAttachment: function (number: number) {
+    return attachment.includes(number);
+  },
+  isRejection: function (number: number) {
+    return rejection.includes(number);
+  },
+  isFrustration: function (number: number) {
+    return frustration.includes(number);
+  },
 };

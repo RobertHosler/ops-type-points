@@ -29,6 +29,8 @@ fields.forEach((field) => {
 const converterList = [
   { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
+  { org: "The Weeknd", result: "Abel 'The Weeknd' Tesfaye" },
+  { org: "Gisele Bündchen​", result: "Gisele Bundchen​" },
 ];
 function convertName(name) {
   name = name.trim();

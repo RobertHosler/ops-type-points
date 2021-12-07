@@ -1,0 +1,20 @@
+table {
+  width: 100%;
+  min-width: 500px;
+  th {
+    text-align: center;
+  }
+  td {
+    text-align: center;
+    border: 1px solid;
+    min-width: 70px;
+    padding: 0.25rem 0.5rem;
+  }
+//   td:first-child {
+//     background: #ccc;
+//   }
+}
+.overflow-wrapper {
+    padding-left: 2px;
+    padding-right: 2px;
+}

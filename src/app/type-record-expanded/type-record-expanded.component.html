@@ -179,6 +179,10 @@
               [instinct]="person.instinct"
             ></app-enneagram-instinct>
           </div>
+          <div class="mt-3">
+            <h4>Triad Summary</h4>
+            <app-ennea-triads [typedPerson]="person"></app-ennea-triads>
+          </div>
         </div>
         <div *ngIf="activeEnnea === 'Trifix'">
           <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>

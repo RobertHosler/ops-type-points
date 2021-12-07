@@ -53,6 +53,7 @@ import { OpsTypeTwinsComponent } from './ops-type-twins/ops-type-twins.component
 import { EnneaTypeTwinsComponent } from './ennea-type-twins/ennea-type-twins.component';
 import { OpsTypeLinksComponent } from './ops-type-links/ops-type-links.component';
 import { EnneaDescriptionComponent } from './ennea-description/ennea-description.component';
+import { EnneaTriadsComponent } from './ennea-triads/ennea-triads.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -95,7 +96,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     OpsTypeTwinsComponent,
     EnneaTypeTwinsComponent,
     OpsTypeLinksComponent,
-    EnneaDescriptionComponent
+    EnneaDescriptionComponent,
+    EnneaTriadsComponent
   ],
   imports: [
     HttpClientModule,
