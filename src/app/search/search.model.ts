@@ -1220,6 +1220,14 @@ const opsRules = [
     examples: ['Ne', 'Se', 'Ni', 'Si'],
   },
   {
+    label: 'Decider Axis',
+    examples: ['Fe|Ti', 'Te|Fi'],
+  },
+  {
+    label: 'Observer Axis',
+    examples: ['Ne|Si', 'Se|Ni'],
+  },
+  {
     label: 'Info/Energy',
     examples: ['info', 'energy'],
   },
@@ -1337,6 +1345,10 @@ const enneaRules = [
   {
     label: 'Enneagram Tagged',
     examples: ['ennea'],
+  },
+  {
+    label: 'Wing Swap',
+    examples: ['8w9|9w8'],
   },
 ];
 
