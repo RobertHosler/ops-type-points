@@ -1016,6 +1016,14 @@ const opsRules = [
     examples: ['xM', 'xF', 'MDe', 'FDe'],
   },
   {
+    label: 'Observer Modality',
+    examples: ['MOi', 'FOi', 'MOe', 'FOe'],
+  },
+  {
+    label: 'Di Modality',
+    examples: ['MDi', 'FDi'],
+  },
+  {
     label: 'ExxJ',
     examples: ['ENTJ', 'ESTJ', 'ESFJ', 'ENFJ'],
   },
