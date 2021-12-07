@@ -719,7 +719,7 @@ oe.forEach((o) => {
 comboTerms.set('oe/di', { strings: oedi });
 comboTerms.set('di/oe', { strings: dioe });
 
-const isMasculineFeeling = function (person: TypedPerson) {
+const isMasculineFe = function (person: TypedPerson) {
   return (
     // M Fe Savior
     (person.deMod === 'M' &&
@@ -728,7 +728,23 @@ const isMasculineFeeling = function (person: TypedPerson) {
     // M Fe Demon
     (person.deMod === 'M' &&
       person.deciderLetter === 'T' &&
-      person.deciderNeed === 'Di') ||
+      person.deciderNeed === 'Di')
+  );
+};
+const isFeminineFe = function (person: TypedPerson) {
+  return (
+    // F Fe Savior
+    (person.deMod === 'F' &&
+      person.deciderLetter === 'F' &&
+      person.deciderNeed === 'De') ||
+    // F Fe Demon
+    (person.deMod === 'F' &&
+      person.deciderLetter === 'T' &&
+      person.deciderNeed === 'Di')
+  );
+};
+const isMasculineFi = function (person: TypedPerson) {
+  return (
     // M Fi Savior
     (person.deMod === 'F' &&
       person.deciderLetter === 'F' &&
@@ -739,16 +755,54 @@ const isMasculineFeeling = function (person: TypedPerson) {
       person.deciderNeed === 'De')
   );
 };
-const isMasculineOi = function (person: TypedPerson) {
+const isFeminineFi = function (person: TypedPerson) {
   return (
-    // M Si Savior
+    // M Fi Savior
+    (person.deMod === 'M' &&
+      person.deciderLetter === 'F' &&
+      person.deciderNeed === 'Di') ||
+    // M Fi Demon
+    (person.deMod === 'M' &&
+      person.deciderLetter === 'T' &&
+      person.deciderNeed === 'De')
+  );
+};
+const isMasculineFeeling = function (person: TypedPerson) {
+  return isMasculineFe(person) || isMasculineFi(person);
+};
+const isMasculineThinking = function (person: TypedPerson) {
+  if (person.deMod && person.deciderLetter && person.deciderNeed) {
+    return !isMasculineFeeling(person);
+  } else {
+    return false;
+  }
+};
+const isMasculineSi = function (person: TypedPerson) {
+  // M Si Savior
+  return (
     (person.sensoryMod === 'M' &&
       person.observerNeed === 'Oi' &&
       person.observerLetter === 'S') ||
     // M Si Demon
     (person.sensoryMod === 'M' &&
       person.observerNeed === 'Oe' &&
-      person.observerLetter === 'N') ||
+      person.observerLetter === 'N')
+  );
+};
+const isFeminineSi = function (person: TypedPerson) {
+  // F Si Savior
+  return (
+    (person.sensoryMod === 'F' &&
+      person.observerNeed === 'Oi' &&
+      person.observerLetter === 'S') ||
+    // F Si Demon
+    (person.sensoryMod === 'F' &&
+      person.observerNeed === 'Oe' &&
+      person.observerLetter === 'N')
+  );
+};
+const isMasculineNi = function (person: TypedPerson) {
+  return (
     // M Ni Savior
     (person.sensoryMod === 'F' &&
       person.observerNeed === 'Oi' &&
@@ -759,16 +813,90 @@ const isMasculineOi = function (person: TypedPerson) {
       person.observerLetter === 'S')
   );
 };
+const isFeminineNi = function (person: TypedPerson) {
+  return (
+    // F Ni Savior
+    (person.sensoryMod === 'M' &&
+      person.observerNeed === 'Oi' &&
+      person.observerLetter === 'N') ||
+    // F Ni Demon
+    (person.sensoryMod === 'M' &&
+      person.observerNeed === 'Oe' &&
+      person.observerLetter === 'S')
+  );
+};
+const isMasculineOi = function (person: TypedPerson) {
+  return isMasculineSi(person) || isMasculineNi(person);
+};
+const isFeminineOi = function (person: TypedPerson) {
+  if (person.sensoryMod && person.observerLetter && person.observerNeed) {
+    return !isMasculineOi(person);
+  } else {
+    return false;
+  }
+};
+const isMasculineOe = function (person: TypedPerson) {
+  return isFeminineOi(person);
+};
+const isFeminineOe = function (person: TypedPerson) {
+  return isMasculineOi(person);
+};
+const isMasculineDi = function (person: TypedPerson) {
+  return person.deMod && person.deMod === 'F';
+};
+const isMasculineDe = function (person: TypedPerson) {
+  return person.deMod && person.deMod === 'M';
+};
 
 const personTerms = new Map();
+personTerms.set('mfi', {
+  match: (person: TypedPerson) => {
+    return isMasculineFi(person);
+  },
+});
+personTerms.set('fte', {
+  match: (person: TypedPerson) => {
+    return isMasculineFi(person);
+  },
+});
+personTerms.set('ffi', {
+  match: (person: TypedPerson) => {
+    return isFeminineFi(person);
+  },
+});
+personTerms.set('mte', {
+  match: (person: TypedPerson) => {
+    return isFeminineFi(person);
+  },
+});
+personTerms.set('mfe', {
+  match: (person: TypedPerson) => {
+    return isMasculineFe(person);
+  },
+});
+personTerms.set('fti', {
+  match: (person: TypedPerson) => {
+    return isMasculineFe(person);
+  },
+});
+personTerms.set('ffe', {
+  match: (person: TypedPerson) => {
+    return isFeminineFe(person);
+  },
+});
+personTerms.set('mti', {
+  match: (person: TypedPerson) => {
+    return isFeminineFe(person);
+  },
+});
 personTerms.set('mdi', {
   match: (person: TypedPerson) => {
-    return person.deMod && person.deMod === 'F';
+    return isMasculineDi(person);
   },
 });
 personTerms.set('fdi', {
   match: (person: TypedPerson) => {
-    return person.deMod && person.deMod === 'M';
+    return isMasculineDe(person);
   },
 });
 personTerms.set('mfeeling', {
@@ -778,20 +906,12 @@ personTerms.set('mfeeling', {
 });
 personTerms.set('ffeeling', {
   match: (person: TypedPerson) => {
-    if (person.deMod && person.deciderLetter && person.deciderNeed) {
-      return !isMasculineFeeling(person);
-    } else {
-      return false;
-    }
+    return isMasculineThinking(person);
   },
 });
 personTerms.set('mthinking', {
   match: (person: TypedPerson) => {
-    if (person.deMod && person.deciderLetter && person.deciderNeed) {
-      return !isMasculineFeeling(person);
-    } else {
-      return false;
-    }
+    return isMasculineThinking(person);
   },
 });
 personTerms.set('fthinking', {
@@ -806,25 +926,137 @@ personTerms.set('moi', {
 });
 personTerms.set('moe', {
   match: (person: TypedPerson) => {
-    if (person.sensoryMod && person.observerLetter && person.observerNeed) {
-      return !isMasculineOi(person);
-    } else {
-      return false;
-    }
+    return isFeminineOi(person);
   },
 });
 personTerms.set('foi', {
   match: (person: TypedPerson) => {
-    if (person.sensoryMod && person.observerLetter && person.observerNeed) {
-      return !isMasculineOi(person);
-    } else {
-      return false;
-    }
+    return isMasculineOe(person);
   },
 });
 personTerms.set('foe', {
   match: (person: TypedPerson) => {
-    return isMasculineOi(person);
+    return isFeminineOe(person);
+  },
+});
+personTerms.set('msi', {
+  match: (person: TypedPerson) => {
+    return isMasculineSi(person);
+  },
+});
+personTerms.set('fne', {
+  match: (person: TypedPerson) => {
+    return isMasculineSi(person);
+  },
+});
+personTerms.set('fsi', {
+  match: (person: TypedPerson) => {
+    return isFeminineSi(person);
+  },
+});
+personTerms.set('mne', {
+  match: (person: TypedPerson) => {
+    return isFeminineSi(person);
+  },
+});
+personTerms.set('mni', {
+  match: (person: TypedPerson) => {
+    return isMasculineNi(person);
+  },
+});
+personTerms.set('fse', {
+  match: (person: TypedPerson) => {
+    return isMasculineNi(person);
+  },
+});
+personTerms.set('fni', {
+  match: (person: TypedPerson) => {
+    return isFeminineNi(person);
+  },
+});
+personTerms.set('mse', {
+  match: (person: TypedPerson) => {
+    return isFeminineNi(person);
+  },
+});
+personTerms.set('mmconsume', {
+  match: (person: TypedPerson) => {
+    return isMasculineDi(person) && isMasculineOe(person);
+  },
+});
+personTerms.set('fmconsume', {
+  match: (person: TypedPerson) => {
+    return isMasculineDi(person) && isFeminineOe(person);
+  },
+});
+personTerms.set('mfconsume', {
+  match: (person: TypedPerson) => {
+    return person.deMod && person.deMod === 'M' && isMasculineOe(person);
+  },
+});
+personTerms.set('ffconsume', {
+  match: (person: TypedPerson) => {
+    return person.deMod && person.deMod === 'M' && isFeminineOe(person);
+  },
+});
+personTerms.set('mmplay', {
+  match: (person: TypedPerson) => {
+    return isMasculineDe(person) && isMasculineOe(person);
+  },
+});
+personTerms.set('mfplay', {
+  match: (person: TypedPerson) => {
+    return isMasculineDe(person) && isFeminineOe(person);
+  },
+});
+personTerms.set('fmplay', {
+  match: (person: TypedPerson) => {
+    return person.deMod === 'F' && isMasculineOe(person);
+  },
+});
+personTerms.set('ffplay', {
+  match: (person: TypedPerson) => {
+    return person.deMod === 'F' && isFeminineOe(person);
+  },
+});
+personTerms.set('mmblast', {
+  match: (person: TypedPerson) => {
+    return isMasculineDe(person) && isMasculineOi(person);
+  },
+});
+personTerms.set('mfblast', {
+  match: (person: TypedPerson) => {
+    return person.deMod === 'F' && isMasculineOi(person);
+  },
+});
+personTerms.set('fmblast', {
+  match: (person: TypedPerson) => {
+    return person.deMod === 'M' && isFeminineOi(person);
+  },
+});
+personTerms.set('mmsleep', {
+  match: (person: TypedPerson) => {
+    return person.deMod === 'F' && isMasculineOi(person);
+  },
+});
+personTerms.set('mfsleep', {
+  match: (person: TypedPerson) => {
+    return person.deMod === 'M' && isMasculineOi(person);
+  },
+});
+personTerms.set('fmsleep', {
+  match: (person: TypedPerson) => {
+    return person.deMod === 'F' && isMasculineOe(person);
+  },
+});
+personTerms.set('ffsleep', {
+  match: (person: TypedPerson) => {
+    return person.deMod === 'M' && isMasculineOe(person);
+  },
+});
+personTerms.set('ffblast', {
+  match: (person: TypedPerson) => {
+    return person.deMod === 'F' && isFeminineOi(person);
   },
 });
 personTerms.set('nf', {
@@ -1022,6 +1254,38 @@ const opsRules = [
   {
     label: 'Di Modality',
     examples: ['MDi', 'FDi'],
+  },
+  {
+    label: 'Oi Function Modality',
+    examples: ['MNi', 'FNi', 'MSi', 'FSi'],
+  },
+  {
+    label: 'Oe Function Modality',
+    examples: ['MNe', 'FNe', 'MSe', 'FSe'],
+  },
+  {
+    label: 'Di Function Modality',
+    examples: ['MFi', 'FFi', 'MTi', 'FTi'],
+  },
+  {
+    label: 'De Function Modality',
+    examples: ['MFe', 'FFe', 'MTe', 'FTe'],
+  },
+  {
+    label: 'Play Modality',
+    examples: ['mmPlay', 'ffPlay'],
+  },
+  {
+    label: 'Sleep Modality',
+    examples: ['mmSleep', 'ffSleep'],
+  },
+  {
+    label: 'Consume Modality',
+    examples: ['mmConsume', 'ffConsume'],
+  },
+  {
+    label: 'Blast Modality',
+    examples: ['mmBlast', 'ffBlast'],
   },
   {
     label: 'ExxJ',
