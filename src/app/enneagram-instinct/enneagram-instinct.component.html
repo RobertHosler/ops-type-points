@@ -5,13 +5,12 @@
       <td class="stack">
         <ng-container *ngIf="i === 0">
           <div
-          
             tabindex="0"
             popoverTitle="Dominant"
             [popover]="dominantContent"
             triggers="mouseenter:mouseleave:click"
           >
-            {{ x.name }}<br>
+            {{ x.name }}<br />
             <div class="small">
               Dominant<i-bs
                 name="info-circle"
@@ -29,7 +28,7 @@
             [popover]="playContent"
             triggers="mouseenter:mouseleave:click"
           >
-            {{ x.name }}<br>
+            {{ x.name }}<br />
             <div class="small">
               Playground<i-bs
                 name="info-circle"
@@ -47,7 +46,7 @@
             [popover]="blindContent"
             triggers="mouseenter:mouseleave:click"
           >
-            {{ x.name }}<br>
+            {{ x.name }}<br />
             <div class="small">
               Blind Spot<i-bs
                 name="info-circle"
@@ -67,12 +66,15 @@
 </table>
 
 <div class="small">
-  Source:
+  <a href="https://www.enneagrammer.com/the-three-instincts" target="_blank"
+    >The Three Instincts
+  </a>
+  -
   <a
     href="https://oceanmoonshine9.wordpress.com/intro-to-instinctual-subtypes/"
     target="_blank"
   >
-    Intro to instrinctual subtypes
+    Intro to Instrinctual Subtypes
   </a>
 </div>
 
