@@ -1,3 +1,4 @@
+import { person } from 'ngx-bootstrap-icons';
 import { TypedPerson } from '../service/ops-data.service';
 
 const functions = [
@@ -1367,6 +1368,35 @@ const wssRules = [
   },
 ];
 
+/**
+ * Takes an input trifix and checks to see if it matches a second trifix
+ * if the trifix is considered in any order.
+ */
+const trifixMatcher = function(trifix: string, matchTrifix: string) {
+  let result = false;
+  if (trifix.length === 3 && /^\d+$/.test(trifix)) {
+    let sArr = trifix.split('');
+    let found = false;
+    for (let i = 0; i !== sArr.length; i++) {
+      for (let j = 0; j !== sArr.length; j++) {
+        for (let k = 0; k !== sArr.length; k++) {
+          if (
+            !found &&
+            sArr[i] !== sArr[j] &&
+            sArr[i] !== sArr[k] &&
+            sArr[j] !== sArr[k]
+          ) {
+            let abc = sArr[i] + sArr[j] + sArr[k];
+            found = abc === matchTrifix;
+          }
+        }
+      }
+    }
+    result = found;
+  }
+  return result;
+}
+
 export const searchModel = {
   functions: functions,
   observerFunctions: observerFunctions,
@@ -1394,4 +1424,5 @@ export const searchModel = {
   opsRules: opsRules,
   enneaRules: enneaRules,
   wssRules: wssRules,
+  trifixMatcher: trifixMatcher
 };

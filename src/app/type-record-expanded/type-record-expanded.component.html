@@ -185,11 +185,20 @@
           </div>
         </div>
         <div *ngIf="activeEnnea === 'Trifix'">
-          <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>
           <div class="my-3">
             <app-enneagram-trifix-combination
               [trifix]="person.trifix"
             ></app-enneagram-trifix-combination>
+          </div>
+          <div class="my-3">
+            <app-enneagram-trifix
+              [trifix]="person.trifix"
+            ></app-enneagram-trifix>
+          </div>
+          <div class="my-3">
+            <app-ennea-trifix-stems
+              [trifix]="person.trifix"
+            ></app-ennea-trifix-stems>
           </div>
         </div>
         <div *ngIf="activeEnnea === 'Description'">

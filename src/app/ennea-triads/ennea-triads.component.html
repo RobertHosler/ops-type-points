@@ -1,7 +1,7 @@
 <div class="overflow-wrapper">
   <table>
     <thead>
-      <th>Part</th>
+      <th *ngIf="!trifix">Part</th>
       <th>Number</th>
       <th>Center</th>
       <th>Harmonics</th>
@@ -10,7 +10,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let row of rows">
-        <td>{{ row.name }}</td>
+        <td *ngIf="!trifix">{{ row.name }}</td>
         <td>
           <strong>{{ row.number }}</strong>
         </td>

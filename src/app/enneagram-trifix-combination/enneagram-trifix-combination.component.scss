@@ -13,4 +13,15 @@
   td:nth-child(3) {
     width: 130px;
   }
+  .clickable:hover {
+    background: #efefef;
+    cursor: pointer;
+  }
+}
+
+.trifix-text {
+  .clickable:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }

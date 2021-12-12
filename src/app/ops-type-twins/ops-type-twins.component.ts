@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 import { OpsType } from '../type-analyzer/ops-type';
 

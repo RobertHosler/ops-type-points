@@ -54,6 +54,9 @@ import { EnneaTypeTwinsComponent } from './ennea-type-twins/ennea-type-twins.com
 import { OpsTypeLinksComponent } from './ops-type-links/ops-type-links.component';
 import { EnneaDescriptionComponent } from './ennea-description/ennea-description.component';
 import { EnneaTriadsComponent } from './ennea-triads/ennea-triads.component';
+import { EnneaTermsComponent } from './ennea-terms/ennea-terms.component';
+import { EnneaTrifixPageComponent } from './ennea-trifix-page/ennea-trifix-page.component';
+import { EnneaTrifixStemsComponent } from './ennea-trifix-stems/ennea-trifix-stems.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -97,7 +100,10 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     EnneaTypeTwinsComponent,
     OpsTypeLinksComponent,
     EnneaDescriptionComponent,
-    EnneaTriadsComponent
+    EnneaTriadsComponent,
+    EnneaTermsComponent,
+    EnneaTrifixPageComponent,
+    EnneaTrifixStemsComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,0 +1,18 @@
+<h4>Trifix Stems</h4>
+<div>
+  <table class="trifix-table">
+    <tr *ngFor="let stem of stems">
+      <td>{{ stem.val[0] + '-' + stem.val[1] }}</td>
+      <td>{{ stem.description }}</td>
+    </tr>
+  </table>
+</div>
+
+<div class="small">
+  <div>
+    Source:
+    <a [href]="trifixModel.stemSourceUrl" target="_blank"
+      >Enneagrammer.com - Trifix Stems</a
+    >
+  </div>
+</div>

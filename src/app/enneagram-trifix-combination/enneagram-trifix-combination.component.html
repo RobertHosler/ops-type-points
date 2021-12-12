@@ -1,9 +1,15 @@
-<div class="overflow-wrapper">
+<div class="overflow-wrapper d-none d-md-block">
   <table class="trifix-table">
     <tbody>
-      <tr *ngFor="let fix of combinations">
+      <tr
+        *ngFor="let fix of combinations"
+        [ngClass]="{ clickable: clickable }"
+        (click)="fixClick(fix.numbers)"
+      >
         <td>{{ fix.numbers }}</td>
-        <td>{{ fix.name }}</td>
+        <td>
+          <div *ngFor="let name of fix.names">{{ name }}</div>
+        </td>
         <td>
           <div>{{ harmonics(fix) }}</div>
           <div>{{ hornevian(fix) }}</div>
@@ -15,4 +21,29 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="trifix-text d-md-none">
+  <div *ngFor="let fix of combinations">
+    <div
+      class="font-weight-bold"
+      [ngClass]="{ clickable: clickable }"
+      (click)="fixClick(fix.numbers)"
+    >
+      {{ fix.numbers }} -
+      <span *ngFor="let name of fix.names; let i = index"
+        >{{ i > 0 ? "/" : "" }}{{ name }}</span
+      >
+    </div>
+    <div>
+      <div>{{ harmonics(fix) }} {{ hornevian(fix) }} {{ object(fix) }}</div>
+    </div>
+    <div>
+      <ul>
+        <li *ngFor="let d of fix.description">
+          <div>{{ d }}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

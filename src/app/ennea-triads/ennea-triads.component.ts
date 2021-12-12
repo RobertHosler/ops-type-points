@@ -5,18 +5,20 @@ import { TypedPerson } from '../service/ops-data.service';
 @Component({
   selector: 'app-ennea-triads',
   templateUrl: './ennea-triads.component.html',
-  styleUrls: ['./ennea-triads.component.scss']
+  styleUrls: ['./ennea-triads.component.scss'],
 })
 export class EnneaTriadsComponent implements OnInit {
-
   @Input()
   typedPerson: TypedPerson;
+
+  @Input()
+  trifix: string;
 
   trifixModel = TrifixCombinations;
 
   rows: TriadRow[];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.rows = [];
@@ -32,24 +34,32 @@ export class EnneaTriadsComponent implements OnInit {
         this.rows.push(row);
       }
       if (this.typedPerson.trifix) {
-        let trifixArr = this.typedPerson.trifix.split('');
-        let i = 1;
-        trifixArr.forEach(fix => {
-          if (i === 1) {
-            i++;
-            return;
-          }
-          let row = this.buildRow(fix);
-          if (i === 2) {
-            row.name = '2nd Fix';
-          } else if (i === 3) {
-            row.name = '3rd Fix';
-          }
-          this.rows.push(row);
-          i++;
-        });
+        this.initTrifix(this.typedPerson.trifix);
       }
+    } else if (this.trifix) {
+      this.initTrifix(this.trifix, true);
     }
+  }
+
+  private initTrifix(fix: string, includeCore?: boolean) {
+    let i = 1;
+    let trifixArr = fix.split('');
+    trifixArr.forEach((fix) => {
+      if (!includeCore && i === 1) {
+        i++;
+        return;
+      }
+      let row = this.buildRow(fix);
+      if (i === 1) {
+        row.name = '1st Fix';
+      } else if (i === 2) {
+        row.name = '2nd Fix';
+      } else if (i === 3) {
+        row.name = '3rd Fix';
+      }
+      this.rows.push(row);
+      i++;
+    });
   }
 
   private buildRow(numberString: string) {
@@ -62,7 +72,6 @@ export class EnneaTriadsComponent implements OnInit {
     row.objectRelations = this.trifixModel.coreNumber(number);
     return row;
   }
-
 }
 
 class TriadRow {

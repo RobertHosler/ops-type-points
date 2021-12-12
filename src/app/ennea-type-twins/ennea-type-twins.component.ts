@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { searchModel } from '../search/search.model';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 
 @Component({
@@ -18,6 +19,9 @@ export class EnneaTypeTwinsComponent implements OnInit {
   wing: string;
   @Input()
   trifix: string;
+
+  @Input()
+  displayControls = true;
 
   typeTwinsLoading = true;
   activeMods = ['fix'];
@@ -54,11 +58,21 @@ export class EnneaTypeTwinsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initParts();
+  }
+
+  ngOnChanges() {
+    this.initParts();
+  }
+
+  private initParts() {
     if (this.typedPerson) {
       this.instinct = this.typedPerson.instinct;
       this.coreType = this.typedPerson.coreEType;
       this.wing = this.typedPerson.wing;
       this.trifix = this.typedPerson.trifix;
+    } else if (this.trifix) {
+      this.activeMods = [];
     }
   }
 
@@ -95,7 +109,7 @@ export class EnneaTypeTwinsComponent implements OnInit {
       if (
         !this.activeMods.includes('fix') &&
         this.trifix &&
-        this.trifix !== person.trifix
+        !searchModel.trifixMatcher(this.trifix, person.trifix)
       ) {
         return;
       }

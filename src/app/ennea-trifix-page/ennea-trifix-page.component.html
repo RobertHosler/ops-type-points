@@ -1,0 +1,31 @@
+<div class="container pb-5">
+  <h1>Enneagram <span class="sp-branding">Trifix</span> Combinations</h1>
+  <app-enneagram-trifix-combination
+    [trifix]="selectedFix"
+    [clickable]="!selectedFix"
+  ></app-enneagram-trifix-combination>
+  <div class="mt-3" *ngIf="selectedFix">
+    <div>
+      <button class="btn btn-gray mb-2" (click)="clearFix()">
+        Clear Selected Fix
+      </button>
+    </div>
+    <div class="mb-3">
+      <h4>Triad Summary</h4>
+      <app-ennea-triads [trifix]="selectedFix"></app-ennea-triads>
+    </div>
+    <div class="mb-3">
+      <app-ennea-trifix-stems [trifix]="selectedFix"></app-ennea-trifix-stems>
+    </div>
+    <div class="mb-3">
+      <app-enneagram-trifix [trifix]="selectedFix"></app-enneagram-trifix>
+    </div>
+    <div>
+      <h4>Trifix Examples</h4>
+      <app-ennea-type-twins
+        [displayControls]="false"
+        [trifix]="selectedFix"
+      ></app-ennea-type-twins>
+    </div>
+  </div>
+</div>

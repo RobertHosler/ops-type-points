@@ -11,6 +11,8 @@ import { TermsComponent } from './terms/terms.component';
 import { NineTypesComponent } from './nine-types/nine-types.component';
 import { AdminComponent } from './admin/admin.component';
 import { TypeRecordExpandedComponent } from './type-record-expanded/type-record-expanded.component';
+import { EnneaTermsComponent } from './ennea-terms/ennea-terms.component';
+import { EnneaTrifixPageComponent } from './ennea-trifix-page/ennea-trifix-page.component';
 
 const routes: Routes = [
   {
@@ -39,7 +41,11 @@ const routes: Routes = [
   {
     path: 'nineTypes',
     component: MainLayoutComponent,
-    children: [{ path: '', component: NineTypesComponent }],
+    children: [
+      { path: '', component: NineTypesComponent },
+      { path: 'descriptions', component: EnneaTermsComponent },
+      { path: 'trifix', component: EnneaTrifixPageComponent },
+    ],
   },
   {
     path: 'analyzer',

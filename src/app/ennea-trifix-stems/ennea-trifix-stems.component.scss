@@ -1,0 +1,13 @@
+.trifix-table {
+  width: 100%;
+  td {
+    border: 1px solid;
+    min-width: 70px;
+    padding: 0.25rem 0.5rem;
+  }
+  td:first-child {
+    width: 15%;
+    text-align: center;
+    background: #ccc;
+  }
+}

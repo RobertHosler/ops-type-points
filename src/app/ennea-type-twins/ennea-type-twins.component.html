@@ -1,12 +1,12 @@
-<h3>Type Twins</h3>
-<div class="mb-2">
+<div class="mb-2" *ngIf="displayControls">
+  <h3>Type Twins</h3>
   <button
     *ngFor="let option of options"
     class="btn btn-gray mr-2"
     (click)="twin(option.mod)"
     [ngClass]="{ active: activeMods.includes(option.mod) }"
   >
-    {{option.text}}
+    {{ option.text }}
   </button>
 </div>
 <app-type-record-list

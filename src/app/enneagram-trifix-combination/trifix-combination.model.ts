@@ -1,15 +1,11 @@
 const combinations = [
   {
     numbers: '479',
-    name: 'Huh?',
+    names: ['The Palm Reader', 'Huh?'],
     description: [
-      'Not grounded',
-      'Overly creative',
-      '"Dude, what?"',
-      'Indulge in fantasy',
-      'Slippery slime',
-      '"What the hell is this?"',
-      'Peter Pan',
+      'Not grounded, and overly creative, esoteric',
+      'Indulge in a possibly delusional fantasy',
+      'A Slippery slime which invokes, "Dude, what?" and "What the hell is this?" from others',
     ],
     reactive: 0,
     positive: 0,
@@ -23,115 +19,112 @@ const combinations = [
   },
   {
     numbers: '478',
-    name: 'Revolving Door Rehab',
+    names: ['The Uranus', 'Revolving Door Rehab'],
     description: [
-      'Chaos',
-      'Individualistic',
-      'Indulgement',
-      'Self-interest',
-      'Bratty Energy',
+      'Breaking things down and starting new. In a word, "Chaos"',
+      'Individualistic and Indulgent',
+      'A self-interested and bratty energy',
     ],
   },
   {
     numbers: '469',
-    name: 'Whiny Tears',
+    names: ['Charlie Brown', 'Whiny Tears'],
     description: [
-      'Whiny',
-      'Self-pity',
-      '2x reactive, but no punch to it',
-      'No mobilization',
+      'Whining, Complianing, and Self-pity/Self-deprecation',
+      '2x reactive, but with no punch to it',
+      'No real mobilization or action to resolve',
     ],
   },
   {
     numbers: '468',
-    name: 'Public Display of Affliction',
+    names: ['The Grenade', 'Public Display of Affliction'],
     description: [
       "Incendiary, drama instigator, let's hash it out",
-      'Reaction to inconsistencies',
+      'Reactionary to inconsistencies',
       'Push outward, triple reaction types',
       "Inner conflict between attachment type (6) and I don't care what you think of me",
     ],
   },
   {
     numbers: '459',
-    name: 'Hateful Ghost',
+    names: ['Hateful Ghost'],
     description: [
-      'Triple withdrawn types',
-      'Not present in body',
-      'Frustration',
+      'Triple withdrawn, double rejection, double frustration',
+      'Not present in body so has a very ghost like essence',
     ],
   },
   {
     numbers: '458',
-    name: 'Useless Beast',
+    names: ['The Demon', 'Useless Beast'],
     description: [
-      'Withdrawn individualist',
+      'Withdrawn individualist experiencing internal havoc',
       'Bold about being against others',
-      'Sad beige children',
+      "Werner Herzog's sad beige children",
+      'The 3 "darkest" fixes',
     ],
   },
   {
     numbers: '379',
-    name: 'The DJ',
+    names: ['The DJ', 'The Sex'],
     description: [
-      'Uplifting and makes thing happen, but take no responsibility',
-      '"What do you guys think about this?"',
-      "Let's get a discussion going/make it a party",
-      'Stirs things up with 3/7 combined with likeability of the 9',
+      'Stirs things up with 3/7 assertiveness combined with easygoing nature of the 9',
+      'Uplifting and makes thing happen, but takes no responsibility',
+      '"What do you guys think about this?" "Let\'s get a discussion going/make it a party"',
+      'Natural sex appeal through the sense that bodies are fun and its not a big deal',
     ],
   },
   {
     numbers: '378',
-    name: 'Chad / Stacy',
+    names: ['The Comet', 'Chad / Stacy'],
     description: [
-      'Triple assertive types',
-      'Oozes egoism and confidence',
+      'Triple assertive types - fast and action oriented',
+      'Oozes egoism and confidence - shooting for the stars',
       'Image conscious',
     ],
   },
   {
     numbers: '369',
-    name: 'Bermuda',
+    names: ['The Bermuda Triangle'],
     description: [
-      'Triple attachment types',
-      "Left hand doesn't know what right is up to",
-      'Can relate to anyone',
+      'Lose themselves through over-attaching - 3x attachment types',
+      "Disconnection within self - Left hand doesn't know what right is up to",
+      'Can relate and adapt to anyone - but loses sight of themselves',
+      'The 3 types on the triangle within the enneagram'
     ],
   },
   {
     numbers: '368',
-    name: 'The Kyle / Kylie',
+    names: ['The Warrior', 'The Kyle / Kylie'],
     description: [
-      'Punch through walls',
-      'Chip on their shoulder',
-      'Ready to go off when pushed',
-      'Most competitive trifix',
-      'Prove it through effort',
+      'Natural warrior attitude - Ready to go off when pushed - Reactive and tough',
+      'Chip on their shoulder - like they could punch through walls',
+      'Most competitive trifix - wants to prove it through effort',
     ],
   },
   {
     numbers: '359',
-    name: 'Flatline',
+    names: ['The Coder', 'Flatline'],
     description: [
       'Bypass their feelings, not many fluctuations',
       'Don\t express emotions outwardly',
       'Checked out but busy and focused on stuff',
+      '3/5 competency meets broadened thinking of the 9',
     ],
   },
   {
     numbers: '358',
-    name: 'American Psycho',
+    names: ['The Serial Killer', 'American Psycho'],
     description: [
       'Mask of the 3 + Energy of the 8 + Knowledge of the 5',
-      'An impersonal type of friendly, leaning toward heartlessness',
-      'Intense imposing vision',
+      'An impersonal type of friendly, leaning toward heartlessness - No natural warmth',
+      'An intense imposing vision carried outwardly - like a robotic Ares',
     ],
   },
   {
     numbers: '279',
-    name: 'Hippie Burnout',
+    names: ['The Rainbow', 'Hippie Burnout'],
     description: [
-      '"Why can\'t we all just get along?"',
+      'Triple Positive - "Why can\'t we all just get along?" - Sunshine and Rainbows',
       'Disassociate to hold boundaries',
       'Positivity as a weapon/defense',
       '"Everything happens for a reason"',
@@ -139,120 +132,119 @@ const combinations = [
   },
   {
     numbers: '278',
-    name: 'Smothering Jazz Hands',
+    names: ['The Venusian Brat', 'Smothering Jazz Hands'],
     description: [
+      'A sense of deserving to be pampered but with a Venusian air, a loud-mouth Goddess',
       'So exuberant and forceful they might "good intention" you into a bad situation',
-      'Self interested helper',
-      '2x Positive and 2x Aggressive',
+      'A self-interested helper (2/7), with the forcefulness (2x Aggressive) to push it forward',
     ],
   },
   {
     numbers: '269',
-    name: 'Stockhold Syndrome',
+    names: ['Stockhold Syndrome'],
     description: [
       'Befriend your captor and take abuse while putting self in service',
-      'Anti-self interest',
-      'Overly empathetic',
-      'Sacrificial lamb looking to offer their service',
+      '3x "Niceness" - Overly empathetic, Anti-self interest',
+      'A sacrificial lamb looking to offer their service for the good of others',
     ],
   },
   {
     numbers: '268',
-    name: "Wouldn't hurt a fly",
+    names: ['The Superhero Rebel', "Wouldn't hurt a fly"],
     description: [
-      'Powerful but wants to use it for good',
-      '8 engine behind two supportive types - coaches',
-      'Parental figure - 2 mother + 8 father + 6 authority',
-      '2x rejection, 2x reactive, 2x super-ego',
+      'Powerful but wants to use it for good - fighting for the underdog',
+      '8 engine behind two supportive types - a coach archetype',
+      'A parental figure - 2 mother + 8 father + 6 authority',
     ],
   },
   {
     numbers: '259',
-    name: 'Spineless Saint',
+    names: ['The Psychotherapist', 'Spineless Saint'],
     description: [
-      'Wants to help you but not directly',
-      'Removed but works to do good',
+      'Wants to help you but not directly - an analytical humanist',
+      'Remains removed but works to do good',
       '"Philospher of the Universe"',
-      '2x positive, 2x withdrawn, 2x super-ego',
     ],
   },
   {
     numbers: '258',
-    name: 'Cult Classic',
+    names: ['The Monk', 'Cult Classic'],
     description: [
-      'Wants to offer something',
+      'Wants to offer something specific - triple rejection',
       'Influence and help with the intellect to back it up',
       'Gets involved rather than providing a generalized offering',
     ],
   },
   {
     numbers: '147',
-    name: 'Princess and the Pea',
+    names: ['Princess and the Pea', 'The Lunatic'],
     description: [
-      'Dissatisfaction and impatience',
+      'Dissatisfaction and impatience - a combination of opposing energies',
       'Manic "I hate this" energy wanting to get to the next thing',
-      'Would throw people out of the bar for rooming the vibe',
+      'Would throw people out of the bar for rooming the vibe - extreme frustration',
     ],
   },
   {
     numbers: '146',
-    name: 'My Big Pain',
+    names: ['The Critic', 'My Big Pain'],
     description: [
-      'Triple critical types so very picky',
+      'Triple critical types so very picky and judgy',
+      '4 subjective preferences + 1 morality + 6 expecting things to go wrong',
+      'Always seems to have something they can criticize/complain about - their "big pain"',
       '2x frustration, 2x reactive, 2x super-ego',
-      '4 - subjective preferences + 1 - morality + 6 expecting things to go wrong',
     ],
   },
   {
     numbers: '145',
-    name: 'Insectoid',
+    names: ['The Inflexible', 'Insectoid'],
     description: [
-      'Highly obscure and particular',
+      'Highly obscure and particular - the least flexible/malleable fixes',
       'Hard angles and peculiar, alien quality like a praying mantis',
-      'Unexpressive 4 but rather a smoldering disdain',
-      '2x rejection and sharp distinctions',
+      'An unexpressive type 4 instead expressed through a smoldering disdain',
+      '2x rejection creating sharp distinctions',
     ],
   },
   {
     numbers: '137',
-    name: 'Welcome to my Ted Talk',
+    names: ['The Startup', 'Welcome to my Ted Talk'],
     description: [
-      'Projects inspiration, innovaion, and "goodness" in a handwavey way',
+      'Projects inspiration, innovation, and "goodness" in a handwavey way',
       '"I know where this needs to go but have no idea how to get there"',
       'Capitalistic visionary fueled by narcissism',
+      'Architecturally creative and enthusiastic - keeps going despite failures',
     ],
   },
   {
     numbers: '136',
-    name: 'Middle Manager',
+    names: ['Middle Manager', 'The Worker'],
     description: [
-      'Triple control types',
+      'Triple control types - holding things together',
       'Anxiety of being in the middle and feeling like they know the way things should be done',
-      'Can become preoccupied with work over everything else',
+      'Can become preoccupied with work over everything else - wants to get it done and right',
     ],
   },
   {
     numbers: '135',
-    name: 'Robo Celebate',
+    names: ['The Robot', 'The Robo Celebate'],
     description: [
-      '3x competency',
+      '3x competency - lacking warmth and humanness',
       'I am here to get it done in swift robotic fashion',
       'Order and productivity above all else',
     ],
   },
   {
     numbers: '127',
-    name: 'Cool Teacher',
+    names: ['Cool Teacher', 'The Priest'],
     description: [
-      '2x positive types add a cheesyness to the 1',
+      'Inspirational 2x positive types add a cheesyness to the 1',
       '2x super-ego wants to be seen as good',
-      'Wants to let loose, but constrainted by morality of the 1',
-      '"The least cool 7" a non-celebrity type',
+      'Wants to let loose and be positive, but constrained and grounded by the morality of the 1',
+      '"The least cool 7" and thus a "non-celebrity" type',
     ],
   },
   {
     numbers: '126',
-    name: 'Ball Buster / Ok Boomer',
+    names: ['The Helicopter Parent', 'Ball Buster',' Ok Boomer'],
     description: [
       '3x super-ego, dorky and by the book',
       '"I tuck in my polo shirts" and no rock-n-roll',
@@ -262,13 +254,13 @@ const combinations = [
   },
   {
     numbers: '152',
-    name: 'Friendzone',
+    names: ['The Know-It-All', 'Friendzone'],
     description: [
-      'Helpful goodness, but with no edge to lead to something more',
-      'Nice guys that gets friendzoned or a librarian type',
+      'The three fixes that "know better" than you do, and they\'re happy to tell you',
+      'Nice guys that gets friendzoned or the librarian archetype',
       'Either too into your business (2) or too withdrawn (5)',
-      'Researches how to be more helpful',
-      '"I\'ll be a such a good friend to you that you will fall for me"',
+      'Helpful goodness, but with no "edge" to lead to something more',
+      '"I\'ll be a such a good friend to you that you will fall for me" - researches how to be helpful',
     ],
   },
 ];
@@ -417,9 +409,21 @@ combinations.forEach((combo) => {
   });
 });
 
+combinations.sort((a, b) => {
+  if (a.numbers < b.numbers) {
+    return -1;
+  } else if (a.numbers > b.numbers) {
+    return 1;
+  } else {
+    return 0;
+  }
+});
+
 export const TrifixCombinations = {
   descriptions: combinations,
-  getCenter: function(number: number) {
+  nicknamesUrl: 'https://www.enneagrammer.com/-blog/trifix-nicknames',
+  moreNicknamesUrl: 'http://enneasite.com/trifix/',
+  getCenter: function (number: number) {
     if (TrifixCombinations.isGut(number)) {
       return 'Gut';
     } else if (TrifixCombinations.isHead(number)) {
