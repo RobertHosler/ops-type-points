@@ -40,7 +40,11 @@ export class EnneaTriadsComponent implements OnInit {
             return;
           }
           let row = this.buildRow(fix);
-          row.name = 'Fix ' + i;
+          if (i === 2) {
+            row.name = '2nd Fix';
+          } else if (i === 3) {
+            row.name = '3rd Fix';
+          }
           this.rows.push(row);
           i++;
         });
