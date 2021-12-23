@@ -44,6 +44,14 @@ export class EnneaTypeLinksComponent implements OnInit {
           }
         }
       });
+      let link = new Link();
+      link.text = "Join DAA";
+      link.href = 'https://www.enneagrammer.com/members-home';
+      this.daaLinks.push(link);
+      let publicDaa = new Link();
+      publicDaa.text = "Public DAA Content";
+      publicDaa.href = 'https://vimeo.com/user146722472?embedded=true&source=owner_name&owner=146722472';
+      this.daaLinks.push(publicDaa);
     }
   }
 
