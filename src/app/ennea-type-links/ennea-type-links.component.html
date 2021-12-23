@@ -1,0 +1,10 @@
+<div *ngIf="allEmpty">No Links Available</div>
+
+<div *ngIf="daaLinks.length > 0">
+  Links
+  <ul>
+    <li *ngFor="let link of daaLinks">
+      <a [href]="link.href" target="_blank">{{ link.text }}</a>
+    </li>
+  </ul>
+</div>

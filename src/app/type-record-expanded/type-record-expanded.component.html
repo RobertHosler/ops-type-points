@@ -70,6 +70,14 @@
               Summary
             </button>
             <button
+              *ngIf="person.enneaLinks"
+              class="btn btn-gray d-block w-100"
+              [ngClass]="{ active: activeEnnea === 'Links' }"
+              (click)="activeTab = 'Enneagram'; activeEnnea = 'Links'"
+            >
+              Links
+            </button>
+            <button
               class="btn btn-gray d-block w-100"
               *ngIf="person.trifix"
               [ngClass]="{ active: activeEnnea === 'Trifix' }"
@@ -183,6 +191,9 @@
             <h4>Triad Summary</h4>
             <app-ennea-triads [typedPerson]="person"></app-ennea-triads>
           </div>
+        </div>
+        <div *ngIf="activeEnnea === 'Links'">
+          <app-ennea-type-links [typedPerson]="person"></app-ennea-type-links>
         </div>
         <div *ngIf="activeEnnea === 'Trifix'">
           <div class="my-3">

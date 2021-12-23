@@ -243,6 +243,9 @@ export class TypedPerson {
   enfpLink?: string;
   otherLinks?: string;
   opsLinks?: string; // from ops database
+  enneaLinks?: string;
+  enneaNotes?: string;
+  collageUrl?: string;
   ytLink?: string;
   lastModified?: string;
 }

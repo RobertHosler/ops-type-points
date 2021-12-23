@@ -226,6 +226,8 @@ function mergeMaps(nameMap, eTypeMap) {
       if (eVal.pictureUrl) {
         nameVal.pictureUrl = eVal.pictureUrl;
       }
+      nameVal.enneaNotes = eVal.notes;
+      nameVal.enneaLinks = eVal.enneaLinks;
       if (compareModifiedDates(nameVal.lastModified, eVal.lastModified) > 0) {
         nameVal.lastModified = eVal.lastModified;
       }
