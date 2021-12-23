@@ -1142,6 +1142,8 @@ personTerms.set('female', {
  */
 const tagTerms = [
   'class',
+  'academy',
+  'daa',
   'spec',
   'speculation',
   'incomplete',
@@ -1150,6 +1152,7 @@ const tagTerms = [
   'community',
   'wss',
   'ops',
+  'bhe',
 ];
 
 const socionicsTypes = [

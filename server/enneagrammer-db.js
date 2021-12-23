@@ -106,7 +106,7 @@ function convertRecords(records) {
     let tags = ["Enneagrammer"];
     (record.fields.Tags ? record.fields.Tags : []).forEach(tag => {
       if (tag === 'Class Typing') {
-        tags.push('Ennea Class Typing');
+        tags.push('Academy Typing (DAA)');
       } else {
         tags.push(tag);
       }
@@ -217,9 +217,12 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.fullEType = buildFullEType(eVal);
       nameVal.fullTrifix = eVal.trifix; // 9w1 6w5 3w4 (may contain wings)
       nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
-      nameVal.tags
-        ? nameVal.tags.push("Enneagrammer")
-        : (nameVal.tags = ["Enneagrammer"]);
+      nameVal.tags = nameVal.tags ? nameVal.tags : [];
+      eVal.tags.forEach(tag => {
+        if (!nameVal.tags.includes(tag)) {
+          nameVal.tags.push(tag);
+        }
+      });
       if (eVal.pictureUrl) {
         nameVal.pictureUrl = eVal.pictureUrl;
       }
@@ -240,8 +243,11 @@ function mergeMaps(nameMap, eTypeMap) {
         fullTrifix: eVal.trifix,
         trifix: buildTritype(eVal.trifix),
         pictureUrl: eVal.pictureUrl,
+        collageUrl: eVal.collageUrl,
         fullEType: buildFullEType(eVal),
-        tags: ["Enneagrammer"],
+        tags: eVal.tags,
+        enneaNotes: eVal.enneaNotes,
+        enneaLinks: eVal.enneaLinks,
         sex: eVal.sex,
         trans: false,
         lastModified: eVal.lastModified
