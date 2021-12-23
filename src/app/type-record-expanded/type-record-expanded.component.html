@@ -70,12 +70,11 @@
               Summary
             </button>
             <button
-              *ngIf="person.enneaLinks"
               class="btn btn-gray d-block w-100"
               [ngClass]="{ active: activeEnnea === 'Links' }"
               (click)="activeTab = 'Enneagram'; activeEnnea = 'Links'"
             >
-              Links
+              Links & Notes
             </button>
             <button
               class="btn btn-gray d-block w-100"
@@ -193,6 +192,9 @@
           </div>
         </div>
         <div *ngIf="activeEnnea === 'Links'">
+          <div *ngIf="person.enneaNotes" class="mb-3">
+            {{ person.enneaNotes }}
+          </div>
           <app-ennea-type-links [typedPerson]="person"></app-ennea-type-links>
         </div>
         <div *ngIf="activeEnnea === 'Trifix'">
