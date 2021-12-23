@@ -186,13 +186,15 @@ function convertPersons(records) {
     (record.fields.Tags ? record.fields.Tags : []).forEach(tag => {
       if (tag === 'Class Typing') {
         tags.push('OPS Class Typing');
+      } else {
+        tags.push(tag);
       }
     });
     const typedPerson = {
       name: name,
       type: record.fields.Type,
       typeNumber: record.fields["Type Number"],
-      pictureUrl: getRecordPicture(record),
+      pictureUrl: getRecordPicture(record.fields.Picture),
       tags: tags,
       mod: "??",
       s1: "??",

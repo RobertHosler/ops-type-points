@@ -124,7 +124,7 @@ function convertRecords(records) {
       notes: record.fields.Notes,
       tags: tags,
       sex: record.fields.Sex,
-      pictureUrl: getRecordPicture(record),
+      pictureUrl: getRecordPicture(record.fields.Picture),
       lastModified: getLastModified(record)
     });
   });

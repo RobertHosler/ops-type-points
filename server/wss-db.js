@@ -57,7 +57,7 @@ function convertRecords(records) {
       name: name,
       type: record.fields.Type,
       link: record.fields.Link,
-      pictureUrl: getRecordPicture(record),
+      pictureUrl: getRecordPicture(record.fields.Picture),
       lastModified: getLastModified(record)
     });
   });

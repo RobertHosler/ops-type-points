@@ -14,6 +14,10 @@ const fields = [
   "Trifix",
   "Picture",
   "Sex",
+  "Tags",
+  "Collage",
+  "Links",
+  "Notes",
   "Last Modified",
   "Created Date",
 ];
@@ -99,6 +103,18 @@ function convertRecords(records) {
       record.fields.Type && record.fields.Type.length > 2
         ? record.fields.Type.substring(2, 3)
         : "?";
+    let tags = ["Enneagrammer"];
+    (record.fields.Tags ? record.fields.Tags : []).forEach(tag => {
+      if (tag === 'Class Typing') {
+        tags.push('Ennea Class Typing');
+      } else {
+        tags.push(tag);
+      }
+    });
+    if (tags.includes('Removed')) {
+      console.log(name + ' Removed');
+      return;
+    }
     result.set(name, {
       name: name,
       coreEType: coreEType,
@@ -110,7 +126,11 @@ function convertRecords(records) {
         : "??/??",
       trifix: record.fields.Trifix,
       sex: record.fields.Sex,
-      pictureUrl: getRecordPicture(record),
+      tags: tags,
+      enneaNotes: record.fields.Notes,
+      enneaLinks: record.fields.Links,
+      pictureUrl: getRecordPicture(record.fields.Picture),
+      collageUrl: getRecordPicture(record.fields.Collage),
       lastModified: getLastModified(record)
     });
   });

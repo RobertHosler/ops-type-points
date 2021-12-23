@@ -120,9 +120,9 @@ const modelInput = {
 exports.getAll = getAllData;
 exports.buildUrl = buildUrl;
 
-exports.getRecordPicture = (record) => {
-  if( record.fields.Picture && record.fields.Picture.length > 0) {
-    return record.fields.Picture[0].thumbnails.large.url;
+exports.getRecordPicture = (pictureField) => {
+  if( pictureField && pictureField.length > 0) {
+    return pictureField[0].thumbnails.large.url;
   }
   else {
     return '';
