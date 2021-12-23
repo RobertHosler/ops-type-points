@@ -253,7 +253,7 @@ const combinations = [
     ],
   },
   {
-    numbers: '152',
+    numbers: '125',
     names: ['The Know-It-All', 'Friendzone'],
     description: [
       'The three fixes that "know better" than you do, and they\'re happy to tell you',
