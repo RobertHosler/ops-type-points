@@ -1137,6 +1137,9 @@ personTerms.set('female', {
   },
 });
 
+/**
+ * Special terms which will be checked for in the list of tags
+ */
 const tagTerms = [
   'class',
   'spec',
@@ -1175,6 +1178,9 @@ const typeAhead = [];
 typeAhead.push(socionicsTypes);
 typeAhead.push(tagTerms);
 
+/**
+ * Rules shown on the Search Home Page
+ */
 const opsRules = [
   {
     label: 'All OPS Tagged',

@@ -182,8 +182,12 @@ function convertPersons(records) {
   const nameMap = new Map();
   records.forEach((record) => {
     let name = convertName(record.fields.Name);
-    let tags = record.fields.Tags ? record.fields.Tags : [];
-    tags.push("OPS");
+    let tags = ["OPS"];
+    (record.fields.Tags ? record.fields.Tags : []).forEach(tag => {
+      if (tag === 'Class Typing') {
+        tags.push('OPS Class Typing');
+      }
+    });
     const typedPerson = {
       name: name,
       type: record.fields.Type,

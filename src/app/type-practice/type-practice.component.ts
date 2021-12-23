@@ -500,7 +500,7 @@ export class TypePracticeComponent implements OnInit {
         return;
       } else if (!person.tags) {
         this.alltypedPersons.push(person);
-      } else if (person.tags.includes('Class Typing')) {
+      } else if (person.tags.includes('OPS Class Typing')) {
         this.allClassOnlyPersons.push(person);
         this.alltypedPersons.push(person);
       } else if (

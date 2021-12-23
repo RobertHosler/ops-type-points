@@ -683,7 +683,7 @@ export class SearchComponent implements OnInit {
     }
     if (
       this.options.get('co').val === 'Class Only' &&
-      (!person.tags || !person.tags.includes('Class Typing'))
+      (!person.tags || !person.tags.includes('OPS Class Typing'))
     ) {
       return false;
     }
