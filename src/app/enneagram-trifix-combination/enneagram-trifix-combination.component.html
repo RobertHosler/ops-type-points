@@ -1,3 +1,57 @@
+<div *ngIf="!trifix" class="mb-3 d-flex">
+  <div class="mr-3">
+    <div class="font-weight-bold text-center">
+      Heart
+    </div>
+    <button
+      *ngFor="let number of heart"
+      class="btn btn-gray filter-button"
+      [ngClass]="{ active: heartSelected === number }"
+      (click)="
+        heartSelected === number
+          ? (heartSelected = '')
+          : (heartSelected = number); applyFilter();
+      "
+    >
+      {{ number }}
+    </button>
+  </div>
+  <div class="mr-3">
+    <div class="font-weight-bold text-center">
+      Head
+    </div>
+    <button
+      *ngFor="let number of head"
+      class="btn btn-gray filter-button"
+      [ngClass]="{ active: headSelected === number }"
+      (click)="
+        headSelected === number
+          ? (headSelected = '')
+          : (headSelected = number); applyFilter();
+      "
+    >
+      {{ number }}
+    </button>
+  </div>
+  <div>
+    <div class="font-weight-bold text-center">
+      Body
+    </div>
+    <button
+      *ngFor="let number of body"
+      class="btn btn-gray filter-button"
+      [ngClass]="{ active: bodySelected === number }"
+      (click)="
+        bodySelected === number
+          ? (bodySelected = '')
+          : (bodySelected = number); applyFilter();
+      "
+    >
+      {{ number }}
+    </button>
+  </div>
+</div>
+
 <div class="overflow-wrapper d-none d-md-block">
   <table class="trifix-table">
     <tbody>

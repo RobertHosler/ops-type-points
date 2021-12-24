@@ -15,6 +15,14 @@ export class EnneagramTrifixCombinationComponent implements OnInit {
 
   combinations = TrifixCombinations.descriptions;
 
+  body = ['8', '9', '1'];
+  head = ['5', '6', '7'];
+  heart = ['2', '3', '4'];
+
+  bodySelected = '';
+  headSelected = '';
+  heartSelected = '';
+
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
@@ -91,5 +99,19 @@ export class EnneagramTrifixCombinationComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
     }
+  }
+
+  applyFilter() {
+    let tempCombos = [];
+    TrifixCombinations.descriptions.forEach((d) => {
+      if (
+        d.numbers.includes(this.bodySelected) &&
+        d.numbers.includes(this.headSelected) &&
+        d.numbers.includes(this.heartSelected)
+      ) {
+        tempCombos.push(d);
+      }
+    });
+    this.combinations = tempCombos;
   }
 }

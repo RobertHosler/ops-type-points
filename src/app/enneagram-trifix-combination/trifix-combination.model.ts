@@ -106,7 +106,7 @@ const combinations = [
     names: ['The Coder', 'Flatline'],
     description: [
       'Bypass their feelings, not many fluctuations',
-      'Don\t express emotions outwardly',
+      'Don\'t express emotions outwardly',
       'Checked out but busy and focused on stuff',
       '3/5 competency meets broadened thinking of the 9',
     ],
@@ -141,10 +141,10 @@ const combinations = [
   },
   {
     numbers: '269',
-    names: ['Stockhold Syndrome'],
+    names: ['Stockholm Syndrome'],
     description: [
+      '3x "Niceness" - Overly empathetic, Anti self interest',
       'Befriend your captor and take abuse while putting self in service',
-      '3x "Niceness" - Overly empathetic, Anti-self interest',
       'A sacrificial lamb looking to offer their service for the good of others',
     ],
   },
@@ -181,7 +181,7 @@ const combinations = [
     description: [
       'Dissatisfaction and impatience - a combination of opposing energies',
       'Manic "I hate this" energy wanting to get to the next thing',
-      'Would throw people out of the bar for rooming the vibe - extreme frustration',
+      'Would throw people out of the bar for ruining the vibe - extreme frustration',
     ],
   },
   {
