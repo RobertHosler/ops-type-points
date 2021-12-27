@@ -69,7 +69,7 @@ export class EnneaTriadsComponent implements OnInit {
     row.center = this.trifixModel.getCenter(number);
     row.harmonics = this.trifixModel.getHarmonics(number);
     row.hornevian = this.trifixModel.getHornevian(number);
-    row.objectRelations = this.trifixModel.coreNumber(number);
+    row.objectRelations = this.trifixModel.getObjRel(number);
     return row;
   }
 }

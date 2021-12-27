@@ -1,16 +1,22 @@
-<h4>Core Type</h4>
-<table class="etype-table mb-2">
-  <tbody>
-    <tr *ngFor="let x of display; let i = index">
-      <td>
-        {{ x.name }}
-      </td>
-      <td *ngIf="x.text.length === 1">
-        <div>{{ x.text }}</div>
-      </td>
-      <td *ngIf="x.text.length > 1">
-        <div *ngFor="let s of x.text">{{ s }}</div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="mb-2">
+  <h4>Core Type</h4>
+  <table class="etype-table">
+    <tbody>
+      <tr *ngFor="let x of display; let i = index">
+        <td>
+          {{ x.name }}
+        </td>
+        <td *ngIf="x.text.length === 1">
+          <div>{{ x.text }}</div>
+        </td>
+        <td *ngIf="x.text.length > 1">
+          <div *ngFor="let s of x.text">{{ s }}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="small">
+    Source:
+    <a [routerLink]="['/nineTypes/descriptions']">Type Descriptions</a>
+  </div>
+</div>

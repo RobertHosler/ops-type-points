@@ -64,10 +64,10 @@
         <td>
           <div *ngFor="let name of fix.names">{{ name }}</div>
         </td>
-        <td>
-          <div>{{ harmonics(fix) }}</div>
-          <div>{{ hornevian(fix) }}</div>
-          <div>{{ object(fix) }}</div>
+        <td class="triads-col">
+          <div *ngIf="harmonics(fix)">{{ harmonics(fix) }}</div>
+          <div *ngIf="hornevian(fix)">{{ hornevian(fix) }}</div>
+          <div *ngIf="object(fix)">{{ object(fix) }}</div>
         </td>
         <td>
           <div *ngFor="let d of fix.description">{{ d }}</div>
@@ -100,4 +100,15 @@
       </ul>
     </div>
   </div>
+</div>
+
+<div class="small">
+  Source: 
+  <a href="https://www.enneagrammer.com/-blog/trifix-nicknames" target="_blank"
+    >Trifix Nicknames</a
+  >
+  -
+  <a href="https://www.youtube.com/watch?v=yNygZHOb898&ab_channel=BigHormoneEnneagram" target="_blank"
+    >BHE Trifix Roast</a
+  >
 </div>

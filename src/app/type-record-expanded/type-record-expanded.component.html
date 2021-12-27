@@ -190,6 +190,10 @@
             <h4>Triad Summary</h4>
             <app-ennea-triads [typedPerson]="person"></app-ennea-triads>
           </div>
+          <div *ngIf="false">
+            <h4>Triad Weights</h4>
+            <app-ennea-type-calculator [coreType]="person.eType" [instinct]="person.instinct" [trifix]="person.fullTrifix"></app-ennea-type-calculator>
+          </div>
         </div>
         <div *ngIf="activeEnnea === 'Links'">
           <div *ngIf="person.enneaNotes" class="mb-3">

@@ -1,0 +1,126 @@
+<div *ngIf="!coreType">
+  <div>
+    <input type="text" [(ngModel)]="dominantInstinct" />
+    <input type="text" [(ngModel)]="playInstinct" />
+    <input type="text" [(ngModel)]="blindInstinct" />
+  </div>
+  <div>
+    <input type="text" [(ngModel)]="core" />
+    <input type="text" [(ngModel)]="wing" />
+  </div>
+  <div>
+    <input type="text" [(ngModel)]="fix2" />
+    <input type="text" [(ngModel)]="fix2wing" />
+  </div>
+  <div>
+    <input type="text" [(ngModel)]="fix3" />
+    <input type="text" [(ngModel)]="fix3wing" />
+  </div>
+
+  <div>
+    <button (click)="calculate()">Calculate</button>
+  </div>
+</div>
+
+<div *ngIf="calculatedType">
+  <div *ngIf="!coreType">
+    {{ calculatedType }}
+  </div>
+  <p>
+    These weights give a rough approximation of how much you might see these
+    high level patterns play out in a given type. However, it is important to
+    note that this should all still be expressed through the lens of the core
+    type's patterns which are shown in bold. Even if a type has a higher
+    assertive weight than withdrawn, you should still see the core's type
+    pattern before the assertiveness. A strong assertive backup plan may emerge
+    when the type is somehow unable to enact its core pattern.
+  </p>
+
+  <div class="calculator-tables">
+    <div>
+      <table>
+        <thead>
+          <th colspan="2">Centers</th>
+        </thead>
+        <tbody>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isHead(core) }">
+            <td>Head</td>
+            <td *ngFor="let col of numberColumns">{{ col.head }}</td>
+          </tr>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isHeart(core) }">
+            <td>Heart</td>
+            <td *ngFor="let col of numberColumns">{{ col.heart }}</td>
+          </tr>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isGut(core) }">
+            <td>Gut</td>
+            <td *ngFor="let col of numberColumns">{{ col.gut }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <th>Hornevian</th>
+          <th *ngFor="let col of numberColumns; let i = index;">{{ (i+1) === numberColumns.length ? 'Total' : '' }}</th>
+        </thead>
+        <tbody>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isAssertive(core) }">
+            <td>Assertive</td>
+            <td *ngFor="let col of numberColumns">{{ col.assertive }}</td>
+          </tr>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isCompliant(core) }">
+            <td>Compliant</td>
+            <td *ngFor="let col of numberColumns">{{ col.compliant }}</td>
+          </tr>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isWithdrawn(core) }">
+            <td>Withdrawn</td>
+            <td *ngFor="let col of numberColumns">{{ col.withdrawn }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <th colspan="2">Harmonics</th>
+        </thead>
+        <tbody>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isPositive(core) }">
+            <td>Positive</td>
+            <td *ngFor="let col of numberColumns">{{ col.positive }}</td>
+          </tr>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isReactive(core) }">
+            <td>Reactive</td>
+            <td *ngFor="let col of numberColumns">{{ col.reactive }}</td>
+          </tr>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isCompetency(core) }">
+            <td>Competency</td>
+            <td *ngFor="let col of numberColumns">{{ col.competency }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table>
+        <thead>
+          <th colspan="2">Object Relations</th>
+        </thead>
+        <tbody>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isAttachment(core) }">
+            <td>Attachment</td>
+            <td *ngFor="let col of numberColumns">{{ col.attachment }}</td>
+          </tr>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isFrustration(core) }">
+            <td>Frustration</td>
+            <td *ngFor="let col of numberColumns">{{ col.frustration }}</td>
+          </tr>
+          <tr [ngClass]="{ core: TrifixCombinationsModel.isRejection(core) }">
+            <td>Rejection</td>
+            <td *ngFor="let col of numberColumns">{{ col.rejection }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

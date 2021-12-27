@@ -58,6 +58,7 @@ import { EnneaTermsComponent } from './ennea-terms/ennea-terms.component';
 import { EnneaTrifixPageComponent } from './ennea-trifix-page/ennea-trifix-page.component';
 import { EnneaTrifixStemsComponent } from './ennea-trifix-stems/ennea-trifix-stems.component';
 import { EnneaTypeLinksComponent } from './ennea-type-links/ennea-type-links.component';
+import { EnneaTypeCalculatorComponent } from './ennea-type-calculator/ennea-type-calculator.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -105,7 +106,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     EnneaTermsComponent,
     EnneaTrifixPageComponent,
     EnneaTrifixStemsComponent,
-    EnneaTypeLinksComponent
+    EnneaTypeLinksComponent,
+    EnneaTypeCalculatorComponent
   ],
   imports: [
     HttpClientModule,

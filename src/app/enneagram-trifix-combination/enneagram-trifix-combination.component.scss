@@ -5,6 +5,7 @@
     border: 1px solid;
     min-width: 70px;
     padding: 0.25rem 0.5rem;
+    white-space: pre-line;
   }
   td:first-child {
     text-align: center;
@@ -28,4 +29,10 @@
 
 .filter-button {
   margin: 0.25rem;
+}
+
+.triads-col {
+  div:not(:last-child) {
+    border-bottom: 1px solid;
+  }
 }

@@ -1,0 +1,27 @@
+table {
+    td {
+        border: 1px solid;
+        padding: .25rem;
+        min-width: 40px;
+        text-align: center;
+    }
+    td:first-child {
+        text-align: left;
+        min-width: 120px;
+    }
+    td:last-child {
+        background-color: #efefef;
+    }
+}
+
+tr.core {
+    font-weight: bold;
+}
+
+.calculator-tables {
+    display: flex;
+    flex-wrap: wrap;
+    & > div {
+        margin-right: 1rem;
+    }
+}

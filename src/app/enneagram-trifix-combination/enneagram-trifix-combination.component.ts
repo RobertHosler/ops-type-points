@@ -53,39 +53,45 @@ export class EnneagramTrifixCombinationComponent implements OnInit {
   }
 
   harmonics(fix) {
-    if (fix.reactive > 1) {
-      return fix.reactive + 'x Reactive';
-    } else if (fix.positive > 1) {
-      return fix.positive + 'x Positive';
-    } else if (fix.competency > 1) {
-      return fix.competency + 'x Competency';
-    } else {
-      return '';
+    let arr = [];
+    if (fix.reactive !== 1) {
+      arr.push(fix.reactive + 'x Reactive');
     }
+    if (fix.positive !== 1) {
+      arr.push(fix.positive + 'x Positive');
+    }
+    if (fix.competency !== 1) {
+      arr.push(fix.competency + 'x Competency');
+    }
+    return arr.join('\n ');
   }
 
   hornevian(fix) {
-    if (fix.assertive > 1) {
-      return fix.assertive + 'x Assertive';
-    } else if (fix.compliant > 1) {
-      return fix.compliant + 'x Compliant';
-    } else if (fix.withdrawn > 1) {
-      return fix.withdrawn + 'x Withdrawn';
-    } else {
-      return '';
+    let arr = [];
+    if (fix.assertive !== 1) {
+      arr.push(fix.assertive + 'x Assertive');
     }
+    if (fix.compliant !== 1) {
+      arr.push(fix.compliant + 'x Compliant');
+    }
+    if (fix.withdrawn !== 1) {
+      arr.push(fix.withdrawn + 'x Withdrawn');
+    }
+    return arr.join('\n ');
   }
 
   object(fix) {
-    if (fix.attachment > 1) {
-      return fix.attachment + 'x Attachment';
-    } else if (fix.frustration > 1) {
-      return fix.frustration + 'x Frustration';
-    } else if (fix.rejection > 1) {
-      return fix.rejection + 'x Rejection';
-    } else {
-      return '';
+    let arr = [];
+    if (fix.attachment !== 1) {
+      arr.push(fix.attachment + 'x Attachment');
     }
+    if (fix.frustration !== 1) {
+      arr.push(fix.frustration + 'x Frustration');
+    }
+    if (fix.rejection !== 1) {
+      arr.push(fix.rejection + 'x Rejection');
+    }
+    return arr.join('\n ');
   }
 
   fixClick(fix: string) {

@@ -233,6 +233,7 @@ export class TypedPerson {
   eType?: string; // 9w1
   instinct?: string; // so/sp
   trifix?: string; // 963 (no wings)
+  fullTrifix?: string; // may contain wings '9w1 6w5 3w2'
   coreEType?: string; // 9
   coreETypeLong?: string; // Nine
   wing?: string; // 1

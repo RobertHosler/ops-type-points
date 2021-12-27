@@ -437,11 +437,11 @@ export class SearchComponent implements OnInit {
   /**
    * Split up the text string by spaces and apply text matching for each part.
    */
-  private matchText(person: TypedPerson): boolean {
+  private matchText(person: TypedPerson, text?: string): boolean {
     if (!this.textString) {
       return true;
     }
-    let strings = this.textString.toLowerCase().split(' ');
+    let strings = text ? text.toLowerCase().split(' ') : this.textString.toLowerCase().split(' ');
     let result = true;
     strings.forEach((string) => {
       if (result) {
@@ -450,7 +450,7 @@ export class SearchComponent implements OnInit {
           let sArr = s.split('|');
           let found = false;
           for (let i = 0; i !== sArr.length; i++) {
-            found = this.matchTextParts(person, sArr[i]);
+            found = this.matchText(person, sArr[i]);
             if (found) {
               break;
             }

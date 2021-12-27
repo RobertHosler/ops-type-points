@@ -423,6 +423,9 @@ export const TrifixCombinations = {
   descriptions: combinations,
   nicknamesUrl: 'https://www.enneagrammer.com/-blog/trifix-nicknames',
   moreNicknamesUrl: 'http://enneasite.com/trifix/',
+  getCenterString: function (number: string) {
+    return TrifixCombinations.getCenter(parseInt(number));
+  },
   getCenter: function (number: number) {
     if (TrifixCombinations.isGut(number)) {
       return 'Gut';
@@ -442,6 +445,9 @@ export const TrifixCombinations = {
   isHeart: function (number: number) {
     return heart.includes(number);
   },
+  getHarmonicsString: function (number: string) {
+    return TrifixCombinations.getHarmonics(parseInt(number));
+  },
   getHarmonics(number: number) {
     if (TrifixCombinations.isReactive(number)) {
       return 'Reactive';
@@ -459,6 +465,9 @@ export const TrifixCombinations = {
   },
   isCompetency: function (number: number) {
     return competency.includes(number);
+  },
+  getHornevianString: function (number: string) {
+    return TrifixCombinations.getHornevian(parseInt(number));
   },
   getHornevian(number: number) {
     if (TrifixCombinations.isAssertive(number)) {
@@ -478,7 +487,10 @@ export const TrifixCombinations = {
   isWithdrawn: function (number: number) {
     return withdrawn.includes(number);
   },
-  coreNumber(number: number) {
+  getObjRelString: function (number: string) {
+    return TrifixCombinations.getObjRel(parseInt(number));
+  },
+  getObjRel(number: number) {
     if (TrifixCombinations.isAttachment(number)) {
       return 'Attachment';
     } else if (TrifixCombinations.isRejection(number)) {
