@@ -1,0 +1,106 @@
+<div class="container">
+  <div>
+    <h1>Type Exemplars</h1>
+    <p>
+      Below is a random selection of type exemplars. Click to shuffle and
+      display another option.
+    </p>
+  </div>
+  <div class="flex-table-wrapper">
+    <div class="flex-table-column">
+      <h2>Sleep</h2>
+      <ng-container *ngFor="let type of types.slice(0, 8)">
+        <ng-container
+          *ngTemplateOutlet="person; context: { type: type }"
+        ></ng-container>
+      </ng-container>
+    </div>
+    <div class="flex-table-column">
+      <h2>Consume</h2>
+      <ng-container *ngFor="let type of types.slice(8, 16)">
+        <ng-container
+          *ngTemplateOutlet="person; context: { type: type }"
+        ></ng-container>
+      </ng-container>
+    </div>
+    <div class="flex-table-column">
+      <h2>Blast</h2>
+      <ng-container *ngFor="let type of types.slice(16, 24)">
+        <ng-container
+          *ngTemplateOutlet="person; context: { type: type }"
+        ></ng-container>
+      </ng-container>
+    </div>
+    <div class="flex-table-column">
+      <h2>Play</h2>
+      <ng-container *ngFor="let type of types.slice(24, 32)">
+        <ng-container
+          *ngTemplateOutlet="person; context: { type: type }"
+        ></ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="my-3">
+    <button
+      class="btn btn-primary mr-2"
+      (click)="resetColumns()"
+      [ngClass]="{ active: showNames }"
+    >
+      Reset All
+    </button>
+    <button
+      class="btn btn-gray mr-2"
+      (click)="showNames = !showNames"
+      [ngClass]="{ active: showNames }"
+    >
+      Names
+    </button>
+    <button
+      class="btn btn-gray mr-2"
+      (click)="classOnly = !classOnly; resetColumns()"
+      [ngClass]="{ active: classOnly }"
+    >
+      Class
+    </button>
+    <button
+      class="btn btn-gray mr-2"
+      (click)="maleOnly = !maleOnly; resetColumns()"
+      [ngClass]="{ active: maleOnly }"
+    >
+      {{ maleOnly ? "M" : "F" }}
+    </button>
+  </div>
+</div>
+
+<ng-template #person let-type="type">
+  <div class="person" (click)="findType(type)">
+    <div class="img-wrapper" *ngIf="tableStructure[type]">
+      <div
+        class="image-img"
+        [ngClass]="{
+          'image-missing': !tableStructure[type].pictureUrl
+        }"
+        [ngStyle]="{
+          'background-image':
+            'url(' +
+            (tableStructure[type].pictureUrl
+              ? tableStructure[type].pictureUrl
+              : '/assets/images/sp-logo-no-bg.png') +
+            ')'
+        }"
+      >
+        <div *ngIf="showNames" class="img-name">
+          {{ tableStructure[type] ? tableStructure[type].name : "" }}
+        </div>
+        <span
+          class="image-missing-text"
+          *ngIf="!tableStructure[type].pictureUrl"
+        >
+          Image Missing
+        </span>
+        <div class="img-type">{{ formatType(type) }}</div>
+      </div>
+    </div>
+  </div>
+</ng-template>

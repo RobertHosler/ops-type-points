@@ -13,6 +13,7 @@ import { AdminComponent } from './admin/admin.component';
 import { TypeRecordExpandedComponent } from './type-record-expanded/type-record-expanded.component';
 import { EnneaTermsComponent } from './ennea-terms/ennea-terms.component';
 import { EnneaTrifixPageComponent } from './ennea-trifix-page/ennea-trifix-page.component';
+import { TypeExemplarsComponent } from './type-exemplars/type-exemplars.component';
 
 const routes: Routes = [
   {
@@ -55,7 +56,10 @@ const routes: Routes = [
   {
     path: 'practice',
     component: MainLayoutComponent,
-    children: [{ path: '', component: TypePracticeComponent }],
+    children: [
+        { path: '', component: TypePracticeComponent },
+        { path: 'exemplars', component: TypeExemplarsComponent },
+      ],
   },
   {
     path: 'quiz',
