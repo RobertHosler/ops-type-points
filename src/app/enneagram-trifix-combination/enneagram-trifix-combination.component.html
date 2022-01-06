@@ -1,8 +1,6 @@
-<div *ngIf="!trifix" class="mb-3 d-flex">
+<div *ngIf="false" class="mb-3 d-flex">
   <div class="mr-3">
-    <div class="font-weight-bold text-center">
-      Heart
-    </div>
+    <div class="font-weight-bold text-center">Heart</div>
     <button
       *ngFor="let number of heart"
       class="btn btn-gray filter-button"
@@ -10,45 +8,106 @@
       (click)="
         heartSelected === number
           ? (heartSelected = '')
-          : (heartSelected = number); applyFilter();
+          : (heartSelected = number);
+        applyFilter()
       "
     >
       {{ number }}
     </button>
   </div>
   <div class="mr-3">
-    <div class="font-weight-bold text-center">
-      Head
-    </div>
+    <div class="font-weight-bold text-center">Head</div>
     <button
       *ngFor="let number of head"
       class="btn btn-gray filter-button"
       [ngClass]="{ active: headSelected === number }"
       (click)="
-        headSelected === number
-          ? (headSelected = '')
-          : (headSelected = number); applyFilter();
+        headSelected === number ? (headSelected = '') : (headSelected = number);
+        applyFilter()
       "
     >
       {{ number }}
     </button>
   </div>
   <div>
-    <div class="font-weight-bold text-center">
-      Body
-    </div>
+    <div class="font-weight-bold text-center">Body</div>
     <button
       *ngFor="let number of body"
       class="btn btn-gray filter-button"
       [ngClass]="{ active: bodySelected === number }"
       (click)="
-        bodySelected === number
-          ? (bodySelected = '')
-          : (bodySelected = number); applyFilter();
+        bodySelected === number ? (bodySelected = '') : (bodySelected = number);
+        applyFilter()
       "
     >
       {{ number }}
     </button>
+  </div>
+</div>
+
+<div *ngIf="!trifix">
+  <p>Select one of the trifixes below to read more and see typed examples. Select numbers below to filter.</p>
+  <div class="mb-2">
+    <div><strong>Heart</strong> - {{ getCenter("heart") }}</div>
+    <div *ngFor="let number of heart">
+      <button
+        class="btn btn-gray filter-button"
+        [ngClass]="{ active: heartSelected === number }"
+        (click)="
+          heartSelected === number
+            ? (heartSelected = '')
+            : (heartSelected = number);
+          applyFilter()
+        "
+      >
+        {{ number }}
+      </button>
+      {{ getDescription(number) }}
+    </div>
+  </div>
+  <div class="mb-2">
+    <div><strong>Head</strong> - {{ getCenter("head") }}</div>
+    <div *ngFor="let number of head">
+      <button
+        class="btn btn-gray filter-button"
+        [ngClass]="{ active: headSelected === number }"
+        (click)="
+          headSelected === number
+            ? (headSelected = '')
+            : (headSelected = number);
+          applyFilter()
+        "
+      >
+        {{ number }}
+      </button>
+      {{ getDescription(number) }}
+    </div>
+  </div>
+  <div class="mb-2">
+    <div><strong>Body</strong> - {{ getCenter("gut") }}</div>
+    <div *ngFor="let number of body">
+      <button
+        class="btn btn-gray filter-button"
+        [ngClass]="{ active: bodySelected === number }"
+        (click)="
+          bodySelected === number
+            ? (bodySelected = '')
+            : (bodySelected = number);
+          applyFilter()
+        "
+      >
+        {{ number }}
+      </button>
+      {{ getDescription(number) }}
+    </div>
+  </div>
+  <div class="mb-3">
+    <app-ennea-trifix-stems
+      [heartFix]="heartSelected"
+      [headFix]="headSelected"
+      [gutFix]="bodySelected"
+      [collapsible]="true"
+    ></app-ennea-trifix-stems>
   </div>
 </div>
 
@@ -103,12 +162,14 @@
 </div>
 
 <div class="small">
-  Source: 
+  Source:
   <a href="https://www.enneagrammer.com/-blog/trifix-nicknames" target="_blank"
     >Trifix Nicknames</a
   >
   -
-  <a href="https://www.youtube.com/watch?v=yNygZHOb898&ab_channel=BigHormoneEnneagram" target="_blank"
+  <a
+    href="https://www.youtube.com/watch?v=yNygZHOb898&ab_channel=BigHormoneEnneagram"
+    target="_blank"
     >BHE Trifix Roast</a
   >
 </div>

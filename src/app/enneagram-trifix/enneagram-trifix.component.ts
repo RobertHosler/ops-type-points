@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Trifix } from './trifix.model';
 
 @Component({
@@ -6,17 +6,57 @@ import { Trifix } from './trifix.model';
   templateUrl: './enneagram-trifix.component.html',
   styleUrls: ['./enneagram-trifix.component.scss']
 })
-export class EnneagramTrifixComponent implements OnInit {
+export class EnneagramTrifixComponent implements OnInit, OnChanges {
 
   @Input()
   trifix: string;
 
-  trifixArray: string[]
+  @Input()
+  heartFix: string;
+  @Input()
+  headFix: string;
+  @Input()
+  gutFix: string;
+
+  trifixArray: string[];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.trifixArray = this.trifix.split('');
+    this.initStacking();
+  }
+
+  ngOnChanges(): void {
+    this.initStacking();
+  }
+  
+  initStacking() {
+    this.trifixArray = [];
+    if (this.trifix) {
+      this.trifixArray = this.trifix.split('');
+    } else {
+      if (this.heartFix) {
+        this.trifixArray.push(this.heartFix);
+      } else {
+        this.trifixArray.push('2');
+        this.trifixArray.push('3');
+        this.trifixArray.push('4');
+      }
+      if (this.headFix) {
+        this.trifixArray.push(this.headFix);
+      } else {
+        this.trifixArray.push('5');
+        this.trifixArray.push('6');
+        this.trifixArray.push('7');
+      }
+      if (this.gutFix) {
+        this.trifixArray.push(this.gutFix);
+      } else {
+        this.trifixArray.push('8');
+        this.trifixArray.push('9');
+        this.trifixArray.push('1');
+      }
+    }
   }
 
   getDescription(number:string) {

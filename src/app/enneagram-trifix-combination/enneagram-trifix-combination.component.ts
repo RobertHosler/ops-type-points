@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Trifix } from '../enneagram-trifix/trifix.model';
 import { TrifixCombinations } from './trifix-combination.model';
 
 @Component({
@@ -119,5 +120,13 @@ export class EnneagramTrifixCombinationComponent implements OnInit {
       }
     });
     this.combinations = tempCombos;
+  }
+
+  getCenter(name: string) {
+    return Trifix.centers[name];
+  }
+  
+  getDescription(number:string) {
+    return Trifix.descriptions.get(number);
   }
 }
