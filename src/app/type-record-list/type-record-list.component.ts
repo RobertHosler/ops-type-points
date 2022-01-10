@@ -64,6 +64,9 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   @Input()
   imageOnly = true;
 
+  @Input()
+  typeIndicator = false;
+
   constructor() {}
 
   ngOnInit(): void {}

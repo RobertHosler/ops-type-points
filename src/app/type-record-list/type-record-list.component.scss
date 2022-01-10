@@ -61,7 +61,7 @@
   padding-left: 1rem;
   padding-right: 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-top: .5rem;
   margin-bottom: .5rem;
   height: 55px;
@@ -85,6 +85,9 @@
 
 .image-col .image-wrapper {
   text-align: center;
+  a {
+    display: inline-block;
+  }
 }
 .image-missing {
   display: flex;
@@ -138,7 +141,10 @@
   display: flex;
   flex-direction: column;
   // min-height: 100px;
-  justify-content: space-between;
+  justify-content: flex-start;
+  &.indicator {
+    justify-content: space-evenly;
+  }
 }
 .image-col .image-name {
   padding: 2px;

@@ -19,18 +19,6 @@
         *ngIf="typeRecord.type || typeRecord.fullEType || typeRecord.wssType"
       >
         <div class="image-text-top">
-          <div class="">
-            <div class="image-indicator-row" *ngIf="!displayPracticeLink">
-              <app-type-indicator
-                [option]="1"
-                [type]="typeRecord.type"
-              ></app-type-indicator>
-              <app-type-indicator
-                [option]="1"
-                [eType]="typeRecord.fullEType"
-              ></app-type-indicator>
-            </div>
-          </div>
           <div *ngIf="displayPracticeLink">
             <a
               [routerLink]="['/practice']"
@@ -39,46 +27,64 @@
             >
           </div>
         </div>
-        <a
-          class="image-wrapper"
-          [routerLink]="
-            displayPracticeLink ? ['/practice'] : ['/search/person']
-          "
-          [queryParams]="
-            displayPracticeLink
-              ? { name: typeRecord.name }
-              : {
-                  person: typeRecord.name
-                }
-          "
-        >
-          <div
-            class="image-img"
-            [ngClass]="{
-              'image-missing': !typeRecord.pictureUrl,
-              grayscale: grayscale
-            }"
-            [ngStyle]="{
-              'background-image':
-                'url(' +
-                (typeRecord.pictureUrl
-                  ? typeRecord.pictureUrl
-                  : '/assets/images/sp-logo-no-bg.png') +
-                ')'
-            }"
+        <div class="image-wrapper">
+          <a
+            
+            [routerLink]="
+              displayPracticeLink ? ['/practice'] : ['/search/person']
+            "
+            [queryParams]="
+              displayPracticeLink
+                ? { name: typeRecord.name }
+                : {
+                    person: typeRecord.name
+                  }
+            "
           >
-            <span class="image-missing-text" *ngIf="!typeRecord.pictureUrl">
-              Image Missing
-            </span>
-          </div>
-        </a>
-        <div class="image-text-bottom text-center">
+            <div
+              class="image-img"
+              [ngClass]="{
+                'image-missing': !typeRecord.pictureUrl,
+                grayscale: grayscale
+              }"
+              [ngStyle]="{
+                'background-image':
+                  'url(' +
+                  (typeRecord.pictureUrl
+                    ? typeRecord.pictureUrl
+                    : '/assets/images/sp-logo-no-bg.png') +
+                  ')'
+              }"
+            >
+              <span class="image-missing-text" *ngIf="!typeRecord.pictureUrl">
+                Image Missing
+              </span>
+            </div>
+          </a>
+        </div>
+        <div class="image-text-bottom text-center" [ngClass]="{'indicator': typeIndicator}">
           <div class="image-name">
             <div [ngClass]="{ 'image-name-label': true }">
               {{ typeRecord.name }}
             </div>
           </div>
-          <div class="type-wrapper" *ngIf="!displayPracticeLink">
+          <div *ngIf="!displayPracticeLink && typeIndicator">
+            <div class="image-indicator-row">
+              <div *ngIf="typeRecord.type">
+                <app-type-indicator
+                  [option]="1"
+                  [type]="typeRecord.type"
+                ></app-type-indicator>
+              </div>
+              <div *ngIf="typeRecord.fullEType">
+                <app-type-indicator
+                  [option]="1"
+                  [eType]="typeRecord.fullEType"
+                ></app-type-indicator>
+              </div>
+            </div>
+          </div>
+          <div class="type-wrapper" *ngIf="!displayPracticeLink && !typeIndicator">
             <div class="image-type" *ngIf="typeRecord.type">
               {{ typeRecord.type }}
             </div>
@@ -100,7 +106,7 @@
               {{ typeRecord.lastModified }}
             </div>
           </div>
-          <div class="image-tags">
+          <div class="image-tags" *ngIf="typeIndicator">
             <ng-container *ngFor="let tag of typeRecord.tags">
               <div
                 (click)="
