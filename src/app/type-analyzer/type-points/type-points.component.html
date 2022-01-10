@@ -1,7 +1,7 @@
 <div>
   <h2 *ngIf="!simple">Function Points Table</h2>
   <div
-    class="table-wrapper mt-3 mb-3"
+    class="table-wrapper"
     *ngFor="let opsType of opsTypes; index as i"
   >
     <div class="" *ngIf="!simple">{{ opsType.opsCode }}</div>
@@ -44,6 +44,14 @@
         </tr>
       </tbody>
     </table>
+    <p class="small">
+      Points calculated for each function based on Modality, Grant Order,
+      Activation Count, and Savior Status (S1, S2, A, -). Points are a
+      relative representation of how balanced a type is with their given
+      functions, building off the information from the activation column of the
+      dashboard while acknowledging that saviors and the grant function order still
+      matter to a certain degree.
+    </p>
   </div>
 
   <div class="mb-3">
@@ -63,15 +71,6 @@
       {{ !configureOptions ? "Customize" : "Hide Customize" }}
     </button>
   </div>
-  
-  <p class="small">
-    Points calculated for each function based on Modality, Grant Order,
-    Activation Count, and Savior Status (S1, S2, A, -). Points are a
-    relative representation of how balanced a type is with their given
-    functions, building off the information from the activation column of the
-    dashboard while acknowledging that saviors and the grant function order still
-    matter to a certain degree.
-  </p>
 
   <div *ngIf="configureOptions" class="point-config">
     <div class="mt-3">

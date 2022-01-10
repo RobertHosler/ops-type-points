@@ -124,7 +124,7 @@
         </h2>
         <div *ngIf="personOpsType">
           <div *ngIf="activeOps === 'Summary'">
-            <div class="ops-visual-row">
+            <div class="ops-visual-row" *ngIf="false">
               <div class="flex-center mx-3">
                 <div class="ops-molecule" *ngIf="person.type.length === 16">
                   <app-type-bubbles
@@ -143,11 +143,35 @@
                   [opsType]="personOpsType"
                 ></app-type-dashboard>
               </div>
-              <div>
-                <app-type-dashboard-animals
-                  [opsType]="personOpsType"
-                ></app-type-dashboard-animals>
-              </div>
+            </div>
+            <div class="ops-molecule" *ngIf="person.type.length === 16">
+              <app-type-bubbles
+                [showOptions]="false"
+                [showType]="false"
+                [opsTypes]="[personOpsType]"
+              ></app-type-bubbles>
+            </div>
+            <div
+              class="person-dashboard"
+              *ngIf="activeTab === 'OPS' && person.type.length === 16"
+            >
+              <h3>Dashboard</h3>
+              <app-type-dashboard
+                [opsType]="personOpsType"
+              ></app-type-dashboard>
+            </div>
+            <div>
+              <h3>Animals</h3>
+              <app-type-dashboard-animals
+                [opsType]="personOpsType"
+              ></app-type-dashboard-animals>
+            </div>
+            <div>
+              <h3>Points</h3>
+              <app-type-points
+              [opsType]="personOpsType"
+              [simple]="true"
+            ></app-type-points>
             </div>
           </div>
           <div *ngIf="activeOps === 'Checklist'">

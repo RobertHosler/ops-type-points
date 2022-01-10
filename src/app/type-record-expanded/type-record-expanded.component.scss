@@ -133,7 +133,6 @@
 }
 @include media-breakpoint-up("sm", $grid-breakpoints) {
   .person-dashboard {
-    text-align: center;
     app-type-dashboard {
       display: inline-block;
     }

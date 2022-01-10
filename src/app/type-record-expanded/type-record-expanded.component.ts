@@ -27,7 +27,6 @@ export class TypeRecordExpandedComponent implements OnInit {
     'Links',
     'Description',
     'Twins',
-    'Points',
     'Extroversion',
   ];
 
