@@ -20,15 +20,14 @@ export class OpsTypeTableComponent implements OnInit {
   constructor(private opsDataService: OpsDataService) {
     this.opsDataService.allNames.subscribe((result) => {
       this.allNames = result;
-      this.fetchCounts(!this.displayCounts); // inverts since function will undo
+      this.fetchCounts();
     });
   }
 
   ngOnInit(): void {}
 
-  fetchCounts(displayCounts?: boolean) {
-    this.displayCounts = displayCounts ? displayCounts : !this.displayCounts;
-    if (this.displayCounts && !this.counts) {
+  fetchCounts() {
+    if (!this.counts) {
       this.counts = new Map();
       this.allNames.forEach((person, name) => {
         if (!person.type) {
@@ -61,7 +60,7 @@ export class OpsTypeTableComponent implements OnInit {
   }
 
   getCount(stack: string, f?: string) {
-    let result;
+    let result : number;
     if (f && stack) {
       result = this.counts.get(f + '-' + stack);
     } else if (stack) {

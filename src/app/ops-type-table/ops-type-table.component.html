@@ -10,7 +10,7 @@
   <button
     class="btn btn-sm btn-gray"
     [ngClass]="{ active: displayCounts }"
-    (click)="fetchCounts()"
+    (click)="displayCounts = !displayCounts"
   >
     Counts
   </button>
