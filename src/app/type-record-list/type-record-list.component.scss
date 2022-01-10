@@ -19,6 +19,22 @@
   }
 }
 
+.image-only {
+  .image-text-bottom,
+  .image-indicator-row {
+    display: none;
+  }
+  .image-col {
+    $col-padding: 0px;
+    width: 150px + $col-padding * 2;
+    padding: $col-padding;
+    .image-img {
+      border-radius: 0px;
+      border: none;
+    }
+  }
+}
+
 .name-wrapper {
   // display: flex;
   // justify-content: space-between;

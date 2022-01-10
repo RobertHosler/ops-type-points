@@ -135,7 +135,7 @@
             </button>
           </div>
         </div>
-        <div class="d-inline-block">
+        <div class="d-inline-block" *ngIf="false">
           <div class="small">Color:</div>
           <div class="btn-group">
             <button
@@ -159,17 +159,17 @@
           <div class="btn-group">
             <button
               class="btn btn-gray btn-sm"
-              [ngClass]="{ active: cards }"
-              (click)="cards = !cards"
-            >
-              Cards
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
               [ngClass]="{ active: !cards }"
               (click)="cards = !cards"
             >
               Default
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: cards }"
+              (click)="cards = !cards"
+            >
+              Image Only
             </button>
           </div>
         </div>
@@ -588,7 +588,7 @@
         [loading]="searchLoading"
         [linkToAnalyzer]="true"
         [grayscale]="grayscale"
-        [cards]="cards"
+        [imageOnly]="cards"
       ></app-type-record-list>
     </div>
   </div>

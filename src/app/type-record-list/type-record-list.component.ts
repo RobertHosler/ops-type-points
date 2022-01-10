@@ -48,7 +48,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
 
   displayPages: TypedPerson[][];
   currentPage = 1;
-  pageSize = 30;
+  pageSize = 50;
   pages = [];
 
   @ViewChild('loaded') loadedEl: ElementRef;
@@ -62,7 +62,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   grayscale = false;
 
   @Input()
-  cards = false;
+  imageOnly = true;
 
   constructor() {}
 
