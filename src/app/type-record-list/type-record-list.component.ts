@@ -62,7 +62,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   grayscale = false;
 
   @Input()
-  imageOnly = true;
+  imageOnly = false;
 
   @Input()
   typeIndicator = false;

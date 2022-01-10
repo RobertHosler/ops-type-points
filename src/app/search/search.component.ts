@@ -392,7 +392,7 @@ export class SearchComponent implements OnInit {
       }
       this.searchRequests--;
       // console.timeEnd('search');
-    }, this.initialLoad ? 0 : 750);
+    }, this.initialLoad ? 0 : 500);
   }
 
   /**
