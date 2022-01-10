@@ -149,6 +149,7 @@ const converterList = [
   { org: "Michelle Rodriquez", result: "Michelle Rodriguez" },
   { org: "NF", result: "Nathan 'NF' Feuerstein" },
   { org: "Pastor Personality", result: "Charlie Wallace - Pastor Personality" },
+  { org: "AutoAlchemy", result: "Jeffrey - AutoAlchemy" },
   //shift+alt+downArrow to copy line
 ];
 
