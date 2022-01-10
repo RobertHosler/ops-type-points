@@ -72,6 +72,9 @@ const exclusionsList = [
   "The Joker",
   "Superman",
   "Gargamel",
+  "Velma",
+  "Granny Knitting ESFJ",
+  "Daria"
 ];
 // Include select community members
 const inclusionsList = [
@@ -145,6 +148,7 @@ const converterList = [
   { org: "Alex McQueen", result: "Alexander McQueen" },
   { org: "Michelle Rodriquez", result: "Michelle Rodriguez" },
   { org: "NF", result: "Nathan 'NF' Feuerstein" },
+  { org: "Pastor Personality", result: "Charlie Wallace - Pastor Personality" },
   //shift+alt+downArrow to copy line
 ];
 
