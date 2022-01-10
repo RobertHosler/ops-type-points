@@ -93,7 +93,9 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
+    // console.time('allNames')
     this.opsDataService.allNames.subscribe((result) => {
+      // console.timeEnd('allNames')
       this.allNames = result;
       this.allNamesArr = [];
       this.recordCount = 0;
@@ -360,6 +362,7 @@ export class SearchComponent implements OnInit {
    * Initiate search for all possible options.
    */
   searchAll() {
+    // console.time('search');
     // initiate search
     this.searchRequests++;
     setTimeout(() => {
@@ -388,7 +391,8 @@ export class SearchComponent implements OnInit {
         this.ignoreRouteUpdate = true;
       }
       this.searchRequests--;
-    }, 750);
+      // console.timeEnd('search');
+    }, this.initialLoad ? 0 : 750);
   }
 
   /**

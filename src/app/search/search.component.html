@@ -1,3 +1,10 @@
+<div *ngIf="!routerInit && initialLoad">
+  <div class="my-3 center-flex">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
 <div *ngIf="routerInit && !initialLoad">
   <div #container class="container pt-3 mb-5">
     <div *ngIf="false" class="img-right img-heading">
