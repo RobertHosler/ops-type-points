@@ -19,6 +19,11 @@
   }
 }
 
+.image-col .type,
+.image-col .name {
+  display: none;
+}
+
 .image-only {
   .image-text-bottom,
   .image-indicator-row {
@@ -31,6 +36,41 @@
     .image-img {
       border-radius: 0px;
       border: none;
+    }
+    .image-wrapper a {
+      display: block;
+    }
+  }
+  a:hover {
+    // display: block;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      background: #4c4c4c6b;
+      display: block;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    .type,
+    .name {
+      text-align: center;
+      display: block;
+      width: 100%;
+      position: absolute;
+      color: $light;
+      z-index: 100;
+      padding: .5rem;
+    }
+    .name {
+      font-size: 1rem;
+      top: 0%;
+    }
+    .type {
+      font-size: .9rem;
+      bottom: 0%;
     }
   }
 }

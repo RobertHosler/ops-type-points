@@ -29,7 +29,6 @@
         </div>
         <div class="image-wrapper">
           <a
-            
             [routerLink]="
               displayPracticeLink ? ['/practice'] : ['/search/person']
             "
@@ -41,6 +40,20 @@
                   }
             "
           >
+            <div class="name">
+              {{ typeRecord.name }}
+            </div>
+            <div class="type">
+              <div *ngIf="typeRecord.type">
+                {{ typeRecord.type }}
+              </div>
+              <div *ngIf="typeRecord.fullEType">
+                {{ typeRecord.fullEType }}
+              </div>
+              <div *ngIf="typeRecord.wssType">
+                {{ typeRecord.wssType }}
+              </div>
+            </div>
             <div
               class="image-img"
               [ngClass]="{
@@ -62,7 +75,10 @@
             </div>
           </a>
         </div>
-        <div class="image-text-bottom text-center" [ngClass]="{'indicator': typeIndicator}">
+        <div
+          class="image-text-bottom text-center"
+          [ngClass]="{ indicator: typeIndicator }"
+        >
           <div class="image-name">
             <div [ngClass]="{ 'image-name-label': true }">
               {{ typeRecord.name }}
@@ -84,7 +100,10 @@
               </div>
             </div>
           </div>
-          <div class="type-wrapper" *ngIf="!displayPracticeLink && !typeIndicator">
+          <div
+            class="type-wrapper"
+            *ngIf="!displayPracticeLink && !typeIndicator"
+          >
             <div class="image-type" *ngIf="typeRecord.type">
               {{ typeRecord.type }}
             </div>
