@@ -123,7 +123,7 @@ function convertRecords(records) {
       otherLinks: other,
       notes: record.fields.Notes,
       tags: tags,
-      sex: record.fields.Sex,
+      sex: record.fields.Sex ? record.fields.Sex[0] : 'Unknown',
       pictureUrl: getRecordPicture(record.fields.Picture),
       lastModified: getLastModified(record)
     });
@@ -157,6 +157,8 @@ function mergeMaps(nameMap, interviewMap) {
       nameVal.enfpLink = val.enfpLink;
       nameVal.otherLinks = val.otherLinks;
       nameVal.ytLink = val.ytLink;
+      nameVal.sex = nameVal.sex ? nameVal.sex : val.sex;
+      nameVal.trans = nameVal.trans ? nameVal.trans : false;
       if (compareModifiedDates(nameVal.lastModified, val.lastModified) > 0) {
         nameVal.lastModified = val.lastModified;
       }
@@ -228,6 +230,7 @@ function mergeMaps(nameMap, interviewMap) {
         wssLink: val.wssLink,
         pictureUrl: val.pictureUrl,
         sex: val.sex,
+        trans: false,
         tags: tags,
         binLink: val.binLink,
         enfpLink: val.enfpLink,
