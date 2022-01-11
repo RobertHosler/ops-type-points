@@ -74,7 +74,9 @@ const exclusionsList = [
   "Gargamel",
   "Velma",
   "Granny Knitting ESFJ",
-  "Daria"
+  "Daria",
+  "Unknown ISFJ",
+  "The Rainman Twins",
 ];
 // Include select community members
 const inclusionsList = [
