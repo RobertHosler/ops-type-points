@@ -25,6 +25,7 @@ export class AdminComponent implements OnInit {
   skipCommunity = true;
 
   allNames;
+  allNamesCount: number;
   allNamesArr = [];
   similarNames = new Map();
 
@@ -155,6 +156,7 @@ export class AdminComponent implements OnInit {
         this.allNamesArr.push(record.name);
       });
       this.allNames = result;
+      this.allNamesCount = this.allNames.size;
       this.allNamesArr.sort();
     });
     this.socket.on('findSimilarComplete1', (result) => {
