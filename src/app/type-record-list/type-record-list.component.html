@@ -108,7 +108,15 @@
               {{ typeRecord.type }}
             </div>
             <div class="image-type" *ngIf="typeRecord.fullEType">
-              {{ typeRecord.fullEType }}
+              <span *ngIf="typeRecord.tags && typeRecord.tags.includes('Faytabase')"
+                  popover="Enneagram type data sourced from the Faytabase, a collaboration with Fay Willow."
+                  triggers="mouseenter:mouseleave" placement="right"
+                  >
+                    {{ typeRecord.fullEType }} <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+                </span>
+                <span *ngIf="typeRecord.tags && !typeRecord.tags.includes('Faytabase')">
+                    {{ typeRecord.fullEType }}
+                </span>
             </div>
             <div class="image-type" *ngIf="typeRecord.wssType">
               {{ typeRecord.wssType }}
@@ -161,7 +169,7 @@
       <strong>Objective Personality</strong> type data courtesy of the
       <a target="_blank" [href]="opsDbSource">Objective Personality Database</a
       >, a project by Ryan and Jana based on typings by Dave and Shannon Powers.
-      <a target="_blank" [href]="opsDbInfo">Learn More</a>
+      <a target="_blank" [href]="opsDbInfo">Learn More</a>.
     </div>
     <div class="mb-1">
       <strong>Enneagram</strong> type data sourced from the
@@ -169,7 +177,9 @@
       Continue to explore on their
       <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
       learn more about their take on the Enneagram at
-      <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>
+      <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>.  Additional
+      Enneagram data through a collaboration with <a [routerLink]="['/search']"
+      [queryParams]="{ text: 'Fay Willow' }">Fay Willow</a>.
     </div>
     <div class="mb-1">
       <strong>Socionics</strong> type data sourced from the World Socionic's
@@ -189,7 +199,7 @@
       >.
     </div>
     <div class="mb-1">
-      Some additional records added where YouTube type reveals and interviews
+      Some additional OPS data added where YouTube type reveals and interviews
       exist. <a [href]="appLinks.contact" target="_blank">Contact me</a>
       to be included or excluded from this app and/or update your picture.
     </div>
