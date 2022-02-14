@@ -110,7 +110,7 @@
             </div>
             <div class="image-type" *ngIf="typeRecord.fullEType">
               <span *ngIf="typeRecord.tags && typeRecord.tags.includes('Faytabase')"
-                  popover="Enneagram type data sourced from the Faytabase, a collaboration with Fay Willow."
+                  popover="This additional Enneagram type data provided through a collaboration between Subjective Personality and Fay Willow."
                   triggers="mouseenter:mouseleave" placement="right"
                   >
                     {{ typeRecord.fullEType }} <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
@@ -174,7 +174,7 @@
       <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
       learn more about their take on the Enneagram at
       <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>.  Additional
-      Enneagram data through a collaboration with <a [routerLink]="['/search']"
+      Enneagram data provided through a collaboration with <a [routerLink]="['/search']"
       [queryParams]="{ text: 'Fay Willow' }">Fay Willow</a>.
     </div>
     <div class="mb-1">
