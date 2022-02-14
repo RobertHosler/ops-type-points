@@ -20,6 +20,7 @@ const fields = [
   "Other",
   "Notes",
   "Tags",
+  "Override Picture",
   "Last Modified",
   "Created Date",
 ];
@@ -123,6 +124,7 @@ function convertRecords(records) {
       otherLinks: other,
       notes: record.fields.Notes,
       tags: tags,
+      overridePicture: record.fields["Override Picture"],
       sex: record.fields.Sex ? record.fields.Sex[0] : 'Unknown',
       pictureUrl: getRecordPicture(record.fields.Picture),
       lastModified: getLastModified(record)
@@ -150,7 +152,7 @@ function mergeMaps(nameMap, interviewMap) {
         }
       });
       nameVal.tags = tags;
-      if (val.pictureUrl) {
+      if (val.pictureUrl && val.overridePicture) {
         nameVal.pictureUrl = val.pictureUrl;
       }
       nameVal.binLink = val.binLink;
