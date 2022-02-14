@@ -1,8 +1,9 @@
 $image-size: 120px;
+$image-height: $image-size + 20;
 $image-padding: 5px;
 
 img {
-  max-height: $image-size;
+  max-height: $image-height;
   max-width: $image-size;
 }
 
@@ -33,7 +34,7 @@ img {
 }
 
 .img-wrapper {
-  height: $image-size;
+  height: $image-height;
   width: $image-size;
   margin: 0 auto;
   img {
@@ -44,7 +45,7 @@ img {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: $image-size;
+    height: $image-height;
     width: $image-size;
     display: flex;
     flex-direction: column;
