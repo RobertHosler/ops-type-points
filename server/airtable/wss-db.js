@@ -2,7 +2,7 @@
 
 const { getRecordPicture, getLastModified, compareModifiedDates } = require("./airtable");
 
-const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
+const opsKey = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const HOST = "https://api.airtable.com/v0/apphGksK3AXCVIcCr/";
 const TABLE_NAME = "WSS DB";
 const VIEW = "Grid view";

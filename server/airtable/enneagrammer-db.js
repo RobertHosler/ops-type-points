@@ -2,13 +2,14 @@
 
 const { getRecordPicture, getLastModified, compareModifiedDates } = require("./airtable");
 
-const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
+const opsKey = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const HOST = "https://api.airtable.com/v0/apptRQDj4AV89IiNn/";
 const TABLE_NAME = "Enneagrammer DB";
 const VIEW = "Grid view";
 const MAX_RECORD = 10000;
 const fields = [
   "Name",
+  "Alt-Name",
   "Instinct",
   "Type",
   "Trifix",
@@ -118,6 +119,7 @@ function convertRecords(records) {
     }
     result.set(name, {
       name: name,
+      altName: record.fields["Alt-Name"],
       coreEType: coreEType,
       coreETypeLong: getCoreETypeLong(coreEType),
       wing: wing,
@@ -126,6 +128,7 @@ function convertRecords(records) {
         ? record.fields.Instinct.toLowerCase()
         : "??/??",
       trifix: record.fields.Trifix,
+      overlay: buildOverlay(record.fields.Trifix),
       sex: record.fields.Sex,
       tags: tags,
       enneaNotes: record.fields.Notes,
@@ -136,6 +139,19 @@ function convertRecords(records) {
     });
   });
   return result;
+}
+
+function buildOverlay(trifix) {
+  let overlay = null;
+  if (trifix && trifix.length === 11) {
+    const parts = trifix.split(" ");
+    let overlay1 = parts[0].substring(2,3);
+    let overlay2 = parts[1].substring(2,3);
+    let overlay3 = parts[2].substring(2,3);
+    overlay = [ ...new Set([overlay1, overlay2, overlay3])];//remove duplicates
+    overlay.sort();
+  }
+  return overlay;
 }
 
 function buildFullEType(eType) {
@@ -207,7 +223,10 @@ function mergeMaps(nameMap, eTypeMap) {
   const matches = [];
   let i = 0;
   eTypeMap.forEach((eVal, eKey) => {
-    const nameVal = nameMap.get(eKey);
+    let nameVal = nameMap.get(eKey);
+    if (!nameVal) {
+      nameVal = nameMap.get(eVal.altName);
+    }
     if (nameVal) {
       // Merge
       nameVal.coreEType = eVal.coreEType; // 9
@@ -218,6 +237,7 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.fullEType = buildFullEType(eVal);
       nameVal.fullTrifix = eVal.trifix; // 9w1 6w5 3w4 (may contain wings)
       nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
+      nameVal.overlay = eVal.overlay;
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
       eVal.tags.forEach(tag => {
         if (!nameVal.tags.includes(tag)) {
@@ -245,6 +265,7 @@ function mergeMaps(nameMap, eTypeMap) {
         instinct: eVal.instinct,
         fullTrifix: eVal.trifix,
         trifix: buildTritype(eVal.trifix),
+        overlay: eVal.overlay,
         pictureUrl: eVal.pictureUrl,
         collageUrl: eVal.collageUrl,
         fullEType: buildFullEType(eVal),

@@ -2,7 +2,7 @@
 
 const { getRecordPicture, getLastModified } = require("./airtable");
 
-const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
+const opsKey = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const OP_DB_HOST = "https://api.airtable.com/v0/appudq0aG1uwqIFX5/";
 const OP_DB_KEY = "appudq0aG1uwqIFX5";
 const OFFICIALLY_TYPED = "Officially Typed People";

@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
+const opsKey = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const ENNEAGRAM_HOST = "https://api.airtable.com/v0/appTmhBYKYMGTX2y5/";
 const MAX_RECORD = 10000;
 

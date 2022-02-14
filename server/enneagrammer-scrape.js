@@ -3,7 +3,7 @@
 // const https = require("https");
 const request = require("request-promise");
 const cheerio = require("cheerio");
-const { enneaConvertName } = require("./enneagrammer-db");
+const { enneaConvertName } = require("./airtable/enneagrammer-db");
 const dbUrl = new URL("https://www.enneagrammer.com/database-list");
 const googleDocUrl = new URL(
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vT9zrP0r8ehO-tg8vfZhU9G-KRYmrh1F08gctGE87-4gT7wE5q30YUoL2Cgq-Kpg-2agqsHjtbfLDTP/pubhtml"

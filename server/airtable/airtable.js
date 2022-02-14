@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 const https = require("https");
-const API_KEY = process.env.OP_DATABASE_KEY || require("./local-api").key;
+const API_KEY = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const MAX_RECORD = 10000;
 const AIRTABLE_BASE = "https://api.airtable.com/v0/";
 

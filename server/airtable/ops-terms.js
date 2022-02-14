@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const opsKey = process.env.OP_DATABASE_KEY || require("./local-api").key;
+const opsKey = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const TERMS_HOST = "https://api.airtable.com/v0/appU0Gx0zVVLeMYUe/";
 const MAX_RECORD = 10000;
 

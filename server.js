@@ -150,13 +150,14 @@ function ioSetup(ioState) {
 }
 ioSetup(ioState);
 
-const typedPersons = require("./server/ops-typed-persons");
-const terms = require("./server/ops-terms");
-const nineTypes = require("./server/e9-terms");
-const enneagrammer = require("./server/enneagrammer-db");
-const wss = require("./server/wss-db");
-const interviews = require("./server/interview-db");
-const airtable = require("./server/airtable");
+const typedPersons = require("./server/airtable/ops-typed-persons");
+const terms = require("./server/airtable/ops-terms");
+const nineTypes = require("./server/airtable/e9-terms");
+const enneagrammer = require("./server/airtable/enneagrammer-db");
+const faytabase = require("./server/airtable/faytabase-db");
+const wss = require("./server/airtable/wss-db");
+const interviews = require("./server/airtable/interview-db");
+const airtable = require("./server/airtable/airtable");
 const {  findSimilarPromise } = require("./server/similar-names");
 const { scrape } = require("./server/enneagrammer-scrape");
 const { dbCompare } = require("./server/db-compare");
@@ -233,6 +234,7 @@ function fetchAirtableData() {
     let nameMap;
     let childrenMap;
     let eTypeMap;
+    let fayTypeMap;
     let wssMap;
     let interviewMap;
     // get Persons
@@ -259,6 +261,16 @@ function fetchAirtableData() {
       })
       .then(() => {
         return airtable.getAll({
+          name: "Faytabase",
+          url: faytabase.url,
+        });
+      }, errorHandler)
+      .then((records) => {
+        const result = faytabase.convertRecords(records);
+        fayTypeMap = result;
+      })
+      .then(() => {
+        return airtable.getAll({
           name: "WSS DB",
           url: wss.url,
         });
@@ -281,6 +293,7 @@ function fetchAirtableData() {
         // Merge Map Results Together
         interviews.mergeMaps(nameMap, interviewMap);
         enneagrammer.mergeMaps(nameMap, eTypeMap);
+        faytabase.mergeMaps(nameMap, fayTypeMap);
         wss.mergeMaps(nameMap, wssMap);
       })
       .then(() => {
