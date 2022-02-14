@@ -108,7 +108,7 @@
 }
 
 .image-col {
-  width: 210px;
+  width: 190px;
   padding: 10px 15px;
   display: flex;
   flex-direction: column;
@@ -213,6 +213,15 @@
   flex-wrap: wrap;
   justify-content: center;
   min-height: 60px;
+}
+.youtube-link {
+  color: #d90101 !important;
+  padding-left: .25rem;
+  padding-right: .25rem;
+  position: absolute;
+  &:hover {
+    color: #a70000 !important;
+  }
 }
 .image-tag {
   display: inline-block;

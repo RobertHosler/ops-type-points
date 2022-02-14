@@ -197,6 +197,10 @@ function convertPersons(records) {
         tags.push(tag);
       }
     });
+    let ytLink = '';
+    if (!tags.includes('Community Member')) {
+      ytLink = 'https://www.youtube.com/results?search_query='+ name + ' interview';
+    }
     const typedPerson = {
       name: name,
       type: record.fields.Type,
@@ -264,6 +268,7 @@ function convertPersons(records) {
       sex: record.fields["Biological Sex"],
       trans: record.fields.Transgender,
       opsLinks: record.fields.Links,
+      ytLink: ytLink,
       lastModified: getLastModified(record),
     };
     if (typedPerson.type && typedPerson.type.length === 16) {
