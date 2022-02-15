@@ -84,6 +84,7 @@ function mergeMaps(nameMap, wssMap) {
     } else {
       // Add to nameMap
       j++;
+      let ytLink = 'https://www.youtube.com/results?search_query='+ wssKey + ' interview';
       if (!hideMissingPictures || (hideMissingPictures && wssVal.pictureUrl)) {
         i++;
         nameMap.set(wssKey, {
@@ -92,6 +93,7 @@ function mergeMaps(nameMap, wssMap) {
           wssType: wssVal.type,
           wssLink: wssVal.link,
           pictureUrl: wssVal.pictureUrl,
+          ytLink: ytLink,
           sex: wssVal.sex,
           lastModified: wssVal.lastModified
         });

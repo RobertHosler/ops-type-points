@@ -258,6 +258,7 @@ function mergeMaps(nameMap, eTypeMap) {
     } else {
       // Add to nameMap
       i++;
+      let ytLink = 'https://www.youtube.com/results?search_query='+ eKey + ' interview';
       nameMap.set(eKey, {
         name: eKey,
         coreEType: eVal.coreEType,
@@ -274,6 +275,7 @@ function mergeMaps(nameMap, eTypeMap) {
         tags: eVal.tags,
         enneaNotes: eVal.enneaNotes,
         enneaLinks: eVal.enneaLinks,
+        ytLink: ytLink,
         sex: eVal.sex,
         trans: false,
         lastModified: eVal.lastModified

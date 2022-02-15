@@ -21,6 +21,7 @@ const fields = [
   "Notes",
   "Tags",
   "Override Picture",
+  "Complete",
   "Last Modified",
   "Created Date",
 ];
