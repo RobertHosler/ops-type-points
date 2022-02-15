@@ -1149,6 +1149,8 @@ const tagTerms = [
   'incomplete',
   'ennea',
   'enneagram',
+  'subjective',
+  'faytabase',
   'community',
   'wss',
   'ops',

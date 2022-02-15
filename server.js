@@ -157,6 +157,7 @@ const enneagrammer = require("./server/airtable/enneagrammer-db");
 const faytabase = require("./server/airtable/faytabase-db");
 const wss = require("./server/airtable/wss-db");
 const interviews = require("./server/airtable/interview-db");
+const subjective = require("./server/airtable/ops-subjective-db");
 const airtable = require("./server/airtable/airtable");
 const {  findSimilarPromise } = require("./server/similar-names");
 const { scrape } = require("./server/enneagrammer-scrape");
@@ -237,6 +238,7 @@ function fetchAirtableData() {
     let fayTypeMap;
     let wssMap;
     let interviewMap;
+    let subjectiveMap;
     // get Persons
     airtable
       .getAll({
@@ -290,11 +292,22 @@ function fetchAirtableData() {
         interviewMap = result;
       })
       .then(() => {
+        return airtable.getAll({
+          name: "Subjective Personality DB",
+          url: subjective.url,
+        });
+      })
+      .then((records) => {
+        const result = subjective.convertRecords(records);
+        subjectiveMap = result;
+      })
+      .then(() => {
         // Merge Map Results Together
         interviews.mergeMaps(nameMap, interviewMap);
         enneagrammer.mergeMaps(nameMap, eTypeMap);
         faytabase.mergeMaps(nameMap, fayTypeMap);
         wss.mergeMaps(nameMap, wssMap);
+        subjective.mergeMaps(nameMap, subjectiveMap);
       })
       .then(() => {
         personsComplete = true;

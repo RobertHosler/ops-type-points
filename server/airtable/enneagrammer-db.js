@@ -282,7 +282,7 @@ function mergeMaps(nameMap, eTypeMap) {
       });
     }
   });
-  console.log("E-Type and OP-Type Matches", matches.length, "New Persons", i);
+  console.log("Enneagrammer Matches", matches.length, "New Persons", i);
 }
 
 exports.url = url;

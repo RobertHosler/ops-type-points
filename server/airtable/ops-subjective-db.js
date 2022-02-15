@@ -3,24 +3,20 @@
 const { getRecordPicture, compareModifiedDates, getLastModified } = require("./airtable");
 
 const opsKey = process.env.OP_DATABASE_KEY || require("../local-api").key;
-const HOST = "https://api.airtable.com/v0/appcD3UjS4Do1PHEd/";
-const TABLE_NAME = "Interviews";
+const HOST = "https://api.airtable.com/v0/appg1oZhulu8BvATT/";
+const TABLE_NAME = "OPS";
 const VIEW = "Grid view";
 const MAX_RECORD = 12000;
 const fields = [
   "Name",
   "Alt-Name",
+  "MBTI",
   "OP Type",
-  "WSS Type",
   "Picture",
   "Sex",
-  "Binyamin",
-  "ENFP Male",
-  "WSS",
-  "Other",
+  "Links",
   "Notes",
   "Tags",
-  "Override Picture",
   "Complete",
   "Last Modified",
   "Created Date",
@@ -35,8 +31,7 @@ fields.forEach((field) => {
 });
 
 const converterList = [
-  { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
-  { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
+  // { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
 ];
 
 function convertName(name) {
@@ -78,55 +73,22 @@ function convertRecords(records) {
   const result = new Map();
   records.forEach((record) => {
     const name = convertName(record.fields.Name);
-    const opsType = record.fields["OP Type"];
-    const wssType = record.fields["WSS Type"];
-    const wssLink = record.fields.WSS;
-    const bin = record.fields.Binyamin;
-    const enfp = record.fields["ENFP Male"];
-    const other = record.fields.Other;
-    const tags = record.fields.Tags ? record.fields.Tags : [];
-    if (tags.includes("Hide")) {
+    if (!record.fields.Complete) {
       return;
     }
+    const opsType = record.fields["OP Type"];
+    const tags = record.fields.Tags ? record.fields.Tags : [];
     if (opsType) {
       tags.push("OPS");
     }
-    if (wssType) {
-      tags.push("WSS");
-    }
-    if (bin) {
-      // tags.push("Binyamin");
-    }
-    if (enfp) {
-      // tags.push("ENFP Male");
-    }
-    if (!enfp || !bin) {
-      // tags.push("YouTube");
-    }
-    tags.push("Community Member");
-    let ytLink = '';
-    if (bin) {
-      ytLink = bin.split('\n')[0];
-    } else if (enfp) {
-      ytLink = enfp.split('\n')[0];
-    } else if (wssLink) {
-      ytLink = wssLink.split('\n')[0];
-    } else if (other) {
-      ytLink = other.split('\n')[0];
-    }
+    tags.push("Subjective");
     result.set(name, {
       name: name,
       altName: record.fields["Alt-Name"],
       opType: opsType,
-      wssType: wssType,
-      binLink: bin,
-      enfpLink: enfp,
-      wssLink: wssLink,
-      ytLink: ytLink,
-      otherLinks: other,
+      links: record.fields.Links ? record.fields.Links : [],
       notes: record.fields.Notes,
       tags: tags,
-      overridePicture: record.fields["Override Picture"],
       sex: record.fields.Sex ? record.fields.Sex[0] : 'Unknown',
       pictureUrl: getRecordPicture(record.fields.Picture),
       lastModified: getLastModified(record)
@@ -143,32 +105,10 @@ function mergeMaps(nameMap, interviewMap) {
     if (!nameVal && val.altName) {
       nameVal = nameMap.get(val.altName);
     }
-    if (nameVal) {
-      // Merge records
-      nameVal.wssType = val.wssType;
-      nameVal.wssLink = val.link;
-      let tags = nameVal.tags ? nameVal.tags : [];
-      val.tags.forEach((tag) => {
-        if (!tags.includes(tag)) {
-          tags.push(tag);
-        }
-      });
-      nameVal.tags = tags;
-      if (val.pictureUrl && val.overridePicture) {
-        nameVal.pictureUrl = val.pictureUrl;
-      }
-      nameVal.binLink = val.binLink;
-      nameVal.enfpLink = val.enfpLink;
-      nameVal.otherLinks = val.otherLinks;
-      nameVal.ytLink = val.ytLink;
-      nameVal.sex = nameVal.sex ? nameVal.sex : val.sex;
-      nameVal.trans = nameVal.trans ? nameVal.trans : false;
-      if (compareModifiedDates(nameVal.lastModified, val.lastModified) > 0) {
-        nameVal.lastModified = val.lastModified;
-      }
-      matches.push(key);
+    if (nameVal && nameVal.type) {
+      return; // don't override an existing OP Type
     } else {
-      // Add new record
+      // create new record / OPS Type
       i++;
       let tags = val.tags;
       let type = "";
@@ -190,9 +130,8 @@ function mergeMaps(nameMap, interviewMap) {
         let typeArr = val.opType.split(" ");
         type = formatType(typeArr);
         coreNeed =
-          typeArr[1].startsWith("N") || typeArr[1].startsWith("S")
-            ? "Observer"
-            : "Decider";
+          typeArr[1].startsWith("N") || typeArr[1].startsWith("S") ?
+            "Observer" : "Decider";
         deciderLetter = typeArr[1].includes("F") ? "F" : "T";
         observerLetter = typeArr[1].includes("S") ? "S" : "N";
         deciderNeed =
@@ -203,9 +142,8 @@ function mergeMaps(nameMap, interviewMap) {
         infoAnimal = animals2.includes("B") ? "B" : "C";
         energyAnimal = animals2.includes("P") ? "P" : "S";
         animalBalance =
-          typeArr[2].endsWith("P") || typeArr[2].endsWith("S")
-            ? "Info"
-            : "Energy";
+          typeArr[2].endsWith("P") || typeArr[2].endsWith("S") ?
+            "Info" : "Energy";
         sensoryMod = typeArr[0].substring(0, 1);
         deMod = typeArr[0].substring(1, 2);
         mod = typeArr[0];
@@ -213,39 +151,82 @@ function mergeMaps(nameMap, interviewMap) {
         s2 = typeArr[1].substring(2, 4);
         animals = type.substring(9, 13);
       }
-      nameMap.set(key, {
-        name: key,
-        type: type,
-        s1: s1,
-        s2: s2,
-        mod: mod,
-        animals: animals,
-        coreNeed: coreNeed,
-        deciderNeed: deciderNeed,
-        observerNeed: observerNeed,
-        deciderLetter: deciderLetter,
-        observerLetter: observerLetter,
-        infoAnimal: infoAnimal,
-        energyAnimal: energyAnimal,
-        animalBalance: animalBalance,
-        sensoryMod: sensoryMod,
-        deMod: deMod,
-        wssType: val.wssType,
-        wssLink: val.wssLink,
-        pictureUrl: val.pictureUrl,
-        sex: val.sex,
-        trans: false,
-        tags: tags,
-        binLink: val.binLink,
-        enfpLink: val.enfpLink,
-        otherLinks: val.otherLinks,
-        ytLink: val.ytLink,
-        lastModified: val.lastModified
-      });
+      let ytLink = 'https://www.youtube.com/results?search_query='+ key + ' interview';
+
+      if (nameVal) {
+        // Merge records
+        let tags = nameVal.tags ? nameVal.tags : [];
+        val.tags.forEach((tag) => {
+          if (!tags.includes(tag)) {
+            tags.push(tag);
+          }
+        });
+        nameVal.tags = tags;
+        if (val.pictureUrl && val.overridePicture) {
+          nameVal.pictureUrl = val.pictureUrl;
+        }
+        let links = nameVal.otherLinks ? nameVal.otherLinks : [];
+        val.links.forEach((link) => {
+          if (!links.includes(link)) {
+            links.push(link);
+          }
+        });
+        nameVal.otherLinks = links;
+        nameVal.sex = nameVal.sex ? nameVal.sex : val.sex;
+        nameVal.trans = nameVal.trans ? nameVal.trans : false;
+        if (compareModifiedDates(nameVal.lastModified, val.lastModified) > 0) {
+          nameVal.lastModified = val.lastModified;
+        }
+
+        nameVal.type = type;
+        nameVal.s1 = s1;
+        nameVal.s2 = s2;
+        nameVal.mod = mod;
+        nameVal.animals = animals;
+        nameVal.coreNeed = coreNeed;
+        nameVal.deciderNeed = deciderNeed;
+        nameVal.observerNeed = observerNeed;
+        nameVal.deciderLetter = deciderLetter;
+        nameVal.observerLetter = observerLetter;
+        nameVal.infoAnimal = infoAnimal;
+        nameVal.energyAnimal = energyAnimal;
+        nameVal.animalBalance = animalBalance;
+        nameVal.sensoryMod = sensoryMod;
+        nameVal.deMod = deMod;
+
+        matches.push(key);
+      } else {
+        // create new nameVal
+        nameMap.set(key, {
+          name: key,
+          type: type,
+          s1: s1,
+          s2: s2,
+          mod: mod,
+          animals: animals,
+          coreNeed: coreNeed,
+          deciderNeed: deciderNeed,
+          observerNeed: observerNeed,
+          deciderLetter: deciderLetter,
+          observerLetter: observerLetter,
+          infoAnimal: infoAnimal,
+          energyAnimal: energyAnimal,
+          animalBalance: animalBalance,
+          sensoryMod: sensoryMod,
+          deMod: deMod,
+          pictureUrl: val.pictureUrl,
+          sex: val.sex,
+          trans: false,
+          tags: tags,
+          otherLinks: val.links,
+          ytLink: ytLink,
+          lastModified: val.lastModified
+        });
+      }
     }
   });
   // console.log(matches);
-  console.log("Interview Matches", matches.length, "New Records", i);
+  console.log("Subjective Matches", matches.length, "New Records", i);
 }
 
 exports.url = url;
