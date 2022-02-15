@@ -72,6 +72,7 @@ const converterList = [
   { org: "W. A. Mozart", result: "Wolfgang Amadeus Mozart" },
   { org: "PJ Harvey", result: "Polly Jean 'PJ' Harvey" },
   { org: "Katherine Hepburn", result: "Katharine Hepburn" },
+  { org: "Dennis Villeneuve", result: "Denis Villeneuve" },
 ];
 function convertName(name) {
   name = name.trim();
