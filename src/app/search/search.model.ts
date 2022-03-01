@@ -1,4 +1,3 @@
-import { person } from 'ngx-bootstrap-icons';
 import { TypedPerson } from '../service/ops-data.service';
 
 const functions = [
@@ -1116,6 +1115,26 @@ personTerms.set('consume', {
 personTerms.set('blast', {
   match: (person: TypedPerson) => {
     return person.infoAnimal === 'B';
+  },
+});
+personTerms.set('bfirst', {
+  match: (person: TypedPerson) => {
+    return person.animals && person.animals.startsWith('B');
+  },
+});
+personTerms.set('cfirst', {
+  match: (person: TypedPerson) => {
+    return person.animals && person.animals.startsWith('C');
+  },
+});
+personTerms.set('pfirst', {
+  match: (person: TypedPerson) => {
+    return person.animals && person.animals.startsWith('P');
+  },
+});
+personTerms.set('sfirst', {
+  match: (person: TypedPerson) => {
+    return person.animals && person.animals.startsWith('S');
   },
 });
 personTerms.set('male', {

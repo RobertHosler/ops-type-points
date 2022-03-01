@@ -122,25 +122,25 @@ const stacks = [
     {
       animal: 'Sleep',
       short: 'S',
-      query: 'Oi Di',
+      query: 'sfirst',
       orders: sleepOrders,
     },
     {
       animal: 'Consume',
       short: 'C',
-      query: 'Oe Di',
+      query: 'cfirst',
       orders: consumeOrders,
     },
     {
       animal: 'Blast',
       short: 'B',
-      query: 'Oi De',
+      query: 'bfirst',
       orders: blastOrders,
     },
     {
       animal: 'Play',
       short: 'P',
-      query: 'Oe De',
+      query: 'pfirst',
       orders: playOrders,
     },
 ];
