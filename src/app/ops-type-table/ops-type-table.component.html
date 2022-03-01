@@ -24,7 +24,21 @@
     <thead>
       <tr>
         <th class="animal-heading" [attr.colspan]="displayCounts ? 5 : 4">
-          {{ animalStack.animal }}
+          <span *ngIf="!displayCounts">
+            {{ animalStack.animal }}
+          </span>
+          <span *ngIf="displayCounts">
+            <ng-container
+              *ngTemplateOutlet="
+                searchlink;
+                context: {
+                  text:
+                    animalStack.animal + ' - ' + getCount(animalStack.animal),
+                  query: animalStack.query
+                }
+              "
+            ></ng-container>
+          </span>
         </th>
       </tr>
       <tr>

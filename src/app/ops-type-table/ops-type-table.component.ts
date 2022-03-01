@@ -29,11 +29,18 @@ export class OpsTypeTableComponent implements OnInit {
   fetchCounts() {
     if (!this.counts) {
       this.counts = new Map();
+      // For each Person
       this.allNames.forEach((person, name) => {
         if (!person.type) {
           return;
         }
+        // For each Animal - S/C/B/P
         this.opsTypeTable.animalStacks.forEach((stack) => {
+          if (person.animals && person.animals.startsWith(stack.short)) {
+            this.incrementCount(stack.animal);
+            console.log(person.animals);
+          }
+          // For each Stack 'Order' - 4 each
           stack.orders.forEach((order) => {
             if (person.type.includes(order.stack)) {
               this.incrementCount(order.stack);

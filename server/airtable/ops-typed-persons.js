@@ -96,7 +96,8 @@ const converterList = [
   { org: "MrBeast (aka Jimmy Donaldson)", result: "Jimmy Donaldson" },
   { org: "Mykie (Glam&Gore)", result: "Мykie - Glam & Gore" },
   { org: "Barepantrytalk (Barbara)", result: "Barbara - BarePantryTalk" },
-  { org: "Mini Ladd a/k/a Craig Thompson", result: "Craig Thompson" },
+  { org: "Bold Guy a/k/a Matt Hoss Zone", result: "Matt Hoss" },
+  { org: "Mini Ladd a/k/a Craig Thompson", result: "Craig 'Mini Ladd' Thompson" },
   {
     org: "Ultimate Warrior a/k/a James Brian Hellwig",
     result: "James Brian Hellwig",

@@ -121,18 +121,26 @@ const playOrders = [
 const stacks = [
     {
       animal: 'Sleep',
+      short: 'S',
+      query: 'Oi Di',
       orders: sleepOrders,
     },
     {
       animal: 'Consume',
+      short: 'C',
+      query: 'Oe Di',
       orders: consumeOrders,
     },
     {
       animal: 'Blast',
+      short: 'B',
+      query: 'Oi De',
       orders: blastOrders,
     },
     {
       animal: 'Play',
+      short: 'P',
+      query: 'Oe De',
       orders: playOrders,
     },
 ];
