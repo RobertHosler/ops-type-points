@@ -454,9 +454,11 @@ export class SearchComponent implements OnInit {
           let sArr = s.split('|');
           let found = false;
           for (let i = 0; i !== sArr.length; i++) {
-            found = this.matchText(person, sArr[i]);
-            if (found) {
-              break;
+            if (sArr[i].length > 0) {
+              found = this.matchText(person, sArr[i]);
+              if (found) {
+                break;
+              }
             }
           }
           result = found;
