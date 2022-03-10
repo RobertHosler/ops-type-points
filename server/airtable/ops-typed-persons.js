@@ -189,6 +189,9 @@ function convertPersons(records) {
   const typeMap = new Map();
   const nameMap = new Map();
   records.forEach((record) => {
+    if (!record.fields.Name) {
+      return;
+    }
     let name = convertName(record.fields.Name);
     let tags = ["OPS"];
     (record.fields.Tags ? record.fields.Tags : []).forEach(tag => {
