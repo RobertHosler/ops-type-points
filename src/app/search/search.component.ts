@@ -451,6 +451,7 @@ export class SearchComponent implements OnInit {
       if (result) {
         let s = string.toLowerCase();
         if (s.includes('|') ) {
+          // Or Search
           let sArr = s.split('|');
           let found = false;
           for (let i = 0; i !== sArr.length; i++) {
@@ -463,19 +464,39 @@ export class SearchComponent implements OnInit {
           }
           result = found;
         } else if (s.startsWith('*')) {
+          // Trifix Search
           s = s.substring(1);
           if (s.length < 4 && /^\d+$/.test(s)) {
             this.searchTerms.push(s);
             let sArr = s.split('');
             let found = true;
             for (let i = 0; i !== sArr.length; i++) {
-              found = person.trifix?.includes(sArr[i]);
               if (!person.trifix?.includes(sArr[i])) {
                 found = false;
                 break;
               }
             }
             result = found;
+          } else {
+            result = false;
+          }
+        } else if (s.startsWith('(')) {
+          // Overlay Search
+          s = s.substring(1);
+          if (s.endsWith(')')) {
+            s = s.substring(0, s.length -1);
+          }
+          console.log("overlay search", s);
+          if (person.fullTrifix && person.fullTrifix.length === 11) {
+            let overlay = person.fullTrifix.charAt(2) + person.fullTrifix.charAt(6) + person.fullTrifix.charAt(10);
+            let sArr = s.split('');
+            result = true;
+            for (let i = 0; i !== sArr.length; i++) {
+              if (!overlay.includes(sArr[i])) {
+                result = false;
+                break;
+              }
+            }
           } else {
             result = false;
           }
