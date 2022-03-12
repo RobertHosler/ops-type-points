@@ -645,6 +645,15 @@ comboTerms.set('sifi', { strings: ['si/fi'] });
 comboTerms.set('niti', { strings: ['ni/ti'] });
 comboTerms.set('nifi', { strings: ['ni/fi'] });
 
+comboTerms.set('sosp', { strings: ['so/sp'] });
+comboTerms.set('sosx', { strings: ['so/sx'] });
+comboTerms.set('spsx', { strings: ['sp/sx'] });
+comboTerms.set('spso', { strings: ['sp/so'] });
+comboTerms.set('sxso', { strings: ['sx/so'] });
+comboTerms.set('sxsp', { strings: ['sx/sp'] });
+
+
+
 comboTerms.set('alpha', {
   strings: [
     ['si', 'ne'],
