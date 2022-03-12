@@ -464,23 +464,15 @@ export class SearchComponent implements OnInit {
           result = found;
         } else if (s.startsWith('*')) {
           s = s.substring(1);
-          if (s.length === 3 && /^\d+$/.test(s)) {
+          if (s.length < 4 && /^\d+$/.test(s)) {
             this.searchTerms.push(s);
             let sArr = s.split('');
-            let found = false;
+            let found = true;
             for (let i = 0; i !== sArr.length; i++) {
-              for (let j = 0; j !== sArr.length; j++) {
-                for (let k = 0; k !== sArr.length; k++) {
-                  if (
-                    !found &&
-                    sArr[i] !== sArr[j] &&
-                    sArr[i] !== sArr[k] &&
-                    sArr[j] !== sArr[k]
-                  ) {
-                    let abc = sArr[i] + sArr[j] + sArr[k];
-                    found = this.matchTextParts(person, abc);
-                  }
-                }
+              found = person.trifix?.includes(sArr[i]);
+              if (!person.trifix?.includes(sArr[i])) {
+                found = false;
+                break;
               }
             }
             result = found;
