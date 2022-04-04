@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
     new HomeLink(
       'Search',
       '/search',
-      'Explore the Objective Personality Database',
+      'Explore our Typology Database',
       false,
       '/assets/images/database.png'
     ),
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     {
       title: 'Practice',
       href: '/practice',
-      lead: 'Sharpen your typing skills with random celebrities from the database.',
+      lead: 'Sharpen your typing skills with random celebrities from our database.',
       ext: false,
       img: '/assets/images/sp-logo-no-bg.png'
     },

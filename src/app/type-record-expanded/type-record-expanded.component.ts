@@ -77,10 +77,16 @@ export class TypeRecordExpandedComponent implements OnInit {
   private initRoute(setup?) {
     this.route.queryParamMap.subscribe((params) => {
       this.personName = params.get('person');
-      if (!this.personName) {
+      let opsType = params.get('ops');
+      if (this.personName) {
+        this.setupPerson();
+      } else if (opsType) {
+        let person = new TypedPerson();
+        person.name = "abc";
+        this.setupPerson();
+      } else {
         // redirect to search
       }
-      this.setupPerson();
     });
   }
 
