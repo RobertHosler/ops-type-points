@@ -93,7 +93,7 @@ const converterList = [
   { org: "Wolf of Wall Street (aka Jordan Belfort)", result: "Jordan Belfort" },
   { org: "Simon (Goonzsquad)", result: "Goonzsquad - Simon" },
   { org: "Billy (Goonzsquad)", result: "Goonzsquad - Billy" },
-  { org: "MrBeast (aka Jimmy Donaldson)", result: "Jimmy Donaldson" },
+  { org: "MrBeast (aka Jimmy Donaldson)", result: "Jimmy 'Mr Beast' Donaldson" },
   { org: "Mykie (Glam&Gore)", result: "Мykie - Glam & Gore" },
   { org: "Barepantrytalk (Barbara)", result: "Barbara - BarePantryTalk" },
   { org: "Bold Guy a/k/a Matt Hoss Zone", result: "Matt Hoss" },
@@ -135,6 +135,8 @@ const converterList = [
   },
   { org: "Kevin a/k/a Chug", result: 'Kevin "Chug"' },
   { org: "Bignoknow a/k/a Noah Thomas", result: "Noah Thomas" },
+  { org: "Karen a/k/a Noah Finnce's Mom", result: "Karen Finnce" },
+  { org: "Ten Hundred a/k/a Peter Robinson", result: "Peter 'Ten Hundred' Robinson" },
   { org: "Redfoo (aka Stephen Kendal Gordy)", result: "Stephen Kendal Gordy" },
   { org: "Physics Girl a/k/a Dianna Cowern", result: "Dianna Cowern" },
   { org: "My Green Closet a/k/a Verina Erin", result: "Verina Erin" },
@@ -153,7 +155,7 @@ const converterList = [
   { org: "NF", result: "Nathan 'NF' Feuerstein" },
   { org: "Pastor Personality", result: "Charlie Wallace - Pastor Personality" },
   { org: "AutoAlchemy", result: "Jeffrey - AutoAlchemy" },
-  //shift+alt+downArrow to copy line
+  //shift+alt+downArrow to copy line in vsCode
 ];
 
 function convertName(name) {
