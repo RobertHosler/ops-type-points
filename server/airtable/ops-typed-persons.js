@@ -175,7 +175,9 @@ function convertName(name) {
   const akaIndex = name.indexOf("a/k/a");
   if (akaIndex > -1) {
     const beforeName = name;
-    name = name.substring(0, akaIndex).trim();
+    let name1 = name.substring(0, akaIndex).trim();
+    let name2 = name.substring(akaIndex).trim();
+    name = name1 + " (" + name2 + ")";
     console.log("Trimmed Name aka - ", beforeName, "- to |" + name + "|");
   }
   converterList.forEach((converter) => {
