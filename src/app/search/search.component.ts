@@ -480,8 +480,8 @@ export class SearchComponent implements OnInit {
           } else {
             result = false;
           }
-        } else if (s.startsWith('(')) {
-          // Overlay Search
+        } else if (/\(\d+/.test(s)) {
+          // Overlay Search - starts with '(' and contains numbers
           s = s.substring(1);
           if (s.endsWith(')')) {
             s = s.substring(0, s.length -1);
