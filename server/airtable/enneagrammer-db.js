@@ -258,7 +258,10 @@ function mergeMaps(nameMap, eTypeMap) {
     } else {
       // Add to nameMap
       i++;
-      let ytLink = 'https://www.youtube.com/results?search_query='+ eKey + ' interview';
+      let ytLink = '';
+      if (!eVal.tags.includes('Community Member')) {
+        ytLink = 'https://www.youtube.com/results?search_query='+ eKey + ' interview';
+      }
       nameMap.set(eKey, {
         name: eKey,
         coreEType: eVal.coreEType,
