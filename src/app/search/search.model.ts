@@ -609,6 +609,15 @@ comboTerms.set('bps', { strings: ['bp/s'] });
 comboTerms.set('bpcs', { strings: ['bp/c'] });
 comboTerms.set('bpc', { strings: ['bp/c'] });
 
+comboTerms.set('xxxp', { strings: ['(p)'] });
+comboTerms.set('playlast', { strings: ['(p)'] });
+comboTerms.set('xxxs', { strings: ['(s)'] });
+comboTerms.set('sleeplast', { strings: ['(s)'] });
+comboTerms.set('xxxb', { strings: ['(b)'] });
+comboTerms.set('blastlast', { strings: ['(b)'] });
+comboTerms.set('xxxc', { strings: ['(c)'] });
+comboTerms.set('consumelast', { strings: ['(c)'] });
+
 comboTerms.set('tese', { strings: ['te/se'] });
 comboTerms.set('fese', { strings: ['fe/se'] });
 comboTerms.set('tene', { strings: ['te/ne'] });
