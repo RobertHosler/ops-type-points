@@ -155,6 +155,7 @@ const converterList = [
   { org: "NF", result: "Nathan 'NF' Feuerstein" },
   { org: "Pastor Personality", result: "Charlie Wallace - Pastor Personality" },
   { org: "AutoAlchemy", result: "Jeffrey - AutoAlchemy" },
+  { org: "Kris Kardashian", result: "Kris Kardashian Jenner" },
   //shift+alt+downArrow to copy line in vsCode
 ];
 
