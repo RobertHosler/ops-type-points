@@ -16,9 +16,12 @@ export class OpsTypeLinksComponent implements OnInit {
   links: Link[] = [];
   sanitizedEmbed: SafeResourceUrl;
 
+  communityMember;
+
   constructor(private _sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
+    this.communityMember = this.typedPerson.tags.includes('Community Member');
     if (this.typedPerson.opsLinks) {
       let linkStrings = this.typedPerson.opsLinks.split('[');
       linkStrings.forEach((linkString) => {
@@ -64,7 +67,7 @@ export class OpsTypeLinksComponent implements OnInit {
         this.youtubeLinks.push(link);
       });
     }
-    if (this.typedPerson.ytLink) {
+    if (this.typedPerson.ytLink && this.communityMember) {
       this.sanitizedEmbed = this.sanitize(this.typedPerson.ytLink);
     } else {
       for (let i = 0; i < this.youtubeLinks.length; i++) {
@@ -75,7 +78,7 @@ export class OpsTypeLinksComponent implements OnInit {
         }
       }
     }
-    if (!this.typedPerson.tags.includes('Community Member')) {
+    if (!this.communityMember) {
       let searchLink = new Link();
       searchLink.text = 'Google Search';
       searchLink.href =
