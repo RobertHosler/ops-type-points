@@ -22,13 +22,21 @@ export class OpsDataService {
   allNames: Observable<Map<string, TypedPerson>>;
   allParents: Observable<Map<string, Parent>>;
 
-  constructor(private httpClient: HttpClient, private socket: Socket) {
+  allTermsMap: Map<string, Term>;
+  allNamesMap: Map<string, TypedPerson>;
+
+  constructor(private httpClient: HttpClient, socket: Socket) {
+    console.log('opsDataService');
     this.allTerms = new Observable((observer) => {
-      socket.on('terms', (terms) => {
-        let map = new Map<string, Term>(terms);
-        observer.next(map);
-      });
-      socket.emit('getTerms');
+      if (this.allTermsMap) {
+        observer.next(this.allTermsMap);
+      } else {
+        socket.on('terms', (terms) => {
+          this.allTermsMap = new Map<string, Term>(terms);
+          observer.next(this.allTermsMap);
+        });
+        socket.emit('getTerms');
+      }
     });
     this.allSources = new Observable((observer) => {
       socket.on('sources', (sources) => {
@@ -39,11 +47,15 @@ export class OpsDataService {
       socket.emit('getSources');
     });
     this.allNames = new Observable((observer) => {
-      socket.on('names', (names) => {
-        let map = new Map<string, TypedPerson>(names);
-        observer.next(map);
-      });
-      socket.emit('getNames');
+      if (this.allNamesMap) {
+        observer.next(this.allNamesMap);
+      } else {
+        socket.on('names', (names) => {
+          this.allNamesMap = new Map<string, TypedPerson>(names);
+          observer.next(this.allNamesMap);
+        });
+        socket.emit('getNames');
+      }
     });
     this.allTypes = new Observable((observer) => {
       socket.on('types', (types) => {

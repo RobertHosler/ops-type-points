@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Coin, coinMap, coinSideMap, extraCoins } from '../model/coin';
 import { appLinks } from '../model/links';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
@@ -10,7 +11,7 @@ import { ETypeModel, InstinctModel, searchModel } from './search.model';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   enneagrammerLink = appLinks.enneagrammerDb;
   enneagrammerPinterest = appLinks.enneagrammerPinterest;
   opsDbInfo = appLinks.opsDbInfo;
@@ -88,14 +89,17 @@ export class SearchComponent implements OnInit {
   cards = false;
   showHelp = false;
 
+  subscription: Subscription;
+
   constructor(
     private opsDataService: OpsDataService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    // console.time('allNames')
-    this.opsDataService.allNames.subscribe((result) => {
-      // console.timeEnd('allNames')
+    console.log('search');
+    console.time('allNames-search');
+    this.subscription = this.opsDataService.allNames.subscribe((result) => {
+      console.timeEnd('allNames-search');
       this.allNames = result;
       this.allNamesArr = [];
       this.recordCount = 0;
@@ -114,6 +118,10 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.initOptions();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   private initRouter() {
@@ -486,7 +494,6 @@ export class SearchComponent implements OnInit {
           if (s.endsWith(')')) {
             s = s.substring(0, s.length -1);
           }
-          console.log("overlay search", s);
           if (person.fullTrifix && person.fullTrifix.length === 11) {
             let overlay = person.fullTrifix.charAt(2) + person.fullTrifix.charAt(6) + person.fullTrifix.charAt(10);
             let sArr = s.split('');

@@ -144,7 +144,7 @@ function ioSetup(ioState) {
       socket.on(retrievable.listener, () => {
         socket.emit(retrievable.trigger, retrievable.getVal());
       });
-      socket.emit(retrievable.trigger, retrievable.getVal());
+      // socket.emit(retrievable.trigger, retrievable.getVal());
     });
   });
 }

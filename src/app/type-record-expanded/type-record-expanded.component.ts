@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 import { OpsType, OpsTypeUtil } from '../type-analyzer/ops-type';
 
@@ -8,7 +9,7 @@ import { OpsType, OpsTypeUtil } from '../type-analyzer/ops-type';
   templateUrl: './type-record-expanded.component.html',
   styleUrls: ['./type-record-expanded.component.scss'],
 })
-export class TypeRecordExpandedComponent implements OnInit {
+export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
   @Input()
   person: TypedPerson;
   @Input()
@@ -32,11 +33,16 @@ export class TypeRecordExpandedComponent implements OnInit {
 
   allNames: Map<string, TypedPerson>;
 
+  subscription: Subscription;
+  routeSubscription: Subscription;
+
   constructor(
     private opsDataService: OpsDataService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    console.log('expanded');
+  }
 
   ngOnInit(): void {
     if (this.person) {
@@ -55,7 +61,9 @@ export class TypeRecordExpandedComponent implements OnInit {
       });
       this.initActiveTab();
     } else {
-      this.opsDataService.allNames.subscribe((allNamesMap) => {
+      console.time('allNames-expanded');
+      this.subscription = this.opsDataService.allNames.subscribe((allNamesMap) => {
+        console.timeEnd('allNames-expanded');
         this.allNames = allNamesMap;
         if (!this.personName) {
           this.initRoute(); // get name from route - then setup
@@ -66,8 +74,15 @@ export class TypeRecordExpandedComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.routeSubscription.unsubscribe();
+  }
+
   private setupPerson() {
-    this.person = this.allNames.get(this.personName);
+    if (!this.person) {
+      this.person = this.allNames.get(this.personName);
+    }
     if (this.person.type) {
       this.personOpsType = OpsTypeUtil.getPersonOpsType(this.person);
     }
@@ -75,14 +90,21 @@ export class TypeRecordExpandedComponent implements OnInit {
   }
 
   private initRoute(setup?) {
-    this.route.queryParamMap.subscribe((params) => {
+    this.routeSubscription = this.route.queryParamMap.subscribe((params) => {
       this.personName = params.get('person');
       let opsType = params.get('ops');
+      let name = params.get('name');
       if (this.personName) {
         this.setupPerson();
-      } else if (opsType) {
-        let person = new TypedPerson();
-        person.name = "abc";
+      } else if (opsType && opsType.length === 16) {
+        this.person = {
+          name: name,
+          type: opsType,
+          mod: opsType.substring(0,2),
+          s1: opsType.substring(3,5),
+          s2: opsType.substring(6,8),
+          animals: opsType.substring(9)
+        };
         this.setupPerson();
       } else {
         // redirect to search
