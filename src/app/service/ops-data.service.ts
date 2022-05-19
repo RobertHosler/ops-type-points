@@ -245,11 +245,13 @@ export class TypedPerson {
   eType?: string; // 9w1
   instinct?: string; // so/sp
   trifix?: string; // 963 (no wings)
+  overlay?: string; // (125)
   fullTrifix?: string; // may contain wings '9w1 6w5 3w2'
   coreEType?: string; // 9
   coreETypeLong?: string; // Nine
   wing?: string; // 1
   fullEType?: string;// so/sp - 9w1 - 963
+  fullETypeOverlay?: string; // so/sp 963(125)
   wssType?: string;
   wssLink?: string;
   binLink?: string;

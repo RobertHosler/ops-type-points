@@ -33,25 +33,29 @@ function compareEnnea(scrapeData, enneaDb) {
         eVal.name.toLowerCase().trim() === data.name.toLowerCase().trim()
       ) {
         // Name Match - Check type match
+        const fullTypeOverlay = eVal.instinct + " " + eVal.eType + " " + eVal.trifix + eVal.overlay;
+        const fullType = (eVal.instinct +
+        " " +
+        eVal.eType +
+        " " +
+        (eVal.trifix ? eVal.trifix : "")).trim();
+        const scrapeData = data.instinct + " " + data.type + " " + data.trifix;
         if (
           compareValues(eVal.instinct, data.instinct) &&
           compareValues(eVal.eType, data.type) &&
           compareValues(eVal.trifix, data.trifix)
         ) {
           // Match!
+        } else if (compareValues(fullTypeOverlay, scrapeData)) {
+          // Overlay match!
         } else {
           // Type mismatch on name
           const mismatch = {
             name: eVal.name,
-            t1:
-              eVal.instinct +
-              " " +
-              eVal.eType +
-              " " +
-              (eVal.trifix ? eVal.trifix : ""),
-            t2: data.instinct + " " + data.type + " " + data.trifix,
+            t1: eVal.trifix && eVal.overlay ? fullTypeOverlay : fullType,
+            t2: scrapeData,
           };
-          console.log(mismatch);
+          console.log("Mismatch", mismatch);
           result.typeMismatch.push(mismatch);
         }
         // Remove from the exclusions lists

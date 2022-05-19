@@ -50,6 +50,7 @@ const converterList = [
   { org: "Ave Gardner", result: "Ava Gardner" },
   { org: "Mr. Rogers", result: "Fred Rogers" },
   { org: "Dr. Drew", result: "Dr. Drew Pinsky" },
+  { org: "Gary V", result: "Gary Vaynerchuk" },
   { org: "Kris Jenner", result: "Kris Kardashian Jenner" },
   { org: "Kim Kardashian", result: "Kim Kardashian West" },
   { org: "Neil deGrasse Tyson", result: "Neil DeGrasse Tyson" },
@@ -63,7 +64,7 @@ const converterList = [
   { org: "Giselle Bundchen​", result: "Gisele Bundchen​" },
   { org: "Freddy Mercury", result: "Freddie Mercury" },
   { org: "Leonardo Dicaprio", result: "Leonardo DiCaprio" },
-  { org: "The Weekend", result: "Abel 'The Weeknd' Tesfaye" },
+  { org: "The Weeknd", result: "Abel 'The Weeknd' Tesfaye" },
   { org: "Doland Trump", result: "Donald Trump" },
   { org: "Malcom X", result: "Malcolm X" },
   { org: "William Buckley", result: "William F. Buckley" },
@@ -73,21 +74,25 @@ const converterList = [
   { org: "PJ Harvey", result: "Polly Jean 'PJ' Harvey" },
   { org: "Katherine Hepburn", result: "Katharine Hepburn" },
   { org: "Dennis Villeneuve", result: "Denis Villeneuve" },
+  { org: "Timothée Chalamet", result: "Timothee Chalamet" },
+  { org: "Gabor Mate", result: "Gabor Maté" },
+  { org: "John Jones", result: "Jon Jones" },
+  { org: "Giselle Bundchen", result: "Gisele Bundchen" },
 ];
 function convertName(name) {
   name = name.trim();
-  converterList.forEach((converter) => {
-    if (converter.org === name) {
-      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
-      name = converter.result;
-    }
-  });
   const slashIndex = name.indexOf("(");
   if (slashIndex > -1) {
     const beforeName = name;
     name = name.substring(0, slashIndex).trim();
     // console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
   }
+  converterList.forEach((converter) => {
+    if (converter.org === name) {
+      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
+      name = converter.result;
+    }
+  });
   return name;
 }
 
@@ -119,18 +124,30 @@ function convertRecords(records) {
       console.log(name + ' Removed');
       return;
     }
+
+    const instinct = record.fields.Instinct
+      ? record.fields.Instinct.toLowerCase()
+      : "??/??";
+    const eType = record.fields.Type;
+    const fullTrifix = record.fields.Trifix;
+    const trifix = buildTritype(fullTrifix);
+    const overlay = buildOverlay(trifix, fullTrifix);
+    
+    const fullEType = buildFullEType(instinct, eType, fullTrifix);
+    const fullETypeOverlay = buildFullETypeOverlay(instinct, eType, trifix, overlay);
     result.set(name, {
       name: name,
       altName: record.fields["Alt-Name"],
       coreEType: coreEType,
       coreETypeLong: getCoreETypeLong(coreEType),
       wing: wing,
-      eType: record.fields.Type,
-      instinct: record.fields.Instinct
-        ? record.fields.Instinct.toLowerCase()
-        : "??/??",
-      trifix: record.fields.Trifix,
-      overlay: buildOverlay(record.fields.Trifix),
+      eType: eType,
+      instinct: instinct,
+      trifix: trifix,
+      fullTrifix: fullTrifix,
+      overlay: overlay,
+      fullEType: fullEType,
+      fullETypeOverlay: fullETypeOverlay,
       sex: record.fields.Sex,
       tags: tags,
       enneaNotes: record.fields.Notes,
@@ -143,40 +160,63 @@ function convertRecords(records) {
   return result;
 }
 
-function buildOverlay(trifix) {
+function buildOverlay(trifix, fullTrifix) {
   let overlay = null;
-  if (trifix && trifix.length === 11) {
-    const parts = trifix.split(" ");
+  if (fullTrifix && fullTrifix.length === 11) {
+    const parts = fullTrifix.split(" ");
     let overlay1 = parts[0].substring(2,3);
     let overlay2 = parts[1].substring(2,3);
     let overlay3 = parts[2].substring(2,3);
     overlay = [ ...new Set([overlay1, overlay2, overlay3])];//remove duplicates
+    trifix.split('').forEach(s => {
+      const index = overlay.indexOf(s);
+      if (index > -1) {
+        overlay.splice(index, 1);
+      }
+    });
     overlay.sort();
+    overlay = '(' + overlay.join('') + ')';
   }
   return overlay;
 }
 
-function buildFullEType(eType) {
+function buildFullEType(instinct, eType, fullTrifix) {
   let fullEType;
   let coreType;
   let trifix;
-  if (eType.trifix && eType.trifix.startsWith(eType.eType)) {
+  if (fullTrifix && fullTrifix.startsWith(eType)) {
     // full fix (9w1 3w4 6w7) in place of core type (9w1) for reduced redundancy
-    coreType = eType.trifix;
+    coreType = fullTrifix;
   } else {
-    coreType = eType.eType;
-    trifix = eType.trifix;
+    coreType = eType;
+    trifix = fullTrifix;
   }
-  if (eType.instinct && trifix) {
-    fullEType = eType.instinct + " " + coreType + " " + trifix;
-  } else if (eType.instinct) {
-    fullEType = eType.instinct + " " + coreType;
-  } else if (eType.instinct && trifix) {
-    fullEType = eType.eType + " " + trifix;
+  if (instinct && trifix) {
+    fullEType = instinct + " " + coreType + " " + trifix;
+  } else if (instinct) {
+    fullEType = instinct + " " + coreType;
+  } else if (instinct && trifix) {
+    fullEType = eType + " " + trifix;
   } else {
-    fullEType = eType.eType;
+    fullEType = eType;
   }
   return fullEType;
+}
+
+function buildFullETypeOverlay(instincts, coreType, trifix, overlay) {
+  let eTypeOverlay = '';
+  if (instincts) {
+    eTypeOverlay += instincts;
+  }
+  if (trifix && overlay) {
+    eTypeOverlay += (' ' + trifix + ' ' + overlay);
+  } else if (trifix) {
+    eTypeOverlay += (' ' + coreType);
+    eTypeOverlay += (' ' + trifix);
+  } else {
+    eTypeOverlay += (' ' + coreType);
+  }
+  return eTypeOverlay;
 }
 
 function buildTritype(s) {
@@ -236,9 +276,10 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.wing = eVal.wing; // 1
       nameVal.eType = eVal.eType; // 9w1
       nameVal.instinct = eVal.instinct; // so/sp
-      nameVal.fullEType = buildFullEType(eVal);
-      nameVal.fullTrifix = eVal.trifix; // 9w1 6w5 3w4 (may contain wings)
-      nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
+      nameVal.fullEType = eVal.fullEType;
+      nameVal.fullETypeOverlay = eVal.fullETypeOverlay;
+      nameVal.fullTrifix = eVal.fullTrifix; // 9w1 6w5 3w4 (may contain wings)
+      nameVal.trifix = eVal.trifix; // 963 (no wings)
       nameVal.overlay = eVal.overlay;
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
       eVal.tags.forEach(tag => {
@@ -269,12 +310,13 @@ function mergeMaps(nameMap, eTypeMap) {
         wing: eVal.wing,
         eType: eVal.eType, // 9w1
         instinct: eVal.instinct,
-        fullTrifix: eVal.trifix,
-        trifix: buildTritype(eVal.trifix),
+        fullTrifix: eVal.fullTrifix,
+        trifix: eVal.trifix,
         overlay: eVal.overlay,
         pictureUrl: eVal.pictureUrl,
         collageUrl: eVal.collageUrl,
-        fullEType: buildFullEType(eVal),
+        fullEType: eVal.fullEType,
+        fullETypeOverlay: eVal.fullETypeOverlay,
         tags: eVal.tags,
         enneaNotes: eVal.enneaNotes,
         enneaLinks: eVal.enneaLinks,

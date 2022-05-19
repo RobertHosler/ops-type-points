@@ -28,6 +28,11 @@
           </div>
         </div>
         <div class="image-wrapper">
+          <div class="link-row" *ngIf="!displayPracticeLink">
+            <a *ngIf="typeRecord.ytLink" class="youtube-link" [href]="typeRecord.ytLink" target="_blank"
+                popover="Watch Interview" triggers="mouseenter:mouseleave" placement="top">
+              <i-bs name="youtube" class="ml-1" width="1rem" height="1rem"></i-bs></a>
+          </div>
           <a
             [routerLink]="
               displayPracticeLink ? ['/practice'] : ['/search/person']
@@ -81,8 +86,7 @@
         >
           <div class="image-name">
             <div [ngClass]="{ 'image-name-label': true }">
-              {{ typeRecord.name }} <a *ngIf="typeRecord.ytLink" class="youtube-link" [href]="typeRecord.ytLink" target="_blank">
-                <i-bs name="youtube" class="ml-1" width="1rem" height="1rem"></i-bs></a>
+              {{ typeRecord.name }}
             </div>
           </div>
           <div *ngIf="!displayPracticeLink && typeIndicator">
@@ -124,7 +128,13 @@
                   {{ typeRecord.fullEType }} <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
               </span>
               <span *ngIf="typeRecord.tags && !typeRecord.tags.includes('Faytabase')">
+                <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType"
+                  triggers="mouseenter:mouseleave" placement="right">
+                  {{ typeRecord.fullETypeOverlay }} <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+                </span>
+                <span *ngIf="!typeRecord.overlay">
                   {{ typeRecord.fullEType }}
+                </span>
               </span>
             </div>
             <div class="image-type" *ngIf="typeRecord.wssType">

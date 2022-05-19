@@ -46,15 +46,16 @@ function buildData($) {
   let instinct;
   let type;
   let trifix;
+  const numberOfColumns = 5;
   dataRow.each((x, data) => {
     const colText = $(data).text();
-    if (x % 4 === 0) {
+    if (x % numberOfColumns === 0) {
       name = enneaConvertName(colText);
-    } else if (x % 4 === 1) {
+    } else if (x % numberOfColumns === 1) {
       instinct = colText.toLowerCase().trim();
-    } else if (x % 4 === 2) {
+    } else if (x % numberOfColumns === 2) {
       type = colText.trim();
-    } else if (x % 4 === 3) {
+    } else if (x % numberOfColumns === 3) {
       trifix = colText;
       if (logNames.includes(name)) {
         console.log(name, instinct, type, trifix);
