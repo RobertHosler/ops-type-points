@@ -131,10 +131,15 @@ function convertRecords(records) {
     const eType = record.fields.Type;
     const fullTrifix = record.fields.Trifix;
     const trifix = buildTritype(fullTrifix);
-    const overlay = buildOverlay(trifix, fullTrifix);
+    const dirtyOverlay = buildDirtyOverlay(fullTrifix);
+    const overlay = cleanOverlay(dirtyOverlay, trifix);
     
     const fullEType = buildFullEType(instinct, eType, fullTrifix);
     const fullETypeOverlay = buildFullETypeOverlay(instinct, eType, trifix, overlay);
+    const emphasizedNumber = buildEmphasizedNumber(trifix, dirtyOverlay);
+    if (emphasizedNumber) {
+      console.log('Emphasized...', emphasizedNumber, name);
+    }
     result.set(name, {
       name: name,
       altName: record.fields["Alt-Name"],
@@ -146,6 +151,7 @@ function convertRecords(records) {
       trifix: trifix,
       fullTrifix: fullTrifix,
       overlay: overlay,
+      emphasizedNumber: emphasizedNumber,
       fullEType: fullEType,
       fullETypeOverlay: fullETypeOverlay,
       sex: record.fields.Sex,
@@ -158,6 +164,61 @@ function convertRecords(records) {
     });
   });
   return result;
+}
+
+/**
+ * When a number is in both trifix and overlay it should be emphasized in the
+ * overlay format (bold or underline).  Checks to see if any number appears more
+ * than once when these are combined by checking if it has more than one index.
+ */
+function buildEmphasizedNumber(trifix, overlay) {
+  let emphasizedNumber = null;
+  if (trifix && overlay) {
+    const numbers = (trifix+overlay).split(''); // all numbers in the array
+    numbers.forEach(s => {
+      const indexArr = getAllIndexes(numbers, s);
+      if (indexArr.length > 1) {
+        emphasizedNumber = s;
+      }
+    });
+  }
+  return emphasizedNumber;
+}
+
+function getAllIndexes(arr, val) {
+  var indexes = [], i = -1;
+  while ((i = arr.indexOf(val, i+1)) != -1){
+      indexes.push(i);
+  }
+  return indexes;
+}
+
+function buildDirtyOverlay(fullTrifix) {
+  let overlay = null;
+  if (fullTrifix && fullTrifix.length === 11) {
+    const parts = fullTrifix.split(" ");
+    let overlay1 = parts[0].substring(2,3);
+    let overlay2 = parts[1].substring(2,3);
+    let overlay3 = parts[2].substring(2,3);
+    overlay = overlay1 + overlay2 + overlay3;
+  }
+  return overlay;
+}
+
+function cleanOverlay(dirtyOverlay, trifix) {
+  let overlay = null;
+  if (dirtyOverlay) {
+    overlay = [ ...new Set(dirtyOverlay.split(''))];//remove duplicates
+    trifix.split('').forEach(s => {
+      const index = overlay.indexOf(s);
+      if (index > -1) {
+        overlay.splice(index, 1);
+      }
+    });
+    overlay.sort();
+    overlay = '(' + overlay.join('') + ')';
+  }
+  return overlay;
 }
 
 function buildOverlay(trifix, fullTrifix) {
@@ -281,6 +342,7 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.fullTrifix = eVal.fullTrifix; // 9w1 6w5 3w4 (may contain wings)
       nameVal.trifix = eVal.trifix; // 963 (no wings)
       nameVal.overlay = eVal.overlay;
+      nameVal.emphasizedNumber = eVal.emphasizedNumber;
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
       eVal.tags.forEach(tag => {
         if (!nameVal.tags.includes(tag)) {
@@ -313,6 +375,7 @@ function mergeMaps(nameMap, eTypeMap) {
         fullTrifix: eVal.fullTrifix,
         trifix: eVal.trifix,
         overlay: eVal.overlay,
+        emphasizedNumber: eVal.emphasizedNumber,
         pictureUrl: eVal.pictureUrl,
         collageUrl: eVal.collageUrl,
         fullEType: eVal.fullEType,

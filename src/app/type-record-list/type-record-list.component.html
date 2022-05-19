@@ -130,7 +130,11 @@
               <span *ngIf="typeRecord.tags && !typeRecord.tags.includes('Faytabase')">
                 <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType"
                   triggers="mouseenter:mouseleave" placement="right">
-                  {{ typeRecord.fullETypeOverlay }} <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+                  {{ typeRecord.emphasizedNumber }}
+                   <span *ngIf="typeRecord.emphasizedNumber"
+                      [innerHTML]="emphasize(typeRecord.fullETypeOverlay, typeRecord.emphasizedNumber)"></span>
+                   <span *ngIf="!typeRecord.emphasizedNumber">{{ typeRecord.fullETypeOverlay }}</span>
+                   <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
                 </span>
                 <span *ngIf="!typeRecord.overlay">
                   {{ typeRecord.fullEType }}

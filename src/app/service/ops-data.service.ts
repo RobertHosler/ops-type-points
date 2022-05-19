@@ -246,6 +246,7 @@ export class TypedPerson {
   instinct?: string; // so/sp
   trifix?: string; // 963 (no wings)
   overlay?: string; // (125)
+  emphasizedNumber?: string; // 8
   fullTrifix?: string; // may contain wings '9w1 6w5 3w2'
   coreEType?: string; // 9
   coreETypeLong?: string; // Nine

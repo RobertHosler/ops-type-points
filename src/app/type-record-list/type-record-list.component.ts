@@ -144,6 +144,15 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
     }
   }
 
+  emphasize(fullETypeOverlay:string, emphasizedNumber:string) {
+    const index = fullETypeOverlay.indexOf(emphasizedNumber);
+    const s1 = fullETypeOverlay.substring(0, index);
+    const s2 = fullETypeOverlay.substring(index+1, fullETypeOverlay.length);
+    const result = s1+"<u>"+emphasizedNumber+"</u>"+s2;
+    console.log(result);
+    return result;
+  }
+
   get currentDisplay() {
     let first = (this.currentPage - 1) * this.pageSize + 1;
     let last;
