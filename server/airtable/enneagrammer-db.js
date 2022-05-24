@@ -96,6 +96,22 @@ function convertName(name) {
   return name;
 }
 
+function parseLink(linkString) {
+  let link = null;
+  console.log(linkString);
+  let leftText = linkString.indexOf('[');
+  leftText = leftText > -1 ? leftText : 0;
+  let rightText = linkString.indexOf(']');
+  let leftHref = linkString.indexOf('(', rightText);
+  let rightHref = linkString.lastIndexOf(')');
+  if (rightText > -1 && leftHref > -1 && rightHref > -1) {
+    link = {};
+    link.text = linkString.substring(leftText, rightText);
+    link.href = linkString.substring(leftHref + 1, rightHref);
+  }
+  return link;
+}
+
 function convertRecords(records) {
   const result = new Map();
   records.forEach((record) => {
@@ -138,8 +154,10 @@ function convertRecords(records) {
     const fullETypeOverlay = buildFullETypeOverlay(instinct, eType, trifix, overlay);
     const emphasizedNumber = buildEmphasizedNumber(trifix, dirtyOverlay);
     if (emphasizedNumber) {
-      console.log('Emphasized...', emphasizedNumber, name);
+      // console.log('Emphasized...', emphasizedNumber, name);
     }
+    const links = record.fields.Links;
+    let daaLink = record.fields.Links;
     result.set(name, {
       name: name,
       altName: record.fields["Alt-Name"],
@@ -157,7 +175,8 @@ function convertRecords(records) {
       sex: record.fields.Sex,
       tags: tags,
       enneaNotes: record.fields.Notes,
-      enneaLinks: record.fields.Links,
+      enneaLinks: links,
+      daaLink: daaLink,
       pictureUrl: getRecordPicture(record.fields.Picture),
       collageUrl: getRecordPicture(record.fields.Collage),
       lastModified: getLastModified(record)
@@ -354,6 +373,7 @@ function mergeMaps(nameMap, eTypeMap) {
       }
       nameVal.enneaNotes = eVal.notes;
       nameVal.enneaLinks = eVal.enneaLinks;
+      nameVal.daaLink = eVal.daaLink;
       if (compareModifiedDates(nameVal.lastModified, eVal.lastModified) > 0) {
         nameVal.lastModified = eVal.lastModified;
       }
@@ -383,6 +403,7 @@ function mergeMaps(nameMap, eTypeMap) {
         tags: eVal.tags,
         enneaNotes: eVal.enneaNotes,
         enneaLinks: eVal.enneaLinks,
+        daaLink: eVal.daaLink,
         ytLink: ytLink,
         sex: eVal.sex,
         trans: false,

@@ -31,6 +31,7 @@ listUrl.searchParams.append("fields", "Play vs Sleep");
 listUrl.searchParams.append("fields", "Biological Sex");
 listUrl.searchParams.append("fields", "Transgender");
 listUrl.searchParams.append("fields", "Links");
+listUrl.searchParams.append("fields", "Unique ID");
 listUrl.searchParams.append("fields", "Type Number");
 listUrl.searchParams.append("fields", "Last Modified");
 listUrl.searchParams.append("fields", "Created Date");
@@ -57,6 +58,7 @@ const opsTypedPersons = {
     "Biological Sex",
     "Transgender",
     "Links",
+    "Unique ID",
   ],
   converter: () => {},
   callback: () => {
@@ -147,7 +149,7 @@ const converterList = [
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
   { org: "Kim Kardashian", result: "Kim Kardashian West" },
   { org: "50 Cent", result: "Curtis '50 Cent' Jackson" },
-  { org: "Dwayne Johnson", result: "Dwayne 'The Rock' Johnson" },
+  { org: "Dwayne Johnson (a/k/a The Rock)", result: "Dwayne 'The Rock' Johnson" },
   { org: "New Gingrich", result: "Newt Gingrich" },
   { org: "Warren Buffet", result: "Warren Buffett" },
   { org: "Alex McQueen", result: "Alexander McQueen" },
@@ -158,9 +160,25 @@ const converterList = [
   { org: "Kris Kardashian", result: "Kris Kardashian Jenner" },
   //shift+alt+downArrow to copy line in vsCode
 ];
+const idList = [
+  { id: "recA8tuvHa5frRAEV", name: "Fred Rogers" },
+  { id: "recMQNDvkApzA29FI", name: "Jeff Thorman" },
+  { id: "recht5aMSa5H43WGp", name: "Nate Feuerstein" },
+  { id: "rec92uMVk4DTtzr4o", name: "Matthew Wetzel" },
+  { id: "recgJ4sctRr49Yni8", name: "Alex Mazhukhin" },
+  { id: "recrxR1jzqTwGh8U2", name: "Stephen Sackur" },
+  { id: "recwld83q2UCsLFoC", name: "Aaron Bidochka" },
+  { id: "recXWx0PlXsisdF73", name: "Cristal Fuentes" },
+  { id: "rec5bmaPYhgOONJid", name: "Vanessa Hill" },
+  { id: "recPkm5nfmCjIIPDb", name: "Jimmy 'MrBeast' Donaldson" },
+  { id: "recL8HdE4E7Vuz13Q", name: "Stephen Kendal Gordy" },
+  { id: "recnaTCHdXJNYHHrM", name: "Mike Montgomery (Modern Builds)" },
+  { id: "recZlq2bfmg3nakzV", name: "Christopher Walken" },
+];
 
-function convertName(name) {
+function convertName(id, name) {
   name = name.trim();
+  const beforeName = name;
   converterList.forEach((converter) => {
     if (converter.org === name) {
       // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
@@ -169,25 +187,74 @@ function convertName(name) {
   });
   const slashIndex = name.indexOf("(");
   if (slashIndex > -1) {
-    const beforeName = name;
     name = name.substring(0, slashIndex).trim();
     console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
   }
+  // Remove aka and wrap secondary name in parathesis
   const akaIndex = name.indexOf("a/k/a");
   if (akaIndex > -1) {
-    const beforeName = name;
     let name1 = name.substring(0, akaIndex).trim();
-    let name2 = name.substring(akaIndex).trim();
+    let name2 = name.substring(akaIndex+5).trim();
     name = name1 + " (" + name2 + ")";
     console.log("Trimmed Name aka - ", beforeName, "- to |" + name + "|");
   }
   converterList.forEach((converter) => {
     if (converter.org === name) {
-      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
+      console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
       name = converter.result;
     }
   });
+  idList.forEach((idReplace) => {
+    if (id === idReplace.id) {
+      name = idReplace.name;
+      console.log("Replaced by id - ", beforeName, "- to |" + name + "|");
+    }
+  });
   return name;
+}
+
+function parseLink(linkString) {
+  let link = null;
+  let leftText = linkString.indexOf('[');
+  leftText = leftText > -1 ? leftText : 0;
+  let rightText = linkString.indexOf(']');
+  let leftHref = linkString.indexOf('(', rightText);
+  let rightHref = linkString.lastIndexOf(')');
+  if (rightText > -1 && leftHref > -1 && rightHref > -1) {
+    link = {};
+    link.text = linkString.substring(leftText, rightText);
+    link.href = linkString.substring(leftHref + 1, rightHref);
+  }
+  return link;
+}
+
+function buildLinks(opsLinks) {
+  let linkObj = {
+    youtubeLinks: [],
+    classLinks: [],
+    otherLinks: [],
+    classLink: ''
+  };
+  let linkStrings = opsLinks.split('[');
+  linkStrings.forEach((linkString) => {
+    let link = parseLink(linkString);
+    if (link) {
+      if (
+        link.href.includes('youtube.com') ||
+        link.href.includes('youtu.be')
+      ) {
+        linkObj.youtubeLinks.push(link);
+      } else if (link.href.includes('objectivepersonalitysystem.com')) {
+        linkObj.classLinks.push(link);
+        if (link.text.startsWith('Class ')) {
+          linkObj.classLink = link;
+        }
+      } else {
+        linkObj.otherLinks.push(link);
+      }
+    }
+  });
+  return linkObj;
 }
 
 function convertPersons(records) {
@@ -197,7 +264,9 @@ function convertPersons(records) {
     if (!record.fields.Name) {
       return;
     }
-    let name = convertName(record.fields.Name);
+    let uniqueId = record.fields["Unique ID"];
+    // console.log(record.fields.Name, uniqueId);
+    let name = convertName(uniqueId, record.fields.Name);
     let tags = ["OPS"];
     (record.fields.Tags ? record.fields.Tags : []).forEach(tag => {
       if (tag === 'Class Typing') {
@@ -210,7 +279,10 @@ function convertPersons(records) {
     if (!tags.includes('Community Member')) {
       ytLink = 'https://www.youtube.com/results?search_query='+ name + ' interview';
     }
+    const links = record.fields.Links;
+    const linkObj = links ? buildLinks(links) : {};
     const typedPerson = {
+      opsId: uniqueId,
       name: name,
       type: record.fields.Type,
       typeNumber: record.fields["Type Number"],
@@ -276,8 +348,12 @@ function convertPersons(records) {
         : "",
       sex: record.fields["Biological Sex"],
       trans: record.fields.Transgender,
-      opsLinks: record.fields.Links,
+      opsLinks: links,
+      classLink: linkObj.classLink,
+      classLinks: linkObj.classLinks,
       ytLink: ytLink,
+      opsYtLinks: linkObj.youtubeLinks,
+      moreLinks: linkObj.otherLinks,
       lastModified: getLastModified(record),
     };
     if (typedPerson.type && typedPerson.type.length === 16) {

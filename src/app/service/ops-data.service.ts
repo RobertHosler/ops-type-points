@@ -2,6 +2,7 @@ import { Injectable, Type } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { observable, Observable, of } from 'rxjs';
 import { Socket } from 'ngx-socket-io';
+import { Link } from '../ops-type-links/ops-type-links.component';
 
 @Injectable({
   providedIn: 'root',
@@ -259,6 +260,11 @@ export class TypedPerson {
   enfpLink?: string;
   otherLinks?: string;
   opsLinks?: string; // from ops database
+  classLink?: Link;
+  classLinks?: Link[];
+  opsYtLinks?: Link[];
+  moreLinks?: Link[];
+  daaLink?: string;
   enneaLinks?: string;
   enneaNotes?: string;
   collageUrl?: string;

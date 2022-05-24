@@ -153,7 +153,7 @@ export class OpsTypeLinksComponent implements OnInit {
   }
 }
 
-class Link {
+export class Link {
   text: string;
   href: string;
 }

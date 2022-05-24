@@ -149,7 +149,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
     const s1 = fullETypeOverlay.substring(0, index);
     const s2 = fullETypeOverlay.substring(index+1, fullETypeOverlay.length);
     const result = s1+"<u>"+emphasizedNumber+"</u>"+s2;
-    console.log(result);
+    // console.log(result);
     return result;
   }
 

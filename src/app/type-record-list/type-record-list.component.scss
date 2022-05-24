@@ -215,12 +215,27 @@
   min-height: 60px;
 }
 .link-row {
+  line-height: 0px;
   height: 24px;
   text-align: right;
 }
+.daa-logo-link,
+.ops-logo-link {
+  padding-left: .25rem;
+  padding-right: .25rem;
+  img {
+    height: 1.25rem;
+    width: 1.25rem;
+    border: 0px;
+    margin: 0px;
+    opacity: 87%;
+    &:hover {
+      opacity: 100%;
+    }
+  }
+}
 .youtube-link {
   color: #d90101 !important;
-  padding-left: .25rem;
   padding-right: .25rem;
   &:hover {
     color: #a70000 !important;
@@ -287,7 +302,7 @@
     width: 170px;
   }
   .image-col .image-img {
-    max-width: 150px;
+    max-width: 125px;
     max-height: 150px;
   }
   .image-indicator-row {
@@ -301,7 +316,7 @@
     padding: 10px 5px;
   }
   .image-col .image-img {
-    max-width: 135px;
+    max-width: 125px;
     max-height: 150px;
   }
   .name-wrapper {

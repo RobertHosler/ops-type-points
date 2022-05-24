@@ -29,9 +29,21 @@
         </div>
         <div class="image-wrapper">
           <div class="link-row" *ngIf="!displayPracticeLink">
+            <a [href]="typeRecord.classLink ? typeRecord.classLink.href : 'https://docs.google.com/document/u/0/d/1lNO4NjYwvPQYSBhHZNzTiFTTVfhitOWlFsdvr-WTX9g/mobilebasic'"
+                *ngIf="typeRecord.tags && typeRecord.tags.includes('OPS Class Typing')"
+                popover="OPS Class" triggers="mouseenter:mouseleave" placement="top"
+                class="ops-logo-link" target="_blank">
+              <img src="/assets/images/ops-logo.PNG" />
+            </a>
+            <a [href]="typeRecord.daaLink ? typeRecord.daaLink : 'https://www.enneagrammer.com/members-home'"
+                popover="Dark Arts Academy Class" triggers="mouseenter:mouseleave" placement="top"
+                *ngIf="typeRecord.tags && typeRecord.tags.includes('Academy Typing (DAA)')"
+                class="daa-logo-link" target="_blank">
+              <img src="/assets/images/enneagrammer-logo.png" />
+            </a>
             <a *ngIf="typeRecord.ytLink" class="youtube-link" [href]="typeRecord.ytLink" target="_blank"
                 popover="Watch Interview" triggers="mouseenter:mouseleave" placement="top">
-              <i-bs name="youtube" class="ml-1" width="1rem" height="1rem"></i-bs></a>
+              <i-bs name="youtube" class="mx-1" width="1.25rem" height="1.25rem"></i-bs></a>
           </div>
           <a
             [routerLink]="
@@ -149,7 +161,7 @@
               {{ typeRecord.lastModified }}
             </div>
           </div>
-          <div class="image-tags" *ngIf="typeIndicator">
+          <div class="image-tags" *ngIf="true">
             <ng-container *ngFor="let tag of typeRecord.tags">
               <div
                 (click)="
