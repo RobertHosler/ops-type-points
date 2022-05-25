@@ -25,6 +25,9 @@
 }
 
 .image-only {
+  .link-row {
+    display: none;
+  }
   .image-text-bottom,
   .image-indicator-row {
     display: none;
@@ -209,7 +212,7 @@
   // margin-left: -.125rem;
   // margin-right: -.125rem;
   margin-bottom: -.5rem;
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   justify-content: center;
   min-height: 60px;
