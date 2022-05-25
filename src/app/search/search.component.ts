@@ -388,6 +388,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             ? this.textString.trim()
             : null;
         }
+        this.sortBy = 'name';
         this.displayedRecords = [];
         this.searchSort = [];
         this.searchNames();
@@ -485,6 +486,9 @@ export class SearchComponent implements OnInit, OnDestroy {
               }
             }
             result = found;
+            if (result) {
+              this.sortBy = 'ennea';
+            }
           } else {
             result = false;
           }
@@ -503,6 +507,9 @@ export class SearchComponent implements OnInit, OnDestroy {
                 result = false;
                 break;
               }
+            }
+            if (result) {
+              this.sortBy = 'ennea';
             }
           } else {
             result = false;
@@ -537,7 +544,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         let arrayResults = true;
         let arrResult = false;
         searchModel.comboTerms.get(s).strings.forEach((arr: string[]) => {
-          if (arrayResults) {
+        if (arrayResults) {
             arrResult = false;
             arr.forEach((comboS: string) => {
               if (!arrResult) {
@@ -555,6 +562,20 @@ export class SearchComponent implements OnInit, OnDestroy {
             result = this.matchTextPartsDecoded(person, subS);
           }
         });
+      }
+      if (result) {
+        this.sortBy = 'ops';
+      }
+      return result;
+    } else if (searchModel.enneaTerms.get(s)) {
+      let result = false;
+      searchModel.enneaTerms.get(s).strings.forEach((subS: string) => {
+        if (!result) {
+          result = this.matchTextPartsDecoded(person, subS);
+        }
+      });
+      if (result) {
+        this.resort('ennea');
       }
       return result;
     } else {
@@ -583,8 +604,14 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (searchModel.personTerms.get(s)) {
       if (!searchModel.personTerms.get(s).match(person)) {
         result = false;
+      } else {
+        this.sortBy = 'ops';
       }
-    } else if (searchModel.tagTerms.includes(s)) {
+    } else if (searchModel.sexTerms.get(s)) {
+      if (!searchModel.sexTerms.get(s).match(person)) {
+        result = false;
+      }
+    } else if (searchModel.tagTerms.get(s)) {
       if (!person.tags) {
         result = false;
       } else {
@@ -592,6 +619,10 @@ export class SearchComponent implements OnInit, OnDestroy {
         person.tags.forEach((tag) => {
           if (!result && tag.toLowerCase().includes(s)) {
             result = true;
+            const term = searchModel.tagTerms.get(s);
+            if (term.sortBy) {
+              this.sortBy = term.sortBy;
+            }
           }
         });
       }
@@ -599,11 +630,15 @@ export class SearchComponent implements OnInit, OnDestroy {
       // fe, mm, sb, etc
       if (!person.type || !person.type.toLowerCase().includes(s)) {
         result = false;
+      } else {
+        this.sortBy = 'ops';
       }
     } else if (searchModel.coreETypeStrings.includes(s)) {
       // 3, 4, etc
       if (!person.coreEType || !person.coreEType.toLowerCase().includes(s)) {
         result = false;
+      } else {
+        this.sortBy = 'ennea';
       }
     } else if (searchModel.coreETypeLong.includes(s)) {
       // three, four, etc
@@ -612,16 +647,22 @@ export class SearchComponent implements OnInit, OnDestroy {
         !person.coreETypeLong.toLowerCase().includes(s)
       ) {
         result = false;
+      } else {
+        this.sortBy = 'ennea';
       }
     } else if (searchModel.eTypeStrings.includes(s)) {
       // 9w1, 6w7, etc
       if (!person.eType || !person.eType.toLowerCase().includes(s)) {
         result = false;
+      } else {
+        this.sortBy = 'ennea';
       }
     } else if (searchModel.trifixStrings.includes(s)) {
       // 936, 541, etc
       if (person.trifix !== s) {
         result = false;
+      } else {
+        this.sortBy = 'ennea';
       }
     } else if (searchModel.socionicsTypes.includes(s)) {
       if (!person.wssType || person.wssType.toLowerCase() !== s) {

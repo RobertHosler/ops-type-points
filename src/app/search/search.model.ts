@@ -654,13 +654,13 @@ comboTerms.set('sifi', { strings: ['si/fi'] });
 comboTerms.set('niti', { strings: ['ni/ti'] });
 comboTerms.set('nifi', { strings: ['ni/fi'] });
 
-comboTerms.set('sosp', { strings: ['so/sp'] });
-comboTerms.set('sosx', { strings: ['so/sx'] });
-comboTerms.set('spsx', { strings: ['sp/sx'] });
-comboTerms.set('spso', { strings: ['sp/so'] });
-comboTerms.set('sxso', { strings: ['sx/so'] });
-comboTerms.set('sxsp', { strings: ['sx/sp'] });
-
+const enneaTerms = new Map();
+enneaTerms.set('sosp', { strings: ['so/sp'] });
+enneaTerms.set('sosx', { strings: ['so/sx'] });
+enneaTerms.set('spsx', { strings: ['sp/sx'] });
+enneaTerms.set('spso', { strings: ['sp/so'] });
+enneaTerms.set('sxso', { strings: ['sx/so'] });
+enneaTerms.set('sxsp', { strings: ['sx/sp'] });
 
 
 comboTerms.set('alpha', {
@@ -1155,7 +1155,9 @@ personTerms.set('sfirst', {
     return person.animals && person.animals.startsWith('S');
   },
 });
-personTerms.set('male', {
+
+const sexTerms = new Map();
+sexTerms.set('male', {
   match: (person: TypedPerson) => {
     return (
       person.sex &&
@@ -1164,7 +1166,7 @@ personTerms.set('male', {
     );
   },
 });
-personTerms.set('female', {
+sexTerms.set('female', {
   match: (person: TypedPerson) => {
     return (
       person.sex &&
@@ -1177,22 +1179,21 @@ personTerms.set('female', {
 /**
  * Special terms which will be checked for in the list of tags
  */
-const tagTerms = [
-  'class',
-  'academy',
-  'daa',
-  'spec',
-  'speculation',
-  'incomplete',
-  'ennea',
-  'enneagram',
-  'subjective',
-  'faytabase',
-  'community',
-  'wss',
-  'ops',
-  'bhe',
-];
+const tagTerms = new Map();
+tagTerms.set('class', { sortBy: 'ops' });
+tagTerms.set('academy', { sortBy: 'ennea' });
+tagTerms.set('daa', { sortBy: 'ennea' });
+tagTerms.set('spec', { sortBy: '' });
+tagTerms.set('speculation', { sortBy: '' });
+tagTerms.set('incomplete', { sortBy: '' });
+tagTerms.set('ennea', { sortBy: 'ennea' });
+tagTerms.set('enneagram', { sortBy: 'ennea' });
+tagTerms.set('subjective', { sortBy: 'ops' });
+tagTerms.set('faytabase', { sortBy: 'ennea' });
+tagTerms.set('community', { sortBy: '' });
+tagTerms.set('wss', { sortBy: '' });
+tagTerms.set('ops', { sortBy: 'ops' });
+tagTerms.set('bhe', { sortBy: 'ennea' });
 
 const socionicsTypes = [
   'ile',
@@ -1464,8 +1465,10 @@ export const searchModel = {
   trifixStrings: trifixStrings,
   trifixStacks: trifixStacks,
   comboTerms: comboTerms,
+  enneaTerms: enneaTerms,
   tagTerms: tagTerms,
   personTerms: personTerms,
+  sexTerms: sexTerms,
   predictions: predictions,
   socionicsTypes: socionicsTypes,
   typeAhead: typeAhead,
