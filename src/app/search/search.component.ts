@@ -535,29 +535,28 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (searchModel.comboTerms.get(s)) {
+    let term = searchModel.comboTerms.get(s);
+    if (term) {
       let result = false;
-      let first = searchModel.comboTerms.get(s).strings[0];
-      if (Array.isArray(first)) {
+      let firstEl = term.strings[0];
+      if (Array.isArray(firstEl)) {
         // array of arrays - for each array - determine if successful
         // all arrays must pass
-        let arrayResults = true;
-        let arrResult = false;
-        searchModel.comboTerms.get(s).strings.forEach((arr: string[]) => {
-        if (arrayResults) {
-            arrResult = false;
-            arr.forEach((comboS: string) => {
-              if (!arrResult) {
-                arrResult = this.matchTextPartsDecoded(person, comboS);
-              }
-            });
-            // if arrayResults indicate success - update to potential non-success
-            arrayResults = arrResult;
-          }
-        });
+        let arrayResults = false;
+        if (Array.isArray(firstEl[0])) {
+          // array of arrays of arrays
+          term.strings.forEach((arr: string[][]) => {
+            if (!arrayResults) {
+              arrayResults = this.matchArray(arr, person);
+            }
+          });
+        } else {
+          let options = term.strings;
+          arrayResults = this.matchArray(options, person);
+        }
         result = arrayResults;
       } else {
-        searchModel.comboTerms.get(s).strings.forEach((subS: string) => {
+        term.strings.forEach((subS: string) => {
           if (!result) {
             result = this.matchTextPartsDecoded(person, subS);
           }
@@ -598,6 +597,24 @@ export class SearchComponent implements OnInit, OnDestroy {
   //     arrayResults = arrResult;
   //   }
   // }
+
+  private matchArray(options: string[][], person: TypedPerson) {
+    let arrResult = false;
+    let arrayResults = true;
+    options.forEach((arr: string[]) => {
+      if (arrayResults) {
+        arrResult = false;
+        arr.forEach((comboS: string) => {
+          if (!arrResult) {
+            arrResult = this.matchTextPartsDecoded(person, comboS);
+          }
+        });
+        // if arrayResults indicate success - update to potential non-success
+        arrayResults = arrResult;
+      }
+    });
+    return arrayResults;
+  }
 
   private matchTextPartsDecoded(person: TypedPerson, s: string) {
     let result = true;

@@ -467,81 +467,97 @@ comboTerms.set('infp', { strings: ['fi/ne', 'fi/si', 'infp'] });
 comboTerms.set('isfp', { strings: ['fi/se', 'fi/ni', 'isfp'] });
 comboTerms.set('intp', { strings: ['ti/ne', 'ti/si', 'intp'] });
 comboTerms.set('istp', { strings: ['ti/se', 'ti/ni', 'istp'] });
+const ipStrings = [
+  'fi/ne',
+  'fi/si',
+  'infp',
+  'fi/se',
+  'fi/ni',
+  'isfp',
+  'ti/ne',
+  'ti/si',
+  'intp',
+  'ti/se',
+  'ti/ni',
+  'istp',
+];
 comboTerms.set('ixxp', {
-  strings: [
-    'fi/ne',
-    'fi/si',
-    'infp',
-    'fi/se',
-    'fi/ni',
-    'isfp',
-    'ti/ne',
-    'ti/si',
-    'intp',
-    'ti/se',
-    'ti/ni',
-    'istp',
-  ],
+  strings: ipStrings,
+});
+comboTerms.set('ip', {
+  strings: ipStrings,
 });
 comboTerms.set('entp', { strings: ['ne/ti', 'ne/fe', 'entp'] });
 comboTerms.set('estp', { strings: ['se/ti', 'se/fe', 'estp'] });
 comboTerms.set('enfp', { strings: ['ne/fi', 'ne/te', 'enfp'] });
 comboTerms.set('esfp', { strings: ['se/fi', 'se/te', 'esfp'] });
+const exxpStrings = [
+  'ne/ti',
+  'ne/fe',
+  'entp',
+  'se/ti',
+  'se/fe',
+  'estp',
+  'ne/fi',
+  'ne/te',
+  'enfp',
+  'se/fi',
+  'se/te',
+  'esfp',
+];
 comboTerms.set('exxp', {
-  strings: [
-    'ne/ti',
-    'ne/fe',
-    'entp',
-    'se/ti',
-    'se/fe',
-    'estp',
-    'ne/fi',
-    'ne/te',
-    'enfp',
-    'se/fi',
-    'se/te',
-    'esfp',
-  ],
+  strings: exxpStrings,
+});
+comboTerms.set('ep', {
+  strings: exxpStrings,
 });
 comboTerms.set('istj', { strings: ['si/te', 'si/fi', 'istj'] });
 comboTerms.set('intj', { strings: ['ni/te', 'ni/fi', 'intj'] });
 comboTerms.set('isfj', { strings: ['si/fe', 'si/ti', 'isfj'] });
 comboTerms.set('infj', { strings: ['ni/fe', 'ni/ti', 'infj'] });
+const ixxjStrings = [
+  'si/te',
+  'si/fi',
+  'istj',
+  'ni/te',
+  'ni/fi',
+  'intj',
+  'si/fe',
+  'si/ti',
+  'isfj',
+  'ni/fe',
+  'ni/ti',
+  'infj',
+];
 comboTerms.set('ixxj', {
-  strings: [
-    'si/te',
-    'si/fi',
-    'istj',
-    'ni/te',
-    'ni/fi',
-    'intj',
-    'si/fe',
-    'si/ti',
-    'isfj',
-    'ni/fe',
-    'ni/ti',
-    'infj',
-  ],
+  strings: ixxjStrings,
+});
+comboTerms.set('ij', {
+  strings: ixxjStrings,
 });
 comboTerms.set('estj', { strings: ['te/si', 'te/ne', 'estj'] });
 comboTerms.set('entj', { strings: ['te/ni', 'te/se', 'entj'] });
 comboTerms.set('esfj', { strings: ['fe/si', 'fe/ne', 'esfj'] });
 comboTerms.set('enfj', { strings: ['fe/ni', 'fe/se', 'enfj'] });
+const exxjStrings = [
+  'fe/ni',
+  'fe/se',
+  'enfj',
+  'fe/si',
+  'fe/ne',
+  'esfj',
+  'te/ni',
+  'te/se',
+  'entj',
+  'te/si',
+  'te/ne',
+  'estj',
+];
 comboTerms.set('exxj', {
-  strings: [
-    'fe/ni',
-    'fe/se',
-    'enfj',
-    'fe/si',
-    'fe/ne',
-    'esfj',
-    'te/ni',
-    'te/se',
-    'entj',
-    'te/si',
-    'te/ne',
-    'estj',
-  ],
+  strings: exxjStrings,
+});
+comboTerms.set('ej', {
+  strings: exxjStrings,
 });
 comboTerms.set('oe', { strings: ['se', 'ne', 'oe'] });
 comboTerms.set('gather', { strings: ['se', 'ne', 'oe'] });
@@ -572,6 +588,12 @@ comboTerms.set('tester', { strings: ['ff'] });
 comboTerms.set('kinesthetic', { strings: ['mm'] });
 comboTerms.set('info', { strings: ['(p)', '(s)'] });
 comboTerms.set('energy', { strings: ['(b)', '(c)'] });
+comboTerms.set('introvert', { strings: ['(p)', '(b)'] });
+comboTerms.set('extrovert', { strings: ['(c)', '(s)'] });
+comboTerms.set('skib', { strings: ['cp', 'pc'] });
+comboTerms.set('mope', { strings: ['cs', 'sc'] });
+comboTerms.set('crackhead', { strings: ['bp', 'pb'] });
+comboTerms.set('douchebag', { strings: ['bs', 'sb'] });
 
 comboTerms.set('pcsb', { strings: ['pc/s'] });
 comboTerms.set('pcs', { strings: ['pc/s'] });
@@ -582,6 +604,21 @@ comboTerms.set('pbc', { strings: ['pb/c'] });
 comboTerms.set('pbsc', { strings: ['pb/s'] });
 comboTerms.set('pbs', { strings: ['pb/s'] });
 
+comboTerms.set('pc/sb', { strings: ['pc/s'] });
+comboTerms.set('pc/s(b)', { strings: ['pc/s'] });
+comboTerms.set('pc/s', { strings: ['pc/s'] });
+comboTerms.set('pc/bs', { strings: ['pc/b'] });
+comboTerms.set('pc/b(s)', { strings: ['pc/b'] });
+comboTerms.set('pc/b', { strings: ['pc/b'] });
+comboTerms.set('pc/', { strings: ['pc/'] });
+comboTerms.set('pb/cs', { strings: ['pb/c'] });
+comboTerms.set('pb/c(s)', { strings: ['pb/c'] });
+comboTerms.set('pb/c', { strings: ['pb/c'] });
+comboTerms.set('pb/sc', { strings: ['pb/s'] });
+comboTerms.set('pb/s(c)', { strings: ['pb/s'] });
+comboTerms.set('pb/s', { strings: ['pb/s'] });
+comboTerms.set('pb/', { strings: ['pb/'] });
+
 comboTerms.set('sbc', { strings: ['sb/c'] });
 comboTerms.set('sbcp', { strings: ['sb/c'] });
 comboTerms.set('sbpc', { strings: ['sb/p'] });
@@ -590,6 +627,21 @@ comboTerms.set('scpb', { strings: ['sc/p'] });
 comboTerms.set('scp', { strings: ['sc/p'] });
 comboTerms.set('scbp', { strings: ['sc/b'] });
 comboTerms.set('scb', { strings: ['sc/b'] });
+
+comboTerms.set('sb/c', { strings: ['sb/c'] });
+comboTerms.set('sb/cp', { strings: ['sb/c'] });
+comboTerms.set('sb/c(p)', { strings: ['sb/c'] });
+comboTerms.set('sb/pc', { strings: ['sb/p'] });
+comboTerms.set('sb/p(c)', { strings: ['sb/p'] });
+comboTerms.set('sb/p', { strings: ['sb/p'] });
+comboTerms.set('sb/', { strings: ['sb/'] });
+comboTerms.set('sc/pb', { strings: ['sc/p'] });
+comboTerms.set('sc/p(b)', { strings: ['sc/p'] });
+comboTerms.set('sc/p', { strings: ['sc/p'] });
+comboTerms.set('sc/bp', { strings: ['sc/b'] });
+comboTerms.set('sc/b(p)', { strings: ['sc/b'] });
+comboTerms.set('sc/b', { strings: ['sc/b'] });
+comboTerms.set('sc/', { strings: ['sc/'] });
 
 comboTerms.set('csbp', { strings: ['cs/b'] });
 comboTerms.set('csb', { strings: ['cs/b'] });
@@ -600,6 +652,21 @@ comboTerms.set('cps', { strings: ['cp/s'] });
 comboTerms.set('cpbs', { strings: ['cp/b'] });
 comboTerms.set('cpb', { strings: ['cp/b'] });
 
+comboTerms.set('cs/bp', { strings: ['cs/b'] });
+comboTerms.set('cs/b(p)', { strings: ['cs/b'] });
+comboTerms.set('cs/b', { strings: ['cs/b'] });
+comboTerms.set('cs/pb', { strings: ['cs/p'] });
+comboTerms.set('cs/p(b)', { strings: ['cs/p'] });
+comboTerms.set('cs/p', { strings: ['cs/p'] });
+comboTerms.set('cs/', { strings: ['cs/'] });
+comboTerms.set('cp/sb', { strings: ['cp/s'] });
+comboTerms.set('cp/s(b)', { strings: ['cp/s'] });
+comboTerms.set('cp/s', { strings: ['cp/s'] });
+comboTerms.set('cp/bs', { strings: ['cp/b'] });
+comboTerms.set('cp/b(s)', { strings: ['cp/b'] });
+comboTerms.set('cp/b', { strings: ['cp/b'] });
+comboTerms.set('cp/', { strings: ['cp/'] });
+
 comboTerms.set('bspc', { strings: ['bs/p'] });
 comboTerms.set('bsp', { strings: ['bs/p'] });
 comboTerms.set('bscp', { strings: ['bs/c'] });
@@ -608,6 +675,21 @@ comboTerms.set('bpsc', { strings: ['bp/s'] });
 comboTerms.set('bps', { strings: ['bp/s'] });
 comboTerms.set('bpcs', { strings: ['bp/c'] });
 comboTerms.set('bpc', { strings: ['bp/c'] });
+
+comboTerms.set('bs/pc', { strings: ['bs/p'] });
+comboTerms.set('bs/p(c)', { strings: ['bs/p'] });
+comboTerms.set('bs/p', { strings: ['bs/p'] });
+comboTerms.set('bs/cp', { strings: ['bs/c'] });
+comboTerms.set('bs/c(p)', { strings: ['bs/c'] });
+comboTerms.set('bs/c', { strings: ['bs/c'] });
+comboTerms.set('bs/', { strings: ['bs/'] });
+comboTerms.set('bp/sc', { strings: ['bp/s'] });
+comboTerms.set('bp/s(c)', { strings: ['bp/s'] });
+comboTerms.set('bp/s', { strings: ['bp/s'] });
+comboTerms.set('bp/cs', { strings: ['bp/c'] });
+comboTerms.set('bp/c(s)', { strings: ['bp/c'] });
+comboTerms.set('bp/c', { strings: ['bp/c'] });
+comboTerms.set('bp/', { strings: ['bp/'] });
 
 comboTerms.set('xxxp', { strings: ['(p)'] });
 comboTerms.set('playlast', { strings: ['(p)'] });
@@ -627,6 +709,15 @@ comboTerms.set('sefe', { strings: ['se/fe'] });
 comboTerms.set('nete', { strings: ['ne/te'] });
 comboTerms.set('nefe', { strings: ['ne/fe'] });
 
+comboTerms.set('te/se', { strings: ['te/se'] });
+comboTerms.set('fe/se', { strings: ['fe/se'] });
+comboTerms.set('te/ne', { strings: ['te/ne'] });
+comboTerms.set('fe/ne', { strings: ['fe/ne'] });
+comboTerms.set('se/te', { strings: ['se/te'] });
+comboTerms.set('se/fe', { strings: ['se/fe'] });
+comboTerms.set('ne/te', { strings: ['ne/te'] });
+comboTerms.set('ne/fe', { strings: ['ne/fe'] });
+
 comboTerms.set('tesi', { strings: ['te/si'] });
 comboTerms.set('fesi', { strings: ['fe/si'] });
 comboTerms.set('teni', { strings: ['te/ni'] });
@@ -635,6 +726,15 @@ comboTerms.set('site', { strings: ['si/te'] });
 comboTerms.set('sife', { strings: ['si/fe'] });
 comboTerms.set('nite', { strings: ['ni/te'] });
 comboTerms.set('nife', { strings: ['ni/fe'] });
+
+comboTerms.set('te/si', { strings: ['te/si'] });
+comboTerms.set('fe/si', { strings: ['fe/si'] });
+comboTerms.set('te/ni', { strings: ['te/ni'] });
+comboTerms.set('fe/ni', { strings: ['fe/ni'] });
+comboTerms.set('si/te', { strings: ['si/te'] });
+comboTerms.set('si/fe', { strings: ['si/fe'] });
+comboTerms.set('ni/te', { strings: ['ni/te'] });
+comboTerms.set('ni/fe', { strings: ['ni/fe'] });
 
 comboTerms.set('tise', { strings: ['ti/se'] });
 comboTerms.set('fise', { strings: ['fi/se'] });
@@ -645,6 +745,15 @@ comboTerms.set('sefi', { strings: ['se/fi'] });
 comboTerms.set('neti', { strings: ['ne/ti'] });
 comboTerms.set('nefi', { strings: ['ne/fi'] });
 
+comboTerms.set('ti/se', { strings: ['ti/se'] });
+comboTerms.set('fi/se', { strings: ['fi/se'] });
+comboTerms.set('ti/ne', { strings: ['ti/ne'] });
+comboTerms.set('fi/ne', { strings: ['fi/ne'] });
+comboTerms.set('se/ti', { strings: ['se/ti'] });
+comboTerms.set('se/fi', { strings: ['se/fi'] });
+comboTerms.set('ne/ti', { strings: ['ne/ti'] });
+comboTerms.set('ne/fi', { strings: ['ne/fi'] });
+
 comboTerms.set('tisi', { strings: ['ti/si'] });
 comboTerms.set('fisi', { strings: ['fi/si'] });
 comboTerms.set('tini', { strings: ['ti/ni'] });
@@ -654,6 +763,15 @@ comboTerms.set('sifi', { strings: ['si/fi'] });
 comboTerms.set('niti', { strings: ['ni/ti'] });
 comboTerms.set('nifi', { strings: ['ni/fi'] });
 
+comboTerms.set('ti/si', { strings: ['ti/si'] });
+comboTerms.set('fi/si', { strings: ['fi/si'] });
+comboTerms.set('ti/ni', { strings: ['ti/ni'] });
+comboTerms.set('fi/ni', { strings: ['fi/ni'] });
+comboTerms.set('si/ti', { strings: ['si/ti'] });
+comboTerms.set('si/fi', { strings: ['si/fi'] });
+comboTerms.set('ni/ti', { strings: ['ni/ti'] });
+comboTerms.set('ni/fi', { strings: ['ni/fi'] });
+
 const enneaTerms = new Map();
 enneaTerms.set('sosp', { strings: ['so/sp'] });
 enneaTerms.set('sosx', { strings: ['so/sx'] });
@@ -661,7 +779,26 @@ enneaTerms.set('spsx', { strings: ['sp/sx'] });
 enneaTerms.set('spso', { strings: ['sp/so'] });
 enneaTerms.set('sxso', { strings: ['sx/so'] });
 enneaTerms.set('sxsp', { strings: ['sx/sp'] });
-
+enneaTerms.set('so/sp', { strings: ['so/sp'] });
+enneaTerms.set('so/sx', { strings: ['so/sx'] });
+enneaTerms.set('sp/sx', { strings: ['sp/sx'] });
+enneaTerms.set('sp/so', { strings: ['sp/so'] });
+enneaTerms.set('sx/so', { strings: ['sx/so'] });
+enneaTerms.set('sx/sp', { strings: ['sx/sp'] });
+enneaTerms.set('gut', { strings: ['9', '1', '8'] });
+enneaTerms.set('body', { strings: ['9', '1', '8'] });
+enneaTerms.set('heart', { strings: ['2', '3', '4'] });
+enneaTerms.set('head', { strings: ['5', '6', '7'] });
+enneaTerms.set('attachment', { strings: ['3', '6', '9'] });
+enneaTerms.set('frustration', { strings: ['1', '4', '7'] });
+enneaTerms.set('rejection', { strings: ['2', '5', '8'] });
+enneaTerms.set('reactive', { strings: ['4', '6', '8'] });
+enneaTerms.set('positive', { strings: ['2', '7', '9'] });
+enneaTerms.set('competency', { strings: ['1', '3', '5'] });
+enneaTerms.set('assertive', { strings: ['3', '7', '8'] });
+enneaTerms.set('compliant', { strings: ['1', '2', '6'] });
+enneaTerms.set('superego', { strings: ['1', '2', '6'] });
+enneaTerms.set('withdrawn', { strings: ['4', '5', '9'] });
 
 comboTerms.set('alpha', {
   strings: [
@@ -686,6 +823,82 @@ comboTerms.set('delta', {
     ['si', 'ne'],
     ['fi', 'te'],
   ],
+});
+comboTerms.set('glasslizard', {
+  strings: [
+    [
+      ['pc/s(b)'],
+      ['te/', 'fe/'],
+    ],
+    [
+      ['bs/c(p)'],
+      ['te/', 'fe/'],
+    ],
+    [
+      ['sb/p(c)'],
+      ['ti/', 'fi/'],
+    ],
+    [
+      ['cp/b(s)'],
+      ['ti/', 'fi/'],
+    ],
+    [
+      ['sc/p(b)'],
+      ['ni/', 'si/'],
+    ],
+    [
+      ['bp/c(s)'],
+      ['ni/', 'si/'],
+    ],
+    [
+      ['cs/b(p)'],
+      ['ne/', 'se/'],
+    ],
+    [
+      ['pb/s(c)'],
+      ['ne/', 'se/'],
+    ]
+  ]
+});
+comboTerms.set('fullglasslizard', {
+  strings: [
+    [
+      ['pc/s(b)'],
+      ['te/', 'fe/'],
+    ],
+    [
+      ['sb/p(c)'],
+      ['ti/', 'fi/'],
+    ],
+    [
+      ['sc/p(b)'],
+      ['ni/', 'si/'],
+    ],
+    [
+      ['pb/s(c)'],
+      ['ne/', 'se/'],
+    ]
+  ]
+});
+comboTerms.set('halfglasslizard', {
+  strings: [
+    [
+      ['bs/c(p)'],
+      ['te/', 'fe/'],
+    ],
+    [
+      ['cp/b(s)'],
+      ['ti/', 'fi/'],
+    ],
+    [
+      ['bp/c(s)'],
+      ['ni/', 'si/'],
+    ],
+    [
+      ['cs/b(p)'],
+      ['ne/', 'se/'],
+    ],
+  ]
 });
 
 const oi = ['ni', 'si', 'oi'];
@@ -1110,7 +1323,17 @@ personTerms.set('decider', {
     return person.coreNeed === 'Decider';
   },
 });
+personTerms.set('oo', {
+  match: (person: TypedPerson) => {
+    return person.coreNeed === 'Decider';
+  },
+});
 personTerms.set('observer', {
+  match: (person: TypedPerson) => {
+    return person.coreNeed === 'Observer';
+  },
+});
+personTerms.set('dd', {
   match: (person: TypedPerson) => {
     return person.coreNeed === 'Observer';
   },
@@ -1376,6 +1599,10 @@ const opsRules = [
   {
     label: 'Sex',
     examples: ['ops Male', 'ops Female'],
+  },
+  {
+    label: 'Glass Lizards',
+    examples: ['glasslizard'],
   },
   {
     label: 'Community Members',
