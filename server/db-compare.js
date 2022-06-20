@@ -30,7 +30,8 @@ function compareEnnea(scrapeData, enneaDb) {
       let data = result.exclusiveToScrape[i];
       if (
         !nameFound &&
-        eVal.name.toLowerCase().trim() === data.name.toLowerCase().trim()
+        (eVal.name.toLowerCase().trim() === data.name.toLowerCase().trim() ||
+        (eVal.altName && eVal.altName.toLowerCase().trim() === data.name.toLowerCase().trim()))
       ) {
         // Name Match - Check type match
         const fullTypeOverlay = eVal.instinct + " " + eVal.eType + " " + eVal.trifix + eVal.overlay;
@@ -64,7 +65,7 @@ function compareEnnea(scrapeData, enneaDb) {
         break;
       }
     }
-    if (!nameFound) {
+    if (!nameFound && !eVal.tags.includes('Community Member')) {
       result.exclusiveToDb.push(eVal);
     }
   }
