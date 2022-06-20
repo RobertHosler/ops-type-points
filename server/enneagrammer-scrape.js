@@ -57,6 +57,9 @@ function buildData($) {
       type = colText.trim();
     } else if (x % numberOfColumns === 3) {
       trifix = colText;
+      if (trifix) {
+        trifix = trifix.replace(/[^0-9\(\)]/g, '');
+      }
       if (logNames.includes(name)) {
         console.log(name, instinct, type, trifix);
       }
