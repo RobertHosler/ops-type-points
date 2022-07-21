@@ -143,7 +143,7 @@ function convertRecords(records) {
 
     const instinct = record.fields.Instinct
       ? record.fields.Instinct.toLowerCase()
-      : "??/??";
+      : "";
     const eType = record.fields.Type;
     const fullTrifix = record.fields.Trifix;
     const trifix = buildTritype(fullTrifix);
@@ -368,6 +368,15 @@ function mergeMaps(nameMap, eTypeMap) {
           nameVal.tags.push(tag);
         }
       });
+      nameVal.enneaTags = nameVal.enneaTags ? nameVal.enneaTags : [];
+      if (eVal.tags.includes("Speculation")) {
+        nameVal.enneaTags.push("Speculation");
+      }
+      let personTags = nameVal.personTags ? nameVal.personTags : [];
+      if (nameVal.tags.includes("Community Member") && !personTags.includes("Community Member")) {
+        personTags.push("Community Member");
+      }
+      nameVal.personTags = personTags;
       if (eVal.pictureUrl) {
         nameVal.pictureUrl = eVal.pictureUrl;
       }
@@ -382,8 +391,15 @@ function mergeMaps(nameMap, eTypeMap) {
       // Add to nameMap
       i++;
       let ytLink = '';
+      let personTags = [];
       if (!eVal.tags.includes('Community Member')) {
         ytLink = 'https://www.youtube.com/results?search_query='+ eKey + ' interview';
+      } else {
+        personTags.push("Community Member");
+      }
+      let enneaTags = [];
+      if (eVal.tags.includes("Speculation")) {
+        enneaTags.push("Speculation");
       }
       nameMap.set(eKey, {
         name: eKey,
@@ -401,6 +417,8 @@ function mergeMaps(nameMap, eTypeMap) {
         fullEType: eVal.fullEType,
         fullETypeOverlay: eVal.fullETypeOverlay,
         tags: eVal.tags,
+        personTags: personTags,
+        enneaTags: enneaTags,
         enneaNotes: eVal.enneaNotes,
         enneaLinks: eVal.enneaLinks,
         daaLink: eVal.daaLink,

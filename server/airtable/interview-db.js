@@ -21,6 +21,7 @@ const fields = [
   "Notes",
   "Tags",
   "Override Picture",
+  "Not Community",
   "Last Modified",
   "Created Date",
 ];
@@ -102,7 +103,9 @@ function convertRecords(records) {
     if (!enfp || !bin) {
       // tags.push("YouTube");
     }
-    tags.push("Community Member");
+    if (!record.fields["Not Community"]) {
+      tags.push("Community Member");
+    }
     let ytLink = '';
     if (bin) {
       ytLink = bin.split('\n')[0];
@@ -153,6 +156,11 @@ function mergeMaps(nameMap, interviewMap) {
         }
       });
       nameVal.tags = tags;
+      let personTags = nameVal.personTags ? nameVal.personTags : [];
+      if (tags.includes("Community Member") && !personTags.includes("Community Member")) {
+        personTags.push("Community Member");
+      }
+      nameVal.personTags = personTags;
       if (val.pictureUrl && val.overridePicture) {
         nameVal.pictureUrl = val.pictureUrl;
       }
@@ -212,6 +220,10 @@ function mergeMaps(nameMap, interviewMap) {
         s2 = typeArr[1].substring(2, 4);
         animals = type.substring(9, 13);
       }
+      let personTags = [];
+      if (tags.includes('Community Member')) {
+        personTags.push("Community Member");
+      }
       nameMap.set(key, {
         name: key,
         type: type,
@@ -235,6 +247,7 @@ function mergeMaps(nameMap, interviewMap) {
         sex: val.sex,
         trans: false,
         tags: tags,
+        personTags: personTags,
         binLink: val.binLink,
         enfpLink: val.enfpLink,
         otherLinks: val.otherLinks,

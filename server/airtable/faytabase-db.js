@@ -89,6 +89,7 @@ function convertRecords(records) {
       trifix: record.fields.Trifix,
       sex: record.fields.Sex,
       tags: tags,
+      enneaTags: tags,
       enneaNotes: record.fields.Notes,
       enneaLinks: record.fields.Links,
       pictureUrl: getRecordPicture(record.fields.Picture),
@@ -183,9 +184,13 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.fullTrifix = eVal.trifix; // 9w1 6w5 3w4 (may contain wings)
       nameVal.trifix = buildTritype(eVal.trifix); // 963 (no wings)
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
+      nameVal.enneaTags = nameVal.enneaTags ? nameVal.enneaTags : [];
       eVal.tags.forEach(tag => {
         if (!nameVal.tags.includes(tag)) {
           nameVal.tags.push(tag);
+        }
+        if (!nameVal.enneaTags.includes(tag)) {
+          nameVal.enneaTags.push(tag);
         }
       });
       if (eVal.pictureUrl) {
@@ -214,6 +219,7 @@ function mergeMaps(nameMap, eTypeMap) {
         collageUrl: eVal.collageUrl,
         fullEType: buildFullEType(eVal),
         tags: eVal.tags,
+        enneaTags: eVal.enneaTags,
         enneaNotes: eVal.enneaNotes,
         enneaLinks: eVal.enneaLinks,
         ytLink: ytLink,

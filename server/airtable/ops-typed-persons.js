@@ -118,6 +118,10 @@ const converterList = [
     org: "Olivia a/k/a Thinker of Everything",
     result: "Olivia - Thinker of Everything",
   },
+  {
+    org: "Cody Talks",
+    result: "Cody Harman",
+  },
   { org: "ATHLEAN-X™ a/k/a Jeff Cavaliere", result: "Jeff Cavaliere" },
   { org: "Engineering Explained a/k/a Jason Fenske", result: "Jason Fenske" },
   {
@@ -149,7 +153,7 @@ const converterList = [
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
   { org: "Kim Kardashian", result: "Kim Kardashian West" },
   { org: "50 Cent", result: "Curtis '50 Cent' Jackson" },
-  { org: "Dwayne Johnson (a/k/a The Rock)", result: "Dwayne 'The Rock' Johnson" },
+  { org: "Dwayne Johnson a/k/a The Rock", result: "Dwayne 'The Rock' Johnson" },
   { org: "New Gingrich", result: "Newt Gingrich" },
   { org: "Warren Buffet", result: "Warren Buffett" },
   { org: "Alex McQueen", result: "Alexander McQueen" },
@@ -275,9 +279,16 @@ function convertPersons(records) {
         tags.push(tag);
       }
     });
+    let opsTags = [];
+    if (tags.includes("Speculation") && !tags.includes("Incomplete")) {
+      opsTags.push("Speculation");
+    }
     let ytLink = '';
+    let personTags = [];
     if (!tags.includes('Community Member')) {
       ytLink = 'https://www.youtube.com/results?search_query='+ name + ' interview';
+    } else {
+      personTags.push("Community Member");
     }
     const links = record.fields.Links;
     const linkObj = links ? buildLinks(links) : {};
@@ -287,7 +298,9 @@ function convertPersons(records) {
       type: record.fields.Type,
       typeNumber: record.fields["Type Number"],
       pictureUrl: getRecordPicture(record.fields.Picture),
+      opsTags: opsTags,
       tags: tags,
+      personTags: personTags,
       mod: "??",
       s1: "??",
       s2: "??",

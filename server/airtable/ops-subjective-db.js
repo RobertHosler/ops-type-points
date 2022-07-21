@@ -156,12 +156,22 @@ function mergeMaps(nameMap, interviewMap) {
       if (nameVal) {
         // Merge records
         let tags = nameVal.tags ? nameVal.tags : [];
+        let opsTags = nameVal.opsTags ? nameVal.opsTags : [];
         val.tags.forEach((tag) => {
           if (!tags.includes(tag)) {
             tags.push(tag);
           }
+          if (!opsTags.includes(tag)) {
+            opsTags.push(tag);
+          }
         });
         nameVal.tags = tags;
+        nameVal.opsTags = opsTags;
+        let personTags = nameVal.personTags ? nameVal.personTags : [];
+        if (tags.includes("Community Member") && !personTags.includes("Community Member")) {
+          personTags.push("Community Member");
+        }
+        nameVal.personTags = personTags;
         if (val.pictureUrl && val.overridePicture) {
           nameVal.pictureUrl = val.pictureUrl;
         }
@@ -197,6 +207,10 @@ function mergeMaps(nameMap, interviewMap) {
         matches.push(key);
       } else {
         // create new nameVal
+        let personTags = [];
+        if (tags.includes("Community Member")) {
+          personTags.push("Community Member");
+        }
         nameMap.set(key, {
           name: key,
           type: type,
@@ -218,6 +232,8 @@ function mergeMaps(nameMap, interviewMap) {
           sex: val.sex,
           trans: false,
           tags: tags,
+          opsTags: tags,
+          personTags: personTags,
           otherLinks: val.links,
           ytLink: ytLink,
           lastModified: val.lastModified

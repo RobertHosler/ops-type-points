@@ -29,6 +29,10 @@
         </div>
         <div class="image-wrapper">
           <div class="link-row" *ngIf="!displayPracticeLink">
+            <span *ngIf="typeRecord.tags.includes('Community Member')" class="community-member-logo"
+                popover="Community Member" triggers="mouseenter:mouseleave" placement="top">
+                <img src="/assets/images/sp-logo-no-bg.png" />
+            </span>
             <a [href]="typeRecord.classLink ? typeRecord.classLink.href : 'https://docs.google.com/document/u/0/d/1lNO4NjYwvPQYSBhHZNzTiFTTVfhitOWlFsdvr-WTX9g/mobilebasic'"
                 *ngIf="typeRecord.tags && typeRecord.tags.includes('OPS Class Typing')"
                 popover="OPS Class" triggers="mouseenter:mouseleave" placement="top"
@@ -98,7 +102,7 @@
         >
           <div class="image-name">
             <div [ngClass]="{ 'image-name-label': true }">
-              {{ typeRecord.name }}
+                {{ typeRecord.name }}
             </div>
           </div>
           <div *ngIf="!displayPracticeLink && typeIndicator">
@@ -122,34 +126,41 @@
             *ngIf="!displayPracticeLink && !typeIndicator"
           >
             <div class="image-type" *ngIf="typeRecord.type">
-              <span *ngIf="typeRecord.tags && typeRecord.tags.includes('Subjective')"
-                  popover="This OPS type data is a type guess from Subjective Personality."
-                  triggers="mouseenter:mouseleave" placement="right"
+              <span *ngIf="typeRecord.opsTags && typeRecord.opsTags.length"
+                  [popover]="typeRecord.opsTags"
+                  triggers="mouseenter:mouseleave" placement="bottom"
                 >
                   {{ typeRecord.type }} <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
               </span>
-              <span *ngIf="typeRecord.tags && !typeRecord.tags.includes('Subjective')">
-                {{ typeRecord.type }}
-            </span>
+              <span *ngIf="!typeRecord.opsTags || !typeRecord.opsTags.length">
+                  {{ typeRecord.type }}
+              </span>
             </div>
             <div class="image-type" *ngIf="typeRecord.fullEType">
-              <span *ngIf="typeRecord.tags && typeRecord.tags.includes('Faytabase')"
-                  popover="This additional Enneagram type data provided through a collaboration between Subjective Personality and Fay Willow."
-                  triggers="mouseenter:mouseleave" placement="bottom"
-                >
+              <div *ngIf="typeRecord.enneaTags && typeRecord.enneaTags.length">
+                <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType + ' ' + typeRecord.enneaTags"
+                    triggers="mouseenter:mouseleave" placement="bottom">
+                    <span *ngIf="typeRecord.emphasizedNumber"
+                        [innerHTML]="emphasize(typeRecord.fullETypeOverlay, typeRecord.emphasizedNumber)"></span>
+                    <span *ngIf="!typeRecord.emphasizedNumber">{{ typeRecord.fullETypeOverlay }}</span> <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+                </span>
+                <span *ngIf="!typeRecord.overlay"
+                    [popover]="typeRecord.enneaTags"
+                    triggers="mouseenter:mouseleave" placement="bottom">
                   {{ typeRecord.fullEType }} <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
-              </span>
-              <span *ngIf="typeRecord.tags && !typeRecord.tags.includes('Faytabase')">
-                <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType"
-                  triggers="mouseenter:mouseleave" placement="bottom">
-                   <span *ngIf="typeRecord.emphasizedNumber"
-                      [innerHTML]="emphasize(typeRecord.fullETypeOverlay, typeRecord.emphasizedNumber)"></span>
-                   <span *ngIf="!typeRecord.emphasizedNumber">{{ typeRecord.fullETypeOverlay }}</span>
                 </span>
-                <span *ngIf="!typeRecord.overlay">
-                  {{ typeRecord.fullEType }}
-                </span>
-              </span>
+              </div>
+              <div *ngIf="!typeRecord.enneaTags || !typeRecord.enneaTags.length">
+                  <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType"
+                      triggers="mouseenter:mouseleave" placement="bottom">
+                     <span *ngIf="typeRecord.emphasizedNumber"
+                          [innerHTML]="emphasize(typeRecord.fullETypeOverlay, typeRecord.emphasizedNumber)"></span>
+                     <span *ngIf="!typeRecord.emphasizedNumber">{{ typeRecord.fullETypeOverlay }}</span>
+                  </span>
+                  <span *ngIf="!typeRecord.overlay">
+                    {{ typeRecord.fullEType }}
+                  </span>
+              </div>
             </div>
             <div class="image-type" *ngIf="typeRecord.wssType">
               {{ typeRecord.wssType }}

@@ -227,6 +227,9 @@ export class TypedPerson {
   type?: string;
   typeNumber?: string;
   tags?: string[];
+  personTags?: string[];
+  opsTags?: string[];
+  enneaTags?: string[];
   coreNeed?: string;
   deciderNeed?: string;
   observerNeed?: string;
