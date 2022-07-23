@@ -161,6 +161,11 @@ function mergeMaps(nameMap, interviewMap) {
         personTags.push("Community Member");
       }
       nameVal.personTags = personTags;
+      let opsTags = nameVal.opsTags ? nameVal.opsTags : [];
+      if (tags.includes("Speculation") && !opsTags.includes("Speculation")) {
+        opsTags.push("Speculation");
+      }
+      nameVal.opsTags = opsTags;
       if (val.pictureUrl && val.overridePicture) {
         nameVal.pictureUrl = val.pictureUrl;
       }
@@ -178,6 +183,7 @@ function mergeMaps(nameMap, interviewMap) {
       // Add new record
       i++;
       let tags = val.tags;
+      let opsTags = [];
       let type = "";
       let coreNeed = "";
       let deciderNeed = "";
@@ -224,6 +230,9 @@ function mergeMaps(nameMap, interviewMap) {
       if (tags.includes('Community Member')) {
         personTags.push("Community Member");
       }
+      if (tags.includes("Speculation")) {
+        opsTags.push("Speculation");
+      }
       nameMap.set(key, {
         name: key,
         type: type,
@@ -247,6 +256,7 @@ function mergeMaps(nameMap, interviewMap) {
         sex: val.sex,
         trans: false,
         tags: tags,
+        opsTags: opsTags,
         personTags: personTags,
         binLink: val.binLink,
         enfpLink: val.enfpLink,

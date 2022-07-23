@@ -68,7 +68,6 @@ const opsTypedPersons = {
 
 // Exclude select names
 const exclusionsList = [
-  "Jesus",
   "Christopher Columbus",
   "Batman",
   "The Joker",
