@@ -118,6 +118,10 @@ const converterList = [
     result: "Olivia - Thinker of Everything",
   },
   {
+    org: "Taylor Zombie",
+    result: "Taylor Momsen",
+  },
+  {
     org: "Cody Talks",
     result: "Cody Harman",
   },
