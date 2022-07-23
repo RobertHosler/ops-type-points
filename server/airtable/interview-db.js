@@ -103,10 +103,12 @@ function convertRecords(records) {
     if (!enfp || !bin) {
       // tags.push("YouTube");
     }
+    let ytLink = '';
     if (!record.fields["Not Community"]) {
       tags.push("Community Member");
+    } else {
+      ytLink = 'https://www.youtube.com/results?search_query='+ name + ' interview';
     }
-    let ytLink = '';
     if (bin) {
       ytLink = bin.split('\n')[0];
     } else if (enfp) {
@@ -172,7 +174,7 @@ function mergeMaps(nameMap, interviewMap) {
       nameVal.binLink = val.binLink;
       nameVal.enfpLink = val.enfpLink;
       nameVal.otherLinks = val.otherLinks;
-      nameVal.ytLink = val.ytLink;
+      nameVal.ytLink = val.ytLink ? val.ytLink : nameVal.ytLink;
       nameVal.sex = nameVal.sex ? nameVal.sex : val.sex;
       nameVal.trans = nameVal.trans ? nameVal.trans : false;
       if (compareModifiedDates(nameVal.lastModified, val.lastModified) > 0) {
