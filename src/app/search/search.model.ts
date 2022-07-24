@@ -1418,6 +1418,7 @@ tagTerms.set('subjective', { sortBy: 'ops' });
 tagTerms.set('faytabase', { sortBy: 'ennea' });
 tagTerms.set('community', { sortBy: '' });
 tagTerms.set('wss', { sortBy: '' });
+tagTerms.set('analysis', { sortBy: '' });
 tagTerms.set('ops', { sortBy: 'ops' });
 tagTerms.set('bhe', { sortBy: 'ennea' });
 
@@ -1427,20 +1428,20 @@ const socionicsTypes = [
   'ese',
   'sei',
 
+  'sle',
+  'lsi',
   'eie',
   'iei',
-  'lsi',
-  'sle',
 
-  'lie',
-  'ili',
   'see',
   'esi',
+  'lie',
+  'ili',
 
   'iee',
   'eii',
-  'sli',
   'lse',
+  'sli',
 ];
 
 const typeAhead = [];
@@ -1636,6 +1637,26 @@ const wssRules = [
   {
     label: 'WSS Tagged',
     examples: ['wss'],
+  },
+  {
+    label: 'WSS Analysis',
+    examples: ['analysis eie', 'analysis lii'],
+  },
+  {
+    label: 'Alpha',
+    examples: ['ile', 'lii', 'ese', 'sei'],
+  },
+  {
+    label: 'Beta',
+    examples: ['sle', 'lsi', 'eie', 'iei'],
+  },
+  {
+    label: 'Gamma',
+    examples: ['see', 'esi', 'lie', 'ili'],
+  },
+  {
+    label: 'Delta',
+    examples: ['iee', 'eii', 'lse', 'sli'],
   },
   {
     label: 'Compare with OPS',
