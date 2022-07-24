@@ -13,6 +13,7 @@ const fields = [
   "Picture",
   "Sex",
   "Link",
+  "Tags",
   "Last Modified",
   "Created Date",
 ];
@@ -57,6 +58,8 @@ function convertRecords(records) {
       name: name,
       type: record.fields.Type,
       link: record.fields.Link,
+      tags: record.fields.Tags,
+      sex: record.fields.Sex,
       pictureUrl: getRecordPicture(record.fields.Picture),
       lastModified: getLastModified(record)
     });
@@ -73,7 +76,12 @@ function mergeMaps(nameMap, wssMap) {
     if (nameVal) {
       nameVal.wssType = wssVal.type;
       nameVal.wssLink = wssVal.link;
-      nameVal.tags ? nameVal.tags.push("WSS") : (nameVal.tags = ["WSS"]);
+      let tags = nameVal.tags ? nameVal.tags : [];
+      tags.push('WSS');
+      (wssVal.tags ? wssVal.tags : []).forEach(tag => {
+        tags.push(tag);
+      });
+      nameVal.tags = tags;
       if (wssVal.pictureUrl) {
         nameVal.pictureUrl = wssVal.pictureUrl;
       }
@@ -85,11 +93,15 @@ function mergeMaps(nameMap, wssMap) {
       // Add to nameMap
       j++;
       let ytLink = 'https://www.youtube.com/results?search_query='+ wssKey + ' interview';
+      let tags = ['WSS'];
+      (wssVal.tags ? wssVal.tags : []).forEach(tag => {
+          tags.push(tag);
+      });
       if (!hideMissingPictures || (hideMissingPictures && wssVal.pictureUrl)) {
         i++;
         nameMap.set(wssKey, {
           name: wssKey,
-          tags: ["WSS"],
+          tags: tags,
           wssType: wssVal.type,
           wssLink: wssVal.link,
           pictureUrl: wssVal.pictureUrl,
