@@ -549,11 +549,11 @@
                 <tr>
                   <td
                     *ngFor="
+                      let i = index;
                       let type of searchModel.socionicsTypes.slice(
-                        x * 2,
-                        x * 2 + 2
+                        x * 4,
+                        x * 4 + 2
                       );
-                      let i = index
                     "
                   >
                     <a
@@ -567,8 +567,8 @@
                   <td
                     *ngFor="
                       let type of searchModel.socionicsTypes.slice(
-                        x * 2 + 2,
-                        x * 2 + 4
+                        x * 4 + 2,
+                        x * 4 + 4
                       );
                       let i = index
                     "
