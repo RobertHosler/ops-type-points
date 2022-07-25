@@ -246,6 +246,15 @@
     color: #a70000 !important;
   }
 }
+.wiki-link {
+  color: #062ee0 !important;
+  padding-right: .25rem;
+  opacity: 87%;
+  &:hover {
+    color: #0609ac !important;
+    opacity: 100%;
+  }
+}
 .image-tag {
   display: inline-block;
   margin-left: .125rem;

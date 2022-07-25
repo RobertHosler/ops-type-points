@@ -82,6 +82,9 @@ function mergeMaps(nameMap, wssMap) {
         tags.push(tag);
       });
       nameVal.tags = tags;
+      if (tags.includes('Historical')) {
+        nameVal.ytLink = '';
+      }
       if (wssVal.pictureUrl) {
         nameVal.pictureUrl = wssVal.pictureUrl;
       }
@@ -97,6 +100,9 @@ function mergeMaps(nameMap, wssMap) {
       (wssVal.tags ? wssVal.tags : []).forEach(tag => {
           tags.push(tag);
       });
+      if (tags.includes('Historical')) {
+        ytLink = '';
+      }
       if (!hideMissingPictures || (hideMissingPictures && wssVal.pictureUrl)) {
         i++;
         nameMap.set(wssKey, {
