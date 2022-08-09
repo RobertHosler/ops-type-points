@@ -96,9 +96,22 @@ const converterList = [
   { org: "Billy (Goonzsquad)", result: "Goonzsquad - Billy" },
   { org: "MrBeast (aka Jimmy Donaldson)", result: "Jimmy 'Mr Beast' Donaldson" },
   { org: "Mykie (Glam&Gore)", result: "Мykie - Glam & Gore" },
+  { org: "Gathered Nest", result: "Angela Braniff" },
+  { org: "KeyParis", result: "Paris Mars" },
+  { org: "iJustine", result: "Justine Ezarik" },
   { org: "Barepantrytalk (Barbara)", result: "Barbara - BarePantryTalk" },
   { org: "Bold Guy a/k/a Matt Hoss Zone", result: "Matt Hoss" },
-  { org: "Mini Ladd a/k/a Craig Thompson", result: "Craig 'Mini Ladd' Thompson" },
+  { org: "Primitive Technology", result: "John Plant" },
+  { org: "Thomas Drake - Whistleblower", result: "Thomas Drake" },
+  { org: "Mini Ladd a/k/a Craig Thompson", result: "Craig Thompson" },
+  { org: "Backyard Scientist", result: "Kevin Kohler" },
+  { org: "SmarterEveryDay a/k/a Destin Sandlin", result: "Destin Sandlin" },
+  { org: "MissRemiAshten a/k/a Remi Cruz", result: "Remi Cruz" },
+  { org: "Tech Chap", result: "Tom Honeyands" },
+  { org: "Big Show", result: "Paul Wight II" },
+  { org: "Meg Says", result: "Meg Healy" },
+  { org: "The Undertaker a/k/a Mark William Calaway", result: "Mark William Calaway" },
+  { org: "Whackowitch", result: "Penny Astrology" },
   {
     org: "Ultimate Warrior a/k/a James Brian Hellwig",
     result: "James Brian Hellwig",
@@ -106,16 +119,21 @@ const converterList = [
   { org: "Unbox Therapy a/k/a Lewis Hilsenteger", result: "Lewis Hilsenteger" },
   { org: "Classroom Diva a/k/a Jessica Nichols", result: "Jessica Nichols" },
   { org: "Happy Classroom a/k/a Vanessa/Fernanda", result: "Vanessa/Fernanda" },
+  { org: "Katya a/k/a Brian McCook", result: "Brian McCook" },
   { org: "SadPanda a/k/a Adria Killen", result: "Adria Killen" },
   { org: "Mytoecold a/k/a Drew Monson", result: "Drew Monson" },
   { org: "KetoDiet a/k/a Martina Slajerova", result: "Martina Slajerova" },
+  { org: "Fit Rocker Chick a/k/a Erin Sanderson", result: "Erin Sanderson" },
+  { org: '"Stone Cold" Steve Austin', result: "Steve Austin" },
+  { org: "Markiplier", result: "Mark Fischbach" },
+  { org: "Blancolirio", result: "Juan Browne" },
   {
     org: "Depersonalization Manual a/k/a Shaun O'Connor",
     result: "Shaun O'Connor",
   },
   {
     org: "Olivia a/k/a Thinker of Everything",
-    result: "Olivia - Thinker of Everything",
+    result: "Olivia",
   },
   {
     org: "Taylor Zombie",
@@ -132,6 +150,9 @@ const converterList = [
     result: "Alexandria Ocasio-Cortez",
   },
   { org: "Expression a/k/a Scott Ste Marie", result: "Scott Ste Marie" },
+  { org: "MagicTurtle643 a/k/a Benjamin Simon", result: "Benjamin Simon" },
+  { org: "LizziesAnswers", result: "Lizzie Estella Reezay" },
+  { org: "Shan Boody", result: "Shan Boodram" },
   { org: "One Minute Workbench a/k/a Tommy Rich", result: "Tommy Rich" },
   {
     org: "FemmeLife/FemmeHead a/k/a Victoria Zimmerman",
@@ -142,7 +163,9 @@ const converterList = [
     org: "Yeshua's Servant a/k/a Queen Devoryah Michaela",
     result: "Queen Devoryah Michaela",
   },
-  { org: "Kevin a/k/a Chug", result: 'Kevin "Chug"' },
+  { org: "Kevin a/k/a Chug", result: "Kevin 'Chug'" },
+  { org: "MindTools", result: "MindTools - INTJ" },
+  { org: "Wranglerstar", result: "Cody Crone" },
   { org: "Bignoknow a/k/a Noah Thomas", result: "Noah Thomas" },
   { org: "Karen a/k/a Noah Finnce's Mom", result: "Karen Finnce" },
   { org: "Ten Hundred a/k/a Peter Robinson", result: "Peter 'Ten Hundred' Robinson" },
@@ -151,12 +174,14 @@ const converterList = [
   { org: "My Green Closet a/k/a Verina Erin", result: "Verina Erin" },
   { org: "Hustle Standard a/k/a Charley", result: "Charley - Hustle Standard" },
   { org: "Sarah", result: "Sarah, the ISTJ" },
+  { org: "ENTP Nurture", result: "Prem" },
   { org: "Whoopie Goldberg", result: "Whoopi Goldberg" },
   { org: "Linus Tech Tips", result: "Linus Sebastian" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
   { org: "Kim Kardashian", result: "Kim Kardashian West" },
   { org: "50 Cent", result: "Curtis '50 Cent' Jackson" },
   { org: "Dwayne Johnson a/k/a The Rock", result: "Dwayne 'The Rock' Johnson" },
+  { org: 'Quinton "Rampage" Jackson', result: "Quinton 'Rampage' Jackson" },
   { org: "New Gingrich", result: "Newt Gingrich" },
   { org: "Warren Buffet", result: "Warren Buffett" },
   { org: "Alex McQueen", result: "Alexander McQueen" },
@@ -179,8 +204,10 @@ const idList = [
   { id: "rec5bmaPYhgOONJid", name: "Vanessa Hill" },
   { id: "recPkm5nfmCjIIPDb", name: "Jimmy 'MrBeast' Donaldson" },
   { id: "recL8HdE4E7Vuz13Q", name: "Stephen Kendal Gordy" },
-  { id: "recnaTCHdXJNYHHrM", name: "Mike Montgomery (Modern Builds)" },
+  { id: "recnaTCHdXJNYHHrM", name: "Mike Montgomery" },
   { id: "recZlq2bfmg3nakzV", name: "Christopher Walken" },
+  { id: "recAh0qMktUkHXNYY", name: "Roger Marshall" },
+  { id: "recAh0qMktUkHXNYY", name: "Sung Won Cho" },
 ];
 
 function convertName(id, name) {
@@ -202,7 +229,8 @@ function convertName(id, name) {
   if (akaIndex > -1) {
     let name1 = name.substring(0, akaIndex).trim();
     let name2 = name.substring(akaIndex+5).trim();
-    name = name1 + " (" + name2 + ")";
+    name = name1;
+    // name = name1 + " (" + name2 + ")";
     console.log("Trimmed Name aka - ", beforeName, "- to |" + name + "|");
   }
   converterList.forEach((converter) => {
