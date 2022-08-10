@@ -1390,7 +1390,7 @@ enneaMatchTerms.set('trifix', {
 });
 enneaMatchTerms.set('overlay', {
   match: (person: TypedPerson) => {
-    return person.overlay && person.overlay.length === 5;
+    return person.overlay && person.overlay.length > 1;
   },
 });
 const isHeartGutHead = function(trifix) {
