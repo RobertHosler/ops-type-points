@@ -414,23 +414,35 @@
               </div>
             </div>
             <div class="rule">
+              <div class="rule-name"
+              popoverTitle="Overlay Combinations"
+              popover="Order doesn't matter for the overlay combination search.  (48) and (84 will return the same results."
+              triggers="mouseenter:mouseleave:click"
+              >
+                Overlay Combinations
+                <i-bs
+                  name="info-circle"
+                  class="ml-1"
+                  width=".8rem"
+                  height=".8rem"
+                ></i-bs>
+              </div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="
+                    searchlink;
+                    context: { text: ['(84'] }
+                  "
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
               <div class="rule-name">Trifix Centers Order</div>
               <div class="rule-example">
                 <ng-container
                   *ngTemplateOutlet="
                     searchlink;
                     context: { text: ['HeadHeart'] }
-                  "
-                ></ng-container>
-              </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Trifix Centers Order 2</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="
-                    searchlink;
-                    context: { text: ['BodyHeadHeart'] }
                   "
                 ></ng-container>
               </div>
