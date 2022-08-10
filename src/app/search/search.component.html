@@ -310,7 +310,7 @@
               </div>
             </div>
             <div class="rule">
-              <div class="rule-name">Primary Instinct</div>
+              <div class="rule-name">Dominant Instinct</div>
               <div class="rule-example">
                 <ng-container
                   *ngTemplateOutlet="searchlink; context: { text: 'sp/' }"
@@ -346,6 +346,28 @@
               <div class="rule-example">
                 <ng-container
                   *ngTemplateOutlet="searchlink; context: { text: 'sx/sp' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Has Trifix</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="
+                    searchlink;
+                    context: { text: ['trifix'] }
+                  "
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Has Overlay</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="
+                    searchlink;
+                    context: { text: ['overlay'] }
+                  "
                 ></ng-container>
               </div>
             </div>
@@ -388,6 +410,28 @@
               <div class="rule-example">
                 <ng-container
                   *ngTemplateOutlet="searchlink; context: { text: '*714' }"
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Trifix Centers Order</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="
+                    searchlink;
+                    context: { text: ['HeadHeart'] }
+                  "
+                ></ng-container>
+              </div>
+            </div>
+            <div class="rule">
+              <div class="rule-name">Trifix Last Center</div>
+              <div class="rule-example">
+                <ng-container
+                  *ngTemplateOutlet="
+                    searchlink;
+                    context: { text: ['HeadLast'] }
+                  "
                 ></ng-container>
               </div>
             </div>
