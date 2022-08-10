@@ -1565,6 +1565,38 @@ enneaMatchTerms.set('bodylast', {
     return isGutLast(person.trifix);
   },
 });
+const isHeadSecond = function(trifix) {
+  return trifix && trifix.length === 3 
+      && head.includes(trifix.substring(1,2));
+}
+enneaMatchTerms.set('headsecond', {
+  match: (person: TypedPerson) => {
+    return isHeadSecond(person.trifix);
+  },
+});
+const isHeartSecond = function(trifix) {
+  return trifix && trifix.length === 3 
+      && heart.includes(trifix.substring(1,2));
+}
+enneaMatchTerms.set('heartsecond', {
+  match: (person: TypedPerson) => {
+    return isHeartSecond(person.trifix);
+  },
+});
+const isGutSecond = function(trifix) {
+  return trifix && trifix.length === 3 
+      && gut.includes(trifix.substring(1,2));
+}
+enneaMatchTerms.set('gutsecond', {
+  match: (person: TypedPerson) => {
+    return isGutSecond(person.trifix);
+  },
+});
+enneaMatchTerms.set('bodysecond', {
+  match: (person: TypedPerson) => {
+    return isGutSecond(person.trifix);
+  },
+});
 
 const sexTerms = new Map();
 sexTerms.set('male', {
