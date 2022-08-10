@@ -1382,6 +1382,158 @@ personTerms.set('sfirst', {
   },
 });
 
+const enneaMatchTerms = new Map();
+enneaMatchTerms.set('trifix', {
+  match: (person: TypedPerson) => {
+    return person.trifix && person.trifix.length === 3;
+  },
+});
+enneaMatchTerms.set('overlay', {
+  match: (person: TypedPerson) => {
+    return person.overlay && person.overlay.length === 5;
+  },
+});
+const isHeartGutHead = function(trifix) {
+  return trifix && trifix.length === 3 
+      && heart.includes(trifix.substring(0,1))
+      && gut.includes(trifix.substring(1,2));
+}
+enneaMatchTerms.set('heartguthead', {
+  match: (person: TypedPerson) => {
+    return isHeartGutHead(person.trifix);
+  },
+});
+enneaMatchTerms.set('heartbodyhead', {
+  match: (person: TypedPerson) => {
+    return isHeartGutHead(person.trifix);
+  },
+});
+enneaMatchTerms.set('heartgut', {
+  match: (person: TypedPerson) => {
+    return isHeartGutHead(person.trifix);
+  },
+});
+enneaMatchTerms.set('heartbody', {
+  match: (person: TypedPerson) => {
+    return isHeartGutHead(person.trifix);
+  },
+});
+const isHeartHeadGut = function(trifix) {
+  return trifix && trifix.length === 3 
+      && heart.includes(trifix.substring(0,1))
+      && head.includes(trifix.substring(1,2));
+}
+enneaMatchTerms.set('hearthead', {
+  match: (person: TypedPerson) => {
+    return isHeartHeadGut(person.trifix);
+  },
+});
+enneaMatchTerms.set('heartheadgut', {
+  match: (person: TypedPerson) => {
+    return isHeartHeadGut(person.trifix);
+  },
+});
+enneaMatchTerms.set('heartheadbody', {
+  match: (person: TypedPerson) => {
+    return isHeartHeadGut(person.trifix);
+  },
+});
+const isHeadHeartGut = function(trifix) {
+  return trifix && trifix.length === 3 
+      && head.includes(trifix.substring(0,1))
+      && heart.includes(trifix.substring(1,2));
+}
+enneaMatchTerms.set('headheart', {
+  match: (person: TypedPerson) => {
+    return isHeadHeartGut(person.trifix);
+  },
+});
+enneaMatchTerms.set('headheartgut', {
+  match: (person: TypedPerson) => {
+    return isHeadHeartGut(person.trifix);
+  },
+});
+enneaMatchTerms.set('headheartbody', {
+  match: (person: TypedPerson) => {
+    return isHeadHeartGut(person.trifix);
+  },
+});
+const isHeadGutHeart = function(trifix) {
+  return trifix && trifix.length === 3 
+      && head.includes(trifix.substring(0,1))
+      && gut.includes(trifix.substring(1,2));
+}
+enneaMatchTerms.set('headgutheart', {
+  match: (person: TypedPerson) => {
+    return isHeadGutHeart(person.trifix);
+  },
+});
+enneaMatchTerms.set('headgut', {
+  match: (person: TypedPerson) => {
+    return isHeadGutHeart(person.trifix);
+  },
+});
+enneaMatchTerms.set('headbodyheart', {
+  match: (person: TypedPerson) => {
+    return isHeadGutHeart(person.trifix);
+  },
+});
+enneaMatchTerms.set('headbody', {
+  match: (person: TypedPerson) => {
+    return isHeadGutHeart(person.trifix);
+  },
+});
+const isGutHeadHeart = function(trifix) {
+  return trifix && trifix.length === 3 
+      && gut.includes(trifix.substring(0,1))
+      && head.includes(trifix.substring(1,2));
+}
+enneaMatchTerms.set('bodyheadheart', {
+  match: (person: TypedPerson) => {
+    return isGutHeadHeart(person.trifix);
+  },
+});
+enneaMatchTerms.set('gutheadheart', {
+  match: (person: TypedPerson) => {
+    return isGutHeadHeart(person.trifix);
+  },
+});
+enneaMatchTerms.set('bodyhead', {
+  match: (person: TypedPerson) => {
+    return isGutHeadHeart(person.trifix);
+  },
+});
+enneaMatchTerms.set('guthead', {
+  match: (person: TypedPerson) => {
+    return isGutHeadHeart(person.trifix);
+  },
+});
+const isGutHeartHead = function(trifix) {
+  return trifix && trifix.length === 3 
+      && gut.includes(trifix.substring(0,1))
+      && heart.includes(trifix.substring(1,2));
+}
+enneaMatchTerms.set('bodyhearthead', {
+  match: (person: TypedPerson) => {
+    return isGutHeartHead(person.trifix);
+  },
+});
+enneaMatchTerms.set('guthearthead', {
+  match: (person: TypedPerson) => {
+    return isGutHeartHead(person.trifix);
+  },
+});
+enneaMatchTerms.set('bodyheart', {
+  match: (person: TypedPerson) => {
+    return isGutHeartHead(person.trifix);
+  },
+});
+enneaMatchTerms.set('gutheart', {
+  match: (person: TypedPerson) => {
+    return isGutHeartHead(person.trifix);
+  },
+});
+
 const sexTerms = new Map();
 sexTerms.set('male', {
   match: (person: TypedPerson) => {
@@ -1719,6 +1871,7 @@ export const searchModel = {
   enneaTerms: enneaTerms,
   tagTerms: tagTerms,
   personTerms: personTerms,
+  enneaMatchTerms: enneaMatchTerms,
   sexTerms: sexTerms,
   predictions: predictions,
   socionicsTypes: socionicsTypes,

@@ -624,6 +624,12 @@ export class SearchComponent implements OnInit, OnDestroy {
       } else {
         this.sortBy = 'ops';
       }
+    } else if (searchModel.enneaMatchTerms.get(s)) {
+        if (!searchModel.enneaMatchTerms.get(s).match(person)) {
+          result = false;
+        } else {
+          this.sortBy = 'ennea';
+        }
     } else if (searchModel.sexTerms.get(s)) {
       if (!searchModel.sexTerms.get(s).match(person)) {
         result = false;
