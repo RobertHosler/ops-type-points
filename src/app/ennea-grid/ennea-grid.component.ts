@@ -267,4 +267,15 @@ export class EnneaGridComponent implements OnInit {
       this.selectedFix = text;
     }
   }
+
+  resetAll() {
+    this.coreTriad = '';
+    this.selectedFix = '';
+    this.selectedHarmonic = '';
+    this.selectedHornevian = '';
+    this.selectedObjRelation = '';
+    this.selectedHeartFixes = ['2', '3', '4'];
+    this.selectedHeadFixes = ['5', '6', '7'];
+    this.selectedGutFixes = ['8', '9', '1'];
+  }
 }

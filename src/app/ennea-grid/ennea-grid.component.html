@@ -11,9 +11,6 @@
       <button type="button" class="btn btn-primary" [btnRadio]="'Gut'">
         Gut
       </button>
-      <button type="button" class="btn btn-primary" [btnRadio]="''">
-        Clear
-      </button>
     </div>
   </div>
   <div>
@@ -32,9 +29,6 @@
       </button>
       <button type="button" class="btn btn-primary" [btnRadio]="'Competency'">
         Competency
-      </button>
-      <button type="button" class="btn btn-primary" [btnRadio]="''">
-        Clear
       </button>
     </div>
   </div>
@@ -55,9 +49,6 @@
       <button type="button" class="btn btn-primary" [btnRadio]="'Withdrawn'">
         Withdrawn
       </button>
-      <button type="button" class="btn btn-primary" [btnRadio]="''">
-        Clear
-      </button>
     </div>
   </div>
   <div>
@@ -76,9 +67,6 @@
       </button>
       <button type="button" class="btn btn-primary" [btnRadio]="'Rejection'">
         Rejection
-      </button>
-      <button type="button" class="btn btn-primary" [btnRadio]="''">
-        Clear
       </button>
     </div>
   </div>
@@ -168,6 +156,16 @@
         1
       </button>
     </div>
+  </div>
+  <div class="reset-wrapper">
+    <button
+      type="button"
+      class="btn btn-secondary"
+      [ngClass]="{ active: selectedGutFixes.includes('1') }"
+      (click)="resetAll()"
+    >
+      Reset All
+    </button>
   </div>
 </div>
 <div class="text-right mb-2">
@@ -619,7 +617,7 @@
     </div>
   </div>
 </div>
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center flex-wrap">
   <div>
     <div class="five-fix box-box">
       <ng-container

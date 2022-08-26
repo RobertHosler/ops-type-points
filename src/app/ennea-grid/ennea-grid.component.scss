@@ -12,6 +12,11 @@
         margin-right: .25rem;
     }
 }
+.reset-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
 td {
     padding: .25rem .5rem;
     height: 25px;
