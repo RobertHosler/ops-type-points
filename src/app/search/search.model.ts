@@ -423,10 +423,15 @@ const coreETypeLong = [];
 const eTypeStrings = [];
 const trifixStrings = [];
 const trifixStacks = [];
+const trifixTable = [];
+const trifixMap = new Map();
 
 const head = ['5', '6', '7'];
 const heart = ['2', '3', '4'];
 const gut = ['8', '9', '1'];
+// const head = ['1', '4', '7'];
+// const heart = ['2', '5', '8'];
+// const gut = ['3', '6', '9'];
 
 eTypes.forEach((eType) => {
   coreETypeStrings.push(eType.name);
@@ -436,19 +441,27 @@ eTypes.forEach((eType) => {
   });
 });
 gut.forEach((gutType) => {
-  heart.forEach((heartType) => {
-    head.forEach((headType) => {
-      trifixStacks.push(heartType + headType + gutType);
-      trifixStrings.push(gutType + heartType + headType);
-      trifixStrings.push(gutType + headType + heartType);
-      trifixStrings.push(heartType + headType + gutType);
-      trifixStrings.push(heartType + gutType + headType);
-      trifixStrings.push(headType + gutType + heartType);
-      trifixStrings.push(headType + heartType + gutType);
+heart.forEach((heartType) => {
+head.forEach((headType) => {
+      const stack = [heartType, headType, gutType];
+      const stackString = stack.join('');
+      stack.sort();
+      trifixStacks.push(stackString);
+      const tempStrings = [];
+      tempStrings.push(heartType + headType + gutType);
+      tempStrings.push(heartType + gutType + headType);
+      tempStrings.push(headType + gutType + heartType);
+      tempStrings.push(headType + heartType + gutType);
+      tempStrings.push(gutType + heartType + headType);
+      tempStrings.push(gutType + headType + heartType);
+      trifixStrings.push(tempStrings);
+      trifixTable.push(tempStrings);
+      tempStrings.forEach((fix) => {
+        trifixMap.set(fix, tempStrings);
+      });
     });
   });
 });
-trifixStrings.sort();
 trifixStacks.sort();
 
 const predictions = [
@@ -1913,6 +1926,38 @@ const trifixMatcher = function(trifix: string, matchTrifix: string) {
   return result;
 }
 
+const sortEType = function(a: TypedPerson, b: TypedPerson) {
+  if (a.coreEType && !b.coreEType) {
+    return -1;
+  } else if (!a.coreEType && b.coreEType) {
+    return 1;
+  } else if (a.coreEType && b.coreEType) {
+    if (parseInt(a.coreEType) > parseInt(b.coreEType)) {
+      return 1;
+    }
+    if (parseInt(a.coreEType) < parseInt(b.coreEType)) {
+      return -1;
+    }
+    if (a.wing && b.wing) {
+      if (parseInt(a.wing) > parseInt(b.wing)) {
+        return 1;
+      }
+      if (parseInt(a.wing) < parseInt(b.wing)) {
+        return -1;
+      }
+      if (a.instinct && b.instinct) {
+        if (a.instinct < b.instinct) {
+          return 1;
+        }
+        if (a.instinct > b.instinct) {
+          return -1;
+        }
+      }
+    }
+  }
+  return 0;
+}
+
 export const searchModel = {
   functions: functions,
   observerFunctions: observerFunctions,
@@ -1931,6 +1976,8 @@ export const searchModel = {
   eTypeStrings: eTypeStrings,
   trifixStrings: trifixStrings,
   trifixStacks: trifixStacks,
+  trifixTable: trifixTable,
+  trifixMap: trifixMap,
   comboTerms: comboTerms,
   enneaTerms: enneaTerms,
   tagTerms: tagTerms,
@@ -1943,5 +1990,6 @@ export const searchModel = {
   opsRules: opsRules,
   enneaRules: enneaRules,
   wssRules: wssRules,
-  trifixMatcher: trifixMatcher
+  trifixMatcher: trifixMatcher,
+  sortEType: sortEType
 };

@@ -14,6 +14,8 @@ import { TypeRecordExpandedComponent } from './type-record-expanded/type-record-
 import { EnneaTermsComponent } from './ennea-terms/ennea-terms.component';
 import { EnneaTrifixPageComponent } from './ennea-trifix-page/ennea-trifix-page.component';
 import { TypeExemplarsComponent } from './type-exemplars/type-exemplars.component';
+import { EnneaGridComponent } from './ennea-grid/ennea-grid.component';
+import { EnneaGridPageComponent } from './ennea-grid-page/ennea-grid-page.component';
 
 const routes: Routes = [
   {
@@ -46,6 +48,7 @@ const routes: Routes = [
       { path: '', component: NineTypesComponent },
       { path: 'descriptions', component: EnneaTermsComponent },
       { path: 'trifix', component: EnneaTrifixPageComponent },
+      { path: 'grid', component: EnneaGridPageComponent },
     ],
   },
   {

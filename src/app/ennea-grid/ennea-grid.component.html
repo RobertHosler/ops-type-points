@@ -1,0 +1,848 @@
+<div *ngIf="enableControls" class="controls-wrapper">
+  <div>
+    <div>Center</div>
+    <div class="btn-group" role="group" btnRadioGroup [(ngModel)]="coreTriad">
+      <button type="button" class="btn btn-primary" [btnRadio]="'Heart'">
+        Heart
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="'Head'">
+        Head
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="'Gut'">
+        Gut
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="''">
+        Clear
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>Harmonics</div>
+    <div
+      class="btn-group"
+      role="group"
+      btnRadioGroup
+      [(ngModel)]="selectedHarmonic"
+    >
+      <button type="button" class="btn btn-primary" [btnRadio]="'Reactive'">
+        Reactive
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="'Positive'">
+        Positive
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="'Competency'">
+        Competency
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="''">
+        Clear
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>Hornevian</div>
+    <div
+      class="btn-group"
+      role="group"
+      btnRadioGroup
+      [(ngModel)]="selectedHornevian"
+    >
+      <button type="button" class="btn btn-primary" [btnRadio]="'Assertive'">
+        Assertive
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="'Compliant'">
+        Superego
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="'Withdrawn'">
+        Withdrawn
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="''">
+        Clear
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>Object Relations</div>
+    <div
+      class="btn-group"
+      role="group"
+      btnRadioGroup
+      [(ngModel)]="selectedObjRelation"
+    >
+      <button type="button" class="btn btn-primary" [btnRadio]="'Attachment'">
+        Attachment
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="'Frustration'">
+        Frustration
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="'Rejection'">
+        Rejection
+      </button>
+      <button type="button" class="btn btn-primary" [btnRadio]="''">
+        Clear
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>Heart Fix</div>
+    <div class="btn-group" role="group">
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="{ active: selectedHeartFixes.includes('2') }"
+        (click)="selectNumber(selectedHeartFixes, '2')"
+      >
+        2
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="{ active: selectedHeartFixes.includes('3') }"
+        (click)="selectNumber(selectedHeartFixes, '3')"
+      >
+        3
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="{ active: selectedHeartFixes.includes('4') }"
+        (click)="selectNumber(selectedHeartFixes, '4')"
+      >
+        4
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>Head Fix</div>
+    <div class="btn-group" role="group">
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="{ active: selectedHeadFixes.includes('5') }"
+        (click)="selectHead('5')"
+      >
+        5
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="{ active: selectedHeadFixes.includes('6') }"
+        (click)="selectHead('6')"
+      >
+        6
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="{ active: selectedHeadFixes.includes('7') }"
+        (click)="selectHead('7')"
+      >
+        7
+      </button>
+    </div>
+  </div>
+  <div>
+    <div>Gut Fix</div>
+    <div class="btn-group" role="group" btnRadioGroup [(ngModel)]="gutFix">
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="{ active: selectedGutFixes.includes('8') }"
+        (click)="selectNumber(selectedGutFixes, '8')"
+      >
+        8
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="{ active: selectedGutFixes.includes('9') }"
+        (click)="selectNumber(selectedGutFixes, '9')"
+      >
+        9
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [ngClass]="{ active: selectedGutFixes.includes('1') }"
+        (click)="selectNumber(selectedGutFixes, '1')"
+      >
+        1
+      </button>
+    </div>
+  </div>
+</div>
+<div class="text-right mb-2">
+  <button
+    class="btn btn-gray btn-sm"
+    (click)="displayCounts = !displayCounts"
+    [ngClass]="{ active: displayCounts }"
+  >
+    Counts
+  </button>
+</div>
+
+<div class="ennea-grid-table-wrapper">
+  <div class="ennea-grid-table" *ngFor="let trifixSet of trifixSets">
+    <div class="ennea-grid-table-header">{{ trifixSet.name }}</div>
+    <table>
+      <tbody>
+        <tr *ngFor="let trifix of trifixSet.set">
+          <td class="heart-col">
+            <ng-container
+              *ngTemplateOutlet="
+                searchlink;
+                context: { text: trifix, query: '*' + trifix }
+              "
+            ></ng-container>
+          </td>
+          <td
+            *ngFor="
+              let centers of [
+                'Heart Head',
+                'Heart Body',
+                'Head Heart',
+                'Head Body',
+                'Body Heart',
+                'Body Head'
+              ];
+              let x = index
+            "
+            [ngClass]="{
+              faded: !matchFilter(searchModel.trifixMap.get(trifix)[x]),
+              'five-fix': isRejection(searchModel.trifixMap.get(trifix)[x]),
+              'six-fix': isAttachment(searchModel.trifixMap.get(trifix)[x]),
+              'seven-fix': isFrustration(searchModel.trifixMap.get(trifix)[x])
+            }"
+          >
+            <ng-container
+              *ngTemplateOutlet="
+                searchlink;
+                context: { text: searchModel.trifixMap.get(trifix)[x] }
+              "
+            ></ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table *ngIf="false">
+      <tbody>
+        <tr>
+          <td class="heart-col" *ngFor="let trifix of trifixSet.set">
+            {{ trifix }}
+          </td>
+        </tr>
+        <tr
+          *ngFor="
+            let centers of [
+              'Heart Head',
+              'Heart Body',
+              'Head Heart',
+              'Head Body',
+              'Body Heart',
+              'Body Head'
+            ];
+            let x = index
+          "
+        >
+          <td
+            *ngFor="let trifix of trifixSet.set; let i = index"
+            [ngClass]="{
+              faded: !matchFilter(searchModel.trifixMap.get(trifix)[x]),
+              'five-fix': isRejection(searchModel.trifixMap.get(trifix)[x]),
+              'six-fix': isAttachment(searchModel.trifixMap.get(trifix)[x]),
+              'seven-fix': isFrustration(searchModel.trifixMap.get(trifix)[x])
+            }"
+          >
+            {{ searchModel.trifixMap.get(trifix)[x] }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="false">
+  <div class="table-wrapper" [ngClass]="{ 'table-labels': displayLabels }">
+    <div class="ennea-grid-table">
+      <table>
+        <tbody>
+          <tr>
+            <td *ngIf="displayLabels" class="heart-col"></td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '258', query: '*258' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '268', query: '*268' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '278', query: '*278' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '358', query: '*358' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '368', query: '*368' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '378', query: '*378' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '458', query: '*458' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '468', query: '*468' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '478', query: '*478' }
+                "
+              ></ng-container>
+            </td>
+          </tr>
+          <tr
+            *ngFor="
+              let centers of [
+                'Heart Head',
+                'Heart Body',
+                'Head Heart',
+                'Head Body',
+                'Body Heart',
+                'Body Head'
+              ];
+              let x = index
+            "
+          >
+            <td *ngIf="displayLabels" class="heart-col center-col">
+              {{ centers }}
+              <div class="count" *ngIf="displayCounts">
+                {{ getCount(centers) }}
+              </div>
+            </td>
+            <td
+              *ngFor="let y of [0, 1, 2, 3, 4, 5, 6, 7, 8]"
+              [ngClass]="{
+                faded: !matchFilter(searchModel.trifixTable[y][x]),
+                'five-fix': isRejection(searchModel.trifixTable[y][x]),
+                'six-fix': isAttachment(searchModel.trifixTable[y][x]),
+                'seven-fix': isFrustration(searchModel.trifixTable[y][x])
+              }"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: searchModel.trifixTable[y][x] }
+                "
+              ></ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ennea-grid-table">
+      <table>
+        <tbody>
+          <tr>
+            <td *ngIf="displayLabels" class="heart-col"></td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '259', query: '*259' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '269', query: '*269' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '279', query: '*279' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '359', query: '*359' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '369', query: '*369' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '379', query: '*379' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '459', query: '*459' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '469', query: '*469' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '479', query: '*479' }
+                "
+              ></ng-container>
+            </td>
+          </tr>
+          <tr
+            *ngFor="
+              let centers of [
+                'Heart Head',
+                'Heart Body',
+                'Head Heart',
+                'Head Body',
+                'Body Heart',
+                'Body Head'
+              ];
+              let x = index
+            "
+          >
+            <td *ngIf="displayLabels" class="heart-col center-col">
+              {{ centers }}
+              <div class="count" *ngIf="displayCounts">
+                {{ getCount(centers) }}
+              </div>
+            </td>
+            <td
+              *ngFor="let y of [9, 10, 11, 12, 13, 14, 15, 16, 17]"
+              [ngClass]="{
+                faded: !matchFilter(searchModel.trifixTable[y][x]),
+                'five-fix': isRejection(searchModel.trifixTable[y][x]),
+                'six-fix': isAttachment(searchModel.trifixTable[y][x]),
+                'seven-fix': isFrustration(searchModel.trifixTable[y][x])
+              }"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: searchModel.trifixTable[y][x] }
+                "
+              ></ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ennea-grid-table">
+      <table>
+        <tbody>
+          <tr>
+            <td *ngIf="displayLabels" class="heart-col"></td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '125', query: '*125' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '126', query: '*126' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '127', query: '*127' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '135', query: '*135' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '136', query: '*136' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '137', query: '*137' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '145', query: '*145' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '146', query: '*146' }
+                "
+              ></ng-container>
+            </td>
+            <td class="heart-col">
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: '147', query: '*147' }
+                "
+              ></ng-container>
+            </td>
+          </tr>
+          <tr
+            *ngFor="
+              let centers of [
+                'Heart Head',
+                'Heart Body',
+                'Head Heart',
+                'Head Body',
+                'Body Heart',
+                'Body Head'
+              ];
+              let x = index
+            "
+          >
+            <td *ngIf="displayLabels" class="heart-col center-col">
+              {{ centers }}
+              <div class="count" *ngIf="displayCounts">
+                {{ getCount(centers) }}
+              </div>
+            </td>
+            <td
+              *ngFor="
+                let y of [18, 19, 20, 21, 22, 23, 24, 25, 26];
+                let j = index
+              "
+              [ngClass]="{
+                faded: !matchFilter(searchModel.trifixTable[y][x]),
+                'five-fix': isRejection(searchModel.trifixTable[y][x]),
+                'six-fix': isAttachment(searchModel.trifixTable[y][x]),
+                'seven-fix': isFrustration(searchModel.trifixTable[y][x])
+              }"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  searchlink;
+                  context: { text: searchModel.trifixTable[y][x] }
+                "
+              ></ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <div>
+    <div class="five-fix box-box">
+      <ng-container
+        *ngTemplateOutlet="searchlink2; context: { text: 'Rejection' }"
+      ></ng-container>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="five-fix mini-box">
+        <ng-container
+          *ngTemplateOutlet="searchlink2; context: { text: '2w1' }"
+        ></ng-container>
+      </div>
+      <div class="five-fix mini-box">
+        <ng-container
+          *ngTemplateOutlet="searchlink2; context: { text: '2' }"
+        ></ng-container>
+      </div>
+      <div class="five-fix mini-box">
+        <ng-container
+          *ngTemplateOutlet="searchlink2; context: { text: '2w3' }"
+        ></ng-container>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="five-fix mini-box">
+        <ng-container
+          *ngTemplateOutlet="searchlink2; context: { text: '5w4' }"
+        ></ng-container>
+      </div>
+      <div class="five-fix mini-box">
+        <ng-container
+          *ngTemplateOutlet="searchlink2; context: { text: '5' }"
+        ></ng-container>
+      </div>
+      <div class="five-fix mini-box">
+        <ng-container
+          *ngTemplateOutlet="searchlink2; context: { text: '5w6' }"
+        ></ng-container>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="five-fix mini-box">
+        <ng-container
+          *ngTemplateOutlet="searchlink2; context: { text: '8w7' }"
+        ></ng-container>
+      </div>
+      <div class="five-fix mini-box">
+        <ng-container
+          *ngTemplateOutlet="searchlink2; context: { text: '8' }"
+        ></ng-container>
+      </div>
+      <div class="five-fix mini-box">
+        <ng-container
+          *ngTemplateOutlet="searchlink2; context: { text: '8w9' }"
+        ></ng-container>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="six-fix box-box">
+      <ng-container
+        *ngTemplateOutlet="searchlink2; context: { text: 'Attachment' }"
+      ></ng-container>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="six-fix mini-box">
+          <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '3w2' }"
+          ></ng-container>
+        </div>
+        <div class="six-fix mini-box">
+          <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '3' }"
+          ></ng-container>
+        </div>
+        <div class="six-fix mini-box">
+          <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '3w4' }"
+          ></ng-container>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="six-fix mini-box">
+          <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '6w5' }"
+          ></ng-container>
+        </div>
+        <div class="six-fix mini-box">
+          <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '6' }"
+          ></ng-container>
+        </div>
+        <div class="six-fix mini-box">
+          <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '6w7' }"
+          ></ng-container>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="six-fix mini-box">
+          <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '9w8' }"
+          ></ng-container>
+        </div>
+        <div class="six-fix mini-box">
+          <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '9' }"
+          ></ng-container>
+        </div>
+        <div class="six-fix mini-box">
+          <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '9w1' }"
+          ></ng-container>
+        </div>
+    </div>
+  </div>
+  <div>
+    <div class="seven-fix box-box">
+      <ng-container
+        *ngTemplateOutlet="searchlink2; context: { text: 'Frustration' }"
+      ></ng-container>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="seven-fix mini-box">
+        <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '4w3' }"
+        ></ng-container>
+        </div>
+        <div class="seven-fix mini-box">
+        <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '4' }"
+        ></ng-container>
+        </div>
+        <div class="seven-fix mini-box">
+        <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '4w5' }"
+        ></ng-container>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="seven-fix mini-box">
+        <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '7w6' }"
+        ></ng-container>
+        </div>
+        <div class="seven-fix mini-box">
+        <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '7' }"
+        ></ng-container>
+        </div>
+        <div class="seven-fix mini-box">
+        <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '7w8' }"
+        ></ng-container>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="seven-fix mini-box">
+            <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '1w9' }"
+            ></ng-container>
+        </div>
+        <div class="seven-fix mini-box">
+            <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '1' }"
+            ></ng-container>
+        </div>
+        <div class="seven-fix mini-box">
+            <ng-container
+            *ngTemplateOutlet="searchlink2; context: { text: '1w2' }"
+            ></ng-container>
+        </div>
+    </div>
+  </div>
+</div>
+<ng-container *ngIf="selectableTrifix">
+  <div class="text-center mt-3" *ngIf="!selectedFix">
+    Click on any trifix column to see type examples below.
+  </div>
+  <div *ngIf="selectedFix">
+    <div class="h3">Selected Trifix: {{ selectedFix }}</div>
+    <app-ennea-type-twins
+      [displayControls]="false"
+      [trifix]="selectedFix"
+    ></app-ennea-type-twins>
+  </div>
+</ng-container>
+
+<ng-template #searchlink let-text="text" let-query="query">
+  <a
+    *ngIf="searchLinkEnabled"
+    class="search-link"
+    [routerLink]="['/search']"
+    [queryParams]="{ text: query ? query : text }"
+    >{{ text }}</a
+  >
+  <ng-container *ngIf="selectableTrifix">
+    <span *ngIf="!searchLinkEnabled" (click)="selectFix(text)">
+      {{ text }}
+    </span>
+  </ng-container>
+  <ng-container *ngIf="!selectableTrifix && !searchLinkEnabled">
+    {{ text }}
+  </ng-container>
+  <div class="count" *ngIf="displayCounts">
+    {{ getCount(query ? query : text) }}
+  </div>
+</ng-template>
+
+
+<ng-template #searchlink2 let-text="text" let-query="query">
+    <a
+      *ngIf="searchLinkEnabled"
+      class="search-link"
+      [routerLink]="['/search']"
+      [queryParams]="{ text: query ? query : text }"
+      >{{ text }}</a
+    >
+    <ng-container *ngIf="!searchLinkEnabled">
+      {{ text }}
+    </ng-container>
+    <div class="count" *ngIf="displayCounts">
+      {{ getCount(query ? query : text) }}
+    </div>
+  </ng-template>
+  

@@ -19,9 +19,13 @@ export class EnneaTypeTwinsComponent implements OnInit {
   wing: string;
   @Input()
   trifix: string;
+  @Input()
+  enneaOnly = false;
 
   @Input()
   displayControls = true;
+  @Input()
+  imageOnly = false;
 
   typeTwinsLoading = true;
   activeMods = ['fix'];
@@ -73,6 +77,7 @@ export class EnneaTypeTwinsComponent implements OnInit {
       this.trifix = this.typedPerson.trifix;
     } else if (this.trifix) {
       this.activeMods = [];
+      this.fetchTwins();
     }
   }
 
@@ -122,7 +127,14 @@ export class EnneaTypeTwinsComponent implements OnInit {
       }
       this.twinPersons.push(person);
     });
+    this.resort();
     this.typeTwinsLoading = false;
+  }
+
+  resort() {
+    this.twinPersons.sort((a, b) => {
+        return searchModel.sortEType(a, b);
+    });
   }
 
   twin(mod: string) {

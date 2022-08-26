@@ -38,7 +38,7 @@ export class OpsTypeTableComponent implements OnInit {
         this.opsTypeTable.animalStacks.forEach((stack) => {
           if (person.animals && person.animals.startsWith(stack.short)) {
             this.incrementCount(stack.animal);
-            console.log(person.animals);
+            // console.log(person.animals);
           }
           // For each Stack 'Order' - 4 each
           stack.orders.forEach((order) => {

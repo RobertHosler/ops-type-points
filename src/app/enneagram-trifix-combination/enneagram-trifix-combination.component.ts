@@ -24,6 +24,10 @@ export class EnneagramTrifixCombinationComponent implements OnInit {
   headSelected = '';
   heartSelected = '';
 
+  bodySelectedArr = this.body.slice();
+  headSelectedArr = this.head.slice();
+  heartSelectedArr = this.heart.slice();
+
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
@@ -112,9 +116,9 @@ export class EnneagramTrifixCombinationComponent implements OnInit {
     let tempCombos = [];
     TrifixCombinations.descriptions.forEach((d) => {
       if (
-        d.numbers.includes(this.bodySelected) &&
-        d.numbers.includes(this.headSelected) &&
-        d.numbers.includes(this.heartSelected)
+        d.numbers.split('').some(n => this.bodySelectedArr.includes(n)) &&
+        d.numbers.split('').some(n => this.headSelectedArr.includes(n)) &&
+        d.numbers.split('').some(n => this.heartSelectedArr.includes(n))
       ) {
         tempCombos.push(d);
       }
@@ -125,8 +129,25 @@ export class EnneagramTrifixCombinationComponent implements OnInit {
   getCenter(name: string) {
     return Trifix.centers[name];
   }
-  
-  getDescription(number:string) {
+
+  getDescription(number: string) {
     return Trifix.descriptions.get(number);
+  }
+
+  numberClick(array, number) {
+    if (array.includes(number)) {
+      this.removeNumber(array, number);
+    } else {
+      array.push(number);
+    }
+    this.applyFilter();
+  }
+
+  removeNumber(array, number) {
+    const index = array.indexOf(number);
+    if (index > -1) {
+      // only splice array when item is found
+      array = array.splice(index, 1); // 2nd parameter means remove one item only
+    }
   }
 }

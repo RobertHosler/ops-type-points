@@ -135,7 +135,7 @@
             class="type-wrapper"
             *ngIf="!displayPracticeLink && !typeIndicator"
           >
-            <div class="image-type" *ngIf="typeRecord.type">
+            <div class="image-type" *ngIf="typeRecord.type && !enneaOnly">
               <span *ngIf="typeRecord.opsTags && typeRecord.opsTags.length"
                   [popover]="typeRecord.opsTags"
                   triggers="mouseenter:mouseleave" placement="bottom"
@@ -172,7 +172,7 @@
                   </span>
               </div>
             </div>
-            <div class="image-type" *ngIf="typeRecord.wssType">
+            <div class="image-type" *ngIf="typeRecord.wssType && !enneaOnly">
               {{ typeRecord.wssType }}
             </div>
             <div *ngIf="false && typeRecord.ytLink">

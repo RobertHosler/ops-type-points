@@ -67,6 +67,9 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   @Input()
   typeIndicator = false;
 
+  @Input()
+  enneaOnly = false;
+
   constructor() {}
 
   ngOnInit(): void {}

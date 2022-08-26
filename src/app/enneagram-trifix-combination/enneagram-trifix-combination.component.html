@@ -4,11 +4,11 @@
     <button
       *ngFor="let number of heart"
       class="btn btn-gray filter-button"
-      [ngClass]="{ active: heartSelected === number }"
+      [ngClass]="{ active: heartSelectedArr.includes(number) }"
       (click)="
-        heartSelected === number
-          ? (heartSelected = '')
-          : (heartSelected = number);
+        heartSelectedArr.includes(number)
+          ? removeNumber(heartSelectedArr, number)
+          : heartSelectedArr.push(number);
         applyFilter()
       "
     >
@@ -52,13 +52,8 @@
     <div *ngFor="let number of heart">
       <button
         class="btn btn-gray filter-button"
-        [ngClass]="{ active: heartSelected === number }"
-        (click)="
-          heartSelected === number
-            ? (heartSelected = '')
-            : (heartSelected = number);
-          applyFilter()
-        "
+        [ngClass]="{ active: heartSelectedArr.includes(number) }"
+        (click)="numberClick(heartSelectedArr, number)"
       >
         {{ number }}
       </button>
@@ -70,13 +65,8 @@
     <div *ngFor="let number of head">
       <button
         class="btn btn-gray filter-button"
-        [ngClass]="{ active: headSelected === number }"
-        (click)="
-          headSelected === number
-            ? (headSelected = '')
-            : (headSelected = number);
-          applyFilter()
-        "
+        [ngClass]="{ active: headSelectedArr.includes(number) }"
+        (click)="numberClick(headSelectedArr, number)"
       >
         {{ number }}
       </button>
@@ -88,13 +78,8 @@
     <div *ngFor="let number of body">
       <button
         class="btn btn-gray filter-button"
-        [ngClass]="{ active: bodySelected === number }"
-        (click)="
-          bodySelected === number
-            ? (bodySelected = '')
-            : (bodySelected = number);
-          applyFilter()
-        "
+        [ngClass]="{ active: bodySelectedArr.includes(number) }"
+        (click)="numberClick(bodySelectedArr, number)"
       >
         {{ number }}
       </button>
