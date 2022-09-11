@@ -150,9 +150,9 @@
               <div *ngIf="typeRecord.enneaTags && typeRecord.enneaTags.length">
                 <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType + ' ' + typeRecord.enneaTags"
                     triggers="mouseenter:mouseleave" placement="bottom">
-                    <span *ngIf="typeRecord.emphasizedNumber"
-                        [innerHTML]="emphasize(typeRecord.fullETypeOverlay, typeRecord.emphasizedNumber)"></span>
-                    <span *ngIf="!typeRecord.emphasizedNumber">{{ typeRecord.fullETypeOverlay }}</span> <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+                    <span *ngIf="typeRecord.emphasizedNumbers && typeRecord.emphasizedNumbers.length > 0"
+                        [innerHTML]="emphasize(typeRecord.fullETypeOverlay, typeRecord.emphasizedNumbers)"></span>
+                    <span *ngIf="!typeRecord.emphasizedNumbers || typeRecord.emphasizedNumbers.length === 0">{{ typeRecord.fullETypeOverlay }}</span> <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
                 </span>
                 <span *ngIf="!typeRecord.overlay"
                     [popover]="typeRecord.enneaTags"
@@ -163,9 +163,9 @@
               <div *ngIf="!typeRecord.enneaTags || !typeRecord.enneaTags.length">
                   <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType"
                       triggers="mouseenter:mouseleave" placement="bottom">
-                     <span *ngIf="typeRecord.emphasizedNumber"
-                          [innerHTML]="emphasize(typeRecord.fullETypeOverlay, typeRecord.emphasizedNumber)"></span>
-                     <span *ngIf="!typeRecord.emphasizedNumber">{{ typeRecord.fullETypeOverlay }}</span>
+                     <span *ngIf="typeRecord.emphasizedNumbers"
+                          [innerHTML]="emphasize(typeRecord.fullETypeOverlay, typeRecord.emphasizedNumbers)"></span>
+                     <span *ngIf="!typeRecord.emphasizedNumbers">{{ typeRecord.fullETypeOverlay }}</span>
                   </span>
                   <span *ngIf="!typeRecord.overlay">
                     {{ typeRecord.fullEType }}

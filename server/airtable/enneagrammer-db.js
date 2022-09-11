@@ -153,9 +153,9 @@ function convertRecords(records) {
     
     const fullEType = buildFullEType(instinct, eType, fullTrifix);
     const fullETypeOverlay = buildFullETypeOverlay(instinct, eType, trifix, overlay);
-    const emphasizedNumber = buildEmphasizedNumber(trifix, dirtyOverlay);
-    if (emphasizedNumber) {
-      // console.log('Emphasized...', emphasizedNumber, name);
+    const emphasizedNumbers = buildEmphasizedNumbers(trifix, dirtyOverlay);
+    if (emphasizedNumbers.length > 0) {
+      console.log('Emphasized...', emphasizedNumbers, name);
     }
     const links = record.fields.Links;
     let daaLink = record.fields.Links;
@@ -170,7 +170,7 @@ function convertRecords(records) {
       trifix: trifix,
       fullTrifix: fullTrifix,
       overlay: overlay,
-      emphasizedNumber: emphasizedNumber,
+      emphasizedNumbers: emphasizedNumbers,
       fullEType: fullEType,
       fullETypeOverlay: fullETypeOverlay,
       sex: record.fields.Sex,
@@ -191,18 +191,18 @@ function convertRecords(records) {
  * overlay format (bold or underline).  Checks to see if any number appears more
  * than once when these are combined by checking if it has more than one index.
  */
-function buildEmphasizedNumber(trifix, overlay) {
-  let emphasizedNumber = null;
+function buildEmphasizedNumbers(trifix, overlay) {
+  let emphasizedNumbers = [];
   if (trifix && overlay) {
     const numbers = (trifix+overlay).split(''); // all numbers in the array
     numbers.forEach(s => {
       const indexArr = getAllIndexes(numbers, s);
-      if (indexArr.length > 1) {
-        emphasizedNumber = s;
+      if (indexArr.length > 1 && !emphasizedNumbers.includes(s)) {
+        emphasizedNumbers.push(s);
       }
     });
   }
-  return emphasizedNumber;
+  return emphasizedNumbers;
 }
 
 function getAllIndexes(arr, val) {
@@ -362,7 +362,7 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.fullTrifix = eVal.fullTrifix; // 9w1 6w5 3w4 (may contain wings)
       nameVal.trifix = eVal.trifix; // 963 (no wings)
       nameVal.overlay = eVal.overlay;
-      nameVal.emphasizedNumber = eVal.emphasizedNumber;
+      nameVal.emphasizedNumbers = eVal.emphasizedNumbers;
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
       eVal.tags.forEach(tag => {
         if (!nameVal.tags.includes(tag)) {
@@ -412,7 +412,7 @@ function mergeMaps(nameMap, eTypeMap) {
         fullTrifix: eVal.fullTrifix,
         trifix: eVal.trifix,
         overlay: eVal.overlay,
-        emphasizedNumber: eVal.emphasizedNumber,
+        emphasizedNumbers: eVal.emphasizedNumbers,
         pictureUrl: eVal.pictureUrl,
         collageUrl: eVal.collageUrl,
         fullEType: eVal.fullEType,

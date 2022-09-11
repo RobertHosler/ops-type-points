@@ -147,11 +147,14 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
     }
   }
 
-  emphasize(fullETypeOverlay:string, emphasizedNumber:string) {
-    const index = fullETypeOverlay.indexOf(emphasizedNumber);
-    const s1 = fullETypeOverlay.substring(0, index);
-    const s2 = fullETypeOverlay.substring(index+1, fullETypeOverlay.length);
-    const result = s1+"<u>"+emphasizedNumber+"</u>"+s2;
+  emphasize(fullETypeOverlay:string, emphasizedNumbers:string[]) {
+    let result = fullETypeOverlay;
+    emphasizedNumbers.forEach(number => {
+      const index = result.indexOf(number);
+      const s1 = result.substring(0, index);
+      const s2 = result.substring(index+1, result.length);
+      result = s1+"<u>"+number+"</u>"+s2;
+    });
     // console.log(result);
     return result;
   }
