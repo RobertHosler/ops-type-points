@@ -241,8 +241,8 @@ export class TypedPerson {
   sensoryMod?: string;
   deMod?: string;
   mod?: string;
-  s1?: string;
-  s2?: string;
+  s1?: string; // Fi
+  s2?: string; // Si
   animals?: string;
   sex?: string;
   trans?: boolean;

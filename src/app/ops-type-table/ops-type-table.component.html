@@ -122,7 +122,7 @@
   <div class="need-wrapper">
     <div
       class="need-box ip-gray"
-      *ngFor="let x of ['IxxP', 'INTP', 'INFP', 'ISTP', 'ISFP']"
+      *ngFor="let x of ixxp"
     >
       <ng-container
         *ngTemplateOutlet="
@@ -132,12 +132,15 @@
           }
         "
       ></ng-container>
+      <div class="type-count" *ngIf="displayCounts">
+        {{ getCount(x) }}
+      </div>
     </div>
   </div>
   <div class="need-wrapper">
     <div
       class="need-box ij-blue"
-      *ngFor="let x of ['IxxJ', 'INTJ', 'INFJ', 'ISTJ', 'ISFJ']"
+      *ngFor="let x of ixxj"
     >
       <ng-container
         *ngTemplateOutlet="
@@ -147,6 +150,9 @@
           }
         "
       ></ng-container>
+      <div class="type-count" *ngIf="displayCounts">
+        {{ getCount(x) }}
+      </div>
     </div>
   </div>
 </div>
@@ -155,7 +161,7 @@
   <div class="need-wrapper">
     <div
       class="need-box ep-green"
-      *ngFor="let x of ['ExxP', 'ENTP', 'ENFP', 'ESTP', 'ESFP']"
+      *ngFor="let x of exxp"
     >
       <ng-container
         *ngTemplateOutlet="
@@ -165,12 +171,15 @@
           }
         "
       ></ng-container>
+      <div class="type-count" *ngIf="displayCounts">
+        {{ getCount(x) }}
+      </div>
     </div>
   </div>
   <div class="need-wrapper">
     <div
       class="need-box ej-red"
-      *ngFor="let x of ['ExxJ', 'ENTJ', 'ENFJ', 'ESTJ', 'ESFJ']"
+      *ngFor="let x of exxj"
     >
       <ng-container
         *ngTemplateOutlet="
@@ -180,6 +189,9 @@
           }
         "
       ></ng-container>
+      <div class="type-count" *ngIf="displayCounts">
+        {{ getCount(x) }}
+      </div>
     </div>
   </div>
 </div>

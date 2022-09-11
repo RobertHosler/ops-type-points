@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { searchModel } from '../search/search.model';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 import { OpsTypeTable } from './ops-type-table.model';
 
@@ -16,6 +17,13 @@ export class OpsTypeTableComponent implements OnInit {
   sex;
 
   allNames: Map<string, TypedPerson>;
+  
+  searchModel = searchModel;
+
+  ixxp = ['IxxP', 'INTP', 'INFP', 'ISTP', 'ISFP'];
+  ixxj = ['IxxJ', 'INTJ', 'INFJ', 'ISTJ', 'ISFJ'];
+  exxp = ['ExxP', 'ENTP', 'ENFP', 'ESTP', 'ESFP'];
+  exxj = ['ExxJ', 'ENTJ', 'ENFJ', 'ESTJ', 'ESFJ'];
 
   constructor(private opsDataService: OpsDataService) {
     this.opsDataService.allNames.subscribe((result) => {
@@ -45,12 +53,24 @@ export class OpsTypeTableComponent implements OnInit {
             if (person.type.includes(order.stack)) {
               this.incrementCount(order.stack);
               order.functions.forEach((f) => {
+                // f: Fe/Se, Ti/Ne etc
                 if (person.type.includes(f)) {
                   this.incrementCount(f + '-' + order.stack);
                   this.incrementCount(f);
                 }
               });
             }
+          });
+        });
+        const typeLower = person.type.toLowerCase();
+        [this.ixxp, this.ixxj, this.exxp, this.exxj].forEach(y => {
+          y.forEach(x => { //intp, istp, etc
+            const lower = x.toLowerCase();
+            this.searchModel.comboTerms.get(lower).strings.forEach(s => { // ti/ne ti/si, etc
+              if (typeLower.includes(s)) {
+                this.incrementCount(x);
+              }
+            });
           });
         });
       });
