@@ -473,7 +473,7 @@ export class SearchComponent implements OnInit, OnDestroy {
           }
           result = found;
         } else if (s.startsWith('*')) {
-          // Trifix Search
+          // Trifix (any order) Search
           s = s.substring(1);
           if (s.length < 4 && /^\d+$/.test(s)) {
             this.searchTerms.push(s);

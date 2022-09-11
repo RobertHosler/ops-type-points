@@ -454,7 +454,7 @@ head.forEach((headType) => {
       tempStrings.push(headType + heartType + gutType);
       tempStrings.push(gutType + heartType + headType);
       tempStrings.push(gutType + headType + heartType);
-      trifixStrings.push(tempStrings);
+      trifixStrings.push(...tempStrings);
       trifixTable.push(tempStrings);
       tempStrings.forEach((fix) => {
         trifixMap.set(fix, tempStrings);
