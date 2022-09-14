@@ -26,6 +26,9 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   linkToAnalyzer = false;
 
   @Input()
+  externalLink;
+
+  @Input()
   showMolecule = true;
 
   @Input()
@@ -56,8 +59,11 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   @Input()
   showSource = true;
 
+  @Input()
+  showTypes = true;
+
   activeTag = '';
-  
+
   @Input()
   grayscale = false;
 
@@ -147,13 +153,13 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
     }
   }
 
-  emphasize(fullETypeOverlay:string, emphasizedNumbers:string[]) {
+  emphasize(fullETypeOverlay: string, emphasizedNumbers: string[]) {
     let result = fullETypeOverlay;
-    emphasizedNumbers.forEach(number => {
+    emphasizedNumbers.forEach((number) => {
       const index = result.indexOf(number);
       const s1 = result.substring(0, index);
-      const s2 = result.substring(index+1, result.length);
-      result = s1+"<u>"+number+"</u>"+s2;
+      const s2 = result.substring(index + 1, result.length);
+      result = s1 + '<u>' + number + '</u>' + s2;
     });
     // console.log(result);
     return result;
@@ -179,5 +185,15 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
         window.scrollTo(0, top - 72);
       });
     }
+  }
+
+  imageRouterLink() {
+    return this.displayPracticeLink ? ['/practice'] : ['/search/person'];
+  }
+
+  imageQueryParams(typeRecord) {
+    return this.displayPracticeLink
+      ? { name: typeRecord.name }
+      : { person: typeRecord.name };
   }
 }

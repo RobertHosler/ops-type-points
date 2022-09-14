@@ -16,6 +16,7 @@ import { EnneaTrifixPageComponent } from './ennea-trifix-page/ennea-trifix-page.
 import { TypeExemplarsComponent } from './type-exemplars/type-exemplars.component';
 import { EnneaGridComponent } from './ennea-grid/ennea-grid.component';
 import { EnneaGridPageComponent } from './ennea-grid-page/ennea-grid-page.component';
+import { EnneaDaaChronologicalComponent } from './ennea-daa-chronological/ennea-daa-chronological.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,7 @@ const routes: Routes = [
       { path: 'descriptions', component: EnneaTermsComponent },
       { path: 'trifix', component: EnneaTrifixPageComponent },
       { path: 'grid', component: EnneaGridPageComponent },
+      { path: 'daa', component: EnneaDaaChronologicalComponent },
     ],
   },
   {

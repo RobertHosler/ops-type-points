@@ -19,6 +19,7 @@ const fields = [
   "Collage",
   "Links",
   "Notes",
+  "Class Number",
   "Last Modified",
   "Created Date",
 ];
@@ -159,6 +160,7 @@ function convertRecords(records) {
     }
     const links = record.fields.Links;
     let daaLink = record.fields.Links;
+    let daaClassNumber = record.fields["Class Number"];
     result.set(name, {
       name: name,
       altName: record.fields["Alt-Name"],
@@ -178,6 +180,7 @@ function convertRecords(records) {
       enneaNotes: record.fields.Notes,
       enneaLinks: links,
       daaLink: daaLink,
+      daaClassNumber: parseInt(daaClassNumber),
       pictureUrl: getRecordPicture(record.fields.Picture),
       collageUrl: getRecordPicture(record.fields.Collage),
       lastModified: getLastModified(record)
@@ -384,6 +387,7 @@ function mergeMaps(nameMap, eTypeMap) {
       nameVal.enneaNotes = eVal.notes;
       nameVal.enneaLinks = eVal.enneaLinks;
       nameVal.daaLink = eVal.daaLink;
+      nameVal.daaClassNumber = eVal.daaClassNumber;
       if (compareModifiedDates(nameVal.lastModified, eVal.lastModified) > 0) {
         nameVal.lastModified = eVal.lastModified;
       }
@@ -423,6 +427,7 @@ function mergeMaps(nameMap, eTypeMap) {
         enneaNotes: eVal.enneaNotes,
         enneaLinks: eVal.enneaLinks,
         daaLink: eVal.daaLink,
+        daaClassNumber: eVal.daaClassNumber,
         ytLink: ytLink,
         sex: eVal.sex,
         trans: false,

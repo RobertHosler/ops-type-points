@@ -34,7 +34,7 @@
                 <img src="/assets/images/sp-logo-no-bg.png" />
             </span>
             <a [href]="typeRecord.classLink ? typeRecord.classLink.href : 'https://docs.google.com/document/u/0/d/1lNO4NjYwvPQYSBhHZNzTiFTTVfhitOWlFsdvr-WTX9g/mobilebasic'"
-                *ngIf="typeRecord.tags && typeRecord.tags.includes('OPS Class Typing')"
+                *ngIf="!enneaOnly && typeRecord.tags && typeRecord.tags.includes('OPS Class Typing')"
                 popover="OPS Class" triggers="mouseenter:mouseleave" placement="top"
                 class="ops-logo-link" target="_blank">
               <img src="/assets/images/ops-logo.PNG" />
@@ -47,7 +47,7 @@
             </a>
             <a [href]="typeRecord.wssLink ? typeRecord.wssLink : 'http://worldsocionics.blogspot.com/'"
                 popover="WSS Analysis" triggers="mouseenter:mouseleave" placement="top"
-                *ngIf="typeRecord.tags && typeRecord.tags.includes('Analysis')"
+                *ngIf="!enneaOnly && typeRecord.tags && typeRecord.tags.includes('Analysis')"
                 class="wss-logo-link" target="_blank">
               <img src="/assets/images/wss-logo.jpg" />
             </a>
@@ -60,21 +60,14 @@
                 <i-bs name="globe2" class="mx-1" width="1.25rem" height="1.25rem"></i-bs></a>
           </div>
           <a
-            [routerLink]="
-              displayPracticeLink ? ['/practice'] : ['/search/person']
-            "
-            [queryParams]="
-              displayPracticeLink
-                ? { name: typeRecord.name }
-                : {
-                    person: typeRecord.name
-                  }
-            "
+            *ngIf="!externalLink"
+            [routerLink]="imageRouterLink()"
+            [queryParams]="imageQueryParams(typeRecord)"
           >
             <div class="name">
               {{ typeRecord.name }}
             </div>
-            <div class="type">
+            <div class="type" *ngIf="showTypes">
               <div *ngIf="typeRecord.type">
                 {{ typeRecord.type }}
               </div>
@@ -85,25 +78,10 @@
                 {{ typeRecord.wssType }}
               </div>
             </div>
-            <div
-              class="image-img"
-              [ngClass]="{
-                'image-missing': !typeRecord.pictureUrl,
-                grayscale: grayscale
-              }"
-              [ngStyle]="{
-                'background-image':
-                  'url(' +
-                  (typeRecord.pictureUrl
-                    ? typeRecord.pictureUrl
-                    : '/assets/images/sp-logo-no-bg.png') +
-                  ')'
-              }"
-            >
-              <span class="image-missing-text" *ngIf="!typeRecord.pictureUrl">
-                Image Missing
-              </span>
-            </div>
+            <ng-container *ngTemplateOutlet="typeImage; context: { record: typeRecord }"></ng-container>
+          </a>
+          <a [href]="externalLink(typeRecord)" *ngIf="externalLink" target="_blank">
+            <ng-container *ngTemplateOutlet="typeImage; context: { record: typeRecord }"></ng-container>
           </a>
         </div>
         <div
@@ -135,7 +113,7 @@
             class="type-wrapper"
             *ngIf="!displayPracticeLink && !typeIndicator"
           >
-            <div class="image-type" *ngIf="typeRecord.type && !enneaOnly">
+            <div class="image-type" *ngIf="typeRecord.type && !enneaOnly && showTypes">
               <span *ngIf="typeRecord.opsTags && typeRecord.opsTags.length"
                   [popover]="typeRecord.opsTags"
                   triggers="mouseenter:mouseleave" placement="bottom"
@@ -146,7 +124,7 @@
                   {{ typeRecord.type }}
               </span>
             </div>
-            <div class="image-type" *ngIf="typeRecord.fullEType">
+            <div class="image-type" *ngIf="typeRecord.fullEType && showTypes">
               <div *ngIf="typeRecord.enneaTags && typeRecord.enneaTags.length">
                 <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType + ' ' + typeRecord.enneaTags"
                     triggers="mouseenter:mouseleave" placement="bottom">
@@ -172,7 +150,7 @@
                   </span>
               </div>
             </div>
-            <div class="image-type" *ngIf="typeRecord.wssType && !enneaOnly">
+            <div class="image-type" *ngIf="typeRecord.wssType && !enneaOnly && showTypes">
               {{ typeRecord.wssType }}
             </div>
             <div *ngIf="false && typeRecord.ytLink">
@@ -288,7 +266,29 @@
       </button>
     </div>
     <div>
-      Displaying {{ currentDisplay }} of {{ this.typeRecords.length }} records
+      Displaying {{ currentDisplay }} of {{ this.typeRecords.length }}
     </div>
+  </div>
+</ng-template>
+
+<ng-template #typeImage let-record="record">
+  <div
+    class="image-img"
+    [ngClass]="{
+      'image-missing': !record.pictureUrl,
+      grayscale: grayscale
+    }"
+    [ngStyle]="{
+      'background-image':
+        'url(' +
+        (record.pictureUrl
+          ? record.pictureUrl
+          : '/assets/images/sp-logo-no-bg.png') +
+        ')'
+    }"
+  >
+    <span class="image-missing-text" *ngIf="!record.pictureUrl">
+      Image Missing
+    </span>
   </div>
 </ng-template>

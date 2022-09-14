@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>Dark Arts Academy</h1>
+  <div class="lead">
+    Below are all the Darks Art Academy Classes in Chronological Order.
+  </div>
+  <div>
+    Types are hidden in case you like surprises or would like to make a guess
+    for yourself before watching. Gently press the Show Types button if you hate
+    surprises and would like to have the types revealed. You can also see the
+    <a [routerLink]="['/search']" [queryParams]="{ text: 'daa' }"
+      >classes ordered by type in the database.</a
+    >
+  </div>
+  <div class="p-3">
+    <button
+      class="btn btn-gray btn-sm"
+      (click)="displayTypes = !displayTypes"
+      [ngClass]="{ active: displayTypes }"
+    >
+      Show Types
+    </button>
+  </div>
+</div>
+<div class="pt-3 pb-5">
+<app-type-record-list
+  style="min-height: 300px"
+  [typeRecords]="displayedRecords"
+  [showMolecule]="false"
+  [showSource]="false"
+  [showTypes]="displayTypes"
+  [loading]="loading"
+  [enneaOnly]="true"
+  loadingMessage="DAA Classes are Loading..."
+  [externalLink]="personLink"
+  notFoundMessage="Sorry, can't load classes at this time."
+></app-type-record-list>
+</div>

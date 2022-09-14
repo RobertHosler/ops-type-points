@@ -268,6 +268,7 @@ export class TypedPerson {
   opsYtLinks?: Link[];
   moreLinks?: Link[];
   daaLink?: string;
+  daaClassNumber?: number;
   enneaLinks?: string;
   enneaNotes?: string;
   collageUrl?: string;
