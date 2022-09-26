@@ -160,7 +160,7 @@ function convertRecords(records) {
     }
     const links = record.fields.Links;
     let daaLink = record.fields.Links;
-    let daaClassNumber = record.fields["Class Number"];
+    let daaClassNumber = record.fields["Class Number"] ? parseInt(record.fields["Class Number"]) : 0;
     result.set(name, {
       name: name,
       altName: record.fields["Alt-Name"],
@@ -180,7 +180,7 @@ function convertRecords(records) {
       enneaNotes: record.fields.Notes,
       enneaLinks: links,
       daaLink: daaLink,
-      daaClassNumber: parseInt(daaClassNumber),
+      daaClassNumber: daaClassNumber,
       pictureUrl: getRecordPicture(record.fields.Picture),
       collageUrl: getRecordPicture(record.fields.Collage),
       lastModified: getLastModified(record)
