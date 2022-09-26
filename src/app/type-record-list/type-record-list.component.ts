@@ -26,7 +26,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   linkToAnalyzer = false;
 
   @Input()
-  externalLink;
+  externalLink; // function?
 
   @Input()
   showMolecule = true;

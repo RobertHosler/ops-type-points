@@ -14,8 +14,17 @@
       *ngFor="let typeRecord of displayPages[currentPage - 1]"
       class="type-record"
     >
+      <app-type-record-item [typeRecord]="typeRecord"
+        [externalLink]="externalLink"
+        [showTypes]="showTypes"
+        [imageOnly]="imageOnly"
+        [grayscale]="grayscale"
+        [enneaOnly]="enneaOnly"
+        [typeIndicator]="typeIndicator"
+        [displayPracticeLink]="displayPracticeLink"
+      ></app-type-record-item>
       <div
-        class="image-col"
+        class="image-col d-none"
         *ngIf="typeRecord.type || typeRecord.fullEType || typeRecord.wssType"
       >
         <div class="image-text-top">

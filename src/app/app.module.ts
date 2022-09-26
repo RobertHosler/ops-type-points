@@ -63,6 +63,7 @@ import { TypeExemplarsComponent } from './type-exemplars/type-exemplars.componen
 import { EnneaGridComponent } from './ennea-grid/ennea-grid.component';
 import { EnneaGridPageComponent } from './ennea-grid-page/ennea-grid-page.component';
 import { EnneaDaaChronologicalComponent } from './ennea-daa-chronological/ennea-daa-chronological.component';
+import { TypeRecordItemComponent } from './type-record-item/type-record-item.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -115,7 +116,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     TypeExemplarsComponent,
     EnneaGridComponent,
     EnneaGridPageComponent,
-    EnneaDaaChronologicalComponent
+    EnneaDaaChronologicalComponent,
+    TypeRecordItemComponent
   ],
   imports: [
     HttpClientModule,
