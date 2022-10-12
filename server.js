@@ -157,6 +157,7 @@ const enneagrammer = require("./server/airtable/enneagrammer-db");
 const faytabase = require("./server/airtable/faytabase-db");
 const wss = require("./server/airtable/wss-db");
 const interviews = require("./server/airtable/interview-db");
+const opsExtra = require("./server/airtable/ops-db");
 const subjective = require("./server/airtable/ops-subjective-db");
 const airtable = require("./server/airtable/airtable");
 const {  findSimilarPromise } = require("./server/similar-names");
@@ -238,6 +239,7 @@ function fetchAirtableData() {
     let fayTypeMap;
     let wssMap;
     let interviewMap;
+    let opsExtraMap;
     let subjectiveMap;
     // get Persons
     airtable
@@ -260,6 +262,16 @@ function fetchAirtableData() {
       .then((records) => {
         const result = enneagrammer.convertRecords(records);
         eTypeMap = result;
+      })
+      .then(() => {
+        return airtable.getAll({
+          name: "OPS DB",
+          url: opsExtra.url,
+        });
+      }, errorHandler)
+      .then((records) => {
+        const result = opsExtra.convertRecords(records);
+        opsExtraMap = result;
       })
       .then(() => {
         return airtable.getAll({
@@ -303,6 +315,7 @@ function fetchAirtableData() {
       })
       .then(() => {
         // Merge Map Results Together
+        opsExtra.mergeMaps(nameMap, opsExtraMap);
         interviews.mergeMaps(nameMap, interviewMap);
         enneagrammer.mergeMaps(nameMap, eTypeMap);
         faytabase.mergeMaps(nameMap, fayTypeMap);

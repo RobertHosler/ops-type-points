@@ -393,7 +393,7 @@ function convertPersons(records) {
       sex: record.fields["Biological Sex"],
       trans: record.fields.Transgender,
       opsLinks: links,
-      classLink: linkObj.classLink,
+      classLink: linkObj.classLink ? linkObj.classLink.href : null,
       classLinks: linkObj.classLinks,
       ytLink: ytLink,
       opsYtLinks: linkObj.youtubeLinks,
