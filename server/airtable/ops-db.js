@@ -133,15 +133,13 @@ function mergeMaps(nameMap, typeMap) {
   const matches = [];
   let i = 0;
   typeMap.forEach((val, key) => {
-    const type = formatType(val.type.split('-'));
-    // console.log(key, type);
     let nameVal = nameMap.get(key);
     if (!nameVal) {
       nameVal = nameMap.get(val.altName);
     }
     if (nameVal) {
       // Merge
-      nameVal.type = type;
+      nameVal.type = formatType(val.type.split('-'));
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
       val.tags.forEach(tag => {
         if (!nameVal.tags.includes(tag)) {
@@ -178,10 +176,66 @@ function mergeMaps(nameMap, typeMap) {
       if (val.tags.includes("Speculation")) {
         opsTags.push("Speculation");
       }
+      let type = "";
+      let coreNeed = "";
+      let deciderNeed = "";
+      let observerNeed = "";
+      let deciderLetter = "";
+      let observerLetter = "";
+      let infoAnimal = "";
+      let energyAnimal = "";
+      let animalBalance = "";
+      let sensoryMod = "";
+      let deMod = "";
+      let mod = "";
+      let s1 = "";
+      let s2 = "";
+      let animals = "";
+      if (val.type && val.type.length === 12) {
+        let typeArr = val.type.split("-");
+        type = formatType(typeArr);
+        coreNeed =
+          typeArr[1].startsWith("N") || typeArr[1].startsWith("S")
+            ? "Observer"
+            : "Decider";
+        deciderLetter = typeArr[1].includes("F") ? "F" : "T";
+        observerLetter = typeArr[1].includes("S") ? "S" : "N";
+        deciderNeed =
+          typeArr[1].includes("Fe") || typeArr[1].includes("Te") ? "De" : "Di";
+        observerNeed =
+          typeArr[1].includes("Se") || typeArr[1].includes("Ne") ? "Oe" : "Oi";
+        let animals2 = typeArr[2].substring(0, 2);
+        infoAnimal = animals2.includes("B") ? "B" : "C";
+        energyAnimal = animals2.includes("P") ? "P" : "S";
+        animalBalance =
+          typeArr[2].endsWith("P") || typeArr[2].endsWith("S")
+            ? "Info"
+            : "Energy";
+        sensoryMod = typeArr[0].substring(0, 1);
+        deMod = typeArr[0].substring(1, 2);
+        mod = typeArr[0];
+        s1 = typeArr[1].substring(0, 2);
+        s2 = typeArr[1].substring(2, 4);
+        animals = type.substring(9, 13);
+      }
       console.log(key, val.classLink);
       nameMap.set(key, {
         name: key,
         type: type,
+        s1: s1,
+        s2: s2,
+        mod: mod,
+        animals: animals,
+        coreNeed: coreNeed,
+        deciderNeed: deciderNeed,
+        observerNeed: observerNeed,
+        deciderLetter: deciderLetter,
+        observerLetter: observerLetter,
+        infoAnimal: infoAnimal,
+        energyAnimal: energyAnimal,
+        animalBalance: animalBalance,
+        sensoryMod: sensoryMod,
+        deMod: deMod,
         pictureUrl: val.pictureUrl,
         tags: val.tags, // tags for searching
         personTags: personTags,
