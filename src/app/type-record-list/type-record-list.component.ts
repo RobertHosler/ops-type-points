@@ -60,7 +60,11 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   showSource = true;
 
   @Input()
-  showTypes = true;
+  showTypes = {
+    ops: true,
+    wss: true,
+    ennea: true
+  };
 
   activeTag = '';
 

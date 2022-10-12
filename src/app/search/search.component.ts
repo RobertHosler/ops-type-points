@@ -67,6 +67,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   allNames: Map<string, TypedPerson>;
   recordCount = 0;
 
+  showTypes = {
+    ops: true,
+    wss: true,
+    ennea: true
+  };
+
   allNamesArr: string[];
   allNamesArrUnsorted: string[];
   sortBy = 'ops';

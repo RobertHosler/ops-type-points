@@ -15,9 +15,6 @@ export class TypeRecordItemComponent implements OnInit {
   externalLink; // function?
 
   @Input()
-  showTypes = true;
-
-  @Input()
   imageOnly = false;
 
   @Input()
@@ -31,6 +28,13 @@ export class TypeRecordItemComponent implements OnInit {
 
   @Input()
   displayPracticeLink = false;
+
+  @Input()
+  showTypes = {
+    ops: true,
+    wss: true,
+    ennea: true
+  };
 
   activeTag = '';
 

@@ -181,6 +181,32 @@
           </div>
         </div>
         <div class="d-inline-block">
+          <div class="small">Types:</div>
+          <div class="btn-group">
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: showTypes.ops }"
+              (click)="showTypes.ops = !showTypes.ops"
+            >
+              OPS
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: showTypes.ennea }"
+              (click)="showTypes.ennea = !showTypes.ennea"
+            >
+              Enneagram
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: showTypes.wss }"
+              (click)="showTypes.wss = !showTypes.wss"
+            >
+              Socionics
+            </button>
+          </div>
+        </div>
+        <div class="d-inline-block">
           <button
             class="btn btn-gray btn-sm"
             [ngClass]="{ active: showHelp }"
@@ -677,6 +703,7 @@
         [linkToAnalyzer]="true"
         [grayscale]="grayscale"
         [imageOnly]="cards"
+        [showTypes]="showTypes"
       ></app-type-record-list>
     </div>
   </div>
