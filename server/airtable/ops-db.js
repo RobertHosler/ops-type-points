@@ -139,7 +139,7 @@ function mergeMaps(nameMap, typeMap) {
     }
     if (nameVal) {
       // Merge
-      nameVal.type = formatType(val.type.split('-'));
+      // nameVal.type = formatType(val.type.split('-'));
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
       val.tags.forEach(tag => {
         if (!nameVal.tags.includes(tag)) {
