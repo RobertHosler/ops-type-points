@@ -139,7 +139,14 @@ function mergeMaps(nameMap, typeMap) {
     }
     if (nameVal) {
       // Merge
-      // nameVal.type = formatType(val.type.split('-'));
+      if (val.type && nameVal.tags && nameVal.tags.includes('Incomplete')) {
+        nameVal.type = formatType(val.type.split('-'));
+        // console.log(key, nameVal.type, nameVal.tags);
+        let tags = nameVal.tags;
+        const index = tags.indexOf('Incomplete');
+        tags.splice(index, 1);
+        nameVal.tags = tags;
+      }
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
       val.tags.forEach(tag => {
         if (!nameVal.tags.includes(tag)) {
@@ -218,7 +225,7 @@ function mergeMaps(nameMap, typeMap) {
         s2 = typeArr[1].substring(2, 4);
         animals = type.substring(9, 13);
       }
-      console.log(key, val.classLink);
+      // console.log(key, val.classLink);
       nameMap.set(key, {
         name: key,
         type: type,
