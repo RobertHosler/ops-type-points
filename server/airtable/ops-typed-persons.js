@@ -310,8 +310,13 @@ function convertPersons(records) {
         tags.push(tag);
       }
     });
+    let type = record.fields.Type;
+    if ((!type || type.includes('?') || type.length !== 12) &&
+      !tags.includes("Incomplete")) {
+        tags.push('Incomplete');
+    }
     let opsTags = [];
-    if (tags.includes("Speculation") && !tags.includes("Incomplete")) {
+    if (tags.includes("Speculation")) {
       opsTags.push("Speculation");
     }
     let ytLink = '';
@@ -326,7 +331,7 @@ function convertPersons(records) {
     const typedPerson = {
       opsId: uniqueId,
       name: name,
-      type: record.fields.Type,
+      type: type,
       typeNumber: record.fields["Type Number"],
       pictureUrl: getRecordPicture(record.fields.Picture),
       opsTags: opsTags,
