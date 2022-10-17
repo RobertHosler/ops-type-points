@@ -100,7 +100,7 @@ function convertName(name) {
 
 function parseLink(linkString) {
   let link = null;
-  console.log(linkString);
+  // console.log(linkString);
   let leftText = linkString.indexOf('[');
   leftText = leftText > -1 ? leftText : 0;
   let rightText = linkString.indexOf(']');
@@ -139,7 +139,7 @@ function convertRecords(records) {
       }
     });
     if (tags.includes('Removed')) {
-      console.log(name + ' Removed');
+      // console.log(name + ' Removed');
       return;
     }
 
@@ -156,7 +156,7 @@ function convertRecords(records) {
     const fullETypeOverlay = buildFullETypeOverlay(instinct, eType, trifix, overlay);
     const emphasizedNumbers = buildEmphasizedNumbers(trifix, dirtyOverlay);
     if (emphasizedNumbers.length > 0) {
-      console.log('Emphasized...', emphasizedNumbers, name);
+      // console.log('Emphasized...', emphasizedNumbers, name);
     }
     const links = record.fields.Links;
     let daaLink = record.fields.Links;

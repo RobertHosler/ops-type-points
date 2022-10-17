@@ -99,9 +99,9 @@ function convertRecords(records) {
       altName: record.fields["Alt-Name"],
       sex: record.fields.Sex,
       tags: tags,
-      // enneaNotes: record.fields.Notes,
       opsLinks: links,
       classLink: classLink,
+      opsClassNumber: record.fields["Class Number"],
       ytLink: ytLink,
       pictureUrl: getRecordPicture(record.fields.Picture),
       collageUrl: getRecordPicture(record.fields.Collage),
@@ -135,10 +135,19 @@ function mergeMaps(nameMap, typeMap) {
   typeMap.forEach((val, key) => {
     let nameVal = nameMap.get(key);
     if (!nameVal) {
+      // look for altName as well
       nameVal = nameMap.get(val.altName);
     }
     if (nameVal) {
       // Merge
+      if (nameVal.name !== val.name) {
+        const altName = nameVal.name;
+        const name = val.name;
+        nameMap.delete(altName);
+        nameVal.name = name;
+        nameMap.set(name, nameVal);
+        console.log('Replaced key', altName, name);
+      }
       if (val.type && nameVal.tags && nameVal.tags.includes('Incomplete')) {
         nameVal.type = formatType(val.type.split('-'));
         // console.log(key, nameVal.type, nameVal.tags);
@@ -162,6 +171,7 @@ function mergeMaps(nameMap, typeMap) {
         nameVal.pictureUrl = val.pictureUrl;
       }
       nameVal.classLink = val.classLink;
+      nameVal.opsClassNumber = val.opsClassNumber;
       nameVal.otherLinks = val.otherLinks;
       nameVal.ytLink = val.ytLink ? val.ytLink : nameVal.ytLink;
       nameVal.sex = nameVal.sex ? nameVal.sex : val.sex;
@@ -248,6 +258,7 @@ function mergeMaps(nameMap, typeMap) {
         personTags: personTags,
         opsTags: opsTags, // tags which appear in popover
         classLink: val.classLink,
+        opsClassNumber: val.opsClassNumber,
         ytLink: ytLink,
         sex: val.sex,
         trans: false,

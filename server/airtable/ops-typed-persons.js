@@ -222,7 +222,7 @@ function convertName(id, name) {
   const slashIndex = name.indexOf("(");
   if (slashIndex > -1) {
     name = name.substring(0, slashIndex).trim();
-    console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
+    // console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
   }
   // Remove aka and wrap secondary name in parathesis
   const akaIndex = name.indexOf("a/k/a");
@@ -231,18 +231,18 @@ function convertName(id, name) {
     let name2 = name.substring(akaIndex+5).trim();
     name = name1;
     // name = name1 + " (" + name2 + ")";
-    console.log("Trimmed Name aka - ", beforeName, "- to |" + name + "|");
+    // console.log("Trimmed Name aka - ", beforeName, "- to |" + name + "|");
   }
   converterList.forEach((converter) => {
     if (converter.org === name) {
-      console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
+      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
       name = converter.result;
     }
   });
   idList.forEach((idReplace) => {
     if (id === idReplace.id) {
       name = idReplace.name;
-      console.log("Replaced by id - ", beforeName, "- to |" + name + "|");
+      // console.log("Replaced by id - ", beforeName, "- to |" + name + "|");
     }
   });
   return name;
