@@ -263,6 +263,7 @@ export class TypedPerson {
   enfpLink?: string;
   otherLinks?: string;
   opsLinks?: string; // from ops database
+  opsClassNumber?: number;
   classLink?: Link;
   classLinks?: Link[];
   opsYtLinks?: Link[];

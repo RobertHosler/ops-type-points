@@ -170,7 +170,9 @@ function mergeMaps(nameMap, typeMap) {
       if (val.pictureUrl) {
         nameVal.pictureUrl = val.pictureUrl;
       }
-      nameVal.classLink = val.classLink;
+      if (val.classLink) {
+        nameVal.classLink = val.classLink;
+      }
       nameVal.opsClassNumber = val.opsClassNumber;
       nameVal.otherLinks = val.otherLinks;
       nameVal.ytLink = val.ytLink ? val.ytLink : nameVal.ytLink;
@@ -235,7 +237,6 @@ function mergeMaps(nameMap, typeMap) {
         s2 = typeArr[1].substring(2, 4);
         animals = type.substring(9, 13);
       }
-      // console.log(key, val.classLink);
       nameMap.set(key, {
         name: key,
         type: type,

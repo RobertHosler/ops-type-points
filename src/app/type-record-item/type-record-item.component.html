@@ -31,7 +31,7 @@
           typeRecord.tags &&
           typeRecord.tags.includes('OPS Class Typing')
         "
-        popover="OPS Class"
+        [popover]="'OPS Class ' + typeRecord.opsClassNumber"
         triggers="mouseenter:mouseleave"
         placement="top"
         class="ops-logo-link"
@@ -45,7 +45,7 @@
             ? typeRecord.daaLink
             : 'https://www.enneagrammer.com/members-home'
         "
-        popover="Dark Arts Academy Class"
+        [popover]="'Dark Arts Academy Class ' + typeRecord.daaClassNumber"
         triggers="mouseenter:mouseleave"
         placement="top"
         *ngIf="
