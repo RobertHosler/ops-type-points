@@ -176,7 +176,7 @@ function mergeMaps(nameMap, typeMap) {
       nameVal.opsClassNumber = val.opsClassNumber;
       nameVal.otherLinks = val.otherLinks;
       nameVal.ytLink = val.ytLink ? val.ytLink : nameVal.ytLink;
-      nameVal.sex = nameVal.sex ? nameVal.sex : val.sex;
+      nameVal.sex = val.sex ? val.sex : nameVal.sex;
       if (compareModifiedDates(nameVal.lastModified, val.lastModified) > 0) {
         nameVal.lastModified = val.lastModified;
       }
