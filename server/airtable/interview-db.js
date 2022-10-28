@@ -77,6 +77,9 @@ function formatType(typeArr) {
 function convertRecords(records) {
   const result = new Map();
   records.forEach((record) => {
+    if (!record.fields.Name) {
+      return;
+    }
     const name = convertName(record.fields.Name);
     const opsType = record.fields["OP Type"];
     const wssType = record.fields["WSS Type"];
