@@ -1647,6 +1647,7 @@ tagTerms.set('subjective', { sortBy: 'ops' });
 tagTerms.set('faytabase', { sortBy: 'ennea' });
 tagTerms.set('community', { sortBy: '' });
 tagTerms.set('wss', { sortBy: '' });
+tagTerms.set('friends', { sortBy: '' });
 tagTerms.set('analysis', { sortBy: '' });
 tagTerms.set('ops', { sortBy: 'ops' });
 tagTerms.set('bhe', { sortBy: 'ennea' });
