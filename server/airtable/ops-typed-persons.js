@@ -311,7 +311,7 @@ function convertPersons(records) {
       }
     });
     let type = record.fields.Type;
-    if ((!type || type.includes('?') || type.length !== 12) &&
+    if ((!type || type.includes('?') || type.length !== 16) &&
       !tags.includes("Incomplete")) {
         tags.push('Incomplete');
     }
