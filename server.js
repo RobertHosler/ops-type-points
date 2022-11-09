@@ -190,7 +190,10 @@ function findSimilarRecords(socket, max) {
   console.log("finding similar... async...");
 }
 
+const mins = 60;
+const refreshTimer = 60 * 1000 * mins;
 function refreshAirtableData(socket) {
+  console.log("Refreshing data");
   fetchAirtableData().then(
     (result) => {
       // once complete, emit that refresh is complete and broadcast updates
@@ -211,7 +214,10 @@ function refreshAirtableData(socket) {
     () => {
       //rejected
     }
-  );
+  ).then(() => {
+    console.log("Refreshing complete");
+    setTimeout(refreshAirtableData, refreshTimer);
+  });
 }
 refreshAirtableData();
 
