@@ -65,7 +65,7 @@ function compareEnnea(scrapeData, enneaDb) {
         break;
       }
     }
-    if (!nameFound && !eVal.tags.includes('Community Member')) {
+    if (!nameFound && !eVal.tags.includes('Community Member') && !eVal.tags.includes('Exclusive')) {
       result.exclusiveToDb.push(eVal);
     }
   }
