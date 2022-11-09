@@ -2,8 +2,10 @@
   <div>
     <h1>Type Exemplars</h1>
     <p>
-      Below is a random selection of type exemplars. Click to shuffle and
-      display another option.
+      Below is a randomized selection of type exemplars. Click on each to see another
+      from the list of valid exemplars.
+      <br/>
+      You can customize the filters, but not all types will have someone when each filter is applied.
     </p>
   </div>
   <div class="flex-table-wrapper">
@@ -41,13 +43,13 @@
     </div>
   </div>
 
-  <div class="my-3">
+  <div class="my-3 controls">
     <button
       class="btn btn-primary mr-2"
       (click)="resetColumns()"
       [ngClass]="{ active: showNames }"
     >
-      Reset All
+      Shuffle
     </button>
     <button
       class="btn btn-gray mr-2"
@@ -58,44 +60,51 @@
     </button>
     <button
       class="btn btn-gray mr-2"
-      (click)="classOnly = !classOnly; resetColumns()"
-      [ngClass]="{ active: classOnly }"
+      (click)="tagToggle()"
+      [ngClass]="{ active: tag !== 'All' }"
     >
-      Class
+      {{ tag }}
     </button>
     <button
       class="btn btn-gray mr-2"
-      (click)="maleOnly = !maleOnly; resetColumns()"
-      [ngClass]="{ active: maleOnly }"
+      (click)="genderToggle()"
+      [ngClass]="{ active: gender !== 'M/F' }"
     >
-      {{ maleOnly ? "M" : "F" }}
+      {{ gender }}
+    </button>
+    <button
+      class="btn btn-gray mr-2"
+      (click)="modToggle()"
+      [ngClass]="{ active: mod !== 'Mod' }"
+    >
+      {{ mod }}
     </button>
   </div>
 </div>
 
 <ng-template #person let-type="type">
-  <div class="person" (click)="findType(type)">
-    <div class="img-wrapper" *ngIf="tableStructure[type]">
+  <div class="person" (click)="tableStructure2[type].nextIndex()">
+    <div class="img-wrapper" *ngIf="tableStructure2[type].arr.length > 0">
       <div
         class="image-img"
         [ngClass]="{
-          'image-missing': !tableStructure[type].pictureUrl
+          'image-missing': !tableStructure2[type].current.pictureUrl
         }"
         [ngStyle]="{
           'background-image':
             'url(' +
-            (tableStructure[type].pictureUrl
-              ? tableStructure[type].pictureUrl
+            (tableStructure2[type].current.pictureUrl
+              ? tableStructure2[type].current.pictureUrl
               : '/assets/images/sp-logo-no-bg.png') +
             ')'
         }"
       >
         <div *ngIf="showNames" class="img-name">
-          {{ tableStructure[type] ? tableStructure[type].name : "" }}
+          {{ tableStructure2[type].current ? tableStructure2[type].current.name : "" }}
         </div>
         <span
           class="image-missing-text"
-          *ngIf="!tableStructure[type].pictureUrl"
+          *ngIf="!tableStructure2[type].current.pictureUrl"
         >
           Image Missing
         </span>

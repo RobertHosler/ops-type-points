@@ -29,8 +29,13 @@ img {
 
 .person {
   width: $image-size + $image-padding * 2;
+  height: 150px;
   text-align: center;
   padding: $image-padding;
+}
+
+.controls .btn {
+  min-width: 80px;
 }
 
 .img-wrapper {
