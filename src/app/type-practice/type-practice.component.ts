@@ -465,7 +465,9 @@ export class TypePracticeComponent implements OnInit {
     'Jesus',
     'Sarah',
     'Dave Powers',
-    'Shannon Powers'
+    'Shannon Powers',
+    'Vladimir Putin',
+    'Frank James',
   ];
 
   routerInit = false;
@@ -500,7 +502,7 @@ export class TypePracticeComponent implements OnInit {
         return;
       } else if (!person.tags) {
         this.alltypedPersons.push(person);
-      } else if (person.tags.includes('OPS Class Typing')) {
+      } else if (person.tags.includes('OPS Class Typing') && !person.tags.includes('Incomplete')) {
         this.allClassOnlyPersons.push(person);
         this.alltypedPersons.push(person);
       } else if (
