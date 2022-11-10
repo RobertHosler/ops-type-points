@@ -1,3 +1,5 @@
+@import "~src/assets/variables";
+
 $image-size: 120px;
 $image-height: $image-size + 20;
 $image-padding: 5px;
@@ -60,6 +62,7 @@ img {
     // background-color: #ccc;
   }
   .img-type {
+    color: $dark;
     background: #ffffff94;
     font-size: 13px;
     width: 45px;
@@ -67,6 +70,7 @@ img {
     text-align: center;
   }
   .img-name {
+    color: $dark;
     background: #ffffff94;
     font-size: 13px;
     font-weight: bold;

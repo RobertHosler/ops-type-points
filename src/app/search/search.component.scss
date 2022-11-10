@@ -182,10 +182,18 @@ input.form-control {
   }
 }
 .fix-bg {
-  background-color: #eee;
+  // color: $dark;
+  // background-color: $soft-gray;
   padding-top: 2rem;
   padding-bottom: 2rem;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid $dark;
+  // a {
+  //   color: $link-color;
+  //   &:hover {
+  //     color: $link-color;
+  //     text-decoration: underline;
+  //   }
+  // }
 }
 .fix-wrapper {
   display: flex;
@@ -198,7 +206,7 @@ input.form-control {
 }
 .trifix-table {
   td {
-    border: 1px solid;
+    border: 1px solid $dark;
     padding: 0.25rem .5rem;
     text-align: center;
     width: 50px;
@@ -222,14 +230,16 @@ input.form-control {
   .rules {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
   }
   .rule {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 0.25rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     .rule-name {
       min-width: 200px;
-      margin-left: 1rem;
     }
     .rule-example {
       margin-left: 2rem;
@@ -253,7 +263,10 @@ input.form-control {
   padding-bottom: 0.25rem;
   border: 1px solid $primary;
   border-radius: 50px;
-  background-color: #eee;
+  background-color: #ddd;
+  a {
+    color: $dark;
+  }
   &:hover {
     // border: 1px solid $cad-orange;
     box-shadow: -1px 2px 5px 1px #777;
@@ -262,20 +275,14 @@ input.form-control {
     margin-left: 0.5rem;
     background: none;
     border: none;
-    color: $primary;
-    &:hover {
-      color: $cad-orange;
-    }
+    color: $dark;
   }
 }
 .fix-bg .fix-bubble {
   background: #fff;
 }
-.previous-search-clear {
-  color: $primary;
-  &:hover {
-    color: $cad-orange;
-  }
+.previous-search-clear button {
+  color: $dark;
 }
 .learn-more {
   font-size: 1rem;
@@ -289,4 +296,7 @@ input.form-control {
     margin-right: 0.5rem;
     margin-bottom: 1rem;
   }
+}
+.clear-button:not(:hover) {
+  background: $light;
 }

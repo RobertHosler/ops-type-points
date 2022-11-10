@@ -12,7 +12,7 @@ $dark-mode-color: #333;
   background-color: $dark-mode-color;
   color: $light;
   .table {
-    color: $light;
+    // color: $light;
   }
   .records-bg {
     background-color: $dark-mode-color;
@@ -29,6 +29,12 @@ $dark-mode-color: #333;
   }
   .table-tip {
     color: $light !important;
+  }
+  a {
+    color: $highlight-green;
+  }
+  .search-link {
+    color: $light;
   }
 }
 

@@ -38,13 +38,15 @@
   margin-top: -1px;
   padding-top: 5px;
   padding-bottom: 5px;
+  color: $dark;
+  background-color: #ccc;
 }
 .coin-box {
   display: none;
 }
 
 .coin-label {
-  background: #ccc;
+  background: $tertiary-soft;
   color: $dark;
   text-align: center;
   & > :first-child {

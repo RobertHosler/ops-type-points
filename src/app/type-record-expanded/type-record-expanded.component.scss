@@ -2,7 +2,8 @@
 @import "~node_modules/bootstrap/scss/mixins/breakpoints";
 
 .left-side {
-  background-color: #eee;
+  background-color: $soft-gray;
+  color: $dark;
 }
 .person-row {
   display: flex;

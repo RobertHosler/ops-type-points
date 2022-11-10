@@ -44,7 +44,7 @@
       <tr>
         <ng-container *ngFor="let order of animalStack.orders; let j = index">
           <th *ngIf="displayCounts && j === 0"></th>
-          <th>
+          <th class="stacking">
             <div class="d-none d-md-block">
               <ng-container
                 *ngTemplateOutlet="

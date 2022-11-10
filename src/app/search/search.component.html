@@ -68,7 +68,7 @@
             name="name"
           />
           <div class="input-group-append">
-            <button class="btn btn-outline-primary" (click)="clearSearch()">
+            <button class="btn btn-outline-primary clear-button" (click)="clearSearch()">
               Clear
             </button>
           </div>
@@ -256,8 +256,7 @@
   <div class="search-instructions" *ngIf="!searchInitiated">
     <div class="fix-bg">
       <div class="container">
-        <h2>Objective Personality</h2>
-        <h3>Search by...</h3>
+        <h2 class="mb-4">Objective Personality</h2>
         <div class="rules">
           <div class="rule" *ngFor="let rule of searchModel.opsRules">
             <div class="rule-name">{{ rule.label }}</div>
@@ -273,7 +272,7 @@
             </div>
           </div>
         </div>
-        <div class="my-2">
+        <div class="my-2 text-center">
           Any of the above search terms can be combined together for advanced
           search.
           <div>
@@ -307,9 +306,8 @@
     </div>
     <div class="fix-bg e-bg">
       <div class="container">
-        <h2>Enneagram</h2>
+        <h2 class="mb-4">Enneagram</h2>
         <div class="mb-3">
-          <h3>Search by...</h3>
           <div class="rules">
             <div class="rule">
               <div class="rule-name">All Enneagram</div>
@@ -613,8 +611,7 @@
 
     <div class="fix-bg">
       <div class="container">
-        <h2>Socionics</h2>
-        <h3>Search by...</h3>
+        <h2 class="mb-4">Socionics</h2>
         <div class="rules">
           <div class="rule" *ngFor="let rule of searchModel.wssRules">
             <div class="rule-name">{{ rule.label }}</div>
