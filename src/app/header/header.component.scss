@@ -42,9 +42,10 @@
   .navbar-collapse {
     margin-top: 20px;
   }
+  .dropdown-item,
   .navbar-nav .nav-link {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
   }
   .home-link {
     padding-bottom: 0px;
@@ -54,10 +55,6 @@
   .btn-link {
     width: 100%;
     text-align: left;
-  }
-  .dropdown-item {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
   }
 }
 
@@ -70,4 +67,8 @@
 }
 .dropdown-menu {
   background: $purple;
+  hr {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
 }

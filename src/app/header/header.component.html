@@ -45,6 +45,12 @@
                 {{ link.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
               </a>
             </ng-container>
+            <hr>
+            <ng-container *ngFor="let link of externalLinks">
+              <a class="dropdown-item" href="{{ link.href }}" target="_blank">
+                {{ link.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
+              </a>
+            </ng-container>
           </div>
         </li>
       </ul>
