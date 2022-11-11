@@ -489,6 +489,9 @@ export class TypePracticeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+    if (this.allNames) {
+      this.initList();
+    }
   }
 
   initList() {
