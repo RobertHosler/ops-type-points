@@ -49,6 +49,25 @@
   .home-link {
     padding-bottom: 0px;
     margin-bottom: -23px;
-    border-bottom: 1px solid $light;
+    border-bottom: 1px solid transparent;
   }
+  .btn-link {
+    width: 100%;
+    text-align: left;
+  }
+  .dropdown-item {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+.btn-link {
+  border: none;
+  color: $highlight-green;
+  &:hover {
+    color: $cad-orange;
+  }
+}
+.dropdown-menu {
+  background: $purple;
 }

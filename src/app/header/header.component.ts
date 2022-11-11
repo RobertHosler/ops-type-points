@@ -8,16 +8,10 @@ import { HomeLink } from '../home/home-link';
 })
 export class HeaderComponent implements OnInit {
 
+  show = false;
   headerCollapsed = true;
 
   headerLinks: HomeLink[] = [
-    new HomeLink(
-      'Analyzer',
-      '/analyzer',
-      '',
-      false,
-      ''
-    ),
     new HomeLink(
       'Search',
       '/search',
@@ -26,15 +20,8 @@ export class HeaderComponent implements OnInit {
       ''
     ),
     new HomeLink(
-      'OPS Terms',
-      '/terms',
-      '',
-      false,
-      ''
-    ),
-    new HomeLink(
-      'Nine Types',
-      '/nineTypes',
+      'Analyze',
+      '/analyzer',
       '',
       false,
       ''
@@ -58,7 +45,53 @@ export class HeaderComponent implements OnInit {
       lead: '',
       ext: true,
       img: ''
+    },
+    {
+      title: 'Support',
+      href: 'https://subjectivepersonality.wordpress.com/about/support/',
+      lead: '',
+      ext: true,
+      img: ''
     }
+  ];
+
+  
+  dropdownLinks: HomeLink[] = [
+    new HomeLink(
+      'OPS Terms',
+      '/terms',
+      '',
+      false,
+      ''
+    ),
+    new HomeLink(
+      'Enneagram Descriptions',
+      '/nineTypes/descriptions',
+      '',
+      false,
+      ''
+    ),
+    new HomeLink(
+      'Enneagram Trifixes',
+      '/nineTypes/trifix',
+      '',
+      false,
+      ''
+    ),
+    new HomeLink(
+      'Enneagram Grid',
+      '/nineTypes/grid',
+      '',
+      false,
+      ''
+    ),
+    new HomeLink(
+      'DAA Class in Order',
+      '/nineTypes/daa',
+      '',
+      false,
+      ''
+    ),
   ];
   
   constructor() { }

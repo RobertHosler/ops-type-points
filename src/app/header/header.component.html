@@ -26,10 +26,27 @@
             {{ link.title }}
           </a>
           <a class="nav-link" href="{{ link.href }}" *ngIf="link.ext">
-            {{ link.title }}<i-bs name="box-arrow-up-right" class="ml-2"></i-bs>
+            {{ link.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
           </a>
         </li>
-        <li></li>
+        <li class="nav-item dropdown">
+          <button class="btn btn-link nav-link dropdown-toggle" id="navbarDropdownMenuLink"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              (click)="show=!show">
+            More
+        </button>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"
+              [ngClass]="{show: show === true}">
+            <ng-container *ngFor="let link of dropdownLinks">
+              <a class="dropdown-item" [routerLink]="link.href" *ngIf="!link.ext">
+                {{ link.title }}
+              </a>
+              <a class="dropdown-item" href="{{ link.href }}" *ngIf="link.ext">
+                {{ link.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
+              </a>
+            </ng-container>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
