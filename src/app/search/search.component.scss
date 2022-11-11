@@ -301,3 +301,17 @@ input.form-control {
   color: $dark;
   background: $light;
 }
+.data-sources {
+  color: $dark;
+  background-color: #bbb;
+  border-radius: 5px;
+  font-size: .9rem;
+  a {
+    color: $dark;
+    text-decoration: underline;
+    &:hover {
+      // color: $cad-orange;
+      text-decoration: underline;
+    }
+  }
+}

@@ -881,6 +881,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.nameInput.nativeElement.focus();
     this.searchInitiated = false;
     this.updateRoute();
+    // this.displayedRecords = null;
   }
 }
 

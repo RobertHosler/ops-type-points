@@ -246,11 +246,54 @@
       </div>
     </div>
     <p
-      *ngIf="displayedRecords && displayedRecords.length > 0"
+      *ngIf="searchInitiated && displayedRecords && displayedRecords.length > 0"
       class="text-info"
     >
       Search found {{ displayedRecords.length }} results.
     </p>
+    <div class="p-1 data-sources"
+        *ngIf="!searchInitiated">
+      <div class="mb-1 d-inline-block">
+        <strong>Objective Personality</strong> type data courtesy of the
+        <a target="_blank" [href]="opsDbSource">Objective Personality Database</a
+        >, a project by Ryan and Jana based on typings by Dave and Shannon Powers.
+        <a target="_blank" [href]="opsDbInfo">Learn More</a>.
+        Additional OPS data added where YouTube type reveals and/or 
+        interviews exist. <a [href]="appLinks.contact" target="_blank">Contact me</a>
+        to be included or excluded from this app and/or update your picture.  Some
+        additional types from classes and YouTube videos provided via our own Database
+        when not yet available via the OPS Database.
+      </div>
+      <div class="mb-1">
+        <strong>Enneagram</strong> type data sourced from the
+        <a [href]="enneagrammerLink" target="_blank">Enneagrammer Database</a>.
+        Continue to explore on their
+        <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
+        learn more about their take on the Enneagram at
+        <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>.  You can also 
+        view all the <a [routerLink]="['daa']">DAA Classes in Order</a>.
+        Additional Enneagram data provided through a collaboration with <a [routerLink]="['/search']"
+        [queryParams]="{ text: 'Fay Willow' }">Fay Willow</a>.  Search <a [routerLink]="['/search']"
+        [queryParams]="{ text: 'faytabase' }">faytabase</a> to see the full list.
+      </div>
+      <div class="mb-1">
+        <strong>Socionics</strong> type data sourced from the World Socionic's
+        Society's
+        <a
+          href="https://www.facebook.com/notes/world-socionics-society/wss-public-figure-benchmark/1974788942540812/"
+          >Public Figure Benchmark</a
+        >. Learn more about WSS on their
+        <a href="https://www.facebook.com/groups/584205738265813" target="_blank"
+          >Facebook page</a
+        >
+        or
+        <a
+          href="https://www.youtube.com/c/WorldSocionicsSocietyWSS"
+          target="_blank"
+          >YouTube Channel</a
+        >.
+      </div>
+    </div>
   </div>
 
   <div class="search-instructions" *ngIf="!searchInitiated">
