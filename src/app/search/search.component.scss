@@ -298,5 +298,6 @@ input.form-control {
   }
 }
 .clear-button:not(:hover) {
+  color: $dark;
   background: $light;
 }

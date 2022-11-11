@@ -36,6 +36,20 @@ $dark-mode-color: #333;
   .search-link {
     color: $light;
   }
+  .btn {
+    border-color: $dark;
+    color: $light;
+  }
+  .toggle-btn,
+  .btn-gray {
+    color: $dark;
+  }
+  .home-col a {
+    color: $highlight-green !important;
+    &:hover {
+      color: $cad-orange !important;
+    }
+  }
 }
 
 .btn-gray {

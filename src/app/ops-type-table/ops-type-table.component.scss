@@ -18,7 +18,11 @@
     background-color: #ccc;
   }
   td {
+    color: $dark;
     border: 1px solid $dark;
+  }
+  .animal-heading a {
+    color: $light;
   }
   &:not(.type-counts) {
     td:first-child {
@@ -74,5 +78,6 @@
 }
 
 .type-count {
+  color: $dark;
   font-size: 0.7rem;
 }

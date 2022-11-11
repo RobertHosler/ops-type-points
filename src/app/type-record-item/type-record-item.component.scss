@@ -245,6 +245,22 @@
   &:hover {
     color: #a70000 !important;
   }
+  i-bs {
+    position: relative;
+    z-index: 100;
+  }
+  i-bs::before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 0;
+    width: 100%;
+    background: $light;
+    height: 10px;
+    display: block;
+    border-radius: 5px;
+    z-index: -1;
+  }
 }
 .wiki-link {
   // color: #062ee0 !important;
