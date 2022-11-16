@@ -38,16 +38,19 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"
               [ngClass]="{show: show === true}">
             <ng-container *ngFor="let link of dropdownLinks">
-              <a class="dropdown-item" [routerLink]="link.href" *ngIf="!link.ext">
+              <a class="dropdown-item" [routerLink]="link.href" *ngIf="!link.ext"
+              (click)="show=false">
                 {{ link.title }}
               </a>
-              <a class="dropdown-item" href="{{ link.href }}" *ngIf="link.ext">
+              <a class="dropdown-item" href="{{ link.href }}" *ngIf="link.ext"
+              (click)="show=false">
                 {{ link.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
               </a>
             </ng-container>
             <hr>
             <ng-container *ngFor="let link of externalLinks">
-              <a class="dropdown-item" href="{{ link.href }}" target="_blank">
+              <a class="dropdown-item" href="{{ link.href }}" target="_blank"
+                (click)="show=false">
                 {{ link.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
               </a>
             </ng-container>
