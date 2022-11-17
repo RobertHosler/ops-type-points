@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { TypedPerson } from '../service/ops-data.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { TypedPerson } from '../service/ops-data.service';
   templateUrl: './type-record-item.component.html',
   styleUrls: ['./type-record-item.component.scss'],
 })
-export class TypeRecordItemComponent implements OnInit {
+export class TypeRecordItemComponent implements OnInit, OnChanges {
 
   @Input()
   typeRecord: TypedPerson;
@@ -36,11 +36,25 @@ export class TypeRecordItemComponent implements OnInit {
     ennea: true
   };
 
+  opsShow = this.showTypes.ops;
+  wssShow = this.showTypes.wss;
+  enneaShow = this.showTypes.ennea;
+
   activeTag = '';
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.opsShow = this.showTypes.ops;
+    this.wssShow = this.showTypes.wss;
+    this.enneaShow = this.showTypes.ennea;
+  }
+
+  ngOnChanges() {
+    this.opsShow = this.showTypes.ops;
+    this.wssShow = this.showTypes.wss;
+    this.enneaShow = this.showTypes.ennea;
+  }
 
   imageRouterLink() {
     return this.displayPracticeLink ? ['/practice'] : ['/search/person'];

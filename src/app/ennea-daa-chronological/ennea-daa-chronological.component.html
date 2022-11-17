@@ -14,10 +14,10 @@
   <div class="p-3">
     <button
       class="btn btn-gray btn-sm"
-      (click)="displayTypes = !displayTypes"
+      (click)="toggleDisplayTypes()"
       [ngClass]="{ active: displayTypes }"
     >
-      Show Types
+      Show All Types
     </button>
   </div>
 </div>
@@ -27,7 +27,7 @@
   [typeRecords]="displayedRecords"
   [showMolecule]="false"
   [showSource]="false"
-  [showTypes]="displayTypes"
+  [showTypes]="showTypes"
   [loading]="loading"
   [enneaOnly]="true"
   loadingMessage="DAA Classes are Loading..."

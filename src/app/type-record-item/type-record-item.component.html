@@ -1,5 +1,6 @@
 <div
   class="image-col"
+  [ngClass]="{ 'image-only': imageOnly }"
   *ngIf="typeRecord.type || typeRecord.fullEType || typeRecord.wssType"
 >
   <div class="image-text-top">
@@ -110,13 +111,13 @@
         {{ typeRecord.name }}
       </div>
       <div class="type">
-        <div *ngIf="typeRecord.type && showTypes.ops">
+        <div *ngIf="typeRecord.type && opsShow">
           {{ typeRecord.type }}
         </div>
-        <div *ngIf="typeRecord.fullEType && showTypes.ennea">
+        <div *ngIf="typeRecord.fullEType && enneaShow">
           {{ typeRecord.fullEType }}
         </div>
-        <div *ngIf="typeRecord.wssType && showTypes.wss">
+        <div *ngIf="typeRecord.wssType && wssShow">
           {{ typeRecord.wssType }}
         </div>
       </div>
@@ -156,10 +157,10 @@
       </div>
     </div>
     <div class="type-wrapper" *ngIf="!displayPracticeLink && !typeIndicator">
-      <div *ngIf="typeRecord.type && !enneaOnly && !showTypes.ops"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="showTypes.ops = true">Reveal Ops Type</a></div>
+      <div *ngIf="typeRecord.type && !enneaOnly && !opsShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="opsShow = true">Reveal Ops Type</a></div>
       <div
         class="image-type"
-        *ngIf="typeRecord.type && !enneaOnly && showTypes.ops"
+        *ngIf="typeRecord.type && !enneaOnly && opsShow"
       >
         <span
           *ngIf="typeRecord.opsTags && typeRecord.opsTags.length"
@@ -179,8 +180,8 @@
           {{ typeRecord.type }}
         </span>
       </div>
-      <div *ngIf="typeRecord.fullEType && !showTypes.ennea"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="showTypes.ennea = true">Reveal Ennea Type</a></div>
-      <div class="image-type" *ngIf="typeRecord.fullEType && showTypes.ennea">
+      <div *ngIf="typeRecord.fullEType && !enneaShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="enneaShow = true">Reveal Ennea Type</a></div>
+      <div class="image-type" *ngIf="typeRecord.fullEType && enneaShow">
         <div *ngIf="typeRecord.enneaTags && typeRecord.enneaTags.length">
           <span
             *ngIf="typeRecord.overlay"
@@ -254,10 +255,10 @@
           </span>
         </div>
       </div>
-      <div *ngIf="typeRecord.wssType && !enneaOnly && !showTypes.wss"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="showTypes.wss = true">Reveal Socionics Type</a></div>
+      <div *ngIf="typeRecord.wssType && !enneaOnly && !wssShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="wssShow = true">Reveal Socionics Type</a></div>
       <div
         class="image-type"
-        *ngIf="typeRecord.wssType && !enneaOnly && showTypes.wss"
+        *ngIf="typeRecord.wssType && !enneaOnly && wssShow"
       >
         {{ typeRecord.wssType }}
       </div>

@@ -9,6 +9,11 @@ import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 export class EnneaDaaChronologicalComponent implements OnInit {
 
   displayTypes = false;
+  showTypes = {
+    ops: false,
+    wss: false,
+    ennea: this.displayTypes
+  };
   loading = true;
   displayedRecords: TypedPerson[] = [];
   allNames: Map<string, TypedPerson>;
@@ -41,6 +46,15 @@ export class EnneaDaaChronologicalComponent implements OnInit {
 
   personLink(typeRecord: TypedPerson) {
     return typeRecord.daaLink;
+  }
+
+  toggleDisplayTypes() {
+    this.displayTypes = !this.displayTypes;
+    this.showTypes = {
+      ops: false,
+      wss: false,
+      ennea: this.displayTypes
+    };
   }
 
 }
