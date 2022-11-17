@@ -883,6 +883,21 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.updateRoute();
     // this.displayedRecords = null;
   }
+
+  showType(s: string) {
+    if (s === 'ops') {
+      this.showTypes.ops = !this.showTypes.ops;
+    } else if (s === 'ennea') {
+      this.showTypes.ennea = !this.showTypes.ennea;
+    } else if (s === 'wss') {
+      this.showTypes.wss = !this.showTypes.wss;
+    }
+    this.showTypes = {
+      ops: this.showTypes.ops,
+      wss: this.showTypes.wss,
+      ennea: this.showTypes.ennea
+    };
+  }
 }
 
 class OptionModel {

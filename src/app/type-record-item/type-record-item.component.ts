@@ -36,9 +36,9 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
     ennea: true
   };
 
-  opsShow = this.showTypes.ops;
-  wssShow = this.showTypes.wss;
-  enneaShow = this.showTypes.ennea;
+  opsShow:boolean;
+  wssShow:boolean;
+  enneaShow:boolean;
 
   activeTag = '';
 

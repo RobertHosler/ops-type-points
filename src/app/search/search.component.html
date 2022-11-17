@@ -186,21 +186,21 @@
             <button
               class="btn btn-gray btn-sm"
               [ngClass]="{ active: showTypes.ops }"
-              (click)="showTypes.ops = !showTypes.ops"
+              (click)="showType('ops')"
             >
               OPS
             </button>
             <button
               class="btn btn-gray btn-sm"
               [ngClass]="{ active: showTypes.ennea }"
-              (click)="showTypes.ennea = !showTypes.ennea"
+              (click)="showType('ennea')"
             >
               Enneagram
             </button>
             <button
               class="btn btn-gray btn-sm"
               [ngClass]="{ active: showTypes.wss }"
-              (click)="showTypes.wss = !showTypes.wss"
+              (click)="showType('wss')"
             >
               Socionics
             </button>
