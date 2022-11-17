@@ -157,7 +157,7 @@
       </div>
     </div>
     <div class="type-wrapper" *ngIf="!displayPracticeLink && !typeIndicator">
-      <div *ngIf="typeRecord.type && !enneaOnly && !opsShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="opsShow = true">Reveal Ops Type</a></div>
+      <div *ngIf="showReveal && typeRecord.type && !enneaOnly && !opsShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="opsShow = true">Reveal Ops Type</a></div>
       <div
         class="image-type"
         *ngIf="typeRecord.type && !enneaOnly && opsShow"
@@ -180,7 +180,7 @@
           {{ typeRecord.type }}
         </span>
       </div>
-      <div *ngIf="typeRecord.fullEType && !enneaShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="enneaShow = true">Reveal Ennea Type</a></div>
+      <div *ngIf="showReveal && typeRecord.fullEType && !enneaShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="enneaShow = true">Reveal Ennea Type</a></div>
       <div class="image-type" *ngIf="typeRecord.fullEType && enneaShow">
         <div *ngIf="typeRecord.enneaTags && typeRecord.enneaTags.length">
           <span
@@ -255,7 +255,7 @@
           </span>
         </div>
       </div>
-      <div *ngIf="typeRecord.wssType && !enneaOnly && !wssShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="wssShow = true">Reveal Socionics Type</a></div>
+      <div *ngIf="showReveal && typeRecord.wssType && !enneaOnly && !wssShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="wssShow = true">Reveal Socionics Type</a></div>
       <div
         class="image-type"
         *ngIf="typeRecord.wssType && !enneaOnly && wssShow"

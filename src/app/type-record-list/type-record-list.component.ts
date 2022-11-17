@@ -32,6 +32,9 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   showMolecule = true;
 
   @Input()
+  showReveal = false;
+
+  @Input()
   loading = false;
 
   @Input()

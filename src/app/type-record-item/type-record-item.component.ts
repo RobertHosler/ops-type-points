@@ -18,6 +18,9 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
   imageOnly = false;
 
   @Input()
+  showReveal = false;
+
+  @Input()
   grayscale = false;
 
   @Input()
