@@ -395,10 +395,23 @@ export class SearchComponent implements OnInit, OnDestroy {
             : null;
         }
         this.sortBy = 'name';
+        this.showTypes = {
+          ops: false,
+          ennea: false,
+          wss: false
+        };
         this.displayedRecords = [];
         this.searchSort = [];
         this.searchNames();
         this.resort();
+        if (!this.showTypes.ops && !this.showTypes.ennea && !this.showTypes.wss) {
+          this.showTypes = {
+            ops: true,
+            ennea: true,
+            wss: true
+          };
+        }
+        this.showType();
         this.updateRoute();
         if (this.initialLoad) {
           this.initialLoad = false;
@@ -494,6 +507,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             result = found;
             if (result) {
               this.sortBy = 'ennea';
+              this.showTypes.ennea = true;
             }
           } else {
             result = false;
@@ -516,6 +530,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             }
             if (result) {
               this.sortBy = 'ennea';
+              this.showTypes.ennea = true;
             }
           } else {
             result = false;
@@ -570,6 +585,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
       if (result) {
         this.sortBy = 'ops';
+        this.showTypes.ops = true;
       }
       return result;
     } else if (searchModel.enneaTerms.get(s)) {
@@ -629,12 +645,14 @@ export class SearchComponent implements OnInit, OnDestroy {
         result = false;
       } else {
         this.sortBy = 'ops';
+        this.showTypes.ops = true;
       }
     } else if (searchModel.enneaMatchTerms.get(s)) {
         if (!searchModel.enneaMatchTerms.get(s).match(person)) {
           result = false;
         } else {
           this.sortBy = 'ennea';
+          this.showTypes.ennea = true;
         }
     } else if (searchModel.sexTerms.get(s)) {
       if (!searchModel.sexTerms.get(s).match(person)) {
@@ -650,7 +668,15 @@ export class SearchComponent implements OnInit, OnDestroy {
             result = true;
             const term = searchModel.tagTerms.get(s);
             if (term.sortBy) {
-              this.sortBy = term.sortBy;
+              if (term.sortBy === 'ennea') {
+                this.sortBy = term.sortBy;
+                this.showTypes.ennea = true;
+              } else if (term.sortBy === 'ops') {
+                this.sortBy = term.sortBy;
+                this.showTypes.ops = true;
+              } else if (term.sortBy === 'wss') {
+                this.showTypes.wss = true;
+              }
             }
           }
         });
@@ -661,6 +687,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         result = false;
       } else {
         this.sortBy = 'ops';
+        this.showTypes.ops = true;
       }
     } else if (searchModel.coreETypeStrings.includes(s)) {
       // 3, 4, etc
@@ -668,6 +695,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         result = false;
       } else {
         this.sortBy = 'ennea';
+        this.showTypes.ennea = true;
       }
     } else if (searchModel.coreETypeLong.includes(s)) {
       // three, four, etc
@@ -678,6 +706,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         result = false;
       } else {
         this.sortBy = 'ennea';
+        this.showTypes.ennea = true;
       }
     } else if (searchModel.eTypeStrings.includes(s)) {
       // 9w1, 6w7, etc
@@ -685,6 +714,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         result = false;
       } else {
         this.sortBy = 'ennea';
+        this.showTypes.ennea = true;
       }
     } else if (searchModel.trifixStrings.includes(s)) {
       // 936, 541, etc
@@ -692,10 +722,13 @@ export class SearchComponent implements OnInit, OnDestroy {
         result = false;
       } else {
         this.sortBy = 'ennea';
+        this.showTypes.ennea = true;
       }
     } else if (searchModel.socionicsTypes.includes(s)) {
       if (!person.wssType || person.wssType.toLowerCase() !== s) {
         result = false;
+      } else {
+        this.showTypes.wss = true;
       }
     } else if (
       !(
@@ -884,7 +917,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     // this.displayedRecords = null;
   }
 
-  showType(s: string) {
+  showType(s?: string) {
     if (s === 'ops') {
       this.showTypes.ops = !this.showTypes.ops;
     } else if (s === 'ennea') {
