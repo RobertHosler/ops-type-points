@@ -1,0 +1,75 @@
+<div class="container">
+    <h1>OPS Class</h1>
+    <div class="lead">
+      Below are all the Objective Personality Classes in Chronological Order.
+    </div>
+    <div class="mb-3">
+      Types are hidden in case you like surprises or would like to make a guess
+      for yourself before watching. Gently press the Show Types button if you hate
+      surprises and would like to have the types revealed. You can also see the
+      <a [routerLink]="['/search']" [queryParams]="{ text: 'ops class' }"
+        >classes ordered by type in the database</a> or the <a href="https://docs.google.com/document/d/1lNO4NjYwvPQYSBhHZNzTiFTTVfhitOWlFsdvr-WTX9g/edit?usp=sharing"
+        target="_blank">class archives doc</a>
+    </div>
+    <div class="mb-3">
+        <button
+          class="btn btn-gray btn-sm"
+          (click)="toggleDisplayTypes()"
+          [ngClass]="{ active: displayTypes }"
+        >
+          Show All Types
+        </button>
+        <button
+          class="btn btn-gray btn-sm ml-2"
+          (click)="togglePractice()"
+          [ngClass]="{ active: displayPractice }"
+        >
+          Practice
+        </button>
+        <button
+          class="btn btn-gray btn-sm ml-2"
+          (click)="toggleQA()"
+          [ngClass]="{ active: includeQA }"
+        >
+          Include Q&As
+        </button>
+        <button
+          class="btn btn-gray btn-sm ml-2"
+          (click)="toggleYT()"
+          [ngClass]="{ active: includeYT }"
+        >
+          Include YouTube
+        </button>
+        <button
+          class="btn btn-gray btn-sm ml-2"
+          (click)="toggleReverse()"
+          [ngClass]="{ active: reverseOrder }"
+        >
+          Reverse Order
+        </button>
+    </div>
+    <div class="mb-3">
+        <button
+          class="btn btn-gray btn-sm"
+          (click)="randomize()"
+        >
+          Randomize Order
+        </button>
+    </div>
+  </div>
+  <div class="pt-3 pb-5">
+  <app-type-record-list
+    style="min-height: 300px"
+    [typeRecords]="displayedRecords"
+    [showMolecule]="false"
+    [showSource]="false"
+    [displayPracticeLink]="displayPractice"
+    [showTypes]="showTypes"
+    [loading]="loading"
+    [showReveal]="true"
+    [enneaOnly]="'ops'"
+    loadingMessage="OPS Classes are Loading..."
+    [externalLink]="personLink"
+    notFoundMessage="Sorry, can't load classes at this time."
+  ></app-type-record-list>
+  </div>

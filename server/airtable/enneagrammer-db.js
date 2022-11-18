@@ -54,7 +54,7 @@ const converterList = [
   { org: "Dr. Drew", result: "Dr. Drew Pinsky" },
   { org: "Gary V", result: "Gary Vaynerchuk" },
   { org: "Kris Jenner", result: "Kris Kardashian Jenner" },
-  { org: "Kim Kardashian", result: "Kim Kardashian West" },
+  { org: "Kim Kardashian", result: "Kim Kardashian" },
   { org: "Neil deGrasse Tyson", result: "Neil DeGrasse Tyson" },
   { org: "Joaquin Pheonix", result: "Joaquin Phoenix" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },

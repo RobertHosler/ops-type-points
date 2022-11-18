@@ -59,7 +59,14 @@ export class HeaderComponent implements OnInit {
   dropdownLinks: HomeLink[] = [
     new HomeLink(
       'OPS Terms',
-      '/terms',
+      '/ops/terms',
+      '',
+      false,
+      ''
+    ),
+    new HomeLink(
+      'OPS Class in Order',
+      '/ops/class',
       '',
       false,
       ''

@@ -81,7 +81,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   typeIndicator = false;
 
   @Input()
-  enneaOnly = false;
+  enneaOnly = '';
 
   constructor() {}
 

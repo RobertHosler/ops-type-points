@@ -24,7 +24,7 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
   grayscale = false;
 
   @Input()
-  enneaOnly = false;
+  enneaOnly = '';
 
   @Input()
   typeIndicator = false;

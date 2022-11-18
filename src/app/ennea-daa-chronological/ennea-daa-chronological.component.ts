@@ -32,7 +32,7 @@ export class EnneaDaaChronologicalComponent implements OnInit {
         } else if (!a.daaClassNumber && b.daaClassNumber) {
           result = 1;
         } else if (a.daaClassNumber && b.daaClassNumber) {
-          result = a.daaClassNumber - b.daaClassNumber;
+          result = a.daaClassNumber * 1.0 < b.daaClassNumber * 1.0 ? -1 : 1;
         }
         return result;
       });

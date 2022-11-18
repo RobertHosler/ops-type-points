@@ -17,6 +17,7 @@ import { TypeExemplarsComponent } from './type-exemplars/type-exemplars.componen
 import { EnneaGridComponent } from './ennea-grid/ennea-grid.component';
 import { EnneaGridPageComponent } from './ennea-grid-page/ennea-grid-page.component';
 import { EnneaDaaChronologicalComponent } from './ennea-daa-chronological/ennea-daa-chronological.component';
+import { OpsClassComponent } from './ops-class/ops-class.component';
 
 const routes: Routes = [
   {
@@ -37,10 +38,16 @@ const routes: Routes = [
       { path: 'person', component: TypeRecordExpandedComponent },
     ],
   },
+  { path: 'terms', redirectTo: '/ops/terms', pathMatch: 'full' },
   {
-    path: 'terms',
+    path: 'ops',
     component: MainLayoutComponent,
-    children: [{ path: '', component: TermsComponent }],
+    children: [
+      { path: '', component: OpsClassComponent },
+      { path: 'class', component: OpsClassComponent },
+      { path: 'class-practice', redirectTo: '/ops/class?p=t&r=t&qa=t', pathMatch: 'full' },
+      { path: 'terms', component: TermsComponent },
+    ],
   },
   {
     path: 'nineTypes',
