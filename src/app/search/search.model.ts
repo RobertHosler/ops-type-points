@@ -1678,6 +1678,13 @@ const typeAhead = [];
 typeAhead.push(socionicsTypes);
 typeAhead.push(tagTerms);
 
+const socionicsTerms = new Map();
+socionicsTerms.set('socionics', {
+  match: (person: TypedPerson) => {
+    return person.wssType;
+  },
+});
+
 /**
  * Rules shown on the Search Home Page
  */
@@ -1984,6 +1991,7 @@ export const searchModel = {
   tagTerms: tagTerms,
   personTerms: personTerms,
   enneaMatchTerms: enneaMatchTerms,
+  socionicsTerms: socionicsTerms,
   sexTerms: sexTerms,
   predictions: predictions,
   socionicsTypes: socionicsTypes,

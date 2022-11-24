@@ -261,6 +261,11 @@ export class SearchComponent implements OnInit, OnDestroy {
           if (result === 0) {
             result = this.sortName(a, b);
           }
+        } else if (this.sortBy === 'wss') {
+          result = this.sortWssType(a, b);
+          if (result === 0) {
+            result = this.sortName(a, b);
+          }
         } else {
           result = this.sortOpsType(a, b);
           if (result === 0) {
@@ -369,6 +374,23 @@ export class SearchComponent implements OnInit, OnDestroy {
             return -1;
           }
         }
+      }
+    }
+    return 0;
+  }
+
+  private sortWssType(a: TypedPerson, b: TypedPerson) {
+    // console.log(a.wssType, b.wssType);
+    if (a.wssType && !b.wssType) {
+      return -1;
+    } else if (!a.wssType && b.wssType) {
+      return 1;
+    } else if (a.wssType && b.wssType) {
+      const aIndex = searchModel.socionicsTypes.indexOf(a.wssType.toLowerCase());
+      const bIndex = searchModel.socionicsTypes.indexOf(b.wssType.toLowerCase());
+      console.log(a.wssType, aIndex, b.wssType, bIndex, aIndex - bIndex);
+      if (aIndex !== bIndex) {
+        return aIndex - bIndex > 0 ? 1 : -1;
       }
     }
     return 0;
@@ -660,6 +682,13 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.sortBy = 'ennea';
           this.showTypes.ennea = true;
         }
+    } else if (searchModel.socionicsTerms.get(s)) {
+      if (!searchModel.socionicsTerms.get(s).match(person)) {
+        result = false;
+      } else {
+        this.sortBy = 'wss';
+        this.showTypes.wss = true;
+      }
     } else if (searchModel.sexTerms.get(s)) {
       if (!searchModel.sexTerms.get(s).match(person)) {
         result = false;
@@ -674,11 +703,10 @@ export class SearchComponent implements OnInit, OnDestroy {
             result = true;
             const term = searchModel.tagTerms.get(s);
             if (term.sortBy) {
+              this.sortBy = term.sortBy;
               if (term.sortBy === 'ennea') {
-                this.sortBy = term.sortBy;
                 this.showTypes.ennea = true;
               } else if (term.sortBy === 'ops') {
-                this.sortBy = term.sortBy;
                 this.showTypes.ops = true;
               } else if (term.sortBy === 'wss') {
                 this.showTypes.wss = true;

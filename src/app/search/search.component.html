@@ -133,6 +133,13 @@
             >
               Ennea
             </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: sortBy === 'wss' }"
+              (click)="resort('wss')"
+            >
+              Socionics
+            </button>
           </div>
         </div>
         <div class="d-inline-block">
