@@ -61,7 +61,8 @@ function convertRecords(records) {
       tags: record.fields.Tags,
       sex: record.fields.Sex,
       pictureUrl: getRecordPicture(record.fields.Picture),
-      lastModified: getLastModified(record)
+      lastModified: getLastModified(record),
+      created: record.fields['Created Date']
     });
   });
   return result;
@@ -91,6 +92,9 @@ function mergeMaps(nameMap, wssMap) {
       if (compareModifiedDates(nameVal.lastModified, wssVal.lastModified) > 0) {
         nameVal.lastModified = wssVal.lastModified;
       }
+      if (compareModifiedDates(nameVal.created, wssVal.created) > 0) {
+        nameVal.created = wssVal.created;
+      }
       matches.push(wssKey);
     } else {
       // Add to nameMap
@@ -113,7 +117,8 @@ function mergeMaps(nameMap, wssMap) {
           pictureUrl: wssVal.pictureUrl,
           ytLink: ytLink,
           sex: wssVal.sex,
-          lastModified: wssVal.lastModified
+          lastModified: wssVal.lastModified,
+          created: wssVal.created
         });
       }
     }

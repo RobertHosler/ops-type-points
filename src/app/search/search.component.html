@@ -110,7 +110,7 @@
       </div>
       <div class="button-wrapper" *ngIf="searchInitiated">
         <div class="d-inline-block">
-          <div class="small">Sort:</div>
+          <div class="small">Sort by:</div>
           <div class="btn-group">
             <button
               class="btn btn-gray btn-sm"
@@ -133,12 +133,24 @@
             >
               Ennea
             </button>
+          </div>
+        </div>
+        <div class="d-inline-block">
+          <div class="small">Sort by Date:</div>
+          <div class="btn-group">
             <button
               class="btn btn-gray btn-sm"
               [ngClass]="{ active: sortBy === 'modified' }"
               (click)="resort('modified')"
             >
-              Recent
+              Modified
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: sortBy === 'created' }"
+              (click)="resort('created')"
+            >
+              Created
             </button>
           </div>
         </div>
@@ -162,7 +174,7 @@
           </div>
         </div>
         <div class="d-inline-block">
-          <div class="small">Display:</div>
+          <div class="small">Display Format:</div>
           <div class="btn-group">
             <button
               class="btn btn-gray btn-sm"
@@ -181,7 +193,7 @@
           </div>
         </div>
         <div class="d-inline-block">
-          <div class="small">Types:</div>
+          <div class="small">Show Types:</div>
           <div class="btn-group">
             <button
               class="btn btn-gray btn-sm"

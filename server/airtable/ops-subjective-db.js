@@ -91,7 +91,8 @@ function convertRecords(records) {
       tags: tags,
       sex: record.fields.Sex ? record.fields.Sex[0] : 'Unknown',
       pictureUrl: getRecordPicture(record.fields.Picture),
-      lastModified: getLastModified(record)
+      lastModified: getLastModified(record),
+      created: record.fields['Created Date']
     });
   });
   return result;
@@ -187,6 +188,9 @@ function mergeMaps(nameMap, interviewMap) {
         if (compareModifiedDates(nameVal.lastModified, val.lastModified) > 0) {
           nameVal.lastModified = val.lastModified;
         }
+        if (compareModifiedDates(nameVal.created, val.created) > 0) {
+          nameVal.created = val.created;
+        }
 
         nameVal.type = type;
         nameVal.s1 = s1;
@@ -236,7 +240,8 @@ function mergeMaps(nameMap, interviewMap) {
           personTags: personTags,
           otherLinks: val.links,
           ytLink: ytLink,
-          lastModified: val.lastModified
+          lastModified: val.lastModified,
+          created: val.created
         });
       }
     }

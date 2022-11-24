@@ -405,6 +405,7 @@ function convertPersons(records) {
       opsYtLinks: linkObj.youtubeLinks,
       moreLinks: linkObj.otherLinks,
       lastModified: getLastModified(record),
+      created: record.fields['Created Date']
     };
     if (typedPerson.type && typedPerson.type.length === 16) {
       typedPerson.s1 = typedPerson.type.substring(3, 5);

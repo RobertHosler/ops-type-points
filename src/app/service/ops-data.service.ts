@@ -275,6 +275,7 @@ export class TypedPerson {
   collageUrl?: string;
   ytLink?: string;
   lastModified?: string;
+  created?: string;
 }
 
 export class Parent {

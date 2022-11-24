@@ -136,7 +136,8 @@ function convertRecords(records) {
       overridePicture: record.fields["Override Picture"],
       sex: record.fields.Sex ? record.fields.Sex[0] : 'Unknown',
       pictureUrl: getRecordPicture(record.fields.Picture),
-      lastModified: getLastModified(record)
+      lastModified: getLastModified(record),
+      created: record.fields['Created Date']
     });
   });
   return result;
@@ -182,6 +183,9 @@ function mergeMaps(nameMap, interviewMap) {
       nameVal.trans = nameVal.trans ? nameVal.trans : false;
       if (compareModifiedDates(nameVal.lastModified, val.lastModified) > 0) {
         nameVal.lastModified = val.lastModified;
+      }
+      if (compareModifiedDates(nameVal.created, val.created) > 0) {
+        nameVal.created = val.created;
       }
       matches.push(key);
     } else {
@@ -267,7 +271,8 @@ function mergeMaps(nameMap, interviewMap) {
         enfpLink: val.enfpLink,
         otherLinks: val.otherLinks,
         ytLink: val.ytLink,
-        lastModified: val.lastModified
+        lastModified: val.lastModified,
+        created: val.created
       });
     }
   });

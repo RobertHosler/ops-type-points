@@ -94,7 +94,8 @@ function convertRecords(records) {
       enneaLinks: record.fields.Links,
       pictureUrl: getRecordPicture(record.fields.Picture),
       collageUrl: getRecordPicture(record.fields.Collage),
-      lastModified: getLastModified(record)
+      lastModified: getLastModified(record),
+      created: record.fields['Created Date']
     });
   });
   return result;
@@ -201,6 +202,9 @@ function mergeMaps(nameMap, eTypeMap) {
       if (compareModifiedDates(nameVal.lastModified, eVal.lastModified) > 0) {
         nameVal.lastModified = eVal.lastModified;
       }
+      if (compareModifiedDates(nameVal.created, eVal.created) > 0) {
+        nameVal.created = eVal.created;
+      }
       matches.push(eKey);
     } else {
       // Add to nameMap
@@ -225,7 +229,8 @@ function mergeMaps(nameMap, eTypeMap) {
         ytLink: ytLink,
         sex: eVal.sex,
         trans: false,
-        lastModified: eVal.lastModified
+        lastModified: eVal.lastModified,
+        created: eVal.created
       });
     }
   });

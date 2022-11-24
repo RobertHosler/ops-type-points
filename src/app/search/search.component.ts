@@ -247,7 +247,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (sort) {
       this.displayedRecords.sort((a, b) => {
         let result = 0;
-        if (this.sortBy === 'modified') {
+        if (this.sortBy === 'created') {
+          result = this.sortModified(a.created, b.created);
+        } else if (this.sortBy === 'modified') {
           result = this.sortModified(a.lastModified, b.lastModified);
         } else if (this.sortBy === 'name') {
           result = this.sortName(a, b);
@@ -478,7 +480,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     strings.forEach((string) => {
       if (result) {
         let s = string.toLowerCase();
-        if (s.includes('|') ) {
+        if (s === 'all') {
+          this.sortBy = 'created';
+          result = true;
+          return;
+        } else if (s.includes('|') ) {
           // Or Search
           let sArr = s.split('|');
           let found = false;
