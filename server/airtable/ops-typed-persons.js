@@ -174,7 +174,6 @@ const converterList = [
   { org: "My Green Closet a/k/a Verina Erin", result: "Verina Erin" },
   { org: "Hustle Standard a/k/a Charley", result: "Charley - Hustle Standard" },
   { org: "Sarah", result: "Sarah, the ISTJ" },
-  { org: "ENTP Nurture", result: "Prem" },
   { org: "Whoopie Goldberg", result: "Whoopi Goldberg" },
   { org: "Linus Tech Tips", result: "Linus Sebastian" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
