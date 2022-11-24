@@ -81,3 +81,9 @@
   color: $dark;
   font-size: 0.7rem;
 }
+
+@media (max-width: 405px) {
+  .ops-type-table {
+    width: 100%;
+  }
+}
