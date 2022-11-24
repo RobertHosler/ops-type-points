@@ -172,7 +172,7 @@ function mergeMaps(nameMap, interviewMap) {
         opsTags.push("Speculation");
       }
       nameVal.opsTags = opsTags;
-      if (val.pictureUrl && val.overridePicture) {
+      if (val.overridePicture) {
         nameVal.pictureUrl = val.pictureUrl;
       }
       nameVal.binLink = val.binLink;
