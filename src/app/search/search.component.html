@@ -16,12 +16,11 @@
         ><span class="sp-branding">Database</span>
       </h1>
       <div>
-        <p class="lead">
+        <p class="lead mb-2">
           <strong>{{ recordCount }}</strong> people typed in the
           <strong>Objective Personality System</strong>,
           <strong>Enneagram</strong>, and <strong>Socionics</strong>. Try
           entering a type, a name, or scroll down to see more advanced tricks.
-          You can also check out our <a routerLink="/practice/exemplars">type exemplars page</a>.
         </p>
         <div>
 
@@ -51,7 +50,7 @@
     </div>
     <div class="clear-right"></div>
     <div class="my-2">
-      <div class="form-group">
+      <div class="form-group mb-2">
         <!-- <label for="name" class="name-label">Search by Name or Type:</label> -->
         <div class="input-group">
           <input
@@ -326,7 +325,7 @@
     </div>
   </div>
 
-  <div class="search-instructions" *ngIf="!searchInitiated">
+  <div class="search-instructions mt-4" *ngIf="!searchInitiated">
     <div class="fix-bg">
       <div class="container">
         <h2 class="mb-4">Objective Personality</h2>
@@ -700,7 +699,7 @@
             </div>
           </div>
         </div>
-        <div class="mt-3 fix-wrapper">
+        <div class="mt-3 fix-wrapper justify-content-center">
           <div
             *ngFor="
               let quadra of ['Alpha', 'Beta', 'Gamma', 'Delta'];
