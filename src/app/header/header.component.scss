@@ -41,6 +41,8 @@
 @include media-breakpoint-down('sm', $grid-breakpoints) {
   .navbar-collapse {
     margin-top: 20px;
+    max-height: calc(100vh - 80px);
+    overflow: auto;
   }
   .dropdown-item,
   .navbar-nav .nav-link {
@@ -56,6 +58,7 @@
     width: 100%;
     text-align: left;
   }
+
 }
 
 .btn-link {

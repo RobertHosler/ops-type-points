@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { HomeLink } from '../home/home-link';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  host: {
+    '(document:click)': 'onClick($event)',
+  },
 })
 export class HeaderComponent implements OnInit {
 
@@ -55,7 +58,6 @@ export class HeaderComponent implements OnInit {
     }
   ];
 
-  
   dropdownLinks: HomeLink[] = [
     new HomeLink(
       'OPS Terms',
@@ -110,42 +112,42 @@ export class HeaderComponent implements OnInit {
       ''
     ),
     new HomeLink(
-      'OPT Toy',
+      'OPS Molecule - OPT Toy',
       'https://opt-toy.vercel.app/',
       '',
       false,
       ''
     ),
     new HomeLink(
-      'OPS Database',
-      'http://db.subjectivepersonality.com/',
+      'OPS Database on Airtable',
+      'http://db.subjectivepersonality.com',
       '',
       false,
       ''
     ),
     new HomeLink(
-      'Class Notes',
+      'OPS Class Notes',
       'https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=sharing',
       '',
       false,
       ''
     ),
     new HomeLink(
-      'Class Archives',
+      'OPS Class Archives',
       'https://docs.google.com/document/d/1lNO4NjYwvPQYSBhHZNzTiFTTVfhitOWlFsdvr-WTX9g/edit?usp=sharing',
       '',
       false,
       ''
     ),
     new HomeLink(
-      'Type-A-Tool',
+      'OPS Type-A-Tool',
       'https://docs.google.com/document/d/1CcoxI6aknkRsc5-LCb41Ire-jGNCsqIKA76oeY4cxsQ/edit#',
       '',
       false,
       ''
     ),
     new HomeLink(
-      'Elimination Tool',
+      'OPS Elimination Tool',
       'https://www.objectivepersonalitysystem.com/elimination-tool',
       '',
       false,
@@ -154,9 +156,25 @@ export class HeaderComponent implements OnInit {
     
   ];
 
-  constructor() { }
+  constructor(private _eref: ElementRef) { }
 
   ngOnInit(): void {
   }
+  
+  onClick(event) {
+    console.log("test1", this._eref.nativeElement.contains(event.target), this.show, this.headerCollapsed);
+    setTimeout(() => {
+      if (!this._eref.nativeElement.contains(event.target) && (!this.headerCollapsed || this.show)) {// or some similar check
+        console.log("test2");
+        this.show = false;
+        this.headerCollapsed = true;
+      }
+    });
+   }
+
+   openExternal(href:string) {
+    this.show=false;
+    window.open(href, "_blank");
+   }
 
 }
