@@ -40,13 +40,6 @@
         >
           Include YouTube
         </button>
-        <button
-          class="btn btn-gray btn-sm ml-2"
-          (click)="toggleReverse()"
-          [ngClass]="{ active: reverseOrder }"
-        >
-          Reverse Order
-        </button>
     </div>
     <div class="mb-3">
         <button
@@ -54,6 +47,13 @@
           (click)="randomize()"
         >
           Randomize Order
+        </button>
+        <button
+          class="btn btn-gray btn-sm ml-2"
+          (click)="toggleReverse()"
+          [ngClass]="{ active: reverseOrder }"
+        >
+          Reverse Order
         </button>
     </div>
   </div>
