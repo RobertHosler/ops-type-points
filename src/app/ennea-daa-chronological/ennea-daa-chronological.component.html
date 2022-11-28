@@ -19,6 +19,13 @@
     >
       Show All Types
     </button>
+    <button
+      class="btn btn-gray btn-sm ml-2 d-none"
+      (click)="togglePractice()"
+      [ngClass]="{ active: displayPractice }"
+    >
+      Practice
+    </button>
   </div>
 </div>
 <div class="pt-3 pb-5">
@@ -27,9 +34,10 @@
   [typeRecords]="displayedRecords"
   [showMolecule]="false"
   [showSource]="false"
+  [displayPracticeLink]="false"
   [showTypes]="showTypes"
   [loading]="loading"
-  [enneaOnly]="true"
+  [enneaOnly]="'ennea'"
   [showReveal]="true"
   loadingMessage="DAA Classes are Loading..."
   [externalLink]="personLink"

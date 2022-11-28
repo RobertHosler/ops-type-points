@@ -15,6 +15,7 @@ export class EnneaDaaChronologicalComponent implements OnInit {
     ennea: this.displayTypes
   };
   loading = true;
+  displayPractice = false;
   displayedRecords: TypedPerson[] = [];
   allNames: Map<string, TypedPerson>;
 
@@ -55,6 +56,13 @@ export class EnneaDaaChronologicalComponent implements OnInit {
       wss: false,
       ennea: this.displayTypes
     };
+  }
+  
+  togglePractice() {
+    if (this.displayTypes) {
+      this.toggleDisplayTypes();
+    }
+    this.displayPractice = !this.displayPractice;
   }
 
 }
