@@ -290,11 +290,11 @@ input.form-control {
 .button-wrapper {
   margin-left: -0.5rem;
   margin-right: -0.5rem;
-  margin-bottom: -1rem;
+  margin-bottom: -.5rem;
   & > * {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
   }
 }
 .clear-button:not(:hover) {

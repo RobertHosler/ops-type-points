@@ -6,7 +6,7 @@
   </div>
 </div>
 <div *ngIf="routerInit && !initialLoad">
-  <div #container class="container pt-3 mb-5">
+  <div #container class="container pt-3">
     <div *ngIf="false" class="img-right img-heading">
       <img src="/assets/images/database.png" />
     </div>
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="clear-right"></div>
-    <div class="my-3">
+    <div class="my-2">
       <div class="form-group">
         <!-- <label for="name" class="name-label">Search by Name or Type:</label> -->
         <div class="input-group">
@@ -108,8 +108,48 @@
           <ng-component *ngTemplateOutlet="ops"></ng-component>
         </div>
       </div>
-      <div class="button-wrapper" *ngIf="searchInitiated">
-        <div class="d-inline-block">
+      <div class="button-wrapper">
+        <div class="d-inline-block w-100">
+          <button
+            class="btn btn-gray btn-sm mr-1"
+            [ngClass]="{ active: showHelp }"
+            (click)="showHelp = !showHelp"
+          >
+            Help
+          </button>
+          <button
+            class="btn btn-gray btn-sm mr-1"
+            [ngClass]="{ active: showSources }"
+            (click)="showSources = !showSources"
+          >
+            Sources
+          </button>
+          <button
+            *ngIf="searchInitiated"
+            class="btn btn-gray btn-sm mr-1"
+            [ngClass]="{ active: showSort }"
+            (click)="showSort = !showSort"
+          >
+            Sort
+          </button>
+          <button
+            *ngIf="searchInitiated"
+            class="btn btn-gray btn-sm mr-1"
+            [ngClass]="{ active: showDisplay }"
+            (click)="showDisplay = !showDisplay"
+          >
+            Display
+          </button>
+          <button
+            *ngIf="searchInitiated"
+            class="btn btn-gray btn-sm mr-1"
+            [ngClass]="{ active: showPrevious }"
+            (click)="showPrevious = !showPrevious"
+          >
+            History
+          </button>
+        </div>
+        <div class="d-inline-block" *ngIf="showSort">
           <div class="small">Sort by:</div>
           <div class="btn-group">
             <button
@@ -142,7 +182,7 @@
             </button>
           </div>
         </div>
-        <div class="d-inline-block">
+        <div class="d-inline-block" *ngIf="showSort">
           <div class="small">Sort by Date:</div>
           <div class="btn-group">
             <button
@@ -161,26 +201,7 @@
             </button>
           </div>
         </div>
-        <div class="d-inline-block" *ngIf="false">
-          <div class="small">Color:</div>
-          <div class="btn-group">
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: grayscale }"
-              (click)="grayscale = !grayscale"
-            >
-              Gray
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: !grayscale }"
-              (click)="grayscale = !grayscale"
-            >
-              Default
-            </button>
-          </div>
-        </div>
-        <div class="d-inline-block">
+        <div class="d-inline-block" *ngIf="showDisplay">
           <div class="small">Display Format:</div>
           <div class="btn-group">
             <button
@@ -199,7 +220,7 @@
             </button>
           </div>
         </div>
-        <div class="d-inline-block">
+        <div class="d-inline-block" *ngIf="showDisplay">
           <div class="small">Show Types:</div>
           <div class="btn-group">
             <button
@@ -225,21 +246,12 @@
             </button>
           </div>
         </div>
-        <div class="d-inline-block">
-          <button
-            class="btn btn-gray btn-sm"
-            [ngClass]="{ active: showHelp }"
-            (click)="showHelp = !showHelp"
-          >
-            Help
-          </button>
-        </div>
       </div>
       <div *ngIf="showHelp" class="mt-2">
         <ng-component *ngTemplateOutlet="tips"></ng-component>
       </div>
-      <div class="mt-2" *ngIf="searches.size > 0">
-        <div>Previous Searches</div>
+      <div class="mt-2" *ngIf="searches.size > 0 && showPrevious">
+        <div>Search History</div>
         <div class="previous-search-wrapper">
           <span
             *ngFor="let previousSearch of searches | keyvalue"
@@ -264,14 +276,13 @@
         </div>
       </div>
     </div>
-    <p
+    <div
       *ngIf="searchInitiated && displayedRecords && displayedRecords.length > 0"
       class="text-info"
     >
       Search found {{ displayedRecords.length }} results.
-    </p>
-    <div class="p-1 data-sources"
-        *ngIf="!searchInitiated">
+    </div>
+    <div class="p-1 data-sources mb-3" *ngIf="showSources">
       <div class="mb-1 d-inline-block">
         <strong>Objective Personality</strong> type data courtesy of the
         <a target="_blank" [href]="opsDbSource">Objective Personality Database</a

@@ -93,7 +93,12 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   grayscale = false;
   cards = false;
+  showControls = false;
+  showSort = false;
+  showDisplay = false;
   showHelp = false;
+  showPrevious = false;
+  showSources = false;
 
   subscription: Subscription;
 

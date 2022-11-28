@@ -325,6 +325,9 @@
   }
 }
 @media (max-width: 450px) {
+  .image-row:not(.image-only) {
+    display: block;
+  }
   .image-col {
     width: 145px;
     padding: 10px 5px;
