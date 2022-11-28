@@ -1,5 +1,3 @@
-import { Url } from "url";
-
 export class HomeLink {
   title: string;
   href: string;
