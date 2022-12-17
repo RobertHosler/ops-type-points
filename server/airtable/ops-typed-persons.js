@@ -176,6 +176,7 @@ const converterList = [
   { org: "Sarah", result: "Sarah, the ISTJ" },
   { org: "Whoopie Goldberg", result: "Whoopi Goldberg" },
   { org: "Linus Tech Tips", result: "Linus Sebastian" },
+  { org: "Victor Frankl", result: "Viktor Frankl" },
   { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
   { org: "Kim Kardashian", result: "Kim Kardashian West" },
   { org: "50 Cent", result: "Curtis '50 Cent' Jackson" },
