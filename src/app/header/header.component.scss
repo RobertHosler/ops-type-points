@@ -32,6 +32,10 @@
   height: 45px;
 }
 
+.dropdown-item {
+  cursor: pointer;
+}
+
 @include media-breakpoint-up('md', $grid-breakpoints) {
   .navbar-expand-md .navbar-nav .nav-link {
     padding-left: 1rem;

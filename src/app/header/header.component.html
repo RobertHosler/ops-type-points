@@ -21,42 +21,37 @@
       [ngClass]="{ show: !headerCollapsed }"
     >
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" *ngFor="let link of headerLinks">
-          <a class="nav-link" [routerLink]="link.href" *ngIf="!link.ext">
-            {{ link.title }}
-          </a>
-          <a class="nav-link" href="{{ link.href }}" *ngIf="link.ext">
-            {{ link.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
-          </a>
-        </li>
-        <li class="nav-item dropdown">
-          <button class="btn btn-link nav-link dropdown-toggle" id="navbarDropdownMenuLink"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-              (click)="show=!show">
-            More
-          </button>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink"
-              [ngClass]="{show: show === true}">
-            <div class="small mx-4 text-light">OPS</div>
-            <ng-container *ngFor="let link of dropdownLinks">
-              <a class="dropdown-item" [routerLink]="link.href" *ngIf="!link.ext"
-              (click)="show=false">
+        <ng-container *ngFor="let link of headerLinks">
+            <li class="nav-item" *ngIf="!isArray(link)">
+              <a class="nav-link" [routerLink]="link.href" *ngIf="!link.ext">
                 {{ link.title }}
               </a>
-              <a class="dropdown-item" [href]="link.href" *ngIf="link.ext" (click)="show=false">
+              <a class="nav-link" href="{{ link.href }}" *ngIf="link.ext">
                 {{ link.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
               </a>
-            </ng-container>
-            <hr>
-            <div class="small mx-4 text-light">External</div>
-            <ng-container *ngFor="let link of externalLinks">
-              <a class="dropdown-item" [href]="link.href" target="_blank"
-                (click)="openExternal(link.href)">
-                {{ link.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
-              </a>
-            </ng-container>
-          </div>
-        </li>
+            </li>
+
+            <li class="nav-item dropdown" *ngIf="isArray(link)">
+              <button class="btn btn-link nav-link dropdown-toggle" id="navbarDropdownMenuLinkOps"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                  (click)="link.toggle=!link.toggle">
+                {{link.label}}
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLinkOps"
+                  [ngClass]="{show: link.toggle === true}">
+                <ng-container *ngFor="let innerLink of link.links">
+                  <a class="dropdown-item" [routerLink]="innerLink.href" *ngIf="!innerLink.ext"
+                  (click)="link.toggle=false">
+                    {{ innerLink.title }}
+                  </a>
+                  <a class="dropdown-item" (click)="openExternal(innerLink.href)" *ngIf="innerLink.ext">
+                    {{ innerLink.title }}<i-bs name="box-arrow-up-right" class="d-none ml-2"></i-bs>
+                  </a>
+                </ng-container>
+              </div>
+            </li>
+        </ng-container>
+
       </ul>
     </div>
   </div>
