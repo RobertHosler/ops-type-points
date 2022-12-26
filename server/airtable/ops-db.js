@@ -112,6 +112,30 @@ function convertRecords(records) {
   return result;
 }
 
+function addTypeToPerson(person, newType) {
+  if (newType && newType.length === 12) {
+    let typeArr = newType.split("-");
+    type = formatType(typeArr);
+    person.coreNeed = typeArr[1].startsWith("N") || typeArr[1].startsWith("S") ? "Observer" : "Decider";
+    person.deciderLetter = typeArr[1].includes("F") ? "F" : "T";
+    person.observerLetter = typeArr[1].includes("S") ? "S" : "N";
+    person.deciderNeed = typeArr[1].includes("Fe") || typeArr[1].includes("Te") ? "De" : "Di";
+    person.observerNeed = typeArr[1].includes("Se") || typeArr[1].includes("Ne") ? "Oe" : "Oi";
+    let animals2 = typeArr[2].substring(0, 2);
+    person.infoAnimal = animals2.includes("B") ? "B" : "C";
+    person.energyAnimal = animals2.includes("P") ? "P" : "S";
+    person.animalBalance = typeArr[2].endsWith("P") || typeArr[2].endsWith("S") ? "Info" : "Energy";
+    person.sensoryMod = typeArr[0].substring(0, 1);
+    person.deMod = typeArr[0].substring(1, 2);
+    person.mod = typeArr[0];
+    person.s1 = typeArr[1].substring(0, 2);
+    person.s2 = typeArr[1].substring(2, 4);
+    person.animals = type.substring(9, 13);
+  } else {
+    person.type = newType;
+  }
+}
+
 //convert 'MF-NeTe-PCBS' to 'MF-Ne/Te-PC/B(S)'
 function formatType(typeArr) {
   let result =
@@ -149,13 +173,18 @@ function mergeMaps(nameMap, typeMap) {
         nameMap.set(name, nameVal);
         console.log('Replaced key', altName, name);
       }
-      if (val.type && nameVal.tags && nameVal.tags.includes('Incomplete')) {
-        nameVal.type = formatType(val.type.split('-'));
+      const incomplete = nameVal.tags && nameVal.tags.includes('Incomplete');
+      if (val.type && !nameVal.type || incomplete) {
+        // Override the nameVal type if its marked as incomplete
+        addTypeToPerson(nameVal, val.type);
         // console.log(key, nameVal.type, nameVal.tags);
-        let tags = nameVal.tags;
-        const index = tags.indexOf('Incomplete');
-        tags.splice(index, 1);
-        nameVal.tags = tags;
+        if (incomplete) {
+          // remove incomplete tag - it might be added back
+          let tags = nameVal.tags;
+          const index = tags.indexOf('Incomplete');
+          tags.splice(index, 1);
+          nameVal.tags = tags;
+        }
       }
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
       val.tags.forEach(tag => {
@@ -199,65 +228,9 @@ function mergeMaps(nameMap, typeMap) {
       if (val.tags.includes("Speculation")) {
         opsTags.push("Speculation");
       }
-      let type = "";
-      let coreNeed = "";
-      let deciderNeed = "";
-      let observerNeed = "";
-      let deciderLetter = "";
-      let observerLetter = "";
-      let infoAnimal = "";
-      let energyAnimal = "";
-      let animalBalance = "";
-      let sensoryMod = "";
-      let deMod = "";
-      let mod = "";
-      let s1 = "";
-      let s2 = "";
-      let animals = "";
-      if (val.type && val.type.length === 12) {
-        let typeArr = val.type.split("-");
-        type = formatType(typeArr);
-        coreNeed =
-          typeArr[1].startsWith("N") || typeArr[1].startsWith("S")
-            ? "Observer"
-            : "Decider";
-        deciderLetter = typeArr[1].includes("F") ? "F" : "T";
-        observerLetter = typeArr[1].includes("S") ? "S" : "N";
-        deciderNeed =
-          typeArr[1].includes("Fe") || typeArr[1].includes("Te") ? "De" : "Di";
-        observerNeed =
-          typeArr[1].includes("Se") || typeArr[1].includes("Ne") ? "Oe" : "Oi";
-        let animals2 = typeArr[2].substring(0, 2);
-        infoAnimal = animals2.includes("B") ? "B" : "C";
-        energyAnimal = animals2.includes("P") ? "P" : "S";
-        animalBalance =
-          typeArr[2].endsWith("P") || typeArr[2].endsWith("S")
-            ? "Info"
-            : "Energy";
-        sensoryMod = typeArr[0].substring(0, 1);
-        deMod = typeArr[0].substring(1, 2);
-        mod = typeArr[0];
-        s1 = typeArr[1].substring(0, 2);
-        s2 = typeArr[1].substring(2, 4);
-        animals = type.substring(9, 13);
-      }
-      nameMap.set(key, {
+      let newPerson = {
         name: key,
-        type: type,
-        s1: s1,
-        s2: s2,
-        mod: mod,
-        animals: animals,
-        coreNeed: coreNeed,
-        deciderNeed: deciderNeed,
-        observerNeed: observerNeed,
-        deciderLetter: deciderLetter,
-        observerLetter: observerLetter,
-        infoAnimal: infoAnimal,
-        energyAnimal: energyAnimal,
-        animalBalance: animalBalance,
-        sensoryMod: sensoryMod,
-        deMod: deMod,
+        type: val.type,
         pictureUrl: val.pictureUrl,
         tags: val.tags, // tags for searching
         personTags: personTags,
@@ -269,7 +242,9 @@ function mergeMaps(nameMap, typeMap) {
         trans: false,
         lastModified: val.lastModified,
         created: val.created
-      });
+      };
+      addTypeToPerson(newPerson, val.type);
+      nameMap.set(key, newPerson);
     }
   });
   console.log("OPS DB Matches", matches.length, "New Persons", i);
