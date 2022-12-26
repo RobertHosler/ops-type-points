@@ -4,7 +4,7 @@
       <img src="/assets/images/sp-logo-no-bg.png" />
     </div>
     <h1>OPS Type <span class="sp-branding">Practice</span></h1>
-    <p class="lead">Want some Objective Personality Typing Practice?</p>
+    <p class="lead">Get some Objective Personality Typing Practice!</p>
     <p>
       Select or retrieve someone to type at random from the
       <a
@@ -14,7 +14,11 @@
       >
       below. Study their interviews and make your best guess at their type.
     </p>
-    <div>
+    <div class="mb-2"> 
+      <button class="btn btn-gray" [ngClass]="{'active': showingHelp}"
+        (click)="showingHelp=!showingHelp">{{showingHelp ? "Hide Help" : "Show Help"}}</button>
+    </div>
+    <div *ngIf="showingHelp">
       <ul>
         <li>
           You can submit a partial guess, only the parts you submit will be

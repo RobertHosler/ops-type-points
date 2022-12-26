@@ -41,6 +41,8 @@ export class TypePracticeComponent implements OnInit {
 
   classOnly = false;
 
+  showingHelp = false;
+
   allNames: Map<string, TypedPerson>;
 
   coins = [
