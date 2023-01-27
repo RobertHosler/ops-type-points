@@ -140,15 +140,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-position: bottom right !important;
-  background-size: 195px !important;
+  background-position-y: -10% !important;
+  background-position-x: 41% !important;
+  background-size: 333px !important;
   background-color: $royal-purple;
   height: 100%;
   font-weight: bold;
   .image-missing-text {
-    transform: rotate(-15deg);
-    margin-top: 30px;
-    margin-left: 20px;
+    transform: rotate(15deg);
     color: $light;
     a {
       color: $light;
