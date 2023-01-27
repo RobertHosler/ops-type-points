@@ -143,6 +143,31 @@ function convertRecords(records) {
   return result;
 }
 
+function addTypeToPerson(person, newType) {
+  if (newType && newType.length === 12) {
+    let typeArr = newType.split(" ");
+    type = formatType(typeArr);
+    person.coreNeed = typeArr[1].startsWith("N") || typeArr[1].startsWith("S") ? "Observer" : "Decider";
+    person.deciderLetter = typeArr[1].includes("F") ? "F" : "T";
+    person.observerLetter = typeArr[1].includes("S") ? "S" : "N";
+    person.deciderNeed = typeArr[1].includes("Fe") || typeArr[1].includes("Te") ? "De" : "Di";
+    person.observerNeed = typeArr[1].includes("Se") || typeArr[1].includes("Ne") ? "Oe" : "Oi";
+    let animals2 = typeArr[2].substring(0, 2);
+    person.infoAnimal = animals2.includes("B") ? "B" : "C";
+    person.energyAnimal = animals2.includes("P") ? "P" : "S";
+    person.animalBalance = typeArr[2].endsWith("P") || typeArr[2].endsWith("S") ? "Info" : "Energy";
+    person.sensoryMod = typeArr[0].substring(0, 1);
+    person.deMod = typeArr[0].substring(1, 2);
+    person.mod = typeArr[0];
+    person.s1 = typeArr[1].substring(0, 2);
+    person.s2 = typeArr[1].substring(2, 4);
+    person.animals = type.substring(9, 13);
+    person.type = type;
+  } else {
+    person.type = newType;
+  }
+}
+
 function mergeMaps(nameMap, interviewMap) {
   const matches = [];
   let i = 0;
@@ -161,6 +186,13 @@ function mergeMaps(nameMap, interviewMap) {
           tags.push(tag);
         }
       });
+      const override = tags.includes('Override');
+      if (override) {
+        const index = tags.indexOf('Override');
+        tags.splice(index, 1);
+        // Overriding type source
+        addTypeToPerson(nameVal, val.opType);
+      }
       nameVal.tags = tags;
       let personTags = nameVal.personTags ? nameVal.personTags : [];
       if (tags.includes("Community Member") && !personTags.includes("Community Member")) {
@@ -193,48 +225,6 @@ function mergeMaps(nameMap, interviewMap) {
       i++;
       let tags = val.tags;
       let opsTags = [];
-      let type = "";
-      let coreNeed = "";
-      let deciderNeed = "";
-      let observerNeed = "";
-      let deciderLetter = "";
-      let observerLetter = "";
-      let infoAnimal = "";
-      let energyAnimal = "";
-      let animalBalance = "";
-      let sensoryMod = "";
-      let deMod = "";
-      let mod = "";
-      let s1 = "";
-      let s2 = "";
-      let animals = "";
-      if (val.opType && val.opType.length === 12) {
-        let typeArr = val.opType.split(" ");
-        type = formatType(typeArr);
-        coreNeed =
-          typeArr[1].startsWith("N") || typeArr[1].startsWith("S")
-            ? "Observer"
-            : "Decider";
-        deciderLetter = typeArr[1].includes("F") ? "F" : "T";
-        observerLetter = typeArr[1].includes("S") ? "S" : "N";
-        deciderNeed =
-          typeArr[1].includes("Fe") || typeArr[1].includes("Te") ? "De" : "Di";
-        observerNeed =
-          typeArr[1].includes("Se") || typeArr[1].includes("Ne") ? "Oe" : "Oi";
-        let animals2 = typeArr[2].substring(0, 2);
-        infoAnimal = animals2.includes("B") ? "B" : "C";
-        energyAnimal = animals2.includes("P") ? "P" : "S";
-        animalBalance =
-          typeArr[2].endsWith("P") || typeArr[2].endsWith("S")
-            ? "Info"
-            : "Energy";
-        sensoryMod = typeArr[0].substring(0, 1);
-        deMod = typeArr[0].substring(1, 2);
-        mod = typeArr[0];
-        s1 = typeArr[1].substring(0, 2);
-        s2 = typeArr[1].substring(2, 4);
-        animals = type.substring(9, 13);
-      }
       let personTags = [];
       if (tags.includes('Community Member')) {
         personTags.push("Community Member");
@@ -242,30 +232,15 @@ function mergeMaps(nameMap, interviewMap) {
       if (tags.includes("Speculation")) {
         opsTags.push("Speculation");
       }
-      nameMap.set(key, {
+      let newPerson = {
         name: key,
-        type: type,
-        s1: s1,
-        s2: s2,
-        mod: mod,
-        animals: animals,
-        coreNeed: coreNeed,
-        deciderNeed: deciderNeed,
-        observerNeed: observerNeed,
-        deciderLetter: deciderLetter,
-        observerLetter: observerLetter,
-        infoAnimal: infoAnimal,
-        energyAnimal: energyAnimal,
-        animalBalance: animalBalance,
-        sensoryMod: sensoryMod,
-        deMod: deMod,
+        type: val.opType,
+        pictureUrl: val.pictureUrl,
         wssType: val.wssType,
         wssLink: val.wssLink,
-        pictureUrl: val.pictureUrl,
         sex: val.sex,
         trans: false,
         tags: tags,
-        opsTags: opsTags,
         personTags: personTags,
         binLink: val.binLink,
         enfpLink: val.enfpLink,
@@ -273,7 +248,9 @@ function mergeMaps(nameMap, interviewMap) {
         ytLink: val.ytLink,
         lastModified: val.lastModified,
         created: val.created
-      });
+      };
+      addTypeToPerson(newPerson, val.opType);
+      nameMap.set(key, newPerson);
     }
   });
   // console.log(matches);

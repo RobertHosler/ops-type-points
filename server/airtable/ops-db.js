@@ -131,6 +131,7 @@ function addTypeToPerson(person, newType) {
     person.s1 = typeArr[1].substring(0, 2);
     person.s2 = typeArr[1].substring(2, 4);
     person.animals = type.substring(9, 13);
+    person.type = type;
   } else {
     person.type = newType;
   }
@@ -173,8 +174,13 @@ function mergeMaps(nameMap, typeMap) {
         nameMap.set(name, nameVal);
         console.log('Replaced key', altName, name);
       }
+      const override = val.tags && val.tags.includes('Override');
+      if (override) {
+        const index = val.tags.indexOf('Override');
+        val.tags.splice(index, 1);
+      }
       const incomplete = nameVal.tags && nameVal.tags.includes('Incomplete');
-      if (val.type && !nameVal.type || incomplete) {
+      if (val.type && !nameVal.type || (incomplete || override)) {
         // Override the nameVal type if its marked as incomplete
         addTypeToPerson(nameVal, val.type);
         // console.log(key, nameVal.type, nameVal.tags);
