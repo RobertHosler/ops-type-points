@@ -1,6 +1,5 @@
 /*jshint esversion: 6 */
 
-const { resolve } = require("@angular/compiler-cli/src/ngtsc/file_system");
 var now = require("performance-now");
 
 /**
