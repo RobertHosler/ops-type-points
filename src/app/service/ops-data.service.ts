@@ -225,6 +225,7 @@ export class TypedPerson {
   name: string;
   pictureUrl?: string;
   type?: string;
+  socialType?: string;
   typeNumber?: string;
   tags?: string[];
   personTags?: string[];

@@ -1,4 +1,5 @@
 /*jshint esversion: 6 */
+// OP Database - Ryan & Jana - https://airtable.com/shrQ6IoDtlXpzmC1l/tblyUDDV5zVyuX5VL/viweXFJuHAQpi5as3
 
 const { getRecordPicture, getLastModified } = require("./airtable");
 
@@ -15,6 +16,7 @@ listUrl.searchParams.append("maxRecords", MAX_RECORD);
 listUrl.searchParams.append("view", "Gallery by MBTI Type");
 listUrl.searchParams.append("fields", "Name");
 listUrl.searchParams.append("fields", "Type");
+listUrl.searchParams.append("fields", "Social Type");
 listUrl.searchParams.append("fields", "Tags");
 listUrl.searchParams.append("fields", "Picture");
 //Coins
@@ -43,6 +45,7 @@ const opsTypedPersons = {
   fields: [
     "Name",
     "Type",
+    "Social Type",
     "Tags",
     "Picture",
     "Sensory Sexual",
@@ -315,6 +318,8 @@ function convertPersons(records) {
       !tags.includes("Incomplete")) {
         tags.push('Incomplete');
     }
+    let socialType = record.fields["Social Type"];
+    socialType = socialType ? socialType.substring(socialType.length - 1) : socialType;
     let opsTags = [];
     if (tags.includes("Speculation")) {
       opsTags.push("Speculation");
@@ -333,6 +338,7 @@ function convertPersons(records) {
       opsId: uniqueId,
       name: name,
       type: type,
+      socialType: socialType,
       typeNumber: record.fields["Type Number"],
       pictureUrl: getRecordPicture(record.fields.Picture),
       opsTags: opsTags,

@@ -179,6 +179,9 @@
         <span *ngIf="!typeRecord.opsTags || !typeRecord.opsTags.length">
           {{ typeRecord.type }}
         </span>
+        <span *ngIf="typeRecord.socialType">
+          [{{ typeRecord.socialType }}]
+        </span>
       </div>
       <div *ngIf="showReveal && typeRecord.fullEType && (!enneaOnly || enneaOnly === 'ennea') && !enneaShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="enneaShow = true">Reveal Ennea Type</a></div>
       <div class="image-type" *ngIf="typeRecord.fullEType && (!enneaOnly || enneaOnly === 'ennea') && enneaShow">
