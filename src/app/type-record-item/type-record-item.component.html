@@ -179,7 +179,9 @@
         <span *ngIf="!typeRecord.opsTags || !typeRecord.opsTags.length">
           {{ typeRecord.type }}
         </span>
-        <span *ngIf="typeRecord.socialType">
+        <span *ngIf="typeRecord.socialType"
+          [popover]="'Social Type ' + typeRecord.socialType"
+          triggers="mouseenter:mouseleave">
           [{{ typeRecord.socialType }}]
         </span>
       </div>
