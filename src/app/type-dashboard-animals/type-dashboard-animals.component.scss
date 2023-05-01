@@ -1,4 +1,4 @@
-@import "~src/assets/variables";
+@import "../../assets/variables";
 
 .mm-row {
 //   background-color: $ej-red;
@@ -8,8 +8,8 @@
 //   background-color: #e8f0ff;
 }
 
-@import "~src/assets/variables";
-@import "~node_modules/bootstrap/scss/mixins/breakpoints";
+@import "../../assets/variables";
+@import "../../../node_modules/bootstrap/scss/mixins/breakpoints";
 
 table {
   color: $dark;

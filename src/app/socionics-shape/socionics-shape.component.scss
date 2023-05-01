@@ -1,4 +1,4 @@
-@import "~src/assets/variables";
+@import "../../assets/variables";
 
 $triangle-border: 4px;
 $triangle-size: 14px;
@@ -24,6 +24,7 @@ $triangle-size: 14px;
 }
 
 $block-size: 32px;
+$block-size-half: calc($block-size / 2);
 $block-border: 2px;
 .fi-shape,
 .fe-shape {
@@ -37,7 +38,7 @@ $block-border: 2px;
     top: 0;
     left: 0;
     height: $block-size;
-    width: $block-size / 2;
+    width: $block-size-half;
     border: $block-border solid black;
   }
   &:after {
@@ -46,8 +47,8 @@ $block-border: 2px;
     position: absolute;
     bottom: 0;
     right: $block-border;
-    height: $block-size / 2;
-    width: $block-size / 2;
+    height: $block-size-half;
+    width: $block-size-half;
     border: $block-border solid black;
     border-left: $block-border solid white;
   }
@@ -72,8 +73,8 @@ $block-border: 2px;
     position: absolute;
     top: 0;
     right: 0;
-    height: $block-size / 2;
-    width: $block-size / 2;
+    height: $block-size-half;
+    width: $block-size-half;
     border: $block-border solid black;
   }
 }
