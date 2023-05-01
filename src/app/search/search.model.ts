@@ -1394,6 +1394,51 @@ personTerms.set('sfirst', {
     return person.animals && person.animals.startsWith('S');
   },
 });
+personTerms.set('s1', {
+  match: (person: TypedPerson) => {
+    return person.socialType && person.socialType === '1';
+  },
+});
+personTerms.set('socialtype1', {
+  match: (person: TypedPerson) => {
+    return person.socialType && person.socialType === '1';
+  },
+});
+personTerms.set('s2', {
+  match: (person: TypedPerson) => {
+    return person.socialType && person.socialType === '2';
+  },
+});
+personTerms.set('socialtype2', {
+  match: (person: TypedPerson) => {
+    return person.socialType && person.socialType === '2';
+  },
+});
+personTerms.set('s3', {
+  match: (person: TypedPerson) => {
+    return person.socialType && person.socialType === '3';
+  },
+});
+personTerms.set('socialtype3', {
+  match: (person: TypedPerson) => {
+    return person.socialType && person.socialType === '3';
+  },
+});
+personTerms.set('s4', {
+  match: (person: TypedPerson) => {
+    return person.socialType && person.socialType === '4';
+  },
+});
+personTerms.set('socialtype4', {
+  match: (person: TypedPerson) => {
+    return person.socialType && person.socialType === '4';
+  },
+});
+personTerms.set('socialtype', {
+  match: (person: TypedPerson) => {
+    return person.socialType;
+  },
+});
 
 const enneaMatchTerms = new Map();
 enneaMatchTerms.set('trifix', {
