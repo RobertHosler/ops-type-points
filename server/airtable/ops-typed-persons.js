@@ -321,9 +321,11 @@ function convertPersons(records) {
     let socialType = record.fields["Social Type"];
     socialType = socialType ? socialType.substring(socialType.length - 1) : socialType;
     let opsTags = [];
-    if (tags.includes("Speculation")) {
+    if (tags.includes("Speculative OP Type")) {
       opsTags.push("Speculation");
     }
+    // TODO: tags.includes("Speculative Social Type")
+    // TODO: tags.includes("Retyped")
     let ytLink = '';
     let personTags = [];
     if (!tags.includes('Community Member')) {
