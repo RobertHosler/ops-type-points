@@ -249,6 +249,19 @@
       <div *ngIf="showHelp" class="mt-2">
         <ng-component *ngTemplateOutlet="tips"></ng-component>
       </div>
+      <div class="mt-2">
+        <small ><u class="mr-1">Try our new terms:</u><a [routerLink]="['/search']"
+        [queryParams]="{ text: 'socialtype' }">socialtype</a>,
+        <a [routerLink]="['/search']"
+        [queryParams]="{ text: 'socialtype1' }">socialtype1</a>,
+        <a [routerLink]="['/search']"
+        [queryParams]="{ text: 'socialtype2' }">socialtype2</a>,
+        <a [routerLink]="['/search']"
+        [queryParams]="{ text: 'socialtype3' }">socialtype3</a>,
+        <a [routerLink]="['/search']"
+        [queryParams]="{ text: 'socialtype4' }">socialtype4</a>
+      </small>
+      </div>
       <div class="mt-2" *ngIf="searches.size > 0 && showPrevious">
         <div>Search History</div>
         <div class="previous-search-wrapper">

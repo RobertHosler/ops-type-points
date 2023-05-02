@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   isMaxRecords = false;
 
   placeholderText =
-    'Try "so 9 ni", "class oi ti observer", or "male enfj jumper"';
+    'Try "fese", "enfj", "lii", "sosp 9" or New ops terms: "socialtype", "s1", "s2", "s3", "s4"';
 
   searchType = '';
   searchTypes = ['Coins', 'Name', 'Type', 'Enneagram'];
