@@ -70,7 +70,7 @@
             *ngFor="let mismatch of enneaDifferences.typeMismatch"
           >
             {{ mismatch.name }}<br />
-            OLD: {{ mismatch.t1 }}<br />
+            <s>{{ mismatch.t1 }}</s><br />
             {{ mismatch.t2 }}
           </div>
         </div>
