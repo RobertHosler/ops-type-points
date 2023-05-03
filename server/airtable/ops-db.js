@@ -114,7 +114,7 @@ function convertRecords(records) {
 
 function addTypeToPerson(person, newType) {
   if (newType && newType.length === 12) {
-    let typeArr = newType.split("-");
+    let typeArr = newType.split(/[\s-]/); // split on spaces and dashes
     type = formatType(typeArr);
     person.coreNeed = typeArr[1].startsWith("N") || typeArr[1].startsWith("S") ? "Observer" : "Decider";
     person.deciderLetter = typeArr[1].includes("F") ? "F" : "T";
