@@ -11,6 +11,7 @@ const fields = [
   "Name",
   "Alt-Name",
   "OP Type",
+  "Social Type",
   "WSS Type",
   "Picture",
   "Sex",
@@ -82,6 +83,7 @@ function convertRecords(records) {
     }
     const name = convertName(record.fields.Name);
     const opsType = record.fields["OP Type"];
+    const socialType = record.fields["Social Type"];
     const wssType = record.fields["WSS Type"];
     const wssLink = record.fields.WSS;
     const bin = record.fields.Binyamin;
@@ -125,6 +127,7 @@ function convertRecords(records) {
       name: name,
       altName: record.fields["Alt-Name"],
       opType: opsType,
+      socialType: socialType,
       wssType: wssType,
       binLink: bin,
       enfpLink: enfp,
@@ -179,6 +182,7 @@ function mergeMaps(nameMap, interviewMap) {
     if (nameVal) {
       // Merge records
       nameVal.wssType = val.wssType;
+      nameVal.socialType = nameVal.socialType ? nameVal.socialType : val.socialType;
       nameVal.wssLink = val.link;
       let tags = nameVal.tags ? nameVal.tags : [];
       val.tags.forEach((tag) => {
@@ -235,6 +239,7 @@ function mergeMaps(nameMap, interviewMap) {
       let newPerson = {
         name: key,
         type: val.opType,
+        socialType: val.socialType,
         pictureUrl: val.pictureUrl,
         wssType: val.wssType,
         wssLink: val.wssLink,

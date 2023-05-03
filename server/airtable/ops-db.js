@@ -11,6 +11,7 @@ const fields = [
   "Name",
   "Alt-Name",
   "Type",
+  "Social Type",
   "Picture",
   "Sex",
   "Tags",
@@ -96,6 +97,7 @@ function convertRecords(records) {
     result.set(name, {
       name: name,
       type: record.fields.Type,
+      socialType: record.fields["Social Type"],
       altName: record.fields["Alt-Name"],
       sex: record.fields.Sex,
       tags: tags,
@@ -192,6 +194,7 @@ function mergeMaps(nameMap, typeMap) {
           nameVal.tags = tags;
         }
       }
+      nameVal.socialType = nameVal.socialType ? nameVal.socialType : val.socialType;
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
       val.tags.forEach(tag => {
         if (!nameVal.tags.includes(tag)) {
@@ -237,6 +240,7 @@ function mergeMaps(nameMap, typeMap) {
       let newPerson = {
         name: key,
         type: val.type,
+        socialType: val.socialType,
         pictureUrl: val.pictureUrl,
         tags: val.tags, // tags for searching
         personTags: personTags,
