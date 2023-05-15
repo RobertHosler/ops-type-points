@@ -3,7 +3,7 @@
 <div *ngIf="daaLinks.length > 0">
   Links     <span
     popoverTitle="Dark Arts Academy"
-    popover="Enneagrammer Dark Arts Academy (DAA) is a monthly subscription which grants you access to exclusive weekly video content, a private facebook group, and typing service discounts.  There are 4 publicly available typings, but most are only available to those subscribed."
+    [popover]="'Enneagrammer Dark Arts Academy (DAA) is a monthly subscription which grants you access to exclusive weekly video content, a private facebook group, and typing service discounts.  There are 4 publicly available typings, but most are only available to those subscribed.'"
   >
     <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
   </span>

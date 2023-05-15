@@ -484,7 +484,7 @@
               <div
                 class="rule-name"
                 popoverTitle="Trifix Stacking"
-                popover="Order matters for the trifix stacking search. 369 will not return 963 results."
+                [popover]="'Order matters for the trifix stacking search. 369 will not return 963 results.'"
                 triggers="mouseenter:mouseleave:click"
               >
                 Trifix Stacking
@@ -505,7 +505,7 @@
               <div
                 class="rule-name"
                 popoverTitle="Trifix Combinations"
-                popover="Order doesn't matter for the trifix combination search.  *369 and *936 will return the same results."
+                [popover]="'Order doesn\'t matter for the trifix combination search.  *369 and *936 will return the same results.'"
                 triggers="mouseenter:mouseleave:click"
               >
                 Trifix Combinations
@@ -525,7 +525,7 @@
             <div class="rule">
               <div class="rule-name"
               popoverTitle="Overlay Combinations"
-              popover="Order doesn't matter for the overlay combination search.  (48) and (84 will return the same results."
+              [popover]="'Order doesn\'t matter for the overlay combination search.  (48) and (84 will return the same results.'"
               triggers="mouseenter:mouseleave:click"
               >
                 Overlay Combinations

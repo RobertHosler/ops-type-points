@@ -40,33 +40,33 @@
         <div class="image-wrapper">
           <div class="link-row" *ngIf="!displayPracticeLink">
             <span *ngIf="typeRecord.tags.includes('Community Member')" class="community-member-logo"
-                popover="Community Member" triggers="mouseenter:mouseleave" placement="top">
+                [popover]="'Community Member'" triggers="mouseenter:mouseleave" placement="top">
                 <img src="/assets/images/sp-logo-no-bg.png" />
             </span>
             <a [href]="typeRecord.classLink ? typeRecord.classLink.href : 'https://docs.google.com/document/u/0/d/1lNO4NjYwvPQYSBhHZNzTiFTTVfhitOWlFsdvr-WTX9g/mobilebasic'"
                 *ngIf="!enneaOnly && typeRecord.tags && typeRecord.tags.includes('OPS Class Typing')"
-                popover="OPS Class" triggers="mouseenter:mouseleave" placement="top"
+                [popover]="'OPS Class'" triggers="mouseenter:mouseleave" placement="top"
                 class="ops-logo-link" target="_blank">
               <img src="/assets/images/ops-logo.PNG" />
             </a>
             <a [href]="typeRecord.daaLink ? typeRecord.daaLink : 'https://www.enneagrammer.com/members-home'"
-                popover="Dark Arts Academy Class" triggers="mouseenter:mouseleave" placement="top"
+                [popover]="'Dark Arts Academy Class'" triggers="mouseenter:mouseleave" placement="top"
                 *ngIf="typeRecord.tags && typeRecord.tags.includes('Academy Typing (DAA)')"
                 class="daa-logo-link" target="_blank">
               <img src="/assets/images/enneagrammer-logo.png" />
             </a>
             <a [href]="typeRecord.wssLink ? typeRecord.wssLink : 'http://worldsocionics.blogspot.com/'"
-                popover="WSS Analysis" triggers="mouseenter:mouseleave" placement="top"
+                [popover]="'WSS Analysis'" triggers="mouseenter:mouseleave" placement="top"
                 *ngIf="!enneaOnly && typeRecord.tags && typeRecord.tags.includes('Analysis')"
                 class="wss-logo-link" target="_blank">
               <img src="/assets/images/wss-logo.jpg" />
             </a>
             <a *ngIf="typeRecord.ytLink" class="youtube-link" [href]="typeRecord.ytLink" target="_blank"
-                popover="Watch Interview" triggers="mouseenter:mouseleave" placement="top">
+                [popover]="'Watch Interview'" triggers="mouseenter:mouseleave" placement="top">
               <i-bs name="youtube" class="mx-1" width="1.25rem" height="1.25rem"></i-bs></a>
             <a *ngIf="typeRecord.tags.includes('Historical')" class="wiki-link" target="_blank"
                 [href]="'https://en.wikipedia.org/wiki/' + typeRecord.name"
-                popover="Wikipedia" triggers="mouseenter:mouseleave" placement="top">
+                [popover]="'Wikipedia'" triggers="mouseenter:mouseleave" placement="top">
                 <i-bs name="globe2" class="mx-1" width="1.25rem" height="1.25rem"></i-bs></a>
           </div>
           <a
