@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
   OpsDataService,
   Parent,
   Source,
   Term,
-  TypedPerson,
 } from '../service/ops-data.service';
 
 @Component({
@@ -18,16 +18,24 @@ export class TermsComponent implements OnInit {
   terms: Map<string, Term>;
   sources: Map<string, Source>;
   activeSource: string;
-  activeTerms = [];
+  activeTerms: string[];
+  activeParent: string;
 
   parents: Map<string, Parent>;
 
-  activeParent: string;
+  routerInit = false;
+  
+  @ViewChild('definition') loadedEl: ElementRef;
 
-  constructor(private opsDataService: OpsDataService) {
+  constructor(
+    private opsDataService: OpsDataService,
+    private route: ActivatedRoute,
+    private router: Router) {
     opsDataService.allTerms.subscribe((result) => {
       this.terms = result;
-      this.allTerms();
+      if (!this.activeTerms) {
+        this.allTerms();
+      }
     });
     opsDataService.allSources.subscribe((result) => {
       this.sources = result;
@@ -35,15 +43,40 @@ export class TermsComponent implements OnInit {
     opsDataService.allParents.subscribe((result) => {
       this.parents = result;
     });
+    this.route.queryParamMap.subscribe((params: Params) => {
+      this.initRouter(params);
+    });
   }
 
   ngOnInit(): void {}
+  
+  private initRouter(params: Params) {
+    if (!this.routerInit) {
+      let parent = params.get('parent');
+      let termsParam = params.get('terms');
+      let sourceParam = params.get('source');
+      if (parent) {
+        this.activeParent = parent;
+        this.updateParentTerms(parent);
+      } else if (termsParam) {
+        this.showTerms = true;
+        let terms = termsParam.split(',');
+        this.addKeys(terms);
+      } else if (sourceParam) {
+        this.showSources = true;
+        this.activeSource = sourceParam;
+      }
+      this.routerInit = true;
+    }
+  }
 
   selectSource(key?: string) {
-    this.activeSource = '';
-    if (key) {
+    if (this.activeSource !== key) {
       this.activeSource = key;
+    } else {
+      this.activeSource = '';
     }
+    this.updateRoute();
   }
 
   get activeSourceVal() {
@@ -51,25 +84,47 @@ export class TermsComponent implements OnInit {
   }
 
   toggleTermSet(keys: string[]) {
-    this.activeTerms = [];
+    this.updateTerms(keys);
+    this.updateRoute();
+  }
+
+  updateTerms(keys: string[]) {
     this.addKeys(keys);
   }
 
   private addKeys(keys: string[]) {
+    if (!this.activeTerms) {
+      this.activeTerms = [];
+    }
     if (keys) {
       keys.forEach((key) => {
-        this.activeTerms.push(key);
+        if (!this.activeTerms.includes(key)) {
+          this.activeTerms.push(key);
+        }
       });
     } else {
       console.log(keys);
     }
   }
 
+  updateParentTerms(parent: string) {
+    let parentVal = this.terms ? this.terms.get(parent) : null;
+    if (parentVal) {
+      this.activeTerms = [];
+      this.toggleTermSet(parentVal.children);
+      // this.activeTerms.unshift(parent);
+      this.activeParent = parent;
+    }
+  }
+
   setParentTerms(parent: string) {
-    let parentVal = this.terms.get(parent);
-    this.toggleTermSet(parentVal.children);
-    // this.activeTerms.unshift(parent);
-    this.activeParent = parent;
+    if (this.activeParent !== parent) {
+      this.updateParentTerms(parent);
+    } else {
+      this.activeParent = null;
+      this.allTerms();
+    }
+    this.updateRoute();
   }
 
   /**
@@ -82,9 +137,11 @@ export class TermsComponent implements OnInit {
       let parentVal = this.terms.get(parent);
       this.addKeys(parentVal.children);
     });
+    this.updateRoute();
   }
 
   toggleTerm(key: string) {
+    this.activeParent = null;
     const index = this.activeTerms.indexOf(key);
     if (index < 0) {
       this.activeTerms.push(key);
@@ -92,6 +149,7 @@ export class TermsComponent implements OnInit {
       this.activeTerms.splice(index, 1);
     }
     this.activeTerms.sort();
+    this.updateRoute();
   }
 
   allTerms() {
@@ -100,6 +158,36 @@ export class TermsComponent implements OnInit {
       this.activeTerms.push(key);
     });
   }
+
+  resetAllTerms() {
+    this.allTerms();
+    this.updateRoute();
+  }
+
+  get dataLoaded() {
+    return this.activeTerms && this.sources && this.parents && this.terms;
+  }
+
+  updateRoute() {
+    let parent = null;
+    let terms = null;
+    if (this.activeParent) {
+      parent = this.activeParent;
+    } else {
+      terms = this.activeTerms.length < 12 ? this.activeTerms.join(',') : null;
+    }
+    const queryParams: Params = {
+      parent: parent,
+      terms: terms,
+      source: this.activeSource
+    };
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
+    });
+  }
+
 }
 
 class SelectableSource {

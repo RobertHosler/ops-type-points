@@ -7,152 +7,159 @@
     >
     from our friends at OP Science Club.
   </div>
-  <div>
-    <div>
-      <strong>Select a Parent</strong>
-    </div>
-    <button
-      class="btn btn-gray mb-2 mr-2"
-      (click)="setParentTerms(parent.key)"
-      [ngClass]="{ active: activeParent === parent.key }"
-      *ngFor="let parent of parents | keyvalue"
-    >
-      {{ parent.value.name }}
-    </button>
+  <div *ngIf="!(dataLoaded)" class="alert alert-info">
+    Loading...
   </div>
-  <div class="options mb-3">
-    <button
-      class="btn btn-sm toggle-btn"
-      [ngClass]="{ active: showTerms }"
-      (click)="showTerms = !showTerms"
-    >
-      {{ showSources ? "Hide Terms" : "Show Terms" }}
-    </button>
-  </div>
-  <div class="mb-3" [ngClass]="{ 'd-none': !showTerms }">
-    <div class="help small ml-1 mb-1">
-      Select or Deselect terms to view descriptions for those terms only.
-    </div>
-    <button
-      class="btn btn-gray mb-2 mr-2"
-      (click)="toggleTerm(term.key)"
-      [ngClass]="{ active: activeTerms.includes(term.key) }"
-      *ngFor="let term of terms | keyvalue"
-    >
-      {{ term.key }}
-    </button>
+  <div *ngIf="dataLoaded">
     <div>
-      <button class="btn btn-primary mb-2 mr-2" (click)="allTerms()">
-        Select All
-      </button>
+      <div>
+        <strong>Select a Parent</strong>
+      </div>
       <button
-        class="btn btn-sm btn-secondary mb-2 mr-2"
-        (click)="activeTerms = []"
+        class="btn btn-gray mb-2 mr-2"
+        (click)="setParentTerms(parent.key)"
+        [ngClass]="{ active: activeParent === parent.key }"
+        *ngFor="let parent of parents | keyvalue"
       >
-        Clear
+        {{ parent.value.name }}
       </button>
     </div>
-  </div>
-  <div class="options mb-3">
-    <button
-      class="btn btn-sm toggle-btn"
-      [ngClass]="{ active: showSources }"
-      (click)="showSources = !showSources"
-    >
-      {{ showSources ? "Hide Sources" : "Show Sources" }}
-    </button>
-  </div>
-  <div *ngIf="showSources" class="source-selection mb-3">
-    <div class="help small ml-1 mb-1">
-      Select a source to view definitions from that source only.
-    </div>
-    <span *ngFor="let source of sources | keyvalue">
+    <div class="options mb-3">
       <button
-        class="btn btn-gray"
-        *ngIf="source.value.definitions.length > 1"
-        [ngClass]="{ active: source.key === activeSource }"
-        (click)="selectSource(source.key)"
+        class="btn btn-sm toggle-btn"
+        [ngClass]="{ active: showTerms }"
+        (click)="showTerms = !showTerms"
       >
-        {{ source.key }}
-      </button>
-    </span>
-    <div>
-      <button class="btn btn-sm btn-secondary" (click)="selectSource()">
-        Clear Source
+        {{ showSources ? "Hide Terms" : "Show Terms" }}
       </button>
     </div>
-  </div>
-  <div *ngIf="activeSource">
-    <div class="mb-3">
-      <span class="small"
-        >Showing definitions from <strong>{{ activeSource }}</strong></span
+    <div class="mb-3" [ngClass]="{ 'd-none': !showTerms }">
+      <div class="help small ml-1 mb-1">
+        Select or Deselect terms to view descriptions for those terms only.
+      </div>
+      <button
+        class="btn btn-gray mb-2 mr-2"
+        (click)="toggleTerm(term.key)"
+        [ngClass]="{ active: activeTerms.includes(term.key) }"
+        *ngFor="let term of terms | keyvalue"
       >
-      <a
-        *ngIf="activeSourceVal.url"
-        class="ml-2"
-        [href]="activeSourceVal.url"
-        target="_blank"
-        >View Source</a
-      >
-    </div>
-    <ul class="sources-list">
-      <li *ngFor="let definition of sources.get(activeSource).definitions">
-        <strong>{{ definition.term }}</strong>
-        <div class="ml-3">{{ definition.definition }}</div>
-      </li>
-    </ul>
-  </div>
-  <div *ngIf="!activeSource" class="row">
-    <div
-      *ngFor="let term of activeTerms"
-      [ngClass]="{ 'col-sm-6': activeTerms.length > 1 }"
-    >
-      <strong>{{ term }}</strong>
-      <ol
-        class="definitions-list"
-        *ngIf="terms.get(term) && terms.get(term).definitions.length > 0"
-      >
-        <li
-          *ngFor="let definition of terms.get(term).definitions; let i = index"
+        {{ term.key }}
+      </button>
+      <div>
+        <button class="btn btn-primary mb-2 mr-2" (click)="resetAllTerms()">
+          Select All
+        </button>
+        <button
+          class="btn btn-sm btn-secondary mb-2 mr-2"
+          (click)="activeTerms = []"
         >
-          {{ definition.definition }}
-          <span class="source" *ngIf="showSources && definition.sourceName">
-            - from
-            <a
-              *ngIf="definition.sourceUrl"
-              [href]="definition.sourceUrl"
-              target="_blank"
-            >
-              {{ definition.sourceName }}
-            </a>
-            <span *ngIf="!definition.sourceUrl">
-              {{ definition.sourceName }}</span
-            >
-          </span>
+          Clear
+        </button>
+      </div>
+    </div>
+    <div class="options mb-3">
+      <button
+        class="btn btn-sm toggle-btn"
+        [ngClass]="{ active: showSources }"
+        (click)="showSources = !showSources"
+      >
+        {{ showSources ? "Hide Sources" : "Show Sources" }}
+      </button>
+    </div>
+    <div *ngIf="showSources" class="source-selection mb-3">
+      <div class="help small ml-1 mb-1">
+        Select a source to view definitions from that source only.
+      </div>
+      <span *ngFor="let source of sources | keyvalue">
+        <button
+          class="btn btn-gray"
+          *ngIf="source.value.definitions.length > 1"
+          [ngClass]="{ active: source.key === activeSource }"
+          (click)="selectSource(source.key)"
+        >
+          {{ source.key }}
+        </button>
+      </span>
+      <div>
+        <button class="btn btn-sm btn-secondary" (click)="selectSource()">
+          Clear Source
+        </button>
+      </div>
+    </div>
+  </div>
+  <div #definition>
+    <div *ngIf="dataLoaded && activeSource">
+      <div class="mb-3">
+        <span class="small"
+          >Showing definitions from <strong>{{ activeSource }}</strong></span
+        >
+        <a
+          *ngIf="activeSourceVal.url"
+          class="ml-2"
+          [href]="activeSourceVal.url"
+          target="_blank"
+          >View Source</a
+        >
+      </div>
+      <ul class="sources-list">
+        <li *ngFor="let definition of sources.get(activeSource).definitions">
+          <strong>{{ definition.term }}</strong>
+          <div class="ml-3">{{ definition.definition }}</div>
         </li>
-      </ol>
-      <div *ngIf="!(terms.get(term) && terms.get(term).definitions.length > 0)">
-        <p>No descriptions found for this term.</p>
-      </div>
-      <div *ngIf="terms.get(term) && terms.get(term).parents.length > 0">
-        <strong>Parent Terms</strong>
-        <span
-          class="mx-2"
-          *ngFor="let parent of terms.get(term).parents"
-          (click)="setParentTerms(parent)"
-          >{{ parent }}</span
+      </ul>
+    </div>
+    <div *ngIf="dataLoaded && !activeSource" class="row">
+      <div
+        *ngFor="let term of activeTerms"
+        [ngClass]="{ 'col-sm-6': activeTerms.length > 1 }"
+      >
+        <strong>{{ term }}</strong>
+        <ol
+          class="definitions-list"
+          *ngIf="terms.get(term) && terms.get(term).definitions.length > 0"
         >
+          <li
+            *ngFor="let definition of terms.get(term).definitions; let i = index"
+          >
+            {{ definition.definition }}
+            <span class="source" *ngIf="showSources && definition.sourceName">
+              - from
+              <a
+                *ngIf="definition.sourceUrl"
+                [href]="definition.sourceUrl"
+                target="_blank"
+              >
+                {{ definition.sourceName }}
+              </a>
+              <span *ngIf="!definition.sourceUrl">
+                {{ definition.sourceName }}</span
+              >
+            </span>
+          </li>
+        </ol>
+        <div *ngIf="!(terms.get(term) && terms.get(term).definitions.length > 0)">
+          <p>No descriptions found for this term.</p>
+        </div>
+        <div *ngIf="terms.get(term) && terms.get(term).parents.length > 0">
+          <strong>Parent Terms</strong>
+          <span
+            class="mx-2"
+            *ngFor="let parent of terms.get(term).parents"
+            (click)="setParentTerms(parent)"
+            >{{ parent }}</span
+          >
+        </div>
+        <div *ngIf="terms.get(term) && terms.get(term).children.length > 0">
+          <strong>Child Terms</strong>
+          <span
+            class="mx-2"
+            *ngFor="let child of terms.get(term).children"
+            (click)="setChildTerms(child)"
+            >{{ child }}</span
+          >
+        </div>
+        <hr />
       </div>
-      <div *ngIf="terms.get(term) && terms.get(term).children.length > 0">
-        <strong>Child Terms</strong>
-        <span
-          class="mx-2"
-          *ngFor="let child of terms.get(term).children"
-          (click)="setChildTerms(child)"
-          >{{ child }}</span
-        >
-      </div>
-      <hr />
     </div>
   </div>
 </div>
