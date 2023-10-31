@@ -13,6 +13,7 @@ const fields = [
   "Instinct",
   "Type",
   "Trifix",
+  "Overlay",
   "Picture",
   "Sex",
   "Tags",
@@ -149,11 +150,11 @@ function convertRecords(records) {
     const eType = record.fields.Type;
     const fullTrifix = record.fields.Trifix;
     const trifix = buildTritype(fullTrifix);
-    const dirtyOverlay = buildDirtyOverlay(fullTrifix);
+    const dirtyOverlay = record.fields.Overlay ? record.fields.Overlay : buildDirtyOverlay(fullTrifix);
     const overlay = cleanOverlay(dirtyOverlay, trifix);
     
-    const fullEType = buildFullEType(instinct, eType, fullTrifix);
-    const fullETypeOverlay = buildFullETypeOverlay(instinct, eType, trifix, overlay);
+    const fullEType = buildFullEType(instinct, eType, fullTrifix, dirtyOverlay); // wing format: so/sp 9w1 3w4 6w7
+    const fullETypeOverlay = buildFullETypeOverlay(instinct, eType, trifix, overlay); // overlay format: so/sp 936 (147)
     const emphasizedNumbers = buildEmphasizedNumbers(trifix, dirtyOverlay);
     if (emphasizedNumbers.length > 0) {
       // console.log('Emphasized...', emphasizedNumbers, name);
@@ -265,13 +266,25 @@ function buildOverlay(trifix, fullTrifix) {
   return overlay;
 }
 
-function buildFullEType(instinct, eType, fullTrifix) {
+/**
+ * Build full eType in format:
+ *  [INSTINCT] [CORE] [TRIFIX]
+ *  
+ * Trifix will contains wings instead of overlay format.
+ */
+function buildFullEType(instinct, eType, fullTrifix, dirtyOverlay) {
   let fullEType;
   let coreType;
   let trifix;
   if (fullTrifix && fullTrifix.startsWith(eType)) {
     // full fix (9w1 3w4 6w7) in place of core type (9w1) for reduced redundancy
     coreType = fullTrifix;
+  } else if (fullTrifix && fullTrifix.length === 3 && dirtyOverlay && dirtyOverlay.length === 3) {
+    let trifixParts = fullTrifix.split('');
+    let dirtyParts = dirtyOverlay.split('');
+    coreType = trifixParts[0] + 'w' + dirtyParts[0] + ' ' + 
+        trifixParts[1] + 'w' + dirtyParts[1] + ' ' + 
+        trifixParts[2] + 'w' + dirtyParts[2];
   } else {
     coreType = eType;
     trifix = fullTrifix;
