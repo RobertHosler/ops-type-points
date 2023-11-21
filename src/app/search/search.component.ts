@@ -107,7 +107,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    console.log('search');
     console.time('allNames-search');
     this.subscription = this.opsDataService.allNames.subscribe((result) => {
       console.timeEnd('allNames-search');

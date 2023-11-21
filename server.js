@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const server = http.Server(app);
+const logger = require("./server/logger");
 const io = require("socket.io")(server, {
   cors: {
     // Allow access from local 4200 - angular dev server can hit the npm server
@@ -22,18 +23,6 @@ const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
   console.log("Listening on port ", PORT);
 });
-
-function fireBlob(blob) {
-  if (blob.ready) {
-    console.log("blob firing", blob.name);
-    blob.fire();
-  } else {
-    // console.log("blob waiting", blob.name);
-    setTimeout(() => {
-      fireBlob(blob);
-    }, 200);
-  }
-}
 
 const ioState = {
   sockets: [],
@@ -97,11 +86,12 @@ const ioState = {
 
 function ioSetup(ioState) {
   io.on("connection", function (socket) {
-    console.log("new socketio connection", socket.conn.id);
+    logger.debug("new socketio connection", socket.conn.id);
+    
     ioState.sockets.push(socket);
 
     socket.on("disconnect", function () {
-      console.log("removed socketio connection", socket.conn.id);
+      logger.debug("removed socketio connection", socket.conn.id);
       ioState.sockets.splice(ioState.sockets.indexOf(socket), 1);
     });
 
@@ -169,7 +159,7 @@ function errorHandler(reason) {
 }
 
 function findSimilarRecords(socket, max) {
-  console.log("finding similar...");
+  logger.debug("finding similar...");
   findSimilarPromise(ioState.nameMap, max).then(
     (results) => {
       if (socket) {
@@ -187,13 +177,13 @@ function findSimilarRecords(socket, max) {
       //rejected
     }
   );
-  console.log("finding similar... async...");
+  logger.debug("finding similar... async...")
 }
 
 const mins = 60;
 const refreshTimer = 60 * 1000 * mins;
 function refreshAirtableData(socket) {
-  console.log("Refreshing data");
+  logger.debug("Refreshing data");
   fetchAirtableData().then(
     (result) => {
       // once complete, emit that refresh is complete and broadcast updates
@@ -215,7 +205,7 @@ function refreshAirtableData(socket) {
       //rejected
     }
   ).then(() => {
-    console.log("Refreshing complete");
+    logger.debug("Refreshing complete");
     setTimeout(refreshAirtableData, refreshTimer);
   });
 }
@@ -247,34 +237,40 @@ function fetchAirtableData() {
     let interviewMap;
     let opsExtraMap;
     let subjectiveMap;
-    // get Persons
+
+    // get Persons - combining data from multiple sources
     airtable
+      // Fetch OPS Database ("Airtable")
       .getAll({
         name: "OP Database",
         url: typedPersons.listUrl,
       })
+      // Process OPS Data from "Airtable"
       .then((records) => {
-        // handle Persons
         const result = typedPersons.convertPersons(records);
         typeMap = result.types;
         nameMap = result.names;
       }, errorHandler)
+      // Fetch Enneagram Data
       .then(() => {
         return airtable.getAll({
           name: "Enneagrammer DB",
           url: enneagrammer.url,
         });
       }, errorHandler)
+      // Process Enneagram Data
       .then((records) => {
         const result = enneagrammer.convertRecords(records);
         eTypeMap = result;
       })
+      // Fetch More OPS Data (Roqb's DB)
       .then(() => {
         return airtable.getAll({
           name: "OPS DB",
           url: opsExtra.url,
         });
       }, errorHandler)
+      // Process Extra OPS Data
       .then((records) => {
         const result = opsExtra.convertRecords(records);
         opsExtraMap = result;
@@ -394,7 +390,7 @@ function fetchAirtableData() {
         });
       }
     }
-  });
+  }, errorHandler);
 }
 
 // Wait for maps to complete before starting the io
