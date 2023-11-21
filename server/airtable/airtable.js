@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 
 const https = require("https");
+const logger = require("../logger");
 const API_KEY = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const MAX_RECORD = 10000;
 const AIRTABLE_BASE = "https://api.airtable.com/v0/";
@@ -23,10 +24,10 @@ let requests = 0;
 const maxRequests = 5; // max per second
 function getDataSafe(input, offset, callback) {
   if (requests < maxRequests) {
-    // console.log("safe request", input.name, requests);
+    logger.trace("safe request", input.name, requests);
     getData(input, offset, callback);
   } else {
-    // console.log("safety pause", input.name, requests);
+    logger.trace("safety pause", input.name, requests);
     setTimeout(() => {
       getDataSafe(input, offset, callback);
     }, 200);
@@ -46,8 +47,8 @@ function getData(input, offset, callback) {
   let path = input.url.pathname + input.url.search + (offset ? "&offset=" + offset : "");
   const timerName = input.name + "|" + offset;
   console.time(timerName);
-  // console.log(host, path);
-  https
+  logger.trace(host, path);
+  const req = https
     .request(
       {
         hostname: host,
@@ -67,42 +68,53 @@ function getData(input, offset, callback) {
           console.timeEnd(timerName);
           setTimeout(() => {
             requests--;
-            //   console.log("safe request", input.name, "COMPLETE", requests);
+            logger.trace("safe request", input.name, "COMPLETE", requests);
             if (requests === 0) {
-              // console.log("safe requests queue empty");
+            logger.trace("safe requests queue empty");
             }
           }, 1000);
         });
       }
-    )
-    .end();
+    );
+  req.on("error", (e) => {
+    console.error("HttpRequest -", input.name, e);
+    callback();
+  });
+  req.end();
 }
 
 /**
  * Creates a promise which resolves once all datasets have been retrieved.
  */
 function getAllData(input) {
-  console.log("getAllData", input.name);
+  logger.debug("getAllData", input.name);
   const myPromise = new Promise((resolve, reject) => {
     const allRecords = [];
     const getter = (offset) => {
       // Invoke Get
       getDataSafe(input, offset, (json) => {
         // Handle Get
-        const result = JSON.parse(json);
-        const records = result.records ? result.records : [];
-        records.forEach((record) => {
-          allRecords.push(record); // combine records
-        });
-        const offset = result.offset;
-        if (offset) {
-          // Reinvoke Get
-          // console.log("getAllData", input.name, allRecords.length);
-          getter(offset);
+        if (!json) {
+          const reason = "data unavailable -" + input.name;
+          console.error(reason);
+          reject(reason);
         } else {
-          // Handle End
-          console.log("getAllData", input.name, allRecords.length, "COMPLETE");
-          resolve(allRecords);
+          logger.debug("data available -", input.name);
+          const result = JSON.parse(json);
+          const records = result.records ? result.records : [];
+          records.forEach((record) => {
+            allRecords.push(record); // combine records
+          });
+          const offset = result.offset;
+          if (offset) {
+            // Reinvoke Get
+            logger.trace("getAllData", input.name, allRecords.length);
+            getter(offset);
+          } else {
+            // Handle End
+            logger.debug("getAllData", input.name, allRecords.length, "COMPLETE");
+            resolve(allRecords);
+          }          
         }
       });
     };
@@ -121,7 +133,7 @@ exports.getAll = getAllData;
 exports.buildUrl = buildUrl;
 
 exports.getRecordPicture = (pictureField) => {
-  if( pictureField && pictureField.length > 0) {
+  if( pictureField && pictureField.length > 0 && pictureField[0].thumbnails) {
     return pictureField[0].thumbnails.large.url;
   }
   else {
