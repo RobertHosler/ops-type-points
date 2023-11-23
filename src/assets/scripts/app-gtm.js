@@ -21,6 +21,19 @@ var AppGtag = {
     gtag('consent', 'update', {
       'analytics_storage': this.status
     });
+  },
+
+  // clear all cookies
+  reset: function() {
+    const cookies = document.cookie.split("; ")
+    cookies.forEach(cookie => {
+      const cookieName = cookie.split("=")[0];
+      if (cookieName.startsWith("_ga_")) {
+        document.cookie = cookieName + '=; Max-Age=-99999999;';
+      }
+    });
+    document.cookie = '_ga=; Max-Age=-99999999;';
+    document.cookie = '_gid=; Max-Age=-99999999;';
   }
 
 };

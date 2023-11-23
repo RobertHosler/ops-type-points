@@ -12,6 +12,7 @@ export class CookieBannerComponent implements OnInit {
   ngOnInit(): void {
     if (!localStorage.getItem("cookieAllowed")) {
       this.showBanner = true;
+      window["AppGtag"].reset();
     }
   }
 
