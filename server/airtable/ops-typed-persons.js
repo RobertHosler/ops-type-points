@@ -270,8 +270,10 @@ function buildLinks(opsLinks) {
   let linkObj = {
     youtubeLinks: [],
     classLinks: [],
+    oldClassLinks: [],
     otherLinks: [],
-    classLink: ''
+    classLink: '',
+    oldClassLink: ''
   };
   let linkStrings = opsLinks.split('[');
   linkStrings.forEach((linkString) => {
@@ -283,9 +285,14 @@ function buildLinks(opsLinks) {
       ) {
         linkObj.youtubeLinks.push(link);
       } else if (link.href.includes('objectivepersonalitysystem.com')) {
-        linkObj.classLinks.push(link);
+        linkObj.oldClassLinks.push(link.href);
         if (link.text.startsWith('Class ')) {
-          linkObj.classLink = link;
+          linkObj.oldClassLink = link.href;
+        }
+      } else if (link.href.includes('objectivepersonality.com')) {
+        linkObj.classLinks.push(link.href);
+        if (link.text.startsWith('Class ')) {
+          linkObj.classLink = link.href;
         }
       } else {
         linkObj.otherLinks.push(link);
@@ -335,7 +342,8 @@ function convertPersons(records) {
     }
     const links = record.fields.Links;
     const linkObj = links ? buildLinks(links) : {};
-    const classLink = linkObj.classLink ? linkObj.classLink.href : null;
+    const classLink = linkObj.classLink ? linkObj.classLink : null;
+    const oldClassLink = linkObj.oldClassLink ? linkObj.oldClassLink : null;
     const typedPerson = {
       opsId: uniqueId,
       name: name,
@@ -408,6 +416,7 @@ function convertPersons(records) {
       trans: record.fields.Transgender,
       opsLinks: links,
       classLink: classLink,
+      oldClassLink: oldClassLink,
       classLinks: linkObj.classLinks,
       ytLink: ytLink,
       opsYtLinks: linkObj.youtubeLinks,

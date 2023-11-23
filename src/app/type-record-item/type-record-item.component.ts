@@ -80,4 +80,9 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
     // console.log(result);
     return result;
   }
+
+  parseNumber(s) {
+    parseInt(s);
+  }
+
 }

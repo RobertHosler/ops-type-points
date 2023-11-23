@@ -32,7 +32,7 @@ export class OpsTypeLinksComponent implements OnInit {
             link.href.includes('youtu.be')
           ) {
             this.youtubeLinks.push(link);
-          } else if (link.href.includes('objectivepersonalitysystem.com')) {
+          } else if (link.href.includes('objectivepersonalitysystem.com') || link.href.includes('objectivepersonality.com')) {
             this.classLinks.push(link);
           } else {
             this.links.push(link);

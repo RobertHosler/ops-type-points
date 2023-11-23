@@ -32,7 +32,7 @@
           typeRecord.tags &&
           typeRecord.tags.includes('OPS Class Typing')
         "
-        [popover]="'OPS Class ' + (typeRecord.opsClassNumber ? typeRecord.opsClassNumber : '')"
+        [popover]="'OPS Class ' + (typeRecord.opsClassNumber && typeRecord.opsClassNumber > 0 ? typeRecord.opsClassNumber : '')"
         triggers="mouseenter:mouseleave"
         placement="top"
         class="ops-logo-link"
