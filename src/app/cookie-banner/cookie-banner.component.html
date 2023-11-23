@@ -1,0 +1,10 @@
+<div class="consent-banner" *ngIf="showBanner">
+    <div class="h4">Cookie Consent</div>
+    <div class="mb-2    ">We may use cookies necessary to keep our site functional.  We'd also like to set additional cookies for understanding site usage and performance.  These cookies may share your data with third parties.</div>
+    <div>
+        <button (click)="consentGranted(true)"
+            class="btn btn-gray mr-2">Allow</button>
+        <button (click)="consentGranted(false)"
+            class="btn btn-gray">Reject</button>
+    </div>
+</div>

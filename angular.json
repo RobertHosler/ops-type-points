@@ -30,7 +30,9 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/assets/scripts/app-gtm.js"
+            ],
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
