@@ -116,7 +116,12 @@
     <div class="right-side-inner px-3 mt-3 pb-5">
       <div *ngIf="activeTab === 'OPS'">
         <h2>
-          {{ person.type }}
+          {{ person.type }} 
+          <span *ngIf="person.socialType"
+            [popover]="'Social Type ' + person.socialType"
+            triggers="mouseenter:mouseleave">
+            [{{ person.socialType }}]
+          </span>
           <app-ops-type-animal
             size="32"
             [animalStack]="person.type.substring(9)"
@@ -179,6 +184,9 @@
           </div>
           <div *ngIf="activeOps === 'Links'">
             <app-ops-type-links [typedPerson]="person"></app-ops-type-links>
+          </div>
+          <div *ngIf="activeOps === 'Social Type'">
+            <app-ops-social-type [typedPerson]="person"></app-ops-social-type>
           </div>
           <div *ngIf="activeOps === 'Description'" class="pt-3">
             <app-type-description

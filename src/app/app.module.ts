@@ -66,6 +66,7 @@ import { EnneaDaaChronologicalComponent } from './ennea-daa-chronological/ennea-
 import { TypeRecordItemComponent } from './type-record-item/type-record-item.component';
 import { OpsClassComponent } from './ops-class/ops-class.component';
 import { CookieBannerComponent } from './cookie-banner/cookie-banner.component';
+import { OpsSocialTypeComponent } from './ops-social-type/ops-social-type.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -121,7 +122,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     EnneaDaaChronologicalComponent,
     TypeRecordItemComponent,
     OpsClassComponent,
-    CookieBannerComponent
+    CookieBannerComponent,
+    OpsSocialTypeComponent
   ],
   imports: [
     HttpClientModule,

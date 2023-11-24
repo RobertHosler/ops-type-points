@@ -1,0 +1,9 @@
+<h3>Social Type</h3>
+<div *ngIf="!loaded" class="alert alert-info">
+    Not yet loaded :(
+</div>
+<div *ngIf="loaded">
+    <p *ngFor="let definition of term.definitions">
+        {{definition.definition}}
+    </p>
+</div>

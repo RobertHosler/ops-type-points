@@ -87,6 +87,9 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
       this.personOpsType = OpsTypeUtil.getPersonOpsType(this.person);
     }
     this.initActiveTab();
+    if (this.person.socialType) {
+      this.opsOptions.push("Social Type");
+    }
   }
 
   private initRoute(setup?) {
