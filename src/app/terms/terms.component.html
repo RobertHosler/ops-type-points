@@ -40,7 +40,7 @@
       <button
         class="btn btn-gray mb-2 mr-2"
         (click)="toggleTerm(term.key)"
-        [ngClass]="{ active: activeTerms.includes(term.key) }"
+        [ngClass]="{ active: activeTermNames.includes(term.key) }"
         *ngFor="let term of terms | keyvalue"
       >
         {{ term.key }}
@@ -51,7 +51,7 @@
         </button>
         <button
           class="btn btn-sm btn-secondary mb-2 mr-2"
-          (click)="activeTerms = []"
+          (click)="activeTermNames = []"
         >
           Clear
         </button>
@@ -110,8 +110,8 @@
     </div>
     <div *ngIf="dataLoaded && !activeSource" class="row">
       <div
-        *ngFor="let term of activeTerms"
-        [ngClass]="{ 'col-sm-6': activeTerms.length > 1 }"
+        *ngFor="let term of activeTermNames"
+        [ngClass]="{ 'col-sm-6': activeTermNames.length > 1 }"
       >
         <strong>{{ term }}</strong>
         <ol

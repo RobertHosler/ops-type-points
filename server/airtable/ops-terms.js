@@ -90,6 +90,7 @@ function convertDefinitions(records) {
       } else {
         // term not yet in map
         termMap.set(termName, {
+          name: termName,
           definitions: [
             {
               definition: record.fields.Definition,

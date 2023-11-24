@@ -1,11 +1,10 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
-  OpsDataService,
   Parent,
-  Source,
-  Term,
+  Source, Term,
 } from '../service/ops-data.service';
+import { TermsService } from '../service/terms.service';
 
 @Component({
   selector: 'app-terms',
@@ -13,42 +12,43 @@ import {
   styleUrls: ['./terms.component.scss'],
 })
 export class TermsComponent implements OnInit {
+
   showSources = false;
   showTerms = false;
-  terms: Map<string, Term>;
-  sources: Map<string, Source>;
+  routerInit = false;
+
   activeSource: string;
-  activeTerms: string[];
+  activeTermNames: string[];
   activeParent: string;
 
+  terms: Map<string, Term>;
+  sources: Map<string, Source>;
   parents: Map<string, Parent>;
+  params: Params;
 
-  routerInit = false;
-  
   @ViewChild('definition') loadedEl: ElementRef;
 
   constructor(
-    private opsDataService: OpsDataService,
-    private route: ActivatedRoute,
-    private router: Router) {
-    opsDataService.allTerms.subscribe((result) => {
-      this.terms = result;
-      if (!this.activeTerms) {
-        this.allTerms();
+      private termsService: TermsService,
+      private route: ActivatedRoute,
+      private router: Router) {
+    this.termsService.ready.subscribe({
+      next: (bool) => {
+        this.terms = this.termsService.terms;
+        this.sources = this.termsService.sources;
+        this.parents = this.termsService.parents;
+        this.initRouter(this.params);
+        if (!this.activeTermNames) {
+          this.allTerms();
+        }
       }
     });
-    opsDataService.allSources.subscribe((result) => {
-      this.sources = result;
-    });
-    opsDataService.allParents.subscribe((result) => {
-      this.parents = result;
-    });
     this.route.queryParamMap.subscribe((params: Params) => {
-      this.initRouter(params);
+      this.params = params;
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   
   private initRouter(params: Params) {
     if (!this.routerInit) {
@@ -80,7 +80,7 @@ export class TermsComponent implements OnInit {
   }
 
   get activeSourceVal() {
-    return this.sources.get(this.activeSource);
+    return this.termsService.sources.get(this.activeSource);
   }
 
   toggleTermSet(keys: string[]) {
@@ -92,14 +92,19 @@ export class TermsComponent implements OnInit {
     this.addKeys(keys);
   }
 
+  /**
+   * Add a list of keys to the active list, checking
+   * to make sure a key isn't added again if they
+   * are already in there.
+   */
   private addKeys(keys: string[]) {
-    if (!this.activeTerms) {
-      this.activeTerms = [];
+    if (!this.activeTermNames) {
+      this.activeTermNames = [];
     }
     if (keys) {
       keys.forEach((key) => {
-        if (!this.activeTerms.includes(key)) {
-          this.activeTerms.push(key);
+        if (!this.activeTermNames.includes(key)) {
+          this.activeTermNames.push(key);
         }
       });
     } else {
@@ -108,9 +113,9 @@ export class TermsComponent implements OnInit {
   }
 
   updateParentTerms(parent: string) {
-    let parentVal = this.terms ? this.terms.get(parent) : null;
+    let parentVal = this.termsService.terms ? this.termsService.terms.get(parent) : null;
     if (parentVal) {
-      this.activeTerms = [];
+      this.activeTermNames = [];
       this.toggleTermSet(parentVal.children);
       // this.activeTerms.unshift(parent);
       this.activeParent = parent;
@@ -132,31 +137,26 @@ export class TermsComponent implements OnInit {
    * it's siblings.
    */
   setChildTerms(child: string) {
-    this.activeTerms = [];
-    this.terms.get(child).parents.forEach(parent => {
-      let parentVal = this.terms.get(parent);
-      this.addKeys(parentVal.children);
-    });
+    this.activeTermNames = [];
+    const tempTerms = this.termsService.getTermsBySibling(child);
+    this.activeTermNames = this.termsService.getTermNames(tempTerms);
     this.updateRoute();
   }
 
   toggleTerm(key: string) {
     this.activeParent = null;
-    const index = this.activeTerms.indexOf(key);
+    const index = this.activeTermNames.indexOf(key);
     if (index < 0) {
-      this.activeTerms.push(key);
+      this.activeTermNames.push(key);
     } else {
-      this.activeTerms.splice(index, 1);
+      this.activeTermNames.splice(index, 1);
     }
-    this.activeTerms.sort();
+    this.activeTermNames.sort();
     this.updateRoute();
   }
 
   allTerms() {
-    this.activeTerms = [];
-    this.terms.forEach((value, key) => {
-      this.activeTerms.push(key);
-    });
+    this.activeTermNames = Array.from(this.termsService.terms.keys());
   }
 
   resetAllTerms() {
@@ -165,20 +165,20 @@ export class TermsComponent implements OnInit {
   }
 
   get dataLoaded() {
-    return this.activeTerms && this.sources && this.parents && this.terms;
+    return this.activeTermNames && this.termsService.dataLoaded;
   }
 
   updateRoute() {
-    let parent = null;
-    let terms = null;
+    let parentParams = null;
+    let termParams = null;
     if (this.activeParent) {
-      parent = this.activeParent;
+      parentParams = this.activeParent;
     } else {
-      terms = this.activeTerms.length < 12 ? this.activeTerms.join(',') : null;
+      termParams = this.activeTermNames.length < 12 ? this.activeTermNames.join(',') : null;
     }
     const queryParams: Params = {
-      parent: parent,
-      terms: terms,
+      parent: parentParams,
+      terms: termParams,
       source: this.activeSource
     };
     this.router.navigate([], {

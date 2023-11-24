@@ -263,6 +263,7 @@ h1 .sp-branding {
   .nav-link {
     // font-family: monospace;
     border-bottom: 0px;
+    margin-bottom: -5px;
     margin-left: 1px;
     margin-right: 1px;
     &:hover:not(.active) {

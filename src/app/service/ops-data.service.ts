@@ -27,7 +27,6 @@ export class OpsDataService {
   allNamesMap: Map<string, TypedPerson>;
 
   constructor(private httpClient: HttpClient, socket: Socket) {
-    console.log('opsDataService');
     this.allTerms = new Observable((observer) => {
       if (this.allTermsMap) {
         observer.next(this.allTermsMap);
@@ -199,6 +198,7 @@ export class TypePicture {
 }
 
 export class Term {
+  name: string;
   definitions: Definition[];
   tags?: string[];
   types?: string[];
