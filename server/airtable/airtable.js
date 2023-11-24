@@ -133,12 +133,14 @@ exports.getAll = getAllData;
 exports.buildUrl = buildUrl;
 
 exports.getRecordPicture = (pictureField) => {
-  if( pictureField && pictureField.length > 0 && pictureField[0].thumbnails) {
-    return pictureField[0].thumbnails.large.url;
+  if( pictureField && pictureField.length > 0) {
+    if (pictureField[0].thumbnails) {
+      return pictureField[0].thumbnails.large.url;
+    } else if (pictureField[0].url) {
+      return pictureField[0].url; // backup method for some data which doesn't have thumbnails?
+    }
   }
-  else {
-    return '';
-  }
+  return '';
 };
 
 exports.compareModifiedDates = (a, b) => {
