@@ -6,6 +6,15 @@ This app was developed in association with the [SubjectivePersonality.com](https
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.  It uses Bootstrap 4.5.2 for providing basic responsive design.
 
+## Initial Setup
+
+1) Clone repo
+2) Run `npm install` at root
+3) Copy the local-api-template.js and create a local-api.js file with your api credential.  Note: your key must have access to the databases being accessed within Airtable.
+4) Run `npm start` - express server which serves the shared data retrieved from airtable
+5) Run `npm install -g @angular/cli` to install anggular
+6) Run `ng serve` - angular server which serves the angular frontend and interfaces with the express server
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
