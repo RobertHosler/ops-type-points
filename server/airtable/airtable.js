@@ -1,14 +1,13 @@
 /*jshint esversion: 6 */
 
 const https = require("https");
-const logger = require("../logger");
-const API_KEY = process.env.OP_DATABASE_KEY || require("../local-api").key;
+const logger = require("../logger")
+const API_TOKEN = process.env.OP_DATABASE_TOKEN || require("../local-api").token;
 const MAX_RECORD = 10000;
 const AIRTABLE_BASE = "https://api.airtable.com/v0/";
 
 function buildUrl(dbKey, table, view, fields) {
   const url = new URL(AIRTABLE_BASE + dbKey + "/" + table);
-  url.searchParams.append("api_key", API_KEY);
   url.searchParams.append("maxRecords", MAX_RECORD);
   url.searchParams.append("view", view);
   fields.forEach((field) => {
@@ -21,6 +20,7 @@ function buildUrl(dbKey, table, view, fields) {
  * Wrap getData call to ensure we aren't calling it too often.
  */
 let requests = 0;
+let totalRequests = 0;
 const maxRequests = 5; // max per second
 function getDataSafe(input, offset, callback) {
   if (requests < maxRequests) {
@@ -53,6 +53,9 @@ function getData(input, offset, callback) {
       {
         hostname: host,
         path: path,
+        headers: {
+          Authorization: ('Bearer ' + API_TOKEN)            
+        }
       },
       (response) => {
         var str = "";
@@ -66,6 +69,8 @@ function getData(input, offset, callback) {
         response.on("end", () => {
           callback(str);
           console.timeEnd(timerName);
+          totalRequests++;
+          console.log("Total Requests", totalRequests)
           setTimeout(() => {
             requests--;
             logger.trace("safe request", input.name, "COMPLETE", requests);

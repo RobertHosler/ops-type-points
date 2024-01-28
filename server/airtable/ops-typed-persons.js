@@ -3,7 +3,6 @@
 
 const { getRecordPicture, getLastModified } = require("./airtable");
 
-const opsKey = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const OP_DB_HOST = "https://api.airtable.com/v0/appudq0aG1uwqIFX5/";
 const OP_DB_KEY = "appudq0aG1uwqIFX5";
 const OFFICIALLY_TYPED = "Officially Typed People";
@@ -11,7 +10,6 @@ const BY_MBTI_TYPE = "Gallery by MBTI Type";
 const MAX_RECORD = 10000;
 
 const listUrl = new URL(OP_DB_HOST + "Officially Typed People");
-listUrl.searchParams.append("api_key", opsKey);
 listUrl.searchParams.append("maxRecords", MAX_RECORD);
 listUrl.searchParams.append("view", "Gallery by MBTI Type");
 listUrl.searchParams.append("fields", "Name");

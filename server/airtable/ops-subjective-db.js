@@ -2,7 +2,6 @@
 
 const { getRecordPicture, compareModifiedDates, getLastModified } = require("./airtable");
 
-const opsKey = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const HOST = "https://api.airtable.com/v0/appg1oZhulu8BvATT/";
 const TABLE_NAME = "OPS";
 const VIEW = "Grid view";
@@ -24,7 +23,6 @@ const fields = [
 
 const url = new URL(HOST + TABLE_NAME);
 url.searchParams.append("view", VIEW);
-url.searchParams.append("api_key", opsKey);
 url.searchParams.append("maxRecords", MAX_RECORD);
 fields.forEach((field) => {
   url.searchParams.append("fields", field);

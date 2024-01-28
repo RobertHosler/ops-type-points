@@ -1,11 +1,9 @@
 /*jshint esversion: 6 */
 
-const opsKey = process.env.OP_DATABASE_KEY || require("../local-api").key;
 const ENNEAGRAM_HOST = "https://api.airtable.com/v0/appTmhBYKYMGTX2y5/";
 const MAX_RECORD = 10000;
 
 const nineTypesUrl = new URL(ENNEAGRAM_HOST + "Description");
-nineTypesUrl.searchParams.append("api_key", opsKey);
 nineTypesUrl.searchParams.append("maxRecords", MAX_RECORD);
 nineTypesUrl.searchParams.append("view", "Grid view");
 nineTypesUrl.searchParams.append("fields", "Type Name");
