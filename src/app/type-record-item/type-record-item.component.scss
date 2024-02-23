@@ -203,17 +203,16 @@
   }
 }
 .image-type {
+  font-family: 'Ubunto', monospace;
   font-weight: bold;
 }
 .image-col .image-tags,
 .image-col .image-type {
   padding: 2px;
-  font-size: 12px;
+  font-size: 14px;
   min-height: 22px;
 }
 .image-col .image-tags {
-  // margin-left: -.125rem;
-  // margin-right: -.125rem;
   margin-bottom: -.5rem;
   display: none;
   flex-wrap: wrap;
@@ -241,6 +240,16 @@
       opacity: 100%;
     }
   }
+}
+.ap-type {
+  font-family: 'Ubunto', monospace;
+  font-weight: bold;
+}
+.ap-center {
+  text-decoration: none;
+}
+.ap-aspect {
+  padding-right: 1px;
 }
 .youtube-link {
   color: #d90101 !important;
