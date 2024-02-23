@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   isMaxRecords = false;
 
   placeholderText =
-    'Try "fese", "enfj", "lii", "sosp 9" or New ops terms: "socialtype", "s1", "s2", "s3", "s4"';
+    'Try "fese", "enfj", "lii", "sosp 9", "s4" or New AP terms like: "velf", "dio", or "3v"';
 
   searchType = '';
   searchTypes = ['Coins', 'Name', 'Type', 'Enneagram'];
@@ -990,12 +990,21 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   showType(s?: string) {
-    if (s === 'ops') {
+    if (s === 'all') {
+      this.showTypes = {
+        ops: true,
+        wss: true,
+        ennea: true,
+        ap: true
+      };
+    } else if (s === 'ops') {
       this.showTypes.ops = !this.showTypes.ops;
     } else if (s === 'ennea') {
       this.showTypes.ennea = !this.showTypes.ennea;
     } else if (s === 'wss') {
       this.showTypes.wss = !this.showTypes.wss;
+    } else if (s === 'ap') {
+      this.showTypes.ap = !this.showTypes.ap;
     }
     this.showTypes = {
       ops: this.showTypes.ops,

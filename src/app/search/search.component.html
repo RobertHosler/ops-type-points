@@ -224,6 +224,14 @@
           <div class="btn-group">
             <button
               class="btn btn-gray btn-sm"
+              [ngClass]="{ active: showTypes.ops && showTypes.ennea && showTypes.wss && showTypes.ap }"
+              (click)="showType('all')"
+            >
+              ALL
+            </button>
+          <div class="btn-group">
+            <button
+              class="btn btn-gray btn-sm"
               [ngClass]="{ active: showTypes.ops }"
               (click)="showType('ops')"
             >
@@ -242,6 +250,13 @@
               (click)="showType('wss')"
             >
               Socionics
+            </button>
+            <button
+              class="btn btn-gray btn-sm"
+              [ngClass]="{ active: showTypes.ap }"
+              (click)="showType('ap')"
+            >
+              AP
             </button>
           </div>
         </div>

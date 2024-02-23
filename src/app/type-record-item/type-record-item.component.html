@@ -1,7 +1,7 @@
 <div
   class="image-col"
   [ngClass]="{ 'image-only': imageOnly, 'practice': displayPracticeLink }"
-  *ngIf="(!imageOnly || imageOnly && typeRecord.pictureUrl) && (typeRecord.type || typeRecord.fullEType || typeRecord.wssType)"
+  *ngIf="(!imageOnly || imageOnly && typeRecord.pictureUrl) && (typeRecord.type || typeRecord.fullEType || typeRecord.wssType|| typeRecord.apType)"
 >
   <div class="image-text-top">
     <div *ngIf="displayPracticeLink">
