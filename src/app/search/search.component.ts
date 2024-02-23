@@ -271,10 +271,15 @@ export class SearchComponent implements OnInit, OnDestroy {
           if (result === 0) {
             result = this.sortName(a, b);
           }
+        } else if (this.sortBy === 'ap') {
+          result = this.sortApType(a, b);
+          if (result === 0) {
+            result = this.sortName(a, b);
+          }
         } else {
           result = this.sortOpsType(a, b);
           if (result === 0) {
-            result = this.sortEType(a, b);
+            result = this.sortEType(a, b);  
           }
           if (result === 0) {
             result = this.sortName(a, b);
@@ -396,6 +401,28 @@ export class SearchComponent implements OnInit, OnDestroy {
       console.log(a.wssType, aIndex, b.wssType, bIndex, aIndex - bIndex);
       if (aIndex !== bIndex) {
         return aIndex - bIndex > 0 ? 1 : -1;
+      }
+    }
+    return 0;
+  }
+
+  private sortApType(a: TypedPerson, b: TypedPerson) {
+    if (a.apType && !b.apType) {
+      return -1;
+    } else if (!a.apType && b.apType) {
+      return 1;
+    } else if (a.apType && b.apType) {
+      const local = a.apType.localeCompare(b.apType);
+      if (local === 0) {
+        if (a.apSubtype && !b.apSubtype) {
+          return -1;
+        } else if (!a.apSubtype && b.apSubtype) {
+          return 1;
+        } else if (a.apSubtype && b.apSubtype) {
+          return a.apSubtype.localeCompare(b.apSubtype);
+        }
+      } else {
+        return local;
       }
     }
     return 0;
@@ -647,7 +674,8 @@ export class SearchComponent implements OnInit, OnDestroy {
         }
       });
       if (result) {
-        this.resort('');
+        this.sortBy = 'ap';
+        this.resort('ap');
       }
       return result;
     } else {
@@ -740,6 +768,8 @@ export class SearchComponent implements OnInit, OnDestroy {
                 this.showTypes.ops = true;
               } else if (term.sortBy === 'wss') {
                 this.showTypes.wss = true;
+              } else if (term.sortBy === 'ap') {
+                this.showTypes.ap = true;
               }
             }
           }
@@ -792,14 +822,20 @@ export class SearchComponent implements OnInit, OnDestroy {
       if (!person.wssType || person.wssType.toLowerCase() !== s) {
         result = false;
       } else {
+        this.sortBy = 'wss';
         this.showTypes.wss = true;
       }
     } else if (person.apType && person.apType.toLowerCase() === s) {
+      this.sortBy = 'ap';
+      this.showTypes.ap = true;
+    } else if (person.apType && person.apSubtype && person.apSubtype === s) {
+      this.sortBy = 'ap';
       this.showTypes.ap = true;
     } else if (searchModel.apTypes.includes(s)) {
       if (!person.apType || person.apType.toLowerCase() !== s) {
         result = false;
       } else {
+        this.sortBy = 'ap';
         this.showTypes.ap = true;
       }
     } else if (
