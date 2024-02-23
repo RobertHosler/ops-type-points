@@ -250,16 +250,26 @@
         <ng-component *ngTemplateOutlet="tips"></ng-component>
       </div>
       <div class="mt-2">
-        <small ><u class="mr-1">Try our new terms:</u><a [routerLink]="['/search']"
-        [queryParams]="{ text: 'socialtype' }">socialtype</a>,
+        <small ><u class="mr-1">Try our new terms for Attitudinal Psyche Types:</u><a [routerLink]="['/search']"
+        [queryParams]="{ text: 'AP' }">Attitudinal Psyche (AP)</a>,
         <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'socialtype1' }">socialtype1</a>,
+        [queryParams]="{ text: 'VELF' }">VELF</a>,
         <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'socialtype2' }">socialtype2</a>,
+        [queryParams]="{ text: 'FLEV' }">FLEV</a>,
         <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'socialtype3' }">socialtype3</a>,
+        [queryParams]="{ text: 'ena' }">ena</a>,
         <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'socialtype4' }">socialtype4</a>
+        [queryParams]="{ text: 'dio' }">dio</a>,
+        <a [routerLink]="['/search']"
+        [queryParams]="{ text: 'tria' }">tria</a>,
+        <a [routerLink]="['/search']"
+        [queryParams]="{ text: '2f' }">2F</a>,
+        <a [routerLink]="['/search']"
+        [queryParams]="{ text: '3V' }">3V</a>,
+        <a [routerLink]="['/search']"
+        [queryParams]="{ text: 'vop' }">Others Positive Volition (vop)</a>,
+        <a [routerLink]="['/search']"
+        [queryParams]="{ text: 'lro' }">Results Oriented Logic (lro)</a>
       </small>
       </div>
       <div class="mt-2" *ngIf="searches.size > 0 && showPrevious">
@@ -322,7 +332,7 @@
         <strong>Socionics</strong> type data sourced from the World Socionic's
         Society's
         <a
-          href="https://www.facebook.com/notes/world-socionics-society/wss-public-figure-benchmark/1974788942540812/"
+          href="https://www.facebook.com/notes/world-socionics-society/wss-public-figure-benchmark/1974788942540812/" target="_blank"
           >Public Figure Benchmark</a
         >. Learn more about WSS on their
         <a href="https://www.facebook.com/groups/584205738265813" target="_blank"
@@ -331,6 +341,22 @@
         or
         <a
           href="https://www.youtube.com/c/WorldSocionicsSocietyWSS"
+          target="_blank"
+          >YouTube Channel</a
+        >.
+      </div>
+      <div class="mb-1">
+        <strong>Attitudinal Psyche</strong> type data sourced from the 
+        <a
+          href="https://www.attitudinalpsyche.com/theory/database/" target="_blank"
+          >Notable People Database</a
+        >. Learn more about Attitudinal Psyche on 
+        <a href="https://www.attitudinalpsyche.com/" target="_blank"
+          >their website</a
+        >
+        or
+        <a
+          href="https://www.youtube.com/c/attitudinalpsyche"
           target="_blank"
           >YouTube Channel</a
         >.
