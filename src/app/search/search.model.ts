@@ -1132,32 +1132,32 @@ function isNotInCenterBlock(apType, aspect) {
 }
 apMatchTerms.set('ena', {
   match: (person: TypedPerson) => {
-    return isCenterBlock(person.apType, 'V', 'L');
+    return isCenterBlock(person.apType, 'v', 'l');
   },
 });
 apMatchTerms.set('dio', {
   match: (person: TypedPerson) => {
-    return isCenterBlock(person.apType, 'V', 'F');
+    return isCenterBlock(person.apType, 'v', 'f');
   },
 });
 apMatchTerms.set('tria', {
   match: (person: TypedPerson) => {
-    return isCenterBlock(person.apType, 'L', 'F');
+    return isCenterBlock(person.apType, 'l', 'f');
   },
 });
 apMatchTerms.set('tessera', {
   match: (person: TypedPerson) => {
-    return isCenterBlock(person.apType, 'E', 'F');
+    return isCenterBlock(person.apType, 'e', 'f');
   },
 });
 apMatchTerms.set('pente', {
   match: (person: TypedPerson) => {
-    return isCenterBlock(person.apType, 'E', 'L');
+    return isCenterBlock(person.apType, 'e', 'l');
   },
 });
 apMatchTerms.set('exi', {
   match: (person: TypedPerson) => {
-    return isCenterBlock(person.apType, 'E', 'V');
+    return isCenterBlock(person.apType, 'e', 'v');
   },
 });
 
