@@ -45,7 +45,7 @@ function getData(input, offset, callback) {
   requests++;
   let host = input.url.host;
   let path = input.url.pathname + input.url.search + (offset ? "&offset=" + offset : "");
-  const timerName = input.name + "|" + offset;
+  const timerName = offset ? input.name + "|" + offset : input.name;
   console.time(timerName);
   logger.trace(host, path);
   const req = https

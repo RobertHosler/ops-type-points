@@ -816,6 +816,351 @@ enneaTerms.set('compliant', { strings: ['1', '2', '6'] });
 enneaTerms.set('superego', { strings: ['1', '2', '6'] });
 enneaTerms.set('withdrawn', { strings: ['4', '5', '9'] });
 
+
+export class ApTypeModel {
+  name: string;
+  sexta: string;
+}
+
+const apTypes: ApTypeModel[] = [
+  // ENA
+  { 
+    name: 'FVLE',
+    sexta: 'ENA'
+  },
+  { 
+    name: 'FLVE',
+    sexta: 'ENA'
+  },
+  { 
+    name: 'EVLF',
+    sexta: 'ENA'
+  },
+  { 
+    name: 'ELVF',
+    sexta: 'ENA'
+  },
+
+  { 
+    name: 'LVFE',
+    sexta: 'DIO'
+  },
+  { 
+    name: 'LFVE',
+    sexta: 'DIO'
+  },
+  { 
+    name: 'EVFL',
+    sexta: 'DIO'
+  },
+  { 
+    name: 'EFVL',
+    sexta: 'DIO'
+  },
+
+  // TRIA
+  { 
+    name: 'VLFE',
+    sexta: 'DIO'
+  },
+  { 
+    name: 'VFLE',
+    sexta: 'DIO'
+  },
+  { 
+    name: 'ELFV',
+    sexta: 'DIO'
+  },
+  { 
+    name: 'EFLV',
+    sexta: 'DIO'
+  },
+
+];
+
+
+const apTypeNames = [];
+apTypes.forEach(apType => {
+  apTypeNames.push(apType.name.toLowerCase());
+});
+
+const apTerms = new Map();
+// apTerms.set('1v', { strings: ['vlef', 'vfle'] });
+
+const apMatchTerms = new Map();
+apMatchTerms.set('1v', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(0).toLowerCase() === 'v';
+  },
+});
+apMatchTerms.set('2v', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(1).toLowerCase() === 'v';
+  },
+});
+apMatchTerms.set('3v', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(2).toLowerCase() === 'v';
+  },
+});
+apMatchTerms.set('4v', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(3).toLowerCase() === 'v';
+  },
+});
+
+apMatchTerms.set('1e', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(0).toLowerCase() === 'e';
+  },
+});
+apMatchTerms.set('2e', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(1).toLowerCase() === 'e';
+  },
+});
+apMatchTerms.set('3e', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(2).toLowerCase() === 'e';
+  },
+});
+apMatchTerms.set('4e', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(3).toLowerCase() === 'e';
+  },
+});
+
+apMatchTerms.set('1l', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(0).toLowerCase() === 'l';
+  },
+});
+apMatchTerms.set('2l', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(1).toLowerCase() === 'l';
+  },
+});
+apMatchTerms.set('3l', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(2).toLowerCase() === 'l';
+  },
+});
+apMatchTerms.set('4l', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(3).toLowerCase() === 'l';
+  },
+});
+
+apMatchTerms.set('1f', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(0).toLowerCase() === 'f';
+  },
+});
+apMatchTerms.set('2f', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(1).toLowerCase() === 'f';
+  },
+});
+apMatchTerms.set('3f', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(2).toLowerCase() === 'f';
+  },
+});
+apMatchTerms.set('4f', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.charAt(3).toLowerCase() === 'f';
+  },
+});
+
+// process oriented
+apMatchTerms.set('fpo', {
+  match: (person: TypedPerson) => {
+    return isInCenterBlock(person.apType, 'f');
+  },
+});
+apMatchTerms.set('vpo', {
+  match: (person: TypedPerson) => {
+    return isInCenterBlock(person.apType, 'v');
+  },
+});
+apMatchTerms.set('lpo', {
+  match: (person: TypedPerson) => {
+    return isInCenterBlock(person.apType, 'l');
+  },
+});
+apMatchTerms.set('epo', {
+  match: (person: TypedPerson) => {
+    return isInCenterBlock(person.apType, 'e');
+  },
+});
+
+// results oriented
+apMatchTerms.set('fro', {
+  match: (person: TypedPerson) => {
+    return isNotInCenterBlock(person.apType, 'f');
+  },
+});
+apMatchTerms.set('vro', {
+  match: (person: TypedPerson) => {
+    return isNotInCenterBlock(person.apType, 'v');
+  },
+});
+apMatchTerms.set('lro', {
+  match: (person: TypedPerson) => {
+    return isNotInCenterBlock(person.apType, 'l');
+  },
+});
+apMatchTerms.set('ero', {
+  match: (person: TypedPerson) => {
+    return isNotInCenterBlock(person.apType, 'e');
+  },
+});
+
+// self-positive
+apMatchTerms.set('fsp', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.substring(0, 2).toLowerCase().includes('f');
+  },
+});
+apMatchTerms.set('vsp', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.substring(0, 2).toLowerCase().includes('v');
+  },
+});
+apMatchTerms.set('esp', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.substring(0, 2).toLowerCase().includes('e');
+  },
+});
+apMatchTerms.set('lsp', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apType.substring(0, 2).toLowerCase().includes('l');
+  },
+});
+
+// others-positive
+function getOthersPositive(apType) {
+  return (apType.charAt(1) + apType.charAt(3)).toLowerCase();
+}
+apMatchTerms.set('fop', {
+  match: (person: TypedPerson) => {
+    return person.apType && getOthersPositive(person.apType).includes('f');
+  },
+});
+apMatchTerms.set('vop', {
+  match: (person: TypedPerson) => {
+    return person.apType && getOthersPositive(person.apType).includes('v');
+  },
+});
+apMatchTerms.set('eop', {
+  match: (person: TypedPerson) => {
+    return person.apType && getOthersPositive(person.apType).includes('e');
+  },
+});
+apMatchTerms.set('lop', {
+  match: (person: TypedPerson) => {
+    return person.apType && getOthersPositive(person.apType).includes('l');
+  },
+});
+
+// self-negative
+function getSelfNegative(apType) {
+  return (apType.subString(2,4)).toLowerCase();
+}
+apMatchTerms.set('fsn', {
+  match: (person: TypedPerson) => {
+    return person.apType && getSelfNegative(person.apType).includes('f');
+  },
+});
+apMatchTerms.set('vsn', {
+  match: (person: TypedPerson) => {
+    return person.apType && getSelfNegative(person.apType).includes('v');
+  },
+});
+apMatchTerms.set('esn', {
+  match: (person: TypedPerson) => {
+    return person.apType && getSelfNegative(person.apType).includes('e');
+  },
+});
+apMatchTerms.set('lsn', {
+  match: (person: TypedPerson) => {
+    return person.apType && getSelfNegative(person.apType).includes('l');
+  },
+});
+
+// others-negative
+function getOthersNegative(apType) {
+  return (apType.charAt(0) + apType.charAt(2)).toLowerCase();
+}
+apMatchTerms.set('fon', {
+  match: (person: TypedPerson) => {
+    return person.apType && getOthersNegative(person.apType).includes('f');
+  },
+});
+apMatchTerms.set('von', {
+  match: (person: TypedPerson) => {
+    return person.apType && getOthersNegative(person.apType).includes('v');
+  },
+});
+apMatchTerms.set('eon', {
+  match: (person: TypedPerson) => {
+    return person.apType && getOthersNegative(person.apType).includes('e');
+  },
+});
+apMatchTerms.set('lon', {
+  match: (person: TypedPerson) => {
+    return person.apType && getOthersNegative(person.apType).includes('l');
+  },
+});
+
+
+
+function getCenterBlock(apType) {
+  return apType && apType.substring(1,3).toLowerCase();
+}
+function isCenterBlock(apType, a1, a2) {
+  const block = getCenterBlock(apType);
+  return block && (block.includes(a1+a2) || block.includes(a2+a1));
+}
+function isInCenterBlock(apType, aspect) {
+  const block = getCenterBlock(apType);
+  return block && block.includes(aspect);
+}
+function isNotInCenterBlock(apType, aspect) {
+  const block = getCenterBlock(apType);
+  return block && !block.includes(aspect);
+}
+apMatchTerms.set('ena', {
+  match: (person: TypedPerson) => {
+    return isCenterBlock(person.apType, 'V', 'L');
+  },
+});
+apMatchTerms.set('dio', {
+  match: (person: TypedPerson) => {
+    return isCenterBlock(person.apType, 'V', 'F');
+  },
+});
+apMatchTerms.set('tria', {
+  match: (person: TypedPerson) => {
+    return isCenterBlock(person.apType, 'L', 'F');
+  },
+});
+apMatchTerms.set('tessera', {
+  match: (person: TypedPerson) => {
+    return isCenterBlock(person.apType, 'E', 'F');
+  },
+});
+apMatchTerms.set('pente', {
+  match: (person: TypedPerson) => {
+    return isCenterBlock(person.apType, 'E', 'L');
+  },
+});
+apMatchTerms.set('exi', {
+  match: (person: TypedPerson) => {
+    return isCenterBlock(person.apType, 'E', 'V');
+  },
+});
+
 comboTerms.set('alpha', {
   strings: [
     ['si', 'ne'],
@@ -1696,6 +2041,7 @@ tagTerms.set('friends', { sortBy: '' });
 tagTerms.set('analysis', { sortBy: 'wss' });
 tagTerms.set('ops', { sortBy: 'ops' });
 tagTerms.set('bhe', { sortBy: 'ennea' });
+tagTerms.set('ap', { sortBy: '' });
 
 const socionicsTypes = [
   'ile',
@@ -2033,6 +2379,9 @@ export const searchModel = {
   trifixMap: trifixMap,
   comboTerms: comboTerms,
   enneaTerms: enneaTerms,
+  apTerms: apTerms,
+  apMatchTerms: apMatchTerms,
+  apTypes: apTypeNames,
   tagTerms: tagTerms,
   personTerms: personTerms,
   enneaMatchTerms: enneaMatchTerms,

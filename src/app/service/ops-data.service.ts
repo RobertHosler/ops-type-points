@@ -231,6 +231,7 @@ export class TypedPerson {
   personTags?: string[];
   opsTags?: string[];
   enneaTags?: string[];
+  apTags?: string[];
   coreNeed?: string;
   deciderNeed?: string;
   observerNeed?: string;
@@ -258,6 +259,8 @@ export class TypedPerson {
   wing?: string; // 1
   fullEType?: string;// so/sp - 9w1 - 963
   fullETypeOverlay?: string; // so/sp 963(125)
+  apType?: string;
+  apSubtype?: string;
   wssType?: string;
   wssLink?: string;
   binLink?: string;
@@ -271,6 +274,7 @@ export class TypedPerson {
   moreLinks?: Link[];
   daaLink?: string;
   daaClassNumber?: number;
+  apLink?: string;
   enneaLinks?: string;
   enneaNotes?: string;
   collageUrl?: string;

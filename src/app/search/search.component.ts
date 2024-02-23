@@ -70,7 +70,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   showTypes = {
     ops: true,
     wss: true,
-    ennea: true
+    ennea: true,
+    ap: true
   };
 
   allNamesArr: string[];
@@ -426,17 +427,19 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.showTypes = {
           ops: false,
           ennea: false,
-          wss: false
+          wss: false,
+          ap: false
         };
         this.displayedRecords = [];
         this.searchSort = [];
         this.searchNames();
         this.resort();
-        if (!this.showTypes.ops && !this.showTypes.ennea && !this.showTypes.wss) {
+        if (!this.showTypes.ops && !this.showTypes.ennea && !this.showTypes.wss && !this.showTypes.ap) {
           this.showTypes = {
             ops: true,
             ennea: true,
-            wss: true
+            wss: true,
+            ap: true
           };
         }
         this.showType();
@@ -582,6 +585,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   private matchTextParts(person: TypedPerson, s: string) {
+
+    // if the string partially matches one of these terms, search as if the whole term was entered
     searchModel.predictions.forEach((prediction) => {
       if (s.length > prediction.count && prediction.term.startsWith(s)) {
         s = prediction.term;
@@ -590,6 +595,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     let term = searchModel.comboTerms.get(s);
     if (term) {
+      // is combo term
       let result = false;
       let firstEl = term.strings[0];
       if (Array.isArray(firstEl)) {
@@ -621,6 +627,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       }
       return result;
     } else if (searchModel.enneaTerms.get(s)) {
+      // is enneagram term
       let result = false;
       searchModel.enneaTerms.get(s).strings.forEach((subS: string) => {
         if (!result) {
@@ -629,6 +636,18 @@ export class SearchComponent implements OnInit, OnDestroy {
       });
       if (result) {
         this.resort('ennea');
+      }
+      return result;
+    } else if (searchModel.apTerms.get(s)) {
+      // is AP term
+      let result = false;
+      searchModel.apTerms.get(s).strings.forEach((subS: string) => {
+        if (!result) {
+          result = this.matchTextPartsDecoded(person, subS.toLowerCase());
+        }
+      });
+      if (result) {
+        this.resort('');
       }
       return result;
     } else {
@@ -686,13 +705,20 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.sortBy = 'ennea';
           this.showTypes.ennea = true;
         }
-    } else if (searchModel.socionicsTerms.get(s)) {
-      if (!searchModel.socionicsTerms.get(s).match(person)) {
-        result = false;
-      } else {
-        this.sortBy = 'wss';
-        this.showTypes.wss = true;
-      }
+      } else if (searchModel.socionicsTerms.get(s)) {
+        if (!searchModel.socionicsTerms.get(s).match(person)) {
+          result = false;
+        } else {
+          this.sortBy = 'wss';
+          this.showTypes.wss = true;
+        }
+    } else if (searchModel.apMatchTerms.get(s)) {
+        if (!searchModel.apMatchTerms.get(s).match(person)) {
+          result = false;
+        } else {
+          this.sortBy = '';
+          this.showTypes.ap = true;
+        }
     } else if (searchModel.sexTerms.get(s)) {
       if (!searchModel.sexTerms.get(s).match(person)) {
         result = false;
@@ -767,6 +793,14 @@ export class SearchComponent implements OnInit, OnDestroy {
         result = false;
       } else {
         this.showTypes.wss = true;
+      }
+    } else if (person.apType && person.apType.toLowerCase() === s) {
+      this.showTypes.ap = true;
+    } else if (searchModel.apTypes.includes(s)) {
+      if (!person.apType || person.apType.toLowerCase() !== s) {
+        result = false;
+      } else {
+        this.showTypes.ap = true;
       }
     } else if (
       !(
@@ -966,7 +1000,8 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.showTypes = {
       ops: this.showTypes.ops,
       wss: this.showTypes.wss,
-      ennea: this.showTypes.ennea
+      ennea: this.showTypes.ennea,
+      ap: this.showTypes.ap
     };
   }
 }

@@ -36,12 +36,14 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
   showTypes = {
     ops: true,
     wss: true,
-    ennea: true
+    ennea: true,
+    ap: true
   };
 
   opsShow:boolean;
   wssShow:boolean;
   enneaShow:boolean;
+  apShow:boolean;
 
   activeTag = '';
 
@@ -51,12 +53,14 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
     this.opsShow = this.showTypes.ops;
     this.wssShow = this.showTypes.wss;
     this.enneaShow = this.showTypes.ennea;
+    this.apShow = this.showTypes.ap;
   }
 
   ngOnChanges() {
     this.opsShow = this.showTypes.ops;
     this.wssShow = this.showTypes.wss;
     this.enneaShow = this.showTypes.ennea;
+    this.apShow = this.showTypes.ap;
   }
 
   imageRouterLink() {
