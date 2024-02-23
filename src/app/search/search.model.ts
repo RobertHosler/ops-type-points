@@ -861,19 +861,73 @@ const apTypes: ApTypeModel[] = [
   // TRIA
   { 
     name: 'VLFE',
-    sexta: 'DIO'
+    sexta: 'TRIA'
   },
   { 
     name: 'VFLE',
-    sexta: 'DIO'
+    sexta: 'TRIA'
   },
   { 
     name: 'ELFV',
-    sexta: 'DIO'
+    sexta: 'TRIA'
   },
   { 
     name: 'EFLV',
-    sexta: 'DIO'
+    sexta: 'TRIA'
+  },
+
+  // TESSERA
+  { 
+    name: 'VFEL',
+    sexta: 'TESSERA'
+  },
+  { 
+    name: 'VEFL',
+    sexta: 'TESSERA'
+  },
+  { 
+    name: 'LFEV',
+    sexta: 'TESSERA'
+  },
+  { 
+    name: 'LEFV',
+    sexta: 'TESSERA'
+  },
+
+  // PENTE
+  { 
+    name: 'VLEF',
+    sexta: 'PENTE'
+  },
+  { 
+    name: 'VELF',
+    sexta: 'PENTE'
+  },
+  { 
+    name: 'FLEV',
+    sexta: 'PENTE'
+  },
+  { 
+    name: 'FELV',
+    sexta: 'PENTE'
+  },
+
+  // EXI
+  { 
+    name: 'LVEF',
+    sexta: 'EXI'
+  },
+  { 
+    name: 'LEVF',
+    sexta: 'EXI'
+  },
+  { 
+    name: 'FVEL',
+    sexta: 'EXI'
+  },
+  { 
+    name: 'FEVL',
+    sexta: 'EXI'
   },
 
 ];
@@ -881,7 +935,7 @@ const apTypes: ApTypeModel[] = [
 
 const apTypeNames = [];
 apTypes.forEach(apType => {
-  apTypeNames.push(apType.name.toLowerCase());
+  apTypeNames.push(apType.name);
 });
 
 const apTerms = new Map();
@@ -1158,6 +1212,114 @@ apMatchTerms.set('pente', {
 apMatchTerms.set('exi', {
   match: (person: TypedPerson) => {
     return isCenterBlock(person.apType, 'e', 'v');
+  },
+});
+
+// Confident
+apMatchTerms.set('1-1', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(0).toLowerCase() === '1';
+  },
+});
+apMatchTerms.set('1-2', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(0).toLowerCase() === '2';
+  },
+});
+apMatchTerms.set('1-3', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(0).toLowerCase() === '3';
+  },
+});
+apMatchTerms.set('1-4', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(0).toLowerCase() === '4';
+  },
+});
+apMatchTerms.set('1-0', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(0).toLowerCase() === '0';
+  },
+});
+
+// Flexible
+apMatchTerms.set('2-1', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(1).toLowerCase() === '1';
+  },
+});
+apMatchTerms.set('2-2', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(1).toLowerCase() === '2';
+  },
+});
+apMatchTerms.set('2-3', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(1).toLowerCase() === '3';
+  },
+});
+apMatchTerms.set('2-4', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(1).toLowerCase() === '4';
+  },
+});
+apMatchTerms.set('2-0', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(1).toLowerCase() === '0';
+  },
+});
+
+// Insecure
+apMatchTerms.set('3-1', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(2).toLowerCase() === '1';
+  },
+});
+apMatchTerms.set('3-2', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(2).toLowerCase() === '2';
+  },
+});
+apMatchTerms.set('3-3', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(2).toLowerCase() === '3';
+  },
+});
+apMatchTerms.set('3-4', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(2).toLowerCase() === '4';
+  },
+});
+apMatchTerms.set('3-0', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(2).toLowerCase() === '0';
+  },
+});
+
+// Unbothered
+apMatchTerms.set('4-1', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(3).toLowerCase() === '1';
+  },
+});
+apMatchTerms.set('4-2', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(3).toLowerCase() === '2';
+  },
+});
+apMatchTerms.set('4-3', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(3).toLowerCase() === '3';
+  },
+});
+apMatchTerms.set('4-4', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(3).toLowerCase() === '4';
+  },
+});
+apMatchTerms.set('4-0', {
+  match: (person: TypedPerson) => {
+    return person.apType && person.apSubtype && person.apSubtype.charAt(3).toLowerCase() === '0';
   },
 });
 
@@ -2041,7 +2203,7 @@ tagTerms.set('friends', { sortBy: '' });
 tagTerms.set('analysis', { sortBy: 'wss' });
 tagTerms.set('ops', { sortBy: 'ops' });
 tagTerms.set('bhe', { sortBy: 'ennea' });
-tagTerms.set('ap', { sortBy: '' });
+tagTerms.set('ap', { sortBy: 'ap' });
 
 const socionicsTypes = [
   'ile',
@@ -2296,6 +2458,91 @@ const wssRules = [
   },
 ];
 
+const apRules = [
+  {
+    label: 'AP Tagged',
+    examples: ['AP'],
+  },
+  {
+    label: 'AP Tagged',
+    examples: ['AP'],
+  },
+  //Positions
+  {
+    label: 'Volition Position',
+    examples: ['1V', '2V', '3V', '4V'],
+  },
+  {
+    label: 'Emotion Position',
+    examples: ['1E', '2E', '3E', '4E'],
+  },
+  {
+    label: 'Logic Position',
+    examples: ['1L', '2L', '3L', '4L'],
+  },
+  {
+    label: 'Physics Position',
+    examples: ['1F', '2F', '3F', '4F'],
+  },
+  // Stances
+  {
+    label: 'Self-Positive',
+    examples: ['vsp', 'fsp', 'esp', 'lsp'],
+  },
+  {
+    label: 'Self-Negative',
+    examples: ['vsn', 'fsn', 'esn', 'lsn'],
+  },
+  {
+    label: 'Others-Positive',
+    examples: ['vop', 'fop', 'eop', 'lop'],
+  },
+  {
+    label: 'Others-Negative',
+    examples: ['von', 'fon', 'eon', 'lon'],
+  },
+  {
+    label: 'Results-Oriented',
+    examples: ['vro', 'fro', 'ero', 'lro'],
+  },
+  {
+    label: 'Process-Oriented',
+    examples: ['vpo', 'fpo', 'epo', 'lpo'],
+  },
+  {
+    label: '1-X Subtypes',
+    examples: ['1-1', '1-2', '1-3', '1-4', '1-0'],
+  },
+  {
+    label: '2-X Subtypes',
+    examples: ['2-1', '2-2', '2-3', '2-4', '2-0'],
+  },
+  {
+    label: '3-X Subtypes',
+    examples: ['3-1', '3-2', '3-3', '3-4', '3-0'],
+  },
+  {
+    label: '4-X Subtypes',
+    examples: ['4-1', '4-2', '4-3', '4-4', '4-0'],
+  },
+  {
+    label: 'Sextas',
+    examples: ['ena', 'dio', 'tria'],
+  },
+  {
+    label: 'Sextas',
+    examples: ['tessera', 'pente', 'exi'],
+  },
+  {
+    label: 'Compare with OPS',
+    examples: ['3E Ti', '3V Ne'],
+  },
+  {
+    label: 'Compare with Ennea',
+    examples: ['4V 9', '2F 8'],
+  },
+];
+
 /**
  * Takes an input trifix and checks to see if it matches a second trifix
  * if the trifix is considered in any order.
@@ -2393,6 +2640,7 @@ export const searchModel = {
   opsRules: opsRules,
   enneaRules: enneaRules,
   wssRules: wssRules,
+  apRules: apRules,
   trifixMatcher: trifixMatcher,
   sortEType: sortEType
 };

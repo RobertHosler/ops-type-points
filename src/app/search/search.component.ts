@@ -831,13 +831,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     } else if (person.apType && person.apSubtype && person.apSubtype === s) {
       this.sortBy = 'ap';
       this.showTypes.ap = true;
-    } else if (searchModel.apTypes.includes(s)) {
-      if (!person.apType || person.apType.toLowerCase() !== s) {
-        result = false;
-      } else {
-        this.sortBy = 'ap';
-        this.showTypes.ap = true;
-      }
     } else if (
       !(
         person.name.toLowerCase().includes(s) ||

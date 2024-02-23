@@ -816,6 +816,44 @@
         </div>
       </div>
     </div>
+
+    <div class="fix-bg">
+      <div class="container">
+        <h2 class="mb-4">Attitudinal Psyche</h2>
+        <div class="rules">
+          <div class="rule" *ngFor="let rule of searchModel.apRules">
+            <div class="rule-name">{{ rule.label }}</div>
+            <div class="rule-example">
+              <ng-container
+                *ngFor="let example of rule.examples; let i = index"
+              >
+                <span class="mx-1" *ngIf="i > 0"></span>
+                <ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: example }"
+                ></ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="mt-3 text-center">AP Types</div>
+        <div class="mt-1 fix-wrapper justify-content-center">
+          <div
+            *ngFor="
+              let type of searchModel.apTypes;
+              let x = index
+            "
+          >
+            <div>
+              <a
+                [routerLink]="['/search']"
+                [queryParams]="{ text: type }"
+                >{{ type }}</a
+              ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="record-wrapper">
@@ -972,6 +1010,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </ng-template>
 
