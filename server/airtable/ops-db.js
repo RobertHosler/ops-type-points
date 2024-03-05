@@ -154,17 +154,14 @@ function mergeMaps(nameMap, typeMap) {
       // look for altName as well
       let altKey = buildKey(val.altName);
       nameVal = nameMap.get(altKey);
-      key = altKey;
     }
     if (nameVal) {
       // Merge
       if (nameVal.name !== val.name) {
-        nameMap.delete(key); // delete current key
+        const oldName = nameVal.name;
         const newName = val.name;
         nameVal.name = newName; // replace name
-        let newKey = buildKey(newName);
-        nameMap.set(newKey, nameVal); // replace key
-        console.log('Replaced key', key, newKey);
+        console.log('Replaced name', oldName, newName);
       }
       const override = val.tags && val.tags.includes('Override');
       if (override) {
