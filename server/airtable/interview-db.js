@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, compareModifiedDates, getLastModified } = require("./airtable");
+const { getRecordPicture, compareModifiedDates, getLastModified, buildKey } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/appcD3UjS4Do1PHEd/";
 const TABLE_NAME = "Interviews";
@@ -121,7 +121,7 @@ function convertRecords(records) {
     } else if (other) {
       ytLink = other.split('\n')[0];
     }
-    result.set(name, {
+    result.set(buildKey(name), {
       name: name,
       altName: record.fields["Alt-Name"],
       opType: opsType,
@@ -235,7 +235,7 @@ function mergeMaps(nameMap, interviewMap) {
         opsTags.push("Speculation");
       }
       let newPerson = {
-        name: key,
+        name: val.name,
         type: val.opType,
         socialType: val.socialType,
         pictureUrl: val.pictureUrl,

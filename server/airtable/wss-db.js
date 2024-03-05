@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, getLastModified, compareModifiedDates } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/apphGksK3AXCVIcCr/";
 const TABLE_NAME = "WSS DB";
@@ -52,7 +52,7 @@ function convertRecords(records) {
   const result = new Map();
   records.forEach((record) => {
     const name = convertName(record.fields.Name);
-    result.set(name, {
+    result.set(buildKey(name), {
       name: name,
       type: record.fields.Type,
       link: record.fields.Link,
@@ -108,7 +108,7 @@ function mergeMaps(nameMap, wssMap) {
       if (!hideMissingPictures || (hideMissingPictures && wssVal.pictureUrl)) {
         i++;
         nameMap.set(wssKey, {
-          name: wssKey,
+          name: wssVal.name,
           tags: tags,
           wssType: wssVal.type,
           wssLink: wssVal.link,

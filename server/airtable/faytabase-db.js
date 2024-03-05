@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, getLastModified, compareModifiedDates } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/appPbUnkpJUadoSO1/";
 const TABLE_NAME = "Faytabase";
@@ -74,7 +74,7 @@ function convertRecords(records) {
       console.log('Faytabase: ' + name + ' Hidden');
       return;
     }
-    result.set(name, {
+    result.set(buildKey(name), {
       name: name,
       altName: record.fields["Alt-Name"],
       coreEType: coreEType,
@@ -209,7 +209,7 @@ function mergeMaps(nameMap, eTypeMap) {
       i++;
       let ytLink = 'https://www.youtube.com/results?search_query='+ eKey + ' interview';
       nameMap.set(eKey, {
-        name: eKey,
+        name: eVal.name,
         coreEType: eVal.coreEType,
         coreETypeLong: eVal.coreETypeLong,
         wing: eVal.wing,

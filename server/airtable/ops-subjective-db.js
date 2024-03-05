@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, compareModifiedDates, getLastModified } = require("./airtable");
+const { getRecordPicture, compareModifiedDates, getLastModified, buildKey } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/appg1oZhulu8BvATT/";
 const TABLE_NAME = "OPS";
@@ -80,7 +80,7 @@ function convertRecords(records) {
       tags.push("OPS");
     }
     tags.push("Subjective");
-    result.set(name, {
+    result.set(buildKey(name), {
       name: name,
       altName: record.fields["Alt-Name"],
       opType: opsType,
@@ -214,7 +214,7 @@ function mergeMaps(nameMap, interviewMap) {
           personTags.push("Community Member");
         }
         nameMap.set(key, {
-          name: key,
+          name: val.name,
           type: type,
           s1: s1,
           s2: s2,

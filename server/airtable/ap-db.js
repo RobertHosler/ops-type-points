@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
 const logger = require("../logger")
-const { getRecordPicture, getLastModified, compareModifiedDates } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/appS1nbL2o9NAoOpQ/";
 const TABLE_NAME = "AP DB";
@@ -59,7 +59,7 @@ function convertRecords(records) {
       return;
     }
     let classLink = record.fields.Links;
-    result.set(name, {
+    result.set(buildKey(name), {
       name: name,
       altName: record.fields["Alt-Name"],
       apType: record.fields["AP Core"],
@@ -128,7 +128,7 @@ function mergeMaps(nameMap, eTypeMap) {
         apTags.push("Speculation");
       }
       nameMap.set(eKey, {
-        name: eKey,
+        name: eVal.name,
         apType: eVal.apType,
         apSubtype: eVal.apSubtype,
         pictureUrl: eVal.pictureUrl,

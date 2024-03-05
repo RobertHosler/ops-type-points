@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 // OP Database - Ryan & Jana - https://airtable.com/shrQ6IoDtlXpzmC1l/tblyUDDV5zVyuX5VL/viweXFJuHAQpi5as3
 
-const { getRecordPicture, getLastModified } = require("./airtable");
+const { getRecordPicture, getLastModified, buildKey } = require("./airtable");
 
 const OP_DB_HOST = "https://api.airtable.com/v0/appudq0aG1uwqIFX5/";
 const OP_DB_KEY = "appudq0aG1uwqIFX5";
@@ -450,7 +450,8 @@ function convertPersons(records) {
       }
     }
     if (name) {
-      nameMap.set(name, typedPerson);
+      typedPerson.name = name;
+      nameMap.set(buildKey(name), typedPerson);
     }
   });
   console.log("Convert Persons", nameMap.size, typeMap.size);

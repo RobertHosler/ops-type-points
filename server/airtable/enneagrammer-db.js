@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, getLastModified, compareModifiedDates } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/apptRQDj4AV89IiNn/";
 const TABLE_NAME = "Enneagrammer DB";
@@ -160,7 +160,7 @@ function convertRecords(records) {
     const links = record.fields.Links;
     let daaLink = record.fields.Links;
     let daaClassNumber = record.fields["Class Number"] ? parseInt(record.fields["Class Number"]) : 0;
-    result.set(name, {
+    result.set(buildKey(name), {
       name: name,
       altName: record.fields["Alt-Name"],
       coreEType: coreEType,
@@ -422,7 +422,7 @@ function mergeMaps(nameMap, eTypeMap) {
         enneaTags.push("Speculation");
       }
       nameMap.set(eKey, {
-        name: eKey,
+        name: eVal.name,
         coreEType: eVal.coreEType,
         coreETypeLong: eVal.coreETypeLong,
         wing: eVal.wing,

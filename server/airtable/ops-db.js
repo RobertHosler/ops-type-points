@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, getLastModified, compareModifiedDates } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/app2KuryAPU7YdO32/";
 const TABLE_NAME = "OPS DB";
@@ -92,7 +92,7 @@ function convertRecords(records) {
 
     const links = record.fields.Links;
     const classLink = record.fields["Class Link"];
-    result.set(name, {
+    result.set(buildKey(name), {
       name: name,
       type: record.fields.Type,
       socialType: record.fields["Social Type"],
@@ -236,7 +236,7 @@ function mergeMaps(nameMap, typeMap) {
         opsTags.push("Speculation");
       }
       let newPerson = {
-        name: key,
+        name: val.name,
         type: val.type,
         socialType: val.socialType,
         pictureUrl: val.pictureUrl,
