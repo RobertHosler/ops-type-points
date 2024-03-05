@@ -102,7 +102,8 @@ function mergeMaps(nameMap, interviewMap) {
   interviewMap.forEach((val, key) => {
     let nameVal = nameMap.get(key);
     if (!nameVal && val.altName) {
-      nameVal = nameMap.get(val.altName);
+      let altKey = buildKey(val.altName);
+      nameVal = nameMap.get(altKey);
     }
     if (nameVal && nameVal.type) {
       return; // don't override an existing OP Type

@@ -114,8 +114,8 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.allNames = result;
       this.allNamesArr = [];
       this.recordCount = 0;
-      this.allNames.forEach((record) => {
-        this.allNamesArr.push(record.name);
+      this.allNames.forEach((record, key) => {
+        this.allNamesArr.push(key);
         this.recordCount++;
       });
       this.allNamesArrUnsorted = this.allNamesArr.slice();

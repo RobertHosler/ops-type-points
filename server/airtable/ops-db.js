@@ -29,10 +29,6 @@ fields.forEach((field) => {
   url.searchParams.append("fields", field);
 });
 
-const converterList = [
-  // { org: "Dr. Phil", result: "Dr. Phil McGraw" },
-];
-
 function convertName(name) {
   name = name.trim();
   const slashIndex = name.indexOf("(");
@@ -41,12 +37,6 @@ function convertName(name) {
     name = name.substring(0, slashIndex).trim();
     // console.log("Trimmed Name () - ", beforeName, "- to |" + name + "|");
   }
-  converterList.forEach((converter) => {
-    if (converter.org === name) {
-      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
-      name = converter.result;
-    }
-  });
   return name;
 }
 
@@ -162,17 +152,19 @@ function mergeMaps(nameMap, typeMap) {
     let nameVal = nameMap.get(key);
     if (!nameVal) {
       // look for altName as well
-      nameVal = nameMap.get(val.altName);
+      let altKey = buildKey(val.altName);
+      nameVal = nameMap.get(altKey);
+      key = altKey;
     }
     if (nameVal) {
       // Merge
       if (nameVal.name !== val.name) {
-        const altName = nameVal.name;
-        const name = val.name;
-        nameMap.delete(altName);
-        nameVal.name = name;
-        nameMap.set(name, nameVal);
-        console.log('Replaced key', altName, name);
+        nameMap.delete(key); // delete current key
+        const newName = val.name;
+        nameVal.name = newName; // replace name
+        let newKey = buildKey(newName);
+        nameMap.set(newKey, nameVal); // replace key
+        console.log('Replaced key', key, newKey);
       }
       const override = val.tags && val.tags.includes('Override');
       if (override) {
@@ -227,7 +219,7 @@ function mergeMaps(nameMap, typeMap) {
       let ytLink = '';
       let personTags = [];
       if (!val.tags.includes('Community Member')) {
-        ytLink = 'https://www.youtube.com/results?search_query='+ key + ' interview';
+        ytLink = 'https://www.youtube.com/results?search_query='+ val.name + ' interview';
       } else {
         personTags.push("Community Member");
       }

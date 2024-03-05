@@ -149,7 +149,7 @@ exports.getRecordPicture = (pictureField) => {
 };
 
 exports.buildKey = (name) => {
-  return name.toLowerCase().replace(/[.\s]/g, '');
+  return name ? name.toLowerCase().replace(/[.\s-,]/g, '') : '';
 };
 
 exports.compareModifiedDates = (a, b) => {

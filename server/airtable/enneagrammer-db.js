@@ -363,7 +363,8 @@ function mergeMaps(nameMap, eTypeMap) {
   eTypeMap.forEach((eVal, eKey) => {
     let nameVal = nameMap.get(eKey);
     if (!nameVal) {
-      nameVal = nameMap.get(eVal.altName);
+      let altKey = buildKey(eVal.altName);
+      nameVal = nameMap.get(altKey);
     }
     if (nameVal) {
       // Merge
