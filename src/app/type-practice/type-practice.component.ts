@@ -636,7 +636,7 @@ export class TypePracticeComponent implements OnInit {
       this.subjectTypeLink =
         '/analyzer?m=' + mod + '&s1=' + sav1 + '&s2=' + sav2 + '&a=' + animals;
       const queryParams: Params = {
-        name: this.subjectName,
+        name: this.subjectRecord.key,
       };
       this.router.navigate([], {
         relativeTo: this.route,

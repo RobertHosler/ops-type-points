@@ -336,6 +336,9 @@ function fetchAirtableData() {
         wss.mergeMaps(nameMap, wssMap);
         subjective.mergeMaps(nameMap, subjectiveMap);
         apDb.mergeMaps(nameMap, apMap);
+        nameMap.forEach((val, key) => {
+          val.key = key;
+        });
       })
       .then(() => {
         personsComplete = true;

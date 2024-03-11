@@ -222,6 +222,7 @@ export class SourceDefinition {
 }
 
 export class TypedPerson {
+  key?: string;
   name: string;
   pictureUrl?: string;
   type?: string;

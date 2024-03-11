@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { appLinks } from '../model/links';
-import { TypedPerson, TypeRecord } from '../service/ops-data.service';
+import { TypedPerson } from '../service/ops-data.service';
 
 @Component({
   selector: 'app-type-record-list',
@@ -200,7 +200,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
 
   imageQueryParams(typeRecord) {
     return this.displayPracticeLink
-      ? { name: typeRecord.name }
+      ? { name: typeRecord.key }
       : { person: typeRecord.name };
   }
 }

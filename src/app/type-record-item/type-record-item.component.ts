@@ -12,6 +12,9 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
   typeRecord: TypedPerson;
 
   @Input()
+  personKey: string;
+
+  @Input()
   externalLink; // function?
 
   @Input()
@@ -69,8 +72,8 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
 
   imageQueryParams(typeRecord) {
     return this.displayPracticeLink
-      ? { name: typeRecord.name }
-      : { person: typeRecord.name };
+      ? { name: typeRecord.key }
+      : { person: typeRecord.key };
   }
 
   emphasize(fullETypeOverlay: string, emphasizedNumbers: string[]) {

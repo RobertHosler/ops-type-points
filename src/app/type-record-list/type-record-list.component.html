@@ -32,7 +32,7 @@
           <div *ngIf="displayPracticeLink">
             <a
               [routerLink]="['/practice']"
-              [queryParams]="{ name: typeRecord.name }"
+              [queryParams]="{ name: typeRecord.key }"
               >Practice Typing</a
             >
           </div>
