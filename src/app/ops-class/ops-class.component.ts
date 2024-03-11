@@ -7,7 +7,7 @@ import { OpsDataService, TypedPerson } from '../service/ops-data.service';
   templateUrl: './ops-class.component.html',
   styleUrls: ['./ops-class.component.scss']
 })
-export class OpsClassComponent implements OnInit {
+export class OpsClassComponent {
 
   debug = false;
   reverseOrder = false;
@@ -16,9 +16,10 @@ export class OpsClassComponent implements OnInit {
   displayTypes = false;
   displayPractice = false;
   showTypes = {
-    ops: this.displayTypes,
+    ops: true,
     wss: false,
-    ennea: false
+    ennea: false,
+    ap: false
   };
   loading = true;
   displayedRecords: TypedPerson[] = [];
@@ -35,14 +36,6 @@ export class OpsClassComponent implements OnInit {
       this.filterNames();
       this.loading = false;
     });
-  }
-
-  ngOnInit(): void {
-    this.showTypes = {
-      ops: this.displayTypes,
-      wss: false,
-      ennea: false
-    };
   }
 
   initRoutes(params) {
@@ -99,9 +92,10 @@ export class OpsClassComponent implements OnInit {
       this.displayPractice = false;
     }
     this.showTypes = {
-      ops: this.displayTypes,
+      ops: true,
       wss: false,
-      ennea: false
+      ennea: false,
+      ap: false
     };
   }
   

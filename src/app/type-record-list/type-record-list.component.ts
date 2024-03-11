@@ -66,7 +66,8 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   showTypes = {
     ops: true,
     wss: true,
-    ennea: true
+    ennea: true,
+    ap: true
   };
 
   activeTag = '';
@@ -79,9 +80,6 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
 
   @Input()
   typeIndicator = false;
-
-  @Input()
-  enneaOnly = '';
 
   constructor() {}
 

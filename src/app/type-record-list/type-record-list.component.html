@@ -20,7 +20,6 @@
         [showReveal]="showReveal"
         [imageOnly]="imageOnly"
         [grayscale]="grayscale"
-        [enneaOnly]="enneaOnly"
         [typeIndicator]="typeIndicator"
         [displayPracticeLink]="displayPracticeLink"
       ></app-type-record-item>
@@ -44,7 +43,7 @@
                 <img src="/assets/images/sp-logo-no-bg.png" />
             </span>
             <a [href]="typeRecord.classLink ? typeRecord.classLink.href : 'https://docs.google.com/document/u/0/d/1lNO4NjYwvPQYSBhHZNzTiFTTVfhitOWlFsdvr-WTX9g/mobilebasic'"
-                *ngIf="!enneaOnly && typeRecord.tags && typeRecord.tags.includes('OPS Class Typing')"
+                *ngIf="typeRecord.tags && typeRecord.tags.includes('OPS Class Typing')"
                 [popover]="'OPS Class'" triggers="mouseenter:mouseleave" placement="top"
                 class="ops-logo-link" target="_blank">
               <img src="/assets/images/ops-logo.PNG" />
@@ -57,7 +56,7 @@
             </a>
             <a [href]="typeRecord.wssLink ? typeRecord.wssLink : 'http://worldsocionics.blogspot.com/'"
                 [popover]="'WSS Analysis'" triggers="mouseenter:mouseleave" placement="top"
-                *ngIf="!enneaOnly && typeRecord.tags && typeRecord.tags.includes('Analysis')"
+                *ngIf="typeRecord.tags && typeRecord.tags.includes('Analysis')"
                 class="wss-logo-link" target="_blank">
               <img src="/assets/images/wss-logo.jpg" />
             </a>
@@ -78,13 +77,13 @@
               {{ typeRecord.name }}
             </div>
             <div class="type" *ngIf="showTypes">
-              <div *ngIf="typeRecord.type">
+              <div *ngIf="typeRecord.type && showTypes.ops">
                 {{ typeRecord.type }}
               </div>
-              <div *ngIf="typeRecord.fullEType">
+              <div *ngIf="typeRecord.fullEType && showTypes.ennea">
                 {{ typeRecord.fullEType }}
               </div>
-              <div *ngIf="typeRecord.wssType">
+              <div *ngIf="typeRecord.wssType && showTypes.wss">
                 {{ typeRecord.wssType }}
               </div>
             </div>
@@ -123,7 +122,7 @@
             class="type-wrapper"
             *ngIf="!displayPracticeLink && !typeIndicator"
           >
-            <div class="image-type" *ngIf="typeRecord.type && !enneaOnly && showTypes">
+            <div class="image-type" *ngIf="typeRecord.type && showTypes">
               <span *ngIf="typeRecord.opsTags && typeRecord.opsTags.length"
                   [popover]="typeRecord.opsTags"
                   triggers="mouseenter:mouseleave" placement="bottom"
@@ -134,7 +133,7 @@
                   {{ typeRecord.type }}
               </span>
             </div>
-            <div class="image-type" *ngIf="typeRecord.fullEType && showTypes">
+            <div class="image-type" *ngIf="typeRecord.fullEType && showTypes.ennea">
               <div *ngIf="typeRecord.enneaTags && typeRecord.enneaTags.length">
                 <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType + ' ' + typeRecord.enneaTags"
                     triggers="mouseenter:mouseleave" placement="bottom">
@@ -160,7 +159,7 @@
                   </span>
               </div>
             </div>
-            <div class="image-type" *ngIf="typeRecord.wssType && !enneaOnly && showTypes">
+            <div class="image-type" *ngIf="typeRecord.wssType && showTypes">
               {{ typeRecord.wssType }}
             </div>
             <div *ngIf="false && typeRecord.ytLink">

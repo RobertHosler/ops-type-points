@@ -19,8 +19,6 @@ export class EnneaTypeTwinsComponent implements OnInit {
   wing: string;
   @Input()
   trifix: string;
-  @Input()
-  enneaOnly = false;
 
   @Input()
   displayControls = true;

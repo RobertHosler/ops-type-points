@@ -27,9 +27,6 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
   grayscale = false;
 
   @Input()
-  enneaOnly = '';
-
-  @Input()
   typeIndicator = false;
 
   @Input()
@@ -43,10 +40,10 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
     ap: true
   };
 
-  opsShow:boolean;
-  wssShow:boolean;
-  enneaShow:boolean;
-  apShow:boolean;
+  opsShow: boolean;
+  wssShow: boolean;
+  enneaShow: boolean;
+  apShow: boolean;
 
   activeTag = '';
 

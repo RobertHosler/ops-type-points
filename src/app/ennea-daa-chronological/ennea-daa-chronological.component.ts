@@ -12,7 +12,8 @@ export class EnneaDaaChronologicalComponent implements OnInit {
   showTypes = {
     ops: false,
     wss: false,
-    ennea: this.displayTypes
+    ennea: true,
+    ap: false
   };
   loading = true;
   displayPractice = false;
@@ -51,11 +52,6 @@ export class EnneaDaaChronologicalComponent implements OnInit {
 
   toggleDisplayTypes() {
     this.displayTypes = !this.displayTypes;
-    this.showTypes = {
-      ops: false,
-      wss: false,
-      ennea: this.displayTypes
-    };
   }
   
   togglePractice() {

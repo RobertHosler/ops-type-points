@@ -28,9 +28,9 @@
             : 'https://docs.google.com/document/u/0/d/1lNO4NjYwvPQYSBhHZNzTiFTTVfhitOWlFsdvr-WTX9g/mobilebasic'
         "
         *ngIf="
-        (!enneaOnly || enneaOnly === 'ops') &&
+        (showTypes.ops &&
           typeRecord.tags &&
-          typeRecord.tags.includes('OPS Class Typing')
+          typeRecord.tags.includes('OPS Class Typing'))
         "
         [popover]="'OPS Class ' + (typeRecord.opsClassNumber && typeRecord.opsClassNumber > 0 ? typeRecord.opsClassNumber : '')"
         triggers="mouseenter:mouseleave"
@@ -50,7 +50,7 @@
         triggers="mouseenter:mouseleave"
         placement="top"
         *ngIf="
-          typeRecord.tags && (!enneaOnly || enneaOnly === 'ennea') && typeRecord.tags.includes('Academy Typing (DAA)')
+          typeRecord.tags && showTypes.ennea && typeRecord.tags.includes('Academy Typing (DAA)')
         "
         class="daa-logo-link"
         target="_blank"
@@ -67,7 +67,7 @@
         triggers="mouseenter:mouseleave"
         placement="top"
         *ngIf="
-        (!enneaOnly || enneaOnly === 'wss') && typeRecord.tags && typeRecord.tags.includes('Analysis')
+        (showTypes.wss && typeRecord.tags && typeRecord.tags.includes('Analysis'))
         "
         class="wss-logo-link"
         target="_blank"
@@ -160,10 +160,10 @@
       </div>
     </div>
     <div class="type-wrapper" *ngIf="!displayPracticeLink && !typeIndicator">
-      <div *ngIf="showReveal && typeRecord.type && (!enneaOnly || enneaOnly === 'ops') && !opsShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="opsShow = true">Reveal Ops Type</a></div>
+      <div *ngIf="showReveal && typeRecord.type && showTypes.ops"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="showReveal = false">Reveal Ops Type</a></div>
       <div
         class="image-type"
-        *ngIf="typeRecord.type && (!enneaOnly || enneaOnly === 'ops') && opsShow"
+        *ngIf="typeRecord.type && opsShow && !showReveal"
       >
         <span
           *ngIf="typeRecord.opsTags && typeRecord.opsTags.length"
@@ -188,8 +188,8 @@
           [{{ typeRecord.socialType }}]
         </span>
       </div>
-      <div *ngIf="showReveal && typeRecord.fullEType && (!enneaOnly || enneaOnly === 'ennea') && !enneaShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="enneaShow = true">Reveal Ennea Type</a></div>
-      <div class="image-type" *ngIf="typeRecord.fullEType && (!enneaOnly || enneaOnly === 'ennea') && enneaShow">
+      <div *ngIf="showReveal && typeRecord.fullEType && showTypes.ennea"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="showReveal = false">Reveal Ennea Type</a></div>
+      <div class="image-type" *ngIf="typeRecord.fullEType && enneaShow && !showReveal">
         <div *ngIf="typeRecord.enneaTags && typeRecord.enneaTags.length">
           <span
             *ngIf="typeRecord.overlay"
@@ -263,10 +263,10 @@
           </span>
         </div>
       </div>
-      <div *ngIf="showReveal && typeRecord.wssType && (!enneaOnly || enneaOnly === 'wss') && !wssShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="wssShow = true">Reveal Socionics Type</a></div>
+      <div *ngIf="showReveal && typeRecord.wssType && wssShow"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="wssShow = true">Reveal Socionics Type</a></div>
       <div
         class="image-type"
-        *ngIf="typeRecord.wssType && (!enneaOnly || enneaOnly === 'wss') && wssShow"
+        *ngIf="!showReveal && typeRecord.wssType && wssShow"
       >
         {{ typeRecord.wssType }}
       </div>
