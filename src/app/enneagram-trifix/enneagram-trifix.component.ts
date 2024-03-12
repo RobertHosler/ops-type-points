@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Trifix } from './trifix.model';
+import { DarkModeService } from '../service/dark-mode.service';
 
 @Component({
   selector: 'app-enneagram-trifix',
@@ -20,7 +21,11 @@ export class EnneagramTrifixComponent implements OnInit, OnChanges {
 
   trifixArray: string[];
 
-  constructor() { }
+  darkMode: DarkModeService;
+
+  constructor(darkMode: DarkModeService) {
+    this.darkMode = darkMode;
+  }
 
   ngOnInit(): void {
     this.initStacking();

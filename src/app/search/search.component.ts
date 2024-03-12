@@ -5,6 +5,7 @@ import { Coin, coinMap, coinSideMap, extraCoins } from '../model/coin';
 import { appLinks } from '../model/links';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 import { ETypeModel, InstinctModel, searchModel } from './search.model';
+import { ShowTypes } from '../type-record-item/type-record-item.component';
 
 @Component({
   selector: 'app-search',
@@ -67,7 +68,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   allNames: Map<string, TypedPerson>;
   recordCount = 0;
 
-  showTypes = {
+  showTypes: ShowTypes = {
     ops: true,
     wss: true,
     ennea: true,
@@ -462,12 +463,10 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.searchNames();
         this.resort();
         if (!this.showTypes.ops && !this.showTypes.ennea && !this.showTypes.wss && !this.showTypes.ap) {
-          this.showTypes = {
-            ops: true,
-            ennea: true,
-            wss: true,
-            ap: true
-          };
+          this.showTypes.ops = true;
+          this.showTypes.ennea = true;
+          this.showTypes.wss = true;
+          this.showTypes.ap = true;
         }
         this.showType();
         this.updateRoute();
@@ -538,7 +537,21 @@ export class SearchComponent implements OnInit, OnDestroy {
         let s = string.toLowerCase();
         if (s === 'all') {
           this.sortBy = 'created';
+          this.showTypes.ops = true;
+          this.showTypes.ennea = true;
+          this.showTypes.wss = true;
+          this.showTypes.ap = true;
           result = true;
+          return;
+        } else if (s === 'create' || s === 'created') {
+          this.sortBy = 'created';
+          this.showTypes.create = true;
+          // result = true;
+          return;
+        } else if (s === 'modified' || s === 'modify') {
+          this.sortBy = 'modified';
+          this.showTypes.modify = true;
+          // result = true;
           return;
         } else if (s.includes('|') ) {
           // Or Search
@@ -619,6 +632,14 @@ export class SearchComponent implements OnInit, OnDestroy {
         s = prediction.term;
       }
     });
+
+    if (s === 'image') {
+      if (person.pictureUrl) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 
     let term = searchModel.comboTerms.get(s);
     if (term) {
@@ -1020,12 +1041,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   showType(s?: string) {
     if (s === 'all') {
-      this.showTypes = {
-        ops: true,
-        wss: true,
-        ennea: true,
-        ap: true
-      };
+      this.showTypes.ops = true;
+      this.showTypes.ennea = true;
+      this.showTypes.wss = true;
+      this.showTypes.ap = true;
     } else if (s === 'ops') {
       this.showTypes.ops = !this.showTypes.ops;
     } else if (s === 'ennea') {
@@ -1035,12 +1054,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     } else if (s === 'ap') {
       this.showTypes.ap = !this.showTypes.ap;
     }
-    this.showTypes = {
-      ops: this.showTypes.ops,
-      wss: this.showTypes.wss,
-      ennea: this.showTypes.ennea,
-      ap: this.showTypes.ap
-    };
   }
 }
 

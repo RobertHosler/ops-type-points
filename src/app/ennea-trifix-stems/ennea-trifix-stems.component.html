@@ -1,43 +1,45 @@
-<div *ngIf="stems.length > 0">
-  <div *ngIf="collapsible">
-    <a (click)="collapsed = !collapsed" class="collapsible"
-      ><h4>
-        Trifix Stems<i-bs
-          *ngIf="collapsed"
-          name="caret-down"
-          class="ml-1"
-          width="1.75rem"
-          height="1.75rem"
-        ></i-bs
-        ><i-bs
-          *ngIf="!collapsed"
-          name="caret-up"
-          class="ml-1"
-          width="1.75rem"
-          height="1.75rem"
-        ></i-bs></h4
-    ></a>
-  </div>
-  <div *ngIf="!collapsible">
-    <h4>Trifix Stems</h4>
-  </div>
-  <div *ngIf="!collapsed">
-    <table class="trifix-table">
-      <tr
-        *ngFor="let stem of stems"
-        [ngClass]="{ active: activeStem(stem.val) }"
-      >
-        <td>{{ stem.val[0] + "-" + stem.val[1] }}</td>
-        <td>{{ stem.description }}</td>
-      </tr>
-    </table>
-
-    <div class="small">
-      <div>
-        Source:
-        <a [href]="trifixModel.stemSourceUrl" target="_blank"
-          >Enneagrammer.com - Trifix Stems</a
+<div [ngClass]="{ 'dark-mode': darkMode.enabled }">
+  <div *ngIf="stems.length > 0">
+    <div *ngIf="collapsible">
+      <a (click)="collapsed = !collapsed" class="collapsible"
+        ><h4>
+          Trifix Stems<i-bs
+            *ngIf="collapsed"
+            name="caret-down"
+            class="ml-1"
+            width="1.75rem"
+            height="1.75rem"
+          ></i-bs
+          ><i-bs
+            *ngIf="!collapsed"
+            name="caret-up"
+            class="ml-1"
+            width="1.75rem"
+            height="1.75rem"
+          ></i-bs></h4
+      ></a>
+    </div>
+    <div *ngIf="!collapsible">
+      <h4>Trifix Stems</h4>
+    </div>
+    <div *ngIf="!collapsed">
+      <table class="trifix-table">
+        <tr
+          *ngFor="let stem of stems"
+          [ngClass]="{ active: activeStem(stem.val) }"
         >
+          <td>{{ stem.val[0] + "-" + stem.val[1] }}</td>
+          <td>{{ stem.description }}</td>
+        </tr>
+      </table>
+
+      <div class="small">
+        <div>
+          Source:
+          <a [href]="trifixModel.stemSourceUrl" target="_blank"
+            >Enneagrammer.com - Trifix Stems</a
+          >
+        </div>
       </div>
     </div>
   </div>

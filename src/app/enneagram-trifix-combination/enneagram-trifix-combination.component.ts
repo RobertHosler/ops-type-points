@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Trifix } from '../enneagram-trifix/trifix.model';
 import { TrifixCombinations } from './trifix-combination.model';
+import { DarkModeService } from '../service/dark-mode.service';
 
 @Component({
   selector: 'app-enneagram-trifix-combination',
@@ -28,7 +29,11 @@ export class EnneagramTrifixCombinationComponent implements OnInit {
   headSelectedArr = this.head.slice();
   heartSelectedArr = this.heart.slice();
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  darkMode: DarkModeService;
+
+  constructor(private route: ActivatedRoute, private router: Router, darkMode: DarkModeService) {
+    this.darkMode = darkMode;
+  }
 
   ngOnInit(): void {
     this.initTrifix();

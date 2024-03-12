@@ -7,51 +7,6 @@ app-root {
   display: block;
 }
 
-$dark-mode-color: #333;
-.dark-mode {
-  background-color: $dark-mode-color;
-  color: $light;
-  .table {
-    // color: $light;
-  }
-  .records-bg {
-    background-color: $dark-mode-color;
-  }
-  .active.nav-item a {
-    background-color: $dark-mode-color;
-    color: $light;
-    &:after {
-      border-bottom: 5px solid $dark-mode-color;
-    }
-  }
-  .help {
-    color: #ccc;
-  }
-  .table-tip {
-    color: $light !important;
-  }
-  a {
-    color: $highlight-green;
-  }
-  .search-link {
-    color: $light;
-  }
-  .btn {
-    border-color: $dark;
-    color: $light;
-  }
-  .toggle-btn,
-  .btn-gray {
-    color: $dark;
-  }
-  .home-col a {
-    color: $highlight-green !important;
-    &:hover {
-      color: $cad-orange !important;
-    }
-  }
-}
-
 .btn-gray {
   background-color: #ccc;
 }
@@ -418,4 +373,52 @@ popover-container {
 .center-flex {
   display: flex;
   justify-content: center;
+}
+
+
+
+.dark-mode {
+  background-color: $dark-mode-color;
+  color: $light;
+  .table {
+    // color: $light;
+  }
+  .records-bg {
+    background-color: $dark-mode-color;
+  }
+  .active.nav-item a {
+    background-color: $dark-mode-color;
+    color: $light;
+    &:after {
+      border-bottom: 5px solid $dark-mode-color;
+    }
+  }
+  .help {
+    color: #ccc;
+  }
+  a {
+    color: $highlight-green;
+  }
+  .search-link {
+    color: $light;
+  }
+  .home-col a {
+    color: $highlight-green !important;
+    &:hover {
+      color: $cad-orange !important;
+    }
+  }
+  .popover {
+    border: 2px solid $dark;
+  }
+  .popover-header {
+    background-color: $dark-mode-secondary-color;
+    color: $light;
+    border-bottom: 2px solid $dark;
+  }
+  .card-header:not(.panel-enabled) {
+  }
+  .type-selection accordion accordion-group:not(.active) > .panel {
+    background-color: $dark-mode-tertiary-color;
+  }
 }

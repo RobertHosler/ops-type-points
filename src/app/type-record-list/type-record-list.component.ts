@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { appLinks } from '../model/links';
 import { TypedPerson } from '../service/ops-data.service';
+import { ShowTypes } from '../type-record-item/type-record-item.component';
 
 @Component({
   selector: 'app-type-record-list',
@@ -63,7 +64,7 @@ export class TypeRecordListComponent implements OnInit, OnChanges {
   showSource = true;
 
   @Input()
-  showTypes = {
+  showTypes: ShowTypes = {
     ops: true,
     wss: true,
     ennea: true,

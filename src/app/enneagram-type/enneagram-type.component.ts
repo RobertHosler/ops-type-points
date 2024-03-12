@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NineTypeSet, NineTypesService } from '../service/nine-types.service';
+import { DarkModeService } from '../service/dark-mode.service';
 
 @Component({
   selector: 'app-enneagram-type',
@@ -16,12 +17,16 @@ export class EnneagramTypeComponent implements OnInit {
 
   sources = ['Core Identification', 'Core Fear', 'Passions', 'Focus of Attention', 'Triggers', 'Self Talk'];
   display = [];
+  
+  darkMode: DarkModeService;
 
-  constructor(nineTypesService: NineTypesService) {
+  constructor(nineTypesService: NineTypesService,
+    darkMode: DarkModeService) {
     nineTypesService.nineTypes.subscribe((result) => {
       this.nineTypes = result;
       this.initDescription();
     });
+    this.darkMode = darkMode;
   }
 
   ngOnInit(): void {

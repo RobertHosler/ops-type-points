@@ -3,7 +3,7 @@
 .etype-table {
   width: 100%;
   td {
-    border: 1px solid;
+    border: 1px solid $dark;
     min-width: 50px;
     padding: 0.25rem 0.5rem;
   }
@@ -11,5 +11,15 @@
     text-align: center;
     color: $dark;
     background: #ccc;
+  }
+}
+
+.dark-mode {
+  td {
+    border: 1px solid $light;
+  }
+  td:first-child {
+    background: $dark-mode-secondary-color;
+    color: $light
   }
 }

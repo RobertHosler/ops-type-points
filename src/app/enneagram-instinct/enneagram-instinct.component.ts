@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { InstinctModel } from '../search/search.model';
 import { Instinct } from './instinct.model';
+import { DarkModeService } from '../service/dark-mode.service';
 
 @Component({
   selector: 'app-enneagram-instinct',
@@ -8,12 +9,17 @@ import { Instinct } from './instinct.model';
   styleUrls: ['./enneagram-instinct.component.scss'],
 })
 export class EnneagramInstinctComponent implements OnInit {
+  
   @Input()
   instinct: string;
 
   stack = [];
 
-  constructor() {}
+  darkMode: DarkModeService;
+
+  constructor(darkMode: DarkModeService) {
+    this.darkMode = darkMode;
+  }
 
   ngOnInit(): void {
     if (this.instinct) {

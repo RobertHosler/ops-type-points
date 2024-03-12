@@ -1,56 +1,58 @@
-<h2>Animal Emoji</h2>
+<div [ngClass]="{ 'dark-mode': darkMode.enabled }">
+  <h2>Animal Emoji</h2>
 
-<p>
-  Each animal stack has been given a corresponding animal emoji based on an
-  extroversion rating and survey data compiled from
-  <a href="{{ emojiAppUrl }}" target="_blank"
-    >EmojiMash<i-bs name="box-arrow-up-right" class="ml-1"></i-bs></a
-  >. Check out our article on SubjectivePersonality.com for more information on
-  the
-  <a [href]="extroversionBlogUrl" target="_blank">Spectrum of Extroversion</a>
-  within Objective Personality and the various factors within a type that come
-  into play for a type's perceived 'extroversion'.
-</p>
+  <p>
+    Each animal stack has been given a corresponding animal emoji based on an
+    extroversion rating and survey data compiled from
+    <a href="{{ emojiAppUrl }}" target="_blank"
+      >EmojiMash<i-bs name="box-arrow-up-right" class="ml-1"></i-bs></a
+    >. Check out our article on SubjectivePersonality.com for more information on
+    the
+    <a [href]="extroversionBlogUrl" target="_blank">Spectrum of Extroversion</a>
+    within Objective Personality and the various factors within a type that come
+    into play for a type's perceived 'extroversion'.
+  </p>
 
-<p *ngFor="let type of opsTypes">
-  {{ type.opsCode }} is in the
-  <ngx-emoji
-    emoji="{{ type.animalEmojiStack.emoji }}"
-    set="google"
-    size="20"
-    [fallback]="emojiFallback"
-  ></ngx-emoji
-  ><strong class="mx-1">{{ type.animalEmojiStack.name }}</strong
-  ><ngx-emoji
-    emoji="{{ type.animalEmojiStack.emoji }}"
-    set="google"
-    size="20"
-    [fallback]="emojiFallback"
-  ></ngx-emoji>
-  animal stack group.
-</p>
+  <p *ngFor="let type of opsTypes">
+    {{ type.opsCode }} is in the
+    <ngx-emoji
+      emoji="{{ type.animalEmojiStack.emoji }}"
+      set="google"
+      size="20"
+      [fallback]="emojiFallback"
+    ></ngx-emoji
+    ><strong class="mx-1">{{ type.animalEmojiStack.name }}</strong
+    ><ngx-emoji
+      emoji="{{ type.animalEmojiStack.emoji }}"
+      set="google"
+      size="20"
+      [fallback]="emojiFallback"
+    ></ngx-emoji>
+    animal stack group.
+  </p>
 
-<div class="row">
-  <div class="col-12 col-sm-3" *ngFor="let ag of animalStackGroups">
-    <div class="animal-column {{ ag.name.toLowerCase() }}">
-      <h3>{{ ag.name }}</h3>
-      <div class="row">
-        <div class="animal col-6 col-sm-12" *ngFor="let a of ag.group">
-          <div class="animal-box" [ngClass]="{ active: a.active }">
-            <div class="e-box">{{ a.extroversionInt }}</div>
-            <div>
-              <ngx-emoji
-                emoji="{{ a.emoji }}"
-                set="google"
-                size="40"
-                [fallback]="emojiFallback"
-              ></ngx-emoji>
+  <div class="row">
+    <div class="col-12 col-sm-3" *ngFor="let ag of animalStackGroups">
+      <div class="animal-column {{ ag.name.toLowerCase() }}">
+        <h3>{{ ag.name }}</h3>
+        <div class="row">
+          <div class="animal col-6 col-sm-12" *ngFor="let a of ag.group">
+            <div class="animal-box" [ngClass]="{ active: a.active }">
+              <div class="e-box">{{ a.extroversionInt }}</div>
+              <div>
+                <ngx-emoji
+                  emoji="{{ a.emoji }}"
+                  set="google"
+                  size="40"
+                  [fallback]="emojiFallback"
+                ></ngx-emoji>
+              </div>
+              <div class="strong">{{ a.name }} - {{ a.stack }}</div>
             </div>
-            <div class="strong">{{ a.name }} - {{ a.stack }}</div>
           </div>
         </div>
+        <hr class="d-block d-sm-none" />
       </div>
-      <hr class="d-block d-sm-none" />
     </div>
   </div>
 </div>

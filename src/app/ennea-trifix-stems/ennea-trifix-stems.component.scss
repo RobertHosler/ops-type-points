@@ -26,3 +26,15 @@
   cursor: pointer;
   color: $dark;
 }
+
+.dark-mode {
+  .trifix-table {
+    td {
+      border: 1px solid $light;
+    }
+    td:first-child {
+      background: $dark-mode-secondary-color;
+      color: $light;
+    }
+  }
+}

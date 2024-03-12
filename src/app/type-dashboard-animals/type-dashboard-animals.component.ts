@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Animal } from '../type-analyzer/animal';
 import { Function } from '../type-analyzer/function.model';
 import { OpsType } from '../type-analyzer/ops-type';
+import { DarkModeService } from '../service/dark-mode.service';
 
 @Component({
   selector: 'app-type-dashboard-animals',
@@ -21,8 +22,12 @@ export class TypeDashboardAnimalsComponent implements OnInit {
     { letter: 'L', title: 'Letters' },
     { letter: 'F', title: 'Functions' },
   ];
+  
+  darkMode: DarkModeService;
 
-  constructor() {}
+  constructor(darkMode: DarkModeService) {
+      this.darkMode = darkMode;
+  }
 
   ngOnInit(): void {
     if (this.opsType) {

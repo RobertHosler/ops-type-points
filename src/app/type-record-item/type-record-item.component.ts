@@ -33,7 +33,7 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
   displayPracticeLink = false;
 
   @Input()
-  showTypes = {
+  showTypes: ShowTypes = {
     ops: true,
     wss: true,
     ennea: true,
@@ -89,4 +89,13 @@ export class TypeRecordItemComponent implements OnInit, OnChanges {
     parseInt(s);
   }
 
+}
+
+export class ShowTypes {
+  ops: boolean;
+  wss: boolean;
+  ennea: boolean;
+  ap: boolean;
+  create?: boolean;
+  modify?: boolean;
 }

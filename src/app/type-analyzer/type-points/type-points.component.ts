@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy, OnChanges } from '@angular/core';
 import { OpsTypeService } from '../ops-type.service';
 import { Subscription } from 'rxjs';
 import { OpsType } from '../ops-type';
+import { DarkModeService } from 'src/app/service/dark-mode.service';
 
 @Component({
   selector: 'app-type-points',
@@ -20,6 +21,7 @@ export class TypePointsComponent implements OnInit, OnDestroy, OnChanges {
 
   opsTypes: OpsType[];
   private opsTypesSub: Subscription;
+  darkMode: DarkModeService;
 
   configureOptions: boolean = false;
   displayFullTable: boolean = false;
@@ -67,10 +69,11 @@ export class TypePointsComponent implements OnInit, OnDestroy, OnChanges {
     { option: '-', factor: 0 }
   ];
 
-  constructor(private opsTypeService: OpsTypeService) {
+  constructor(private opsTypeService: OpsTypeService, darkMode: DarkModeService) {
     this.opsTypesSub = this.opsTypeService.opsTypesSubject.subscribe((opsTypes: OpsType[]) => {
       this.setup(opsTypes);
     });
+    this.darkMode = darkMode;
   }
 
   ngOnInit(): void {

@@ -14,14 +14,14 @@ table th {
   border-bottom: 0px;
 }
 tbody {
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  border-top: 1px solid $dark;
+  border-bottom: 1px solid $dark;
 }
 tbody td {
   text-align: center;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-top: 1px solid $dark;
+  border-left: 1px solid $dark;
+  border-right: 1px solid $dark;
 }
 tbody td:nth-child(5),
 tbody td:nth-child(6) {
@@ -42,5 +42,23 @@ tbody td:nth-child(6) {
   tbody td {
     padding: 0.25rem;
     // width: 2rem;
+  }
+}
+
+.dark-mode {
+  table, tbody {
+    border: 1px solid $light;
+  }
+  tbody thead {
+    border-top: 1px solid $light;
+  }
+  tbody td:first-child {
+    border-left: 1px solid $light;
+  }
+  tbody td:last-child {
+    border-right: 1px solid $light;
+  }
+  tbody tr:last-child {
+    border-bottom: 1px solid $light;
   }
 }

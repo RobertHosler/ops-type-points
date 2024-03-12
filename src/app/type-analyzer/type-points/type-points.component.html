@@ -1,4 +1,4 @@
-<div>
+<div [ngClass]="{ 'dark-mode': darkMode.enabled }">
   <h2 *ngIf="!simple">Function Points Table</h2>
   <div
     class="table-wrapper"

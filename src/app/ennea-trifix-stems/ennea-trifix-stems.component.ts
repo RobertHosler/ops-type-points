@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { heart } from 'ngx-bootstrap-icons';
 import { Trifix } from '../enneagram-trifix/trifix.model';
+import { DarkModeService } from '../service/dark-mode.service';
 
 @Component({
   selector: 'app-ennea-trifix-stems',
@@ -27,7 +28,11 @@ export class EnneaTrifixStemsComponent implements OnInit, OnChanges {
   collapsible = false;
   collapsed = false;
 
-  constructor() {}
+  darkMode: DarkModeService;
+
+  constructor(darkMode: DarkModeService) {
+    this.darkMode = darkMode;
+  }
 
   ngOnInit(): void {
     if (this.collapsible) {

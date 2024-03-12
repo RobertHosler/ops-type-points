@@ -1,160 +1,163 @@
-<div *ngIf="false" class="mb-3 d-flex">
-  <div class="mr-3">
-    <div class="font-weight-bold text-center">Heart</div>
-    <button
-      *ngFor="let number of heart"
-      class="btn btn-gray filter-button"
-      [ngClass]="{ active: heartSelectedArr.includes(number) }"
-      (click)="
-        heartSelectedArr.includes(number)
-          ? removeNumber(heartSelectedArr, number)
-          : heartSelectedArr.push(number);
-        applyFilter()
-      "
-    >
-      {{ number }}
-    </button>
-  </div>
-  <div class="mr-3">
-    <div class="font-weight-bold text-center">Head</div>
-    <button
-      *ngFor="let number of head"
-      class="btn btn-gray filter-button"
-      [ngClass]="{ active: headSelected === number }"
-      (click)="
-        headSelected === number ? (headSelected = '') : (headSelected = number);
-        applyFilter()
-      "
-    >
-      {{ number }}
-    </button>
-  </div>
-  <div>
-    <div class="font-weight-bold text-center">Body</div>
-    <button
-      *ngFor="let number of body"
-      class="btn btn-gray filter-button"
-      [ngClass]="{ active: bodySelected === number }"
-      (click)="
-        bodySelected === number ? (bodySelected = '') : (bodySelected = number);
-        applyFilter()
-      "
-    >
-      {{ number }}
-    </button>
-  </div>
-</div>
-
-<div *ngIf="!trifix">
-  <p>Select one of the trifixes below to read more and see typed examples. Select numbers below to filter.</p>
-  <div class="mb-2">
-    <div><strong>Heart</strong> - {{ getCenter("heart") }}</div>
-    <div *ngFor="let number of heart">
+<div [ngClass]="{ 'dark-mode': darkMode.enabled }">
+  <div *ngIf="false" class="mb-3 d-flex">
+    <div class="mr-3">
+      <div class="font-weight-bold text-center">Heart</div>
       <button
+        *ngFor="let number of heart"
         class="btn btn-gray filter-button"
         [ngClass]="{ active: heartSelectedArr.includes(number) }"
-        (click)="numberClick(heartSelectedArr, number)"
+        (click)="
+          heartSelectedArr.includes(number)
+            ? removeNumber(heartSelectedArr, number)
+            : heartSelectedArr.push(number);
+          applyFilter()
+        "
       >
         {{ number }}
       </button>
-      {{ getDescription(number) }}
     </div>
-  </div>
-  <div class="mb-2">
-    <div><strong>Head</strong> - {{ getCenter("head") }}</div>
-    <div *ngFor="let number of head">
+    <div class="mr-3">
+      <div class="font-weight-bold text-center">Head</div>
       <button
+        *ngFor="let number of head"
         class="btn btn-gray filter-button"
-        [ngClass]="{ active: headSelectedArr.includes(number) }"
-        (click)="numberClick(headSelectedArr, number)"
+        [ngClass]="{ active: headSelected === number }"
+        (click)="
+          headSelected === number ? (headSelected = '') : (headSelected = number);
+          applyFilter()
+        "
       >
         {{ number }}
       </button>
-      {{ getDescription(number) }}
     </div>
-  </div>
-  <div class="mb-2">
-    <div><strong>Body</strong> - {{ getCenter("gut") }}</div>
-    <div *ngFor="let number of body">
+    <div>
+      <div class="font-weight-bold text-center">Body</div>
       <button
+        *ngFor="let number of body"
         class="btn btn-gray filter-button"
-        [ngClass]="{ active: bodySelectedArr.includes(number) }"
-        (click)="numberClick(bodySelectedArr, number)"
+        [ngClass]="{ active: bodySelected === number }"
+        (click)="
+          bodySelected === number ? (bodySelected = '') : (bodySelected = number);
+          applyFilter()
+        "
       >
         {{ number }}
       </button>
-      {{ getDescription(number) }}
     </div>
   </div>
-  <div class="mb-3">
-    <app-ennea-trifix-stems
-      [heartFix]="heartSelected"
-      [headFix]="headSelected"
-      [gutFix]="bodySelected"
-      [collapsible]="true"
-    ></app-ennea-trifix-stems>
-  </div>
-</div>
 
-<div class="overflow-wrapper d-none d-md-block">
-  <table class="trifix-table">
-    <tbody>
-      <tr
-        *ngFor="let fix of combinations"
+  <div *ngIf="!trifix">
+    <p>Select one of the trifixes below to read more and see typed examples. Select numbers below to filter.</p>
+    <div class="mb-2">
+      <div><strong>Heart</strong> - {{ getCenter("heart") }}</div>
+      <div *ngFor="let number of heart">
+        <button
+          class="btn btn-gray filter-button"
+          [ngClass]="{ active: heartSelectedArr.includes(number) }"
+          (click)="numberClick(heartSelectedArr, number)"
+        >
+          {{ number }}
+        </button>
+        {{ getDescription(number) }}
+      </div>
+    </div>
+    <div class="mb-2">
+      <div><strong>Head</strong> - {{ getCenter("head") }}</div>
+      <div *ngFor="let number of head">
+        <button
+          class="btn btn-gray filter-button"
+          [ngClass]="{ active: headSelectedArr.includes(number) }"
+          (click)="numberClick(headSelectedArr, number)"
+        >
+          {{ number }}
+        </button>
+        {{ getDescription(number) }}
+      </div>
+    </div>
+    <div class="mb-2">
+      <div><strong>Body</strong> - {{ getCenter("gut") }}</div>
+      <div *ngFor="let number of body">
+        <button
+          class="btn btn-gray filter-button"
+          [ngClass]="{ active: bodySelectedArr.includes(number) }"
+          (click)="numberClick(bodySelectedArr, number)"
+        >
+          {{ number }}
+        </button>
+        {{ getDescription(number) }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <app-ennea-trifix-stems
+        [heartFix]="heartSelected"
+        [headFix]="headSelected"
+        [gutFix]="bodySelected"
+        [collapsible]="true"
+      ></app-ennea-trifix-stems>
+    </div>
+  </div>
+
+  <div class="overflow-wrapper d-none d-md-block">
+    <table class="trifix-table">
+      <tbody>
+        <tr
+          *ngFor="let fix of combinations"
+          [ngClass]="{ clickable: clickable }"
+          (click)="fixClick(fix.numbers)"
+        >
+          <td>{{ fix.numbers }}</td>
+          <td>
+            <div *ngFor="let name of fix.names">{{ name }}</div>
+          </td>
+          <td class="triads-col">
+            <div *ngIf="harmonics(fix)">{{ harmonics(fix) }}</div>
+            <div *ngIf="hornevian(fix)">{{ hornevian(fix) }}</div>
+            <div *ngIf="object(fix)">{{ object(fix) }}</div>
+          </td>
+          <td>
+            <div *ngFor="let d of fix.description">{{ d }}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="trifix-text d-md-none">
+    <div *ngFor="let fix of combinations">
+      <div
+        class="font-weight-bold"
         [ngClass]="{ clickable: clickable }"
         (click)="fixClick(fix.numbers)"
       >
-        <td>{{ fix.numbers }}</td>
-        <td>
-          <div *ngFor="let name of fix.names">{{ name }}</div>
-        </td>
-        <td class="triads-col">
-          <div *ngIf="harmonics(fix)">{{ harmonics(fix) }}</div>
-          <div *ngIf="hornevian(fix)">{{ hornevian(fix) }}</div>
-          <div *ngIf="object(fix)">{{ object(fix) }}</div>
-        </td>
-        <td>
-          <div *ngFor="let d of fix.description">{{ d }}</div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<div class="trifix-text d-md-none">
-  <div *ngFor="let fix of combinations">
-    <div
-      class="font-weight-bold"
-      [ngClass]="{ clickable: clickable }"
-      (click)="fixClick(fix.numbers)"
-    >
-      {{ fix.numbers }} -
-      <span *ngFor="let name of fix.names; let i = index"
-        >{{ i > 0 ? "/" : "" }}{{ name }}</span
-      >
-    </div>
-    <div>
-      <div>{{ harmonics(fix) }} {{ hornevian(fix) }} {{ object(fix) }}</div>
-    </div>
-    <div>
-      <ul>
-        <li *ngFor="let d of fix.description">
-          <div>{{ d }}</div>
-        </li>
-      </ul>
+        {{ fix.numbers }} -
+        <span *ngFor="let name of fix.names; let i = index"
+          >{{ i > 0 ? "/" : "" }}{{ name }}</span
+        >
+      </div>
+      <div>
+        <div>{{ harmonics(fix) }} {{ hornevian(fix) }} {{ object(fix) }}</div>
+      </div>
+      <div>
+        <ul>
+          <li *ngFor="let d of fix.description">
+            <div>{{ d }}</div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="small">
-  Source:
-  <a href="https://www.enneagrammer.com/-blog/trifix-nicknames" target="_blank"
-    >Trifix Nicknames</a
-  >
-  -
-  <a
-    href="https://www.youtube.com/watch?v=yNygZHOb898&ab_channel=BigHormoneEnneagram"
-    target="_blank"
-    >BHE Trifix Roast</a
-  >
+  <div class="small">
+    Source:
+    <a href="https://www.enneagrammer.com/-blog/trifix-nicknames" target="_blank"
+      >Trifix Nicknames</a
+    >
+    -
+    <a
+      href="https://www.youtube.com/watch?v=yNygZHOb898&ab_channel=BigHormoneEnneagram"
+      target="_blank"
+      >BHE Trifix Roast</a
+    >
+  </div>
+
 </div>

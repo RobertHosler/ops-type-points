@@ -313,12 +313,6 @@
         </div>
       </div>
     </div>
-    <div
-      *ngIf="searchInitiated && displayedRecords && displayedRecords.length > 0"
-      class="text-info"
-    >
-      Search found {{ displayedRecords.length }} results.
-    </div>
     <div class="p-1 data-sources mb-3" *ngIf="showSources">
       <div class="mb-1 d-inline-block">
         <strong>Objective Personality</strong> type data courtesy of the
@@ -377,6 +371,12 @@
         >.
       </div>
     </div>
+  </div>
+  <div
+    *ngIf="searchInitiated && displayedRecords && displayedRecords.length > 0"
+    class="alert alert-info mt-3"
+  >
+    Search found {{ displayedRecords.length }} results.
   </div>
 
   <div class="search-instructions mt-4" *ngIf="!searchInitiated">

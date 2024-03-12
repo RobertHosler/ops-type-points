@@ -40,3 +40,15 @@
     border-bottom: 1px solid;
   }
 }
+
+.dark-mode {
+  .trifix-table {
+    td {
+      border: 1px solid $light;
+    }
+    td:first-child {
+      background: $dark-mode-secondary-color;
+      color: $light;
+    }
+  }
+}

@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 import { OpsType, OpsTypeUtil } from '../type-analyzer/ops-type';
+import { DarkModeService } from '../service/dark-mode.service';
 
 @Component({
   selector: 'app-type-record-expanded',
@@ -35,13 +36,16 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   routeSubscription: Subscription;
+  darkMode: DarkModeService;
 
   constructor(
     private opsDataService: OpsDataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    darkMode: DarkModeService
   ) {
     console.log('expanded');
+    this.darkMode = darkMode;
   }
 
   ngOnInit(): void {
@@ -122,6 +126,8 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
       this.activeTab = 'Enneagram';
     } else if (this.person.wssType) {
       this.activeTab = 'WSS';
+    } else if (this.person.apType) {
+      this.activeTab = 'AP';
     } else {
       // NO ACTIVE TAB? - error? - show default message?
       this.activeTab = 'Default';

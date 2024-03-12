@@ -3,11 +3,12 @@ import { AnimalStack, AnimalStackModel } from './animal-stack';
 import { OpsTypeService } from '../ops-type.service';
 import { OpsType } from '../ops-type';
 import { Subscription } from 'rxjs';
+import { DarkModeService } from 'src/app/service/dark-mode.service';
 
 @Component({
   selector: 'app-type-animal',
   templateUrl: './type-animal.component.html',
-  styleUrls: ['./type-animal.component.css'],
+  styleUrls: ['./type-animal.component.scss'],
 })
 export class TypeAnimalComponent implements OnInit, OnDestroy {
   @Input()
@@ -32,7 +33,11 @@ export class TypeAnimalComponent implements OnInit, OnDestroy {
     { name: 'Play', group: AnimalStackModel.playFirst },
   ];
 
-  constructor(private opsTypeService: OpsTypeService) {}
+  darkMode: DarkModeService;
+
+  constructor(private opsTypeService: OpsTypeService, darkMode: DarkModeService) {
+    this.darkMode = darkMode;
+  }
 
   ngOnInit(): void {
     if (!this.opsTypes) {

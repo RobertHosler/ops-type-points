@@ -1,4 +1,4 @@
-<div class="person-row" *ngIf="person">
+<div class="person-row" *ngIf="person" [ngClass]="{ 'dark-mode': darkMode.enabled }">
   <div class="left-side">
     <div class="left-side-inner pl-3 py-3">
       <div class="person-wrapper">
@@ -105,6 +105,15 @@
             (click)="activeTab = 'WSS'"
             [isOpen]="activeTab === 'WSS'"
             [ngClass]="{ active: activeTab === 'WSS' }"
+          >
+            <!-- <p>Some content</p> -->
+          </accordion-group>
+          <accordion-group
+            heading="Attitudinal Psyche"
+            *ngIf="person.apType"
+            (click)="activeTab = 'AP'"
+            [isOpen]="activeTab === 'AP'"
+            [ngClass]="{ active: activeTab === 'AP' }"
           >
             <!-- <p>Some content</p> -->
           </accordion-group>
@@ -264,6 +273,11 @@
         <app-socionics-reference
           [type]="person.wssType"
         ></app-socionics-reference>
+      </div>
+      <div *ngIf="activeTab === 'AP'">
+        <div>
+          <h2>{{ person.apType }}</h2>
+        </div>
       </div>
     </div>
   </div>

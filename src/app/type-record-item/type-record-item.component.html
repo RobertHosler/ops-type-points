@@ -285,8 +285,11 @@
         </ng-container>
         <span *ngIf="typeRecord.apSubtype">({{ typeRecord.apSubtype }})</span>
       </div>
-      <div *ngIf="false">
-        {{ typeRecord.lastModified }}
+      <div *ngIf="showTypes.create" class="timestamp">
+        Created: {{ typeRecord.created }}
+      </div>
+      <div *ngIf="showTypes.modify" class="timestamp">
+        Modified: {{ typeRecord.lastModified }}
       </div>
     </div>
     <div class="image-tags" *ngIf="true">

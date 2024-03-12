@@ -5,7 +5,7 @@ import { Injectable, OnInit, Renderer2, RendererFactory2 } from '@angular/core';
 })
 export class DarkModeService {
 
-  darkMode = false;
+  enabled = false;
 
   private renderer: Renderer2;
 
@@ -18,11 +18,11 @@ export class DarkModeService {
   }
 
   toggleDarkMode() {
-    if (this.darkMode) {
-      this.darkMode = false;
+    if (this.enabled) {
+      this.enabled = false;
       this.renderer.removeClass(document.body, 'dark-mode');
     } else {
-      this.darkMode = true;
+      this.enabled = true;
       this.renderer.addClass(document.body, 'dark-mode');
     }
   }

@@ -4,6 +4,7 @@ import { Animal } from '../animal';
 import { OpsTypeService } from '../ops-type.service';
 import { OpsType } from '../ops-type';
 import { Subscription } from 'rxjs';
+import { DarkModeService } from 'src/app/service/dark-mode.service';
 
 @Component({
   selector: 'app-type-dashboard',
@@ -29,7 +30,11 @@ export class TypeDashboardComponent implements OnInit, OnDestroy {
     { letter: 'A', title: 'Animals' },
   ];
 
-  constructor(private opsTypeService: OpsTypeService) {}
+  darkMode: DarkModeService;
+
+  constructor(private opsTypeService: OpsTypeService, darkMode: DarkModeService) {
+    this.darkMode = darkMode;
+  }
 
   ngOnInit(): void {
     if (this.opsType) {

@@ -16,3 +16,15 @@
     width: 150px;
   }
 }
+
+.dark-mode {
+  .instinct-table {
+    td {
+      border: 1px solid $light;
+    }
+    td:first-child {
+      background: $dark-mode-secondary-color;
+      color: $light;
+    }
+  }
+}

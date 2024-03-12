@@ -145,3 +145,12 @@
     border-left: 1px solid;
   }
 }
+
+.dark-mode {
+  h1 {
+    color: $light;
+  }
+  .left-side {
+    background-color: $dark-mode-secondary-color;
+  }
+}

@@ -117,3 +117,23 @@ table {
     display: none;
   }
 }
+
+.dark-mode {
+  table {
+    border: 1px solid $light;
+    tbody {
+      .char-col {
+        color: $light;
+      }
+      td {
+        border: 1px solid $light;
+      }
+      tr:nth-child(1),
+      tr:nth-child(2),
+      tr:nth-child(5),
+      tr:nth-child(6) {
+        background-color: $dark-mode-secondary-color;
+      }
+    }
+  }
+}

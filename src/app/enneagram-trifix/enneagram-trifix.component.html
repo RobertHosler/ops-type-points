@@ -1,67 +1,69 @@
-<h4>Trifix Stacking</h4>
-<table class="trifix-table mb-1">
-  <tbody>
-    <tr *ngFor="let number of trifixArray">
-      <td>
-        <div
-          *ngIf="['2', '3', '4'].includes(number)"
-          popoverTitle="Heart"
-          [popover]="getCenter('heart')"
-          triggers="mouseenter:mouseleave:click"
-        >
-          {{ number }}
-          <div class="small">
-            Heart<i-bs
-              name="info-circle"
-              class="ml-1"
-              width=".8rem"
-              height=".8rem"
-            ></i-bs>
+<div [ngClass]="{ 'dark-mode': darkMode.enabled }">
+  <h4>Trifix Stacking</h4>
+  <table class="trifix-table mb-1">
+    <tbody>
+      <tr *ngFor="let number of trifixArray">
+        <td>
+          <div
+            *ngIf="['2', '3', '4'].includes(number)"
+            popoverTitle="Heart"
+            [popover]="getCenter('heart')"
+            triggers="mouseenter:mouseleave:click"
+          >
+            {{ number }}
+            <div class="small">
+              Heart<i-bs
+                name="info-circle"
+                class="ml-1"
+                width=".8rem"
+                height=".8rem"
+              ></i-bs>
+            </div>
           </div>
-        </div>
-        <div
-          *ngIf="['5', '6', '7'].includes(number)"
-          popoverTitle="Head"
-          [popover]="getCenter('head')"
-          triggers="mouseenter:mouseleave:click"
-        >
-          {{ number }}
-          <div class="small">
-            Head<i-bs
-              name="info-circle"
-              class="ml-1"
-              width=".8rem"
-              height=".8rem"
-            ></i-bs>
+          <div
+            *ngIf="['5', '6', '7'].includes(number)"
+            popoverTitle="Head"
+            [popover]="getCenter('head')"
+            triggers="mouseenter:mouseleave:click"
+          >
+            {{ number }}
+            <div class="small">
+              Head<i-bs
+                name="info-circle"
+                class="ml-1"
+                width=".8rem"
+                height=".8rem"
+              ></i-bs>
+            </div>
           </div>
-        </div>
-        <div
-          *ngIf="['8', '9', '1'].includes(number)"
-          popoverTitle="Gut"
-          [popover]="getCenter('gut')"
-          triggers="mouseenter:mouseleave:click"
-        >
-          {{ number }}
-          <div class="small">
-            Gut<i-bs
-              name="info-circle"
-              class="ml-1"
-              width=".8rem"
-              height=".8rem"
-            ></i-bs>
+          <div
+            *ngIf="['8', '9', '1'].includes(number)"
+            popoverTitle="Gut"
+            [popover]="getCenter('gut')"
+            triggers="mouseenter:mouseleave:click"
+          >
+            {{ number }}
+            <div class="small">
+              Gut<i-bs
+                name="info-circle"
+                class="ml-1"
+                width=".8rem"
+                height=".8rem"
+              ></i-bs>
+            </div>
           </div>
-        </div>
-      </td>
-      <td>{{ getDescription(number) }}</td>
-    </tr>
-  </tbody>
-</table>
+        </td>
+        <td>{{ getDescription(number) }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-<div class="small">
-  <div>
-    Source:
-    <a [href]="trifixModel.descriptionsSourceUrl" target="_blank"
-      >Enneagrammer.com - Trifix Cheat Sheet</a
-    >
+  <div class="small">
+    <div>
+      Source:
+      <a [href]="trifixModel.descriptionsSourceUrl" target="_blank"
+        >Enneagrammer.com - Trifix Cheat Sheet</a
+      >
+    </div>
   </div>
 </div>

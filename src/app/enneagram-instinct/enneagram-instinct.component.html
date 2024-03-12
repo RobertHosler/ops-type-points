@@ -1,96 +1,98 @@
-<h4>Instinct Stacking</h4>
-<table class="instinct-table">
-  <tbody>
-    <tr *ngFor="let x of stack; let i = index">
-      <td class="stack">
-        <ng-container *ngIf="i === 0">
-          <div
-            tabindex="0"
-            popoverTitle="Dominant"
-            [popover]="dominantContent"
-            triggers="mouseenter:mouseleave:click"
-          >
-            {{ x.name }}<br />
-            <div class="small">
-              Dominant<i-bs
-                name="info-circle"
-                class="ml-1"
-                width=".8rem"
-                height=".8rem"
-              ></i-bs>
+<div [ngClass]="{ 'dark-mode': darkMode.enabled }">
+  <h4>Instinct Stacking</h4>
+  <table class="instinct-table">
+    <tbody>
+      <tr *ngFor="let x of stack; let i = index">
+        <td class="stack">
+          <ng-container *ngIf="i === 0">
+            <div
+              tabindex="0"
+              popoverTitle="Dominant"
+              [popover]="dominantContent"
+              triggers="mouseenter:mouseleave:click"
+            >
+              {{ x.name }}<br />
+              <div class="small">
+                Dominant<i-bs
+                  name="info-circle"
+                  class="ml-1"
+                  width=".8rem"
+                  height=".8rem"
+                ></i-bs>
+              </div>
             </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="i === 1">
-          <div
-            tabindex="0"
-            popoverTitle="Playground"
-            [popover]="playContent"
-            triggers="mouseenter:mouseleave:click"
-          >
-            {{ x.name }}<br />
-            <div class="small">
-              Playground<i-bs
-                name="info-circle"
-                class="ml-1"
-                width=".8rem"
-                height=".8rem"
-              ></i-bs>
+          </ng-container>
+          <ng-container *ngIf="i === 1">
+            <div
+              tabindex="0"
+              popoverTitle="Playground"
+              [popover]="playContent"
+              triggers="mouseenter:mouseleave:click"
+            >
+              {{ x.name }}<br />
+              <div class="small">
+                Playground<i-bs
+                  name="info-circle"
+                  class="ml-1"
+                  width=".8rem"
+                  height=".8rem"
+                ></i-bs>
+              </div>
             </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="i === 2">
-          <div
-            tabindex="0"
-            popoverTitle="Blind Spot"
-            [popover]="blindContent"
-            triggers="mouseenter:mouseleave:click"
-          >
-            {{ x.name }}<br />
-            <div class="small">
-              Blind Spot<i-bs
-                name="info-circle"
-                class="ml-1"
-                width=".8rem"
-                height=".8rem"
-              ></i-bs>
+          </ng-container>
+          <ng-container *ngIf="i === 2">
+            <div
+              tabindex="0"
+              popoverTitle="Blind Spot"
+              [popover]="blindContent"
+              triggers="mouseenter:mouseleave:click"
+            >
+              {{ x.name }}<br />
+              <div class="small">
+                Blind Spot<i-bs
+                  name="info-circle"
+                  class="ml-1"
+                  width=".8rem"
+                  height=".8rem"
+                ></i-bs>
+              </div>
             </div>
-          </div>
-        </ng-container>
-      </td>
-      <td>
-        <div *ngFor="let y of x.description">{{ y }}</div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+          </ng-container>
+        </td>
+        <td>
+          <div *ngFor="let y of x.description">{{ y }}</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<div class="small">
-  Source:
-  <a href="https://www.enneagrammer.com/the-three-instincts" target="_blank"
-    >The Three Instincts
-  </a>
-  -
-  <a
-    href="https://oceanmoonshine9.wordpress.com/intro-to-instinctual-subtypes/"
-    target="_blank"
+  <div class="small">
+    Source:
+    <a href="https://www.enneagrammer.com/the-three-instincts" target="_blank"
+      >The Three Instincts
+    </a>
+    -
+    <a
+      href="https://oceanmoonshine9.wordpress.com/intro-to-instinctual-subtypes/"
+      target="_blank"
+    >
+      Intro to Instrinctual Subtypes
+    </a>
+  </div>
+
+  <ng-template #dominantContent
+    >The Dominant Instinct is a "weakness which looks like a strength" in that it
+    is overdeveloped. The needs of this instinct are tended to, but there is an
+    overfixation which results in a detriment to the individual.</ng-template
   >
-    Intro to Instrinctual Subtypes
-  </a>
+  <ng-template #playContent
+    >The Playground Instinct is a space that receives focus, but the stakes do not
+    feel as high as in the Dominant. The second instinct is thus often the
+    instinct which will cause us the least problems.</ng-template
+  >
+  <ng-template #blindContent
+    >The Blind Spot is the area we ignore and view as less important than the
+    others. The needs of this instinct are often satisfied indirectly through
+    strategies of the prior two instincts.</ng-template
+  >
 </div>
-
-<ng-template #dominantContent
-  >The Dominant Instinct is a "weakness which looks like a strength" in that it
-  is overdeveloped. The needs of this instinct are tended to, but there is an
-  overfixation which results in a detriment to the individual.</ng-template
->
-<ng-template #playContent
-  >The Playground Instinct is a space that receives focus, but the stakes do not
-  feel as high as in the Dominant. The second instinct is thus often the
-  instinct which will cause us the least problems.</ng-template
->
-<ng-template #blindContent
-  >The Blind Spot is the area we ignore and view as less important than the
-  others. The needs of this instinct are often satisfied indirectly through
-  strategies of the prior two instincts.</ng-template
->

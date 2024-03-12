@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     HeaderModel.enneagramLinks,
     HeaderModel.externalLinks,
     {
-      title: 'Our Blog',
+      title: 'Blog',
       href: 'http://www.subjectivepersonality.com',
       lead: '',
       ext: true,

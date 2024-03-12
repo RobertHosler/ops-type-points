@@ -55,3 +55,21 @@ tbody td:first-child {
     // width: 2rem;
   }
 }
+
+.dark-mode {
+  table, tbody {
+    border: 1px solid $light;
+  }
+  tbody thead {
+    border-top: 1px solid $light;
+  }
+  tbody td:first-child {
+    border-left: 1px solid $light;
+  }
+  tbody td:last-child {
+    border-right: 1px solid $light;
+  }
+  tbody tr:last-child {
+    border-bottom: 1px solid $light;
+  }
+}

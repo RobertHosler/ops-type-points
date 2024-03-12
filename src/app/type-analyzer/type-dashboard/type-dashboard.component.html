@@ -1,4 +1,4 @@
-<div class="table-wrapper mb-3">
+<div class="table-wrapper mb-3" [ngClass]="{ 'dark-mode': darkMode.enabled }">
   <table class="table">
     <thead>
       <ng-container *ngFor="let heading of headings">
