@@ -45,7 +45,6 @@ const converterList = [
   { org: "Ross Matthews", result: "Ross Mathews" },
   { org: "Russel Crowe", result: "Russell Crowe" },
   { org: "Russel Brand", result: "Russell Brand" },
-  { org: "Paul Reubens", result: "Paul Reubens (Pee-wee Herman)" },
   { org: "Samuel L Jackson", result: "Samuel L. Jackson" },
   { org: "Shaq", result: "Shaquille O'Neal" },
   { org: "Ave Gardner", result: "Ava Gardner" },
