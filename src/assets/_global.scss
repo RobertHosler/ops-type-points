@@ -303,17 +303,27 @@ popover-container {
   color: $dark;
 }
 
+.ap-blue,
 .ij-blue {
   background-color: $ij-blue;
 }
+.ap-yellow,
 .ip-gray {
   background-color: $ip-gray;
 }
+.ap-red,
 .ej-red {
   background-color: $ej-red;
 }
+.ap-green,
 .ep-green {
   background-color: $ep-green;
+}
+.ap-pink {
+  background-color: $ap-pink;
+}
+.ap-orange {
+  background-color: $ap-orange;
 }
 
 .type-selection {

@@ -932,6 +932,31 @@ const apTypes: ApTypeModel[] = [
 
 ];
 
+const apSextaMap = new Map();
+apSextaMap.set('Ena', {
+  types: ['FVLE', 'FLVE', 'EVLF', 'ELVF'],
+  color: 'ap-orange'
+});
+apSextaMap.set('Dio', {
+  types: ['LVFE', 'LFVE', 'EVFL', 'EFVL'],
+  color: 'ap-blue'
+});
+apSextaMap.set('Tria', {
+  types: ['VLFE', 'VFLE', 'ELFV', 'EFLV'],
+  color: 'ap-red'
+});
+apSextaMap.set('Tessera', {
+  types: ['VFEL', 'VEFL', 'LFEV', 'LEFV'],
+  color: 'ap-pink'
+});
+apSextaMap.set('Pente', {
+  types: ['VLEF', 'VELF', 'FLEV', 'FELV'],
+  color: 'ap-yellow'
+});
+apSextaMap.set('Exi', {
+  types: ['LVEF', 'LEVF', 'FVEL', 'FEVL'],
+  color: 'ap-green'
+});
 
 const apTypeNames = [];
 apTypes.forEach(apType => {
@@ -2629,6 +2654,7 @@ export const searchModel = {
   apTerms: apTerms,
   apMatchTerms: apMatchTerms,
   apTypes: apTypeNames,
+  apSextas: apSextaMap,
   tagTerms: tagTerms,
   personTerms: personTerms,
   enneaMatchTerms: enneaMatchTerms,

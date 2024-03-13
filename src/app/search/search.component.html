@@ -835,22 +835,35 @@
             </div>
           </div>
         </div>
-        <div class="mt-3 text-center">AP Types</div>
-        <div class="mt-1 fix-wrapper justify-content-center">
-          <div
-            *ngFor="
-              let type of searchModel.apTypes;
-              let x = index
-            "
-          >
-            <div>
-              <a
-                [routerLink]="['/search']"
-                [queryParams]="{ text: type }"
-                >{{ type }}</a
-              ></div>
+        <div class="mt-3 fix-wrapper justify-content-center">
+          <div class="ap-sexta" *ngFor="let key of searchModel.apSextas.keys()">
+            <div class="text-center font-weight-bold"><a
+              [routerLink]="['/search']"
+              [queryParams]="{ text: key }"
+              >{{ key }}</a></div>
+            <table class="trifix-table" [ngClass]="searchModel.apSextas.get(key).color">
+              <tbody>
+                <tr>
+                  <td *ngFor="let type of searchModel.apSextas.get(key).types.slice(0, 2)">
+                    <a
+                      [routerLink]="['/search']"
+                      [queryParams]="{ text: type }"
+                      >{{ type }}</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td *ngFor="let type of searchModel.apSextas.get(key).types.slice(2)">
+                    <a
+                      [routerLink]="['/search']"
+                      [queryParams]="{ text: type }"
+                      >{{ type }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
+
       </div>
     </div>
 
