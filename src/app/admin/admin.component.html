@@ -34,7 +34,7 @@
     </div>
 
     <div class="mb-3">
-      <div>Compare Ennea Sources</div>
+      <div>Compare Ennea Sources - <a target="_blank" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vT9zrP0r8ehO-tg8vfZhU9G-KRYmrh1F08gctGE87-4gT7wE5q30YUoL2Cgq-Kpg-2agqsHjtbfLDTP/pubhtml">Source</a></div>
       <button
         class="btn btn-primary mb-2"
         (click)="compareEnnea()"
@@ -60,7 +60,8 @@
             *ngFor="let scrapeExclusive of enneaDifferences.exclusiveToScrape"
           >
             {{ scrapeExclusive.name }}<br />
-            {{ scrapeExclusive.instinct }}|{{scrapeExclusive.type}}|{{scrapeExclusive.trifix}}
+            {{ scrapeExclusive.instinct }}|{{scrapeExclusive.type}}|{{scrapeExclusive.trifix}}<br/>
+            {{verboseTrifix(scrapeExclusive.trifix)}}<br/>
           </div>
         </div>
         <div>
@@ -71,7 +72,8 @@
           >
             {{ mismatch.name }}<br />
             <s>{{ mismatch.t1 }}</s><br />
-            {{ mismatch.t2 }}
+            {{ mismatch.t2 }}<br />
+            {{verboseTrifixAlt(mismatch.t2)}}
           </div>
         </div>
       </div>

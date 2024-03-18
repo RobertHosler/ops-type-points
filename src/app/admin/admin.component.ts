@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { OpsDataService } from '../service/ops-data.service';
+import { searchModel } from '../search/search.model';
 
 @Component({
   selector: 'app-admin',
@@ -190,6 +191,72 @@ export class AdminComponent implements OnInit {
   compareEnnea() {
     this.comparingEnnea = true;
     this.socket.emit('compareEnnea');
+  }
+
+  verboseTrifixAlt(fullEType) {
+    // find the trifix in a full e type string, ex: 'so/sp 6w7 693(478)'
+    const trifix = fullEType.substring(fullEType.lastIndexOf(' ')+1);
+    return this.verboseTrifix(trifix);
+  }
+
+  verboseTrifix(trifix) {
+    var result = trifix;
+    if (trifix && trifix.indexOf('(') > 0) {
+      let overlayIndex = trifix.indexOf('(');
+      let overlay = trifix.substring(overlayIndex);
+      overlay = overlay.replace(/[()]/g, '');
+      const fix1 = trifix.substring(0, 1);
+      const fix2 = trifix.substring(1, 2);
+      const fix3 = trifix.substring(2, 3);
+      let fix1wing = this.fixWing(fix1, trifix, overlay);
+      let fix2wing = this.fixWing(fix2, trifix, overlay);
+      let fix3wing = this.fixWing(fix3, trifix, overlay);
+      if (fix1wing === '?') {
+        let tempOverlay = overlay.replace(fix2wing, '');
+        tempOverlay = tempOverlay.replace(fix3wing, '');
+        fix1wing = tempOverlay ? tempOverlay : '?';
+      } else if (fix2wing === '?') {
+        let tempOverlay = overlay.replace(fix1wing, '');
+        tempOverlay = tempOverlay.replace(fix3wing, '');
+        fix2wing = tempOverlay ? tempOverlay : '?';
+      } else if (fix3wing === '?') {
+        let tempOverlay = overlay.replace(fix1wing, '');
+        tempOverlay = tempOverlay.replace(fix2wing, '');
+        fix3wing = tempOverlay ? tempOverlay : '?';
+      }
+      result = fix1 + 'w' + fix1wing + ' ' + fix2 + 'w' + fix2wing + ' ' + fix3 + 'w' + fix3wing;
+    }
+    return result;
+  }
+
+  fixWing(fix, trifix, overlay) {
+    let result = null;
+    searchModel.eTypes.forEach(eType => {
+      if (result) {
+        return;
+      }
+      if (eType.name === fix) {
+        const overlayWingA = overlay.includes(eType.wings[0]);
+        const overlayWingB = overlay.includes(eType.wings[1]);
+        if (overlayWingA && !overlayWingB) {
+          result = eType.wings[0];
+        } else if (!overlayWingA && overlayWingB) {
+          result = eType.wings[1];
+        } else if (overlayWingA && overlayWingB) {
+          // contains both wing options in overlay - what should we do?
+          result = '?';
+        } else { // !overlayWingA && !overlayWingB - includes neither, should be in trifix
+          const trifixWingA = trifix.includes(eType.wings[0]);
+          const trifixWingB = trifix.includes(eType.wings[1]);
+          if (trifixWingA && !trifixWingB) {
+            result = eType.wings[0];
+          } else if (!trifixWingA && trifixWingB) {
+            result = eType.wings[1];
+          }
+        }
+      }
+    });
+    return result;
   }
 
   /**
