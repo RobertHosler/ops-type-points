@@ -791,9 +791,13 @@ comboTerms.set('ni/ti', { strings: ['ni/ti'] });
 comboTerms.set('ni/fi', { strings: ['ni/fi'] });
 
 comboTerms.set('sh1', { strings: ['s1'] });
+comboTerms.set('[1]', { strings: ['s1'] });
 comboTerms.set('sh2', { strings: ['s2'] });
+comboTerms.set('[2]', { strings: ['s2'] });
 comboTerms.set('sh3', { strings: ['s3'] });
+comboTerms.set('[3]', { strings: ['s3'] });
 comboTerms.set('sh4', { strings: ['s4'] });
+comboTerms.set('[4]', { strings: ['s4'] });
 
 const enneaTerms = new Map();
 enneaTerms.set('sosp', { strings: ['so/sp'] });

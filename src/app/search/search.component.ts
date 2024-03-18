@@ -543,12 +543,12 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.showTypes.ap = true;
           result = true;
           return;
-        } else if (s === 'create' || s === 'created') {
+        } else if (s === 'new' || s === 'create' || s === 'created') {
           this.sortBy = 'created';
           this.showTypes.create = true;
           // result = true;
           return;
-        } else if (s === 'modified' || s === 'modify') {
+        } else if (s === 'modified' || s === 'modify' || s === 'recent') {
           this.sortBy = 'modified';
           this.showTypes.modify = true;
           // result = true;
