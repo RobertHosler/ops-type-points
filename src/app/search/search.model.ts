@@ -473,8 +473,10 @@ const predictions = [
   { term: 'intuition', count: 4 },
   { term: 'organize', count: 3 },
   { term: 'gather', count: 3 },
+  { term: 'responsibility', count: 4 },
 ];
 
+// Combo Terms - key = lookup all terms at the same time
 const comboTerms = new Map();
 comboTerms.set('infp', { strings: ['fi/ne', 'fi/si', 'infp'] });
 comboTerms.set('isfp', { strings: ['fi/se', 'fi/ni', 'isfp'] });
@@ -787,6 +789,11 @@ comboTerms.set('si/ti', { strings: ['si/ti'] });
 comboTerms.set('si/fi', { strings: ['si/fi'] });
 comboTerms.set('ni/ti', { strings: ['ni/ti'] });
 comboTerms.set('ni/fi', { strings: ['ni/fi'] });
+
+comboTerms.set('sh1', { strings: ['s1'] });
+comboTerms.set('sh2', { strings: ['s2'] });
+comboTerms.set('sh3', { strings: ['s3'] });
+comboTerms.set('sh4', { strings: ['s4'] });
 
 const enneaTerms = new Map();
 enneaTerms.set('sosp', { strings: ['so/sp'] });
@@ -1964,6 +1971,26 @@ personTerms.set('s4', {
 personTerms.set('socialtype4', {
   match: (person: TypedPerson) => {
     return person.socialType && person.socialType === '4';
+  },
+});
+personTerms.set('flex', {
+  match: (person: TypedPerson) => {
+    return person.socialType && (person.socialType === '1' || person.socialType === '3');
+  },
+});
+personTerms.set('friends', {
+  match: (person: TypedPerson) => {
+    return person.socialType && (person.socialType === '2' || person.socialType === '4');
+  },
+});
+personTerms.set('specialize', {
+  match: (person: TypedPerson) => {
+    return person.socialType && (person.socialType === '3' || person.socialType === '4');
+  },
+});
+personTerms.set('responsibility', {
+  match: (person: TypedPerson) => {
+    return person.socialType && (person.socialType === '1' || person.socialType === '2');
   },
 });
 personTerms.set('socialtype', {
