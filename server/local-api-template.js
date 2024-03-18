@@ -6,5 +6,5 @@
  * for requesting data from the Airtable databases.
  */
 /*jshint esversion: 6 */
-exports.key = 'YOUR_KEY_HERE'; // Your Airtable key - deprecated and invalid as of 2/1/2024
+exports.key = 'YOUR_KEY_HERE'; // Your Airtable key - used for admin page access
 exports.token = 'YOUR_TOKEN_HERE'; // OAuth Personal Access Token

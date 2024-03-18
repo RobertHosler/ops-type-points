@@ -207,7 +207,6 @@ const idList = [
   { id: "recnaTCHdXJNYHHrM", name: "Mike Montgomery" },
   { id: "recZlq2bfmg3nakzV", name: "Christopher Walken" },
   { id: "recAh0qMktUkHXNYY", name: "Roger Marshall" },
-  { id: "recAh0qMktUkHXNYY", name: "Sung Won Cho" },
 ];
 
 function convertName(id, name) {

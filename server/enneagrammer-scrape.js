@@ -58,6 +58,7 @@ function buildData($) {
     } else if (x % numberOfColumns === 3) {
       trifix = colText;
       if (trifix) {
+        // remove unwanted characters
         trifix = trifix.replace(/[^0-9\(\)]/g, '');
       }
       if (logNames.includes(name)) {
