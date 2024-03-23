@@ -183,18 +183,18 @@
             <h4>Triad Weights</h4>
             <app-ennea-type-calculator [coreType]="person.eType" [instinct]="person.instinct" [trifix]="person.fullTrifix"></app-ennea-type-calculator>
           </div>
-          <div class="mt-3 full-width">
+          <div class="mt-3 full-width" *ngIf="person.trifix">
             <h4>Trifix</h4>
             <app-enneagram-trifix-combination
               [trifix]="person.trifix"
             ></app-enneagram-trifix-combination>
           </div>
-          <div class="mt-3">
+          <div class="mt-3" *ngIf="person.trifix">
             <app-enneagram-trifix
               [trifix]="person.trifix"
             ></app-enneagram-trifix>
           </div>
-          <div class="mt-3">
+          <div class="mt-3" *ngIf="person.trifix">
             <app-ennea-trifix-stems
               [trifix]="person.trifix"
             ></app-ennea-trifix-stems>
