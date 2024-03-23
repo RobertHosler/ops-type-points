@@ -2260,6 +2260,7 @@ tagTerms.set('analysis', { sortBy: 'wss' });
 tagTerms.set('ops', { sortBy: 'ops' });
 tagTerms.set('bhe', { sortBy: 'ennea' });
 tagTerms.set('ap', { sortBy: 'ap' });
+tagTerms.set('soft', { sortBy: 'ap' });
 
 const socionicsTypes = [
   'ile',
