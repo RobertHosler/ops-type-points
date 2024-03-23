@@ -54,6 +54,10 @@
   </p>
 </div>
 
+<div *ngIf="typedPerson && typedPerson.socialType">
+  <app-ops-social-type [typedPerson]="typedPerson"></app-ops-social-type>
+</div>
+
 <p class="small">
   Type description is generated and specific to the type
   {{ opsType.opsCode }} based on the
@@ -64,3 +68,5 @@
   >
   and Beginner Series made by Dave and Shannon of Objective Personality.
 </p>
+
+

@@ -44,28 +44,29 @@
         </tr>
       </tbody>
     </table>
-    <p class="small">
-      Points calculated for each function based on Modality, Grant Order,
-      Activation Count, and Savior Status (S1, S2, A, -). Points are a
-      relative representation of how balanced a type is with their given
-      functions, building off the information from the activation column of the
-      dashboard while acknowledging that saviors and the grant function order still
-      matter to a certain degree.
-    </p>
+  </div>
+  
+  <div class="small" *ngIf="displayFullTable">
+    Points calculated for each function based on Modality, Grant Order,
+    Activation Count, and Savior Status (S1, S2, A, -). Points are a
+    relative representation of how balanced a type is with their given
+    functions, building off the information from the activation column of the
+    dashboard while acknowledging that saviors and the grant function order still
+    matter to a certain degree.
   </div>
 
-  <div class="mb-3">
+  <div class="my-3">
     <button
       type="button"
       (click)="displayFullTable = !displayFullTable"
-      class="btn btn-secondary mr-3"
+      class="btn btn-secondary btn-sm mr-3"
     >
       {{ displayFullTable ? "Hide Breakdown" : "Show Breakdown" }}
     </button>
     <button
       type="button"
       *ngIf="!simple"
-      class="btn btn-secondary mr-3"
+      class="btn btn-secondary btn-sm mr-3"
       (click)="configureOptions = !configureOptions"
     >
       {{ !configureOptions ? "Customize" : "Hide Customize" }}

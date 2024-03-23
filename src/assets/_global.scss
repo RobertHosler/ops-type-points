@@ -385,7 +385,10 @@ popover-container {
   justify-content: center;
 }
 
-
+.table th, .table td {
+  padding-left: .25rem;
+  padding-right: .25rem;
+}
 
 .dark-mode {
   background-color: $dark-mode-color;

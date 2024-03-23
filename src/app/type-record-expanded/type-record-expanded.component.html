@@ -2,127 +2,65 @@
   <div class="left-side">
     <div class="left-side-inner pl-3 py-3">
       <div class="person-wrapper">
-        <h1>{{ person.name }}</h1>
-        <div class="person-picture">
-          <div *ngIf="person.pictureUrl" class="person-img">
+        <div class="person-picture mb-2">
+          <div *ngIf="person.pictureUrl" class="person-img mb-3">
             <img [src]="person.pictureUrl" />
           </div>
-          <div *ngIf="!person.pictureUrl" class="person-img-missing">
-            <img src="/assets/images/sp-logo-no-bg.png" />
-          </div>
         </div>
-        <div class="mb-2">
+        <div class="mb-2" *ngIf="false">
           <app-type-tags
             [tags]="person.tags"
             [allActive]="true"
           ></app-type-tags>
         </div>
-        <div class="type-row">
-          <app-type-indicator
-            class="type-indicator"
-            *ngIf="person.type"
-            [option]="1"
-            [type]="person.type"
-          ></app-type-indicator>
-          <app-type-indicator
-            class="type-indicator"
-            *ngIf="person.eType"
-            [option]="1"
-            [eType]="person.fullEType"
-          ></app-type-indicator>
-          <app-socionics-shape
-            class="type-indicator"
-            *ngIf="person.wssType"
-            [type]="person.wssType"
-          ></app-socionics-shape>
+        <div class="type-row" *ngIf="false">
         </div>
       </div>
       <div class="type-selection">
-        <accordion closeOthers="true">
-          <accordion-group
-            heading="Objective Personality"
-            *ngIf="person.type"
-            [isOpen]="activeTab === 'OPS'"
+        <div class="type-selection-item" *ngIf="person.type">
+          <app-type-indicator
+            class="type-indicator"
+            [option]="1"
+            [type]="person.type"
+          ></app-type-indicator>
+          <button (click)="activeTab = 'OPS'" class="btn btn-gray"
             [ngClass]="{ active: activeTab === 'OPS' }"
-            (click)="activeTab = 'OPS'"
-          >
-            <button
-              class="btn btn-gray d-block w-100"
-              *ngFor="let option of opsOptions"
-              [ngClass]="{ active: activeOps === option }"
-              (click)="activeTab = 'OPS'; activeOps = option"
-            >
-              {{ option }}
-            </button>
-          </accordion-group>
-          <accordion-group
-            heading="Enneagram"
-            *ngIf="person.eType"
+            >Objective Personality</button>
+        </div>
+        <div class="type-selection-item" *ngIf="person.eType">
+          <app-type-indicator
+            class="type-indicator"
+            [option]="1"
+            [eType]="person.fullEType"
+          ></app-type-indicator>
+          <button  class="btn btn-gray"
             (click)="activeTab = 'Enneagram'"
-            [isOpen]="activeTab === 'Enneagram'"
-            [ngClass]="{ active: activeTab === 'Enneagram' }"
-          >
-            <button
-              class="btn btn-gray d-block w-100"
-              [ngClass]="{ active: activeEnnea === 'Summary' }"
-              (click)="activeTab = 'Enneagram'; activeEnnea = 'Summary'"
-            >
-              Summary
-            </button>
-            <button
-              class="btn btn-gray d-block w-100"
-              [ngClass]="{ active: activeEnnea === 'Links' }"
-              (click)="activeTab = 'Enneagram'; activeEnnea = 'Links'"
-            >
-              Links & Notes
-            </button>
-            <button
-              class="btn btn-gray d-block w-100"
-              *ngIf="person.trifix"
-              [ngClass]="{ active: activeEnnea === 'Trifix' }"
-              (click)="activeTab = 'Enneagram'; activeEnnea = 'Trifix'"
-            >
-              Trifix
-            </button>
-            <button
-              class="btn btn-gray d-block w-100"
-              [ngClass]="{ active: activeEnnea === 'Description' }"
-              (click)="activeTab = 'Enneagram'; activeEnnea = 'Description'"
-            >
-              Description
-            </button>
-            <button
-              class="btn btn-gray d-block w-100"
-              [ngClass]="{ active: activeEnnea === 'Twins' }"
-              (click)="activeTab = 'Enneagram'; activeEnnea = 'Twins'"
-            >
-              Twins
-            </button>
-          </accordion-group>
-          <accordion-group
-            heading="Socionics"
-            *ngIf="person.wssType"
-            (click)="activeTab = 'WSS'"
-            [isOpen]="activeTab === 'WSS'"
-            [ngClass]="{ active: activeTab === 'WSS' }"
-          >
-            <!-- <p>Some content</p> -->
-          </accordion-group>
-          <accordion-group
-            heading="Attitudinal Psyche"
-            *ngIf="person.apType"
-            (click)="activeTab = 'AP'"
-            [isOpen]="activeTab === 'AP'"
-            [ngClass]="{ active: activeTab === 'AP' }"
-          >
-            <!-- <p>Some content</p> -->
-          </accordion-group>
-        </accordion>
+            [ngClass]="{ active: activeTab === 'Enneagram' }">Enneagram</button>
+        </div>
+        <div class="type-selection-item" *ngIf="person.wssType">
+          <app-socionics-shape
+            class="type-indicator"
+            [type]="person.wssType"
+          ></app-socionics-shape>
+          <button  class="btn btn-gray"
+              (click)="activeTab = 'WSS'"
+              [ngClass]="{ active: activeTab === 'WSS' }">Socionics</button>
+        </div>
+        <div class="type-selection-item" *ngIf="person.apType">
+          <div class="ap-type">
+            {{person.apType}}
+          </div>
+          <button  class="btn btn-gray"
+              (click)="activeTab = 'AP'"
+              [ngClass]="{ active: activeTab === 'AP' }">Attitudinal Psyche</button>
+        </div>
+
       </div>
     </div>
   </div>
   <div class="right-side">
     <div class="right-side-inner px-3 mt-3 pb-5">
+      <h1>{{ person.name }}</h1>
       <div *ngIf="activeTab === 'OPS'">
         <h2>
           {{ person.type }} 
@@ -136,30 +74,22 @@
             [animalStack]="person.type.substring(9)"
           ></app-ops-type-animal>
         </h2>
+        <div class="btn-group mb-3">
+          <button
+            class="btn btn-gray d-block w-100"
+            *ngFor="let option of opsOptions"
+            [ngClass]="{ active: activeOps === option }"
+            (click)="activeTab = 'OPS'; activeOps = option"
+          >
+            {{ option }}
+          </button>
+        </div>
         <div *ngIf="personOpsType">
-          <div *ngIf="activeOps === 'Summary'">
-            <div class="ops-visual-row" *ngIf="false">
-              <div class="flex-center mx-3">
-                <div class="ops-molecule" *ngIf="person.type.length === 16">
-                  <app-type-bubbles
-                    class="text-center"
-                    [showOptions]="false"
-                    [showType]="false"
-                    [opsTypes]="[personOpsType]"
-                  ></app-type-bubbles>
-                </div>
-              </div>
-              <div
-                class="person-dashboard"
-                *ngIf="activeTab === 'OPS' && person.type.length === 16"
-              >
-                <app-type-dashboard
-                  [opsType]="personOpsType"
-                ></app-type-dashboard>
-              </div>
-            </div>
+          <div *ngIf="activeOps === 'Summary'" class="summary-wrapper">
             <div class="ops-molecule" *ngIf="person.type.length === 16">
+              <h3>Molecule</h3>
               <app-type-bubbles
+                class="text-center"
                 [showOptions]="false"
                 [showType]="false"
                 [opsTypes]="[personOpsType]"
@@ -187,38 +117,56 @@
               [simple]="true"
             ></app-type-points>
             </div>
+            <div>
+              <h3>Links</h3>
+              <app-ops-type-links [typedPerson]="person"></app-ops-type-links>
+            </div>
+            <div class="full-width">
+              <h3>CheckList</h3>
+              <app-type-checklist [opsType]="personOpsType"></app-type-checklist>
+            </div>
+            <div class="full-width mt-3">
+              <app-type-animal [opsTypes]="[personOpsType]"></app-type-animal>
+            </div>
           </div>
-          <div *ngIf="activeOps === 'Checklist'">
-            <app-type-checklist [opsType]="personOpsType"></app-type-checklist>
-          </div>
-          <div *ngIf="activeOps === 'Links'">
-            <app-ops-type-links [typedPerson]="person"></app-ops-type-links>
-          </div>
-          <div *ngIf="activeOps === 'Social Type'">
-            <app-ops-social-type [typedPerson]="person"></app-ops-social-type>
-          </div>
-          <div *ngIf="activeOps === 'Description'" class="pt-3">
+          <div *ngIf="activeOps === 'Description'">
+            <h3>Description</h3>
             <app-type-description
               [opsType]="personOpsType"
+              [typedPerson]="person"
             ></app-type-description>
           </div>
-          <div *ngIf="activeOps === 'Twins'" class="pt-3">
+          <div *ngIf="activeOps === 'Twins'">
             <app-ops-type-twins [opsType]="personOpsType"></app-ops-type-twins>
-          </div>
-          <div *ngIf="activeOps === 'Extroversion'" class="pt-3">
-            <app-type-animal [opsTypes]="[personOpsType]"></app-type-animal>
-          </div>
-          <div *ngIf="activeOps === 'Points'" class="pt-3">
-            <app-type-points
-              [opsType]="personOpsType"
-              [simple]="true"
-            ></app-type-points>
           </div>
         </div>
       </div>
       <div *ngIf="activeTab === 'Enneagram'">
         <h2>{{ person.fullEType }}</h2>
-        <div *ngIf="activeEnnea === 'Summary'">
+        <div class="btn-group mb-3">
+          <button
+            class="btn btn-gray d-block w-100"
+            [ngClass]="{ active: activeEnnea === 'Summary' }"
+            (click)="activeTab = 'Enneagram'; activeEnnea = 'Summary'"
+          >
+            Summary
+          </button>
+          <button
+            class="btn btn-gray d-block w-100"
+            [ngClass]="{ active: activeEnnea === 'Description' }"
+            (click)="activeTab = 'Enneagram'; activeEnnea = 'Description'"
+          >
+            Description
+          </button>
+          <button
+            class="btn btn-gray d-block w-100"
+            [ngClass]="{ active: activeEnnea === 'Twins' }"
+            (click)="activeTab = 'Enneagram'; activeEnnea = 'Twins'"
+          >
+            Twins
+          </button>
+        </div>
+        <div *ngIf="activeEnnea === 'Summary'" class="summary-wrapper">
           <div>
             <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
           </div>
@@ -227,7 +175,7 @@
               [instinct]="person.instinct"
             ></app-enneagram-instinct>
           </div>
-          <div class="mt-3">
+          <div class="mt-3 full-width">
             <h4>Triad Summary</h4>
             <app-ennea-triads [typedPerson]="person"></app-ennea-triads>
           </div>
@@ -235,31 +183,40 @@
             <h4>Triad Weights</h4>
             <app-ennea-type-calculator [coreType]="person.eType" [instinct]="person.instinct" [trifix]="person.fullTrifix"></app-ennea-type-calculator>
           </div>
-        </div>
-        <div *ngIf="activeEnnea === 'Links'">
-          <div *ngIf="person.enneaNotes" class="mb-3">
-            {{ person.enneaNotes }}
-          </div>
-          <app-ennea-type-links [typedPerson]="person"></app-ennea-type-links>
-        </div>
-        <div *ngIf="activeEnnea === 'Trifix'">
-          <div class="my-3">
+          <div class="mt-3 full-width">
+            <h4>Trifix</h4>
             <app-enneagram-trifix-combination
               [trifix]="person.trifix"
             ></app-enneagram-trifix-combination>
           </div>
-          <div class="my-3">
+          <div class="mt-3">
             <app-enneagram-trifix
               [trifix]="person.trifix"
             ></app-enneagram-trifix>
           </div>
-          <div class="my-3">
+          <div class="mt-3">
             <app-ennea-trifix-stems
               [trifix]="person.trifix"
             ></app-ennea-trifix-stems>
           </div>
+          <div class="mt-3">
+            <h4>Links</h4>
+            <div *ngIf="person.enneaNotes" class="mb-3">
+              {{ person.enneaNotes }}
+            </div>
+            <app-ennea-type-links [typedPerson]="person"></app-ennea-type-links>
+          </div>
+        </div>
+        <div *ngIf="activeEnnea === 'Trifix'">
+          <div class="my-3">
+          </div>
+          <div class="my-3">
+          </div>
+          <div class="my-3">
+          </div>
         </div>
         <div *ngIf="activeEnnea === 'Description'">
+          <h3>Description</h3>
           <app-ennea-description [typedPerson]="person"></app-ennea-description>
         </div>
         <div *ngIf="activeEnnea === 'Twins'">

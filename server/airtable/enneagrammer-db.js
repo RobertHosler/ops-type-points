@@ -49,7 +49,6 @@ const converterList = [
   { org: "Shaq", result: "Shaquille O'Neal" },
   { org: "Ave Gardner", result: "Ava Gardner" },
   { org: "Mr. Rogers", result: "Fred Rogers" },
-  { org: "Dr. Drew", result: "Dr. Drew Pinsky" },
   { org: "Gary V", result: "Gary Vaynerchuk" },
   { org: "Kris Jenner", result: "Kris Kardashian Jenner" },
   { org: "Kim Kardashian", result: "Kim Kardashian" },

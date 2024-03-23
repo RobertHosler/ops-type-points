@@ -22,6 +22,23 @@
 .type-selection > div {
   margin-bottom: 1rem;
 }
+.type-selection-item {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  & > :first-child {
+    width: 30%;
+  }
+  & > :last-child {
+    margin-left: .5rem;
+    width: 60%;
+  }
+}
+.ap-type {
+  font-size: 1.25rem;
+  padding: .25rem .5rem;
+}
 .type-selector {
    & > .btn,
   .btn-group {
@@ -30,6 +47,19 @@
     .dropdown-menu {
       width: 100%;
     }
+  }
+}
+.summary-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  & > div {
+    width: 50%;
+    min-width: 450px;
+    padding-left: .25rem;
+    padding-right: .25rem;
+  }
+  .full-width {
+    width: 100%;
   }
 }
 
@@ -91,9 +121,14 @@
       padding-left: 0;
     }
   }
+  .summary-wrapper {
+    & > div {
+      width: 100%;
+      min-width: inherit;
+    }
+  }
 }
 .person-wrapper {
-  max-width: 300px;
   h1 {
     margin: 0px;
     text-align: center;
@@ -135,8 +170,11 @@
 @include media-breakpoint-up("sm", $grid-breakpoints) {
   .person-dashboard {
     app-type-dashboard {
-      display: inline-block;
+      // display: inline-block;
     }
+  }
+  .person-wrapper {
+    max-width: 300px;
   }
 }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { TypeDescriptionService } from './type-description.service';
 import { OpsType } from '../ops-type';
+import { TypedPerson } from 'src/app/service/ops-data.service';
 
 @Component({
   selector: 'app-type-description',
@@ -11,6 +12,8 @@ export class TypeDescriptionComponent implements OnInit, OnChanges {
 
   @Input()
   opsType: OpsType;
+  @Input()
+  typedPerson: TypedPerson;
 
   description: string[] = [];
   needDescription: string[] = [];

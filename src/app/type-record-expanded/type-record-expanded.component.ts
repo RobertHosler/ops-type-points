@@ -25,11 +25,8 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
 
   opsOptions = [
     'Summary',
-    'Checklist',
-    'Links',
     'Description',
     'Twins',
-    'Extroversion',
   ];
 
   allNames: Map<string, TypedPerson>;
@@ -91,9 +88,6 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
       this.personOpsType = OpsTypeUtil.getPersonOpsType(this.person);
     }
     this.initActiveTab();
-    if (this.person.socialType) {
-      this.opsOptions.push("Social Type");
-    }
   }
 
   private initRoute(setup?) {
@@ -117,6 +111,23 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
         // redirect to search
       }
     });
+  }
+
+  get multipleTypes(): boolean {
+    let typeCount = 0;
+    if (this.person.type) {
+      typeCount++;
+    }
+    if (this.person.eType) {
+      typeCount++;
+    }
+    if (this.person.wssType) {
+      typeCount++;
+    }
+    if (this.person.apType) {
+      typeCount++;
+    }
+    return typeCount > 1;
   }
 
   private initActiveTab() {

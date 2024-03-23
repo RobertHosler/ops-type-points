@@ -474,6 +474,8 @@ const predictions = [
   { term: 'organize', count: 3 },
   { term: 'gather', count: 3 },
   { term: 'responsibility', count: 4 },
+  { term: 'speculation', count: 4 },
+  { term: 'tessera', count: 4 },
 ];
 
 // Combo Terms - key = lookup all terms at the same time
