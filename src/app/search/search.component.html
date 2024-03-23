@@ -18,9 +18,11 @@
       <div>
         <p class="lead mb-2">
           <strong>{{ recordCount }}</strong> people typed in the
-          <strong>Objective Personality System</strong>,
-          <strong>Enneagram</strong>, and <strong>Socionics</strong>. Try
-          entering a type, a name, or scroll down to see more advanced tricks.
+          <strong (click)="scrollTo(opsHeader)">Objective Personality</strong>,
+          <strong (click)="scrollTo(enneaHeader)">Enneagram</strong>, 
+          <strong (click)="scrollTo(wssHeader)">Socionics</strong>, 
+          and/or <strong (click)="scrollTo(apHeader)">Attitudinal Psyche</strong>. 
+          Try entering a type, a name, or see below for more advanced tricks.
         </p>
         <div>
 
@@ -382,7 +384,7 @@
   <div class="search-instructions mt-4" *ngIf="!searchInitiated">
     <div class="fix-bg">
       <div class="container">
-        <h2 class="mb-4">Objective Personality</h2>
+        <h2 class="mb-4" #opsHeader>Objective Personality</h2>
         <div class="rules">
           <div class="rule" *ngFor="let rule of searchModel.opsRules">
             <div class="rule-name">{{ rule.label }}</div>
@@ -432,7 +434,7 @@
     </div>
     <div class="fix-bg e-bg">
       <div class="container">
-        <h2 class="mb-4">Enneagram</h2>
+        <h2 class="mb-4" #enneaHeader>Enneagram</h2>
         <div class="mb-3">
           <div class="rules">
             <div class="rule">
@@ -737,7 +739,7 @@
 
     <div class="fix-bg">
       <div class="container">
-        <h2 class="mb-4">Socionics</h2>
+        <h2 class="mb-4" #wssHeader>Socionics</h2>
         <div class="rules">
           <div class="rule" *ngFor="let rule of searchModel.wssRules">
             <div class="rule-name">{{ rule.label }}</div>
@@ -819,7 +821,7 @@
 
     <div class="fix-bg">
       <div class="container">
-        <h2 class="mb-4">Attitudinal Psyche</h2>
+        <h2 class="mb-4" #apHeader>Attitudinal Psyche</h2>
         <div class="rules">
           <div class="rule" *ngFor="let rule of searchModel.apRules">
             <div class="rule-name">{{ rule.label }}</div>

@@ -83,6 +83,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   routerInit = false;
 
+  @ViewChild('opsHeader') opsHeader: ElementRef;
+  @ViewChild('enneaHeader') enneaHeader: ElementRef;
+  @ViewChild('wssHeader') wssHeader: ElementRef;
+  @ViewChild('apHeader') apHeader: ElementRef;
+
   @ViewChild('recordList') recordList: ElementRef;
   @ViewChild('nameInput') nameInput: ElementRef;
   @ViewChild('container') private container: ElementRef;
@@ -1054,6 +1059,15 @@ export class SearchComponent implements OnInit, OnDestroy {
     } else if (s === 'ap') {
       this.showTypes.ap = !this.showTypes.ap;
     }
+  }
+
+  scrollTo(el: ElementRef) {
+    const y = el.nativeElement.getBoundingClientRect().top + window.scrollY - 60;
+    // el.nativeElement.scrollIntoView();
+    window.scroll({
+      top: y,
+      behavior: 'smooth'
+    });
   }
 }
 
