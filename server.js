@@ -33,6 +33,7 @@ const ioState = {
   nameMap: new Map(),
   childrenMap: new Map(),
   eTypeMap: new Map(),
+  apMap: new Map(),
   shared: [
     {
       listener: "getNames",
@@ -126,6 +127,13 @@ function ioSetup(ioState) {
       });
     });
 
+    socket.on("compareAP", function () {
+      scrapeAP().then((result) => {
+        const nameDifferences = dbCompare.compareAP(result, ioState.apMap);
+        socket.emit('compareAPComplete', nameDifferences);
+      });
+    });
+
     socket.on("refresh", function () {
       refreshAirtableData(socket);
     });
@@ -153,6 +161,7 @@ const apDb = require("./server/airtable/ap-db");
 const airtable = require("./server/airtable/airtable");
 const {  findSimilarPromise } = require("./server/similar-names");
 const { scrape } = require("./server/enneagrammer-scrape");
+const { scrapeAP } = require("./server/attitudinal-scrape");
 const { dbCompare } = require("./server/db-compare");
 
 function errorHandler(reason) {
@@ -195,6 +204,7 @@ function refreshAirtableData(socket) {
       ioState.nameMap = result.nameMap;
       ioState.childrenMap = result.childrenMap;
       ioState.eTypeMap = result.eTypeMap;
+      ioState.apMap = result.apMap;
       ioState.shared.forEach((retrievable) => {
         ioState.broadcast(retrievable.trigger, retrievable.getVal());
       });
@@ -403,6 +413,7 @@ function fetchAirtableData() {
           nameMap: nameMap,
           childrenMap: childrenMap,
           eTypeMap: eTypeMap,
+          apMap: apMap,
         });
       }
     }

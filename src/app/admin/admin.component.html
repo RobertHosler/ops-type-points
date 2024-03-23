@@ -80,6 +80,53 @@
     </div>
 
     <div class="mb-3">
+
+      <div>Compare AP Sources - <a target="_blank" href="https://www.attitudinalpsyche.com/theory/database/">Source</a></div>
+      <button
+        class="btn btn-primary mb-2"
+        (click)="compareAP()"
+        [disabled]="comparingAP"
+      >
+        Compare
+      </button>
+      
+      <div *ngIf="apDifferences">
+        <div>
+          <div>DB Exclusives - {{apDifferences.exclusiveToDb.length}}</div>
+          <div
+            class="ennea-difference"
+            *ngFor="let dbExclusive of apDifferences.exclusiveToDb"
+          >
+            {{ dbExclusive.name }}<br />
+            {{ dbExclusive.apCore }}|{{dbExclusive.apSubtype}}
+          </div>
+        </div>
+        <div>
+          <div>Scrape Exclusives - {{apDifferences.exclusiveToScrape.length}}</div>
+          <div
+            class="ennea-difference"
+            *ngFor="let scrapeExclusive of apDifferences.exclusiveToScrape"
+          >
+            {{ scrapeExclusive.name }}<br />
+            {{ scrapeExclusive.apCore }}|{{scrapeExclusive.apSubtype}}
+          </div>
+        </div>
+        <div>
+          <div>Type Mismatches - {{apDifferences.typeMismatch.length}}</div>
+          <div
+            class="ennea-difference"
+            *ngFor="let mismatch of apDifferences.typeMismatch"
+          >
+            {{ mismatch.name }}<br />
+            <s>{{ mismatch.t1 }}</s><br />
+            {{ mismatch.t2 }}<br />
+            {{verboseTrifixAlt(mismatch.t2)}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
       <div>Find similar names</div>
       <button
         class="btn btn-primary mb-2"

@@ -14,6 +14,7 @@ export class AdminComponent implements OnInit {
   pw: string;
 
   comparingEnnea = false;
+  comparingAP = false;
   refreshing = false;
   finding = false;
   refreshMsg = '';
@@ -76,6 +77,7 @@ export class AdminComponent implements OnInit {
   similarRecords = [];
   similarNameResults = [];
   enneaDifferences;
+  apDifferences;
 
   testArray = [
     'Mr. Rogers',
@@ -172,6 +174,11 @@ export class AdminComponent implements OnInit {
       this.enneaDifferences = results;
       this.comparingEnnea = false;
     });
+    this.socket.on('compareAPComplete', (results) => {
+      console.log('compareAPComplete', results);
+      this.apDifferences = results;
+      this.comparingAP = false;
+    });
   }
 
   ngOnInit(): void {}
@@ -191,6 +198,11 @@ export class AdminComponent implements OnInit {
   compareEnnea() {
     this.comparingEnnea = true;
     this.socket.emit('compareEnnea');
+  }
+
+  compareAP() {
+    this.comparingAP = true;
+    this.socket.emit('compareAP');
   }
 
   verboseTrifixAlt(fullEType) {
