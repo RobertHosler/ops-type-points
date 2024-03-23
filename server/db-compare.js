@@ -1,5 +1,7 @@
 /*jshint esversion: 6 */
 
+const { buildKey } = require("./airtable/airtable");
+
 /**
  * Create list of names which differ between the two lists
  */
@@ -28,18 +30,16 @@ function compareEnnea(scrapeData, enneaDb) {
     let nameFound = false;
     for (let i = 0; i < result.exclusiveToScrape.length; i++) {
       let data = result.exclusiveToScrape[i];
+      const eName1 = buildKey(eVal.name);
+      const eName2 = buildKey(eVal.altName);
+      const externalName = buildKey(data.name);
       if (
         !nameFound &&
-        (eVal.name.toLowerCase().trim() === data.name.toLowerCase().trim() ||
-        (eVal.altName && eVal.altName.toLowerCase().trim() === data.name.toLowerCase().trim()))
+        (eName1 === externalName || (eName2 && eName2 === externalName))
       ) {
         // Name Match - Check type match
         const fullTypeOverlay = eVal.instinct + " " + eVal.eType + " " + eVal.trifix + eVal.overlay;
-        const fullType = (eVal.instinct +
-        " " +
-        eVal.eType +
-        " " +
-        (eVal.trifix ? eVal.trifix : "")).trim();
+        const fullType = (eVal.instinct + " " + eVal.eType + " " + (eVal.trifix ? eVal.trifix : "")).trim();
         const scrapeData = data.instinct + " " + data.type + " " + data.trifix;
         if (
           compareValues(eVal.instinct, data.instinct) &&
@@ -98,7 +98,58 @@ function compareValues(s1, s2) {
   return false;
 }
 
+function compareAP(scrapeData, apDb) {
+  const result = {
+    exclusiveToDb: [],
+    exclusiveToScrape: scrapeData.slice(),
+    typeMismatch: [],
+  };
+  for (let [key, val] of apDb) {
+    let nameFound = false;
+    const name1 = buildKey(val.name);
+    const name2 = buildKey(val.altName);
+    for (let i = 0; i < result.exclusiveToScrape.length; i++) {
+      let data = result.exclusiveToScrape[i];
+      const externalName = buildKey(data.name);
+      if ( !nameFound && (name1 === externalName || (name2 && name2 === externalName)) ) {
+        const match = compareValues(val.apType, data.apCore) &&
+            compareValues(val.apSubtype, data.apSubtype); // same name - compare types
+        if (!match) {
+          console.log(val.name, val.apType, val.apSubtype, data.apCore, data.apSubtype);
+          const type1 = val.apSubtype ? val.apType + " " + val.apSubtype : val.apType;
+          const type2 = data.apSubtype ? data.apCore + " " + data.apSubtype : data.apCore;
+          const mismatch = {
+            name: val.name,
+            t1: type1,
+            t2: type2,
+          };
+          result.typeMismatch.push(mismatch);
+        }
+        // Remove from the exclusions lists
+        nameFound = true;
+        result.exclusiveToScrape.splice(i, 1);
+        break;
+      }
+
+    }
+    if (!nameFound && !val.tags.includes('Community Member') && !val.tags.includes('Exclusive')) {
+      result.exclusiveToDb.push(val);
+    }
+  }
+  result.exclusiveToDb.sort(sortName);
+  result.exclusiveToScrape.sort(sortName);
+  result.typeMismatch.sort(sortName);
+  const firstX = 10;
+  console.log('exclusiveToDb - first '+firstX, result.exclusiveToDb.slice(0, firstX));
+  console.log('exclusiveToScrape - first '+firstX, result.exclusiveToScrape.slice(0, firstX));
+  console.log('exclusiveToDb:' + result.exclusiveToDb.length,
+      'exclusiveToScrape:' + result.exclusiveToScrape.length,
+      'typeMismatch:' + result.typeMismatch.length);
+  return result;
+}
+
 exports.dbCompare = {
   compareNames: compareNames,
   compareEnnea: compareEnnea,
+  compareAP: compareAP,
 };
