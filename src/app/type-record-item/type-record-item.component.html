@@ -284,6 +284,19 @@
           }">{{ aspect }}</span>
         </ng-container>
         <span *ngIf="typeRecord.apSubtype">({{ typeRecord.apSubtype }})</span>
+        <span
+          *ngIf="typeRecord.apTags && typeRecord.apTags.length > 0"
+          [popover]="typeRecord.apTags"
+          triggers="mouseenter:mouseleave"
+          placement="bottom"
+        >
+          <i-bs
+            name="info-circle"
+            class="ml-1"
+            width=".8rem"
+            height=".8rem"
+          ></i-bs>
+        </span>
       </div>
       <div *ngIf="showTypes.create" class="timestamp">
         Created: {{ typeRecord.created }}

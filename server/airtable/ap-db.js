@@ -48,7 +48,9 @@ function convertRecords(records) {
     const name = convertName(record.fields.Name);
     let tags = ["AP"];
     (record.fields.Tags ? record.fields.Tags : []).forEach(tag => {
-      if (tag === 'Class Typing') {
+      if (tag === 'Speculative') {
+        tags.push('Soft');
+      } else if (tag === 'Class Typing') {
         tags.push('AP Class Typing');
       } else {
         tags.push(tag);
@@ -78,69 +80,69 @@ function convertRecords(records) {
 function mergeMaps(nameMap, eTypeMap) {
   const matches = [];
   let i = 0;
-  eTypeMap.forEach((eVal, eKey) => {
-    let nameVal = nameMap.get(eKey);
+  eTypeMap.forEach((val, key) => {
+    let nameVal = nameMap.get(key);
     if (!nameVal) {
-      nameVal = nameMap.get(eVal.altName);
+      nameVal = nameMap.get(val.altName);
     }
     if (nameVal) {
       // Merge
-      nameVal.apType = eVal.apType; // FVLE
-      nameVal.apSubtype = eVal.apSubtype; // 0202
+      nameVal.apType = val.apType; // FVLE
+      nameVal.apSubtype = val.apSubtype; // 0202
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
-      eVal.tags.forEach(tag => {
+      val.tags.forEach(tag => {
         if (!nameVal.tags.includes(tag)) {
           nameVal.tags.push(tag);
         }
       });
-      nameVal.enneaTags = nameVal.enneaTags ? nameVal.enneaTags : [];
-      if (eVal.tags.includes("Speculation")) {
-        nameVal.enneaTags.push("Speculation");
+      nameVal.apTags = nameVal.apTags ? nameVal.apTags : [];
+      if (val.tags.includes("Soft")) {
+        nameVal.apTags.push("Soft");
       }
       let personTags = nameVal.personTags ? nameVal.personTags : [];
       if (nameVal.tags.includes("Community Member") && !personTags.includes("Community Member")) {
         personTags.push("Community Member");
       }
       nameVal.personTags = personTags;
-      if (eVal.pictureUrl) {
-        nameVal.pictureUrl = eVal.pictureUrl;
+      if (val.pictureUrl) {
+        nameVal.pictureUrl = val.pictureUrl;
       }
-      nameVal.apLink = eVal.apLink;
-      if (compareModifiedDates(nameVal.lastModified, eVal.lastModified) > 0) {
-        nameVal.lastModified = eVal.lastModified;
+      nameVal.apLink = val.apLink;
+      if (compareModifiedDates(nameVal.lastModified, val.lastModified) > 0) {
+        nameVal.lastModified = val.lastModified;
       }
-      if (compareModifiedDates(nameVal.created, eVal.created) > 0) {
-        nameVal.created = eVal.created;
+      if (compareModifiedDates(nameVal.created, val.created) > 0) {
+        nameVal.created = val.created;
       }
-      matches.push(eKey);
+      matches.push(key);
     } else {
       // Add to nameMap
       i++;
       let ytLink = '';
       let personTags = [];
-      if (!eVal.tags.includes('Community Member')) {
-        ytLink = 'https://www.youtube.com/results?search_query='+ eKey + ' interview';
+      if (!val.tags.includes('Community Member')) {
+        ytLink = 'https://www.youtube.com/results?search_query='+ key + ' interview';
       } else {
         personTags.push("Community Member");
       }
       let apTags = [];
-      if (eVal.tags.includes("Speculation")) {
-        apTags.push("Speculation");
+      if (val.tags.includes("Soft")) {
+        apTags.push("Soft");
       }
-      nameMap.set(eKey, {
-        name: eVal.name,
-        apType: eVal.apType,
-        apSubtype: eVal.apSubtype,
-        pictureUrl: eVal.pictureUrl,
-        tags: eVal.tags,
+      nameMap.set(key, {
+        name: val.name,
+        apType: val.apType,
+        apSubtype: val.apSubtype,
+        pictureUrl: val.pictureUrl,
+        tags: val.tags,
         personTags: personTags,
         apTags: apTags,
-        apLink: eVal.apLink,
+        apLink: val.apLink,
         ytLink: ytLink,
-        sex: eVal.sex,
+        sex: val.sex,
         trans: false,
-        lastModified: eVal.lastModified,
-        created: eVal.created
+        lastModified: val.lastModified,
+        created: val.created
       });
     }
   });
