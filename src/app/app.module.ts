@@ -67,6 +67,7 @@ import { TypeRecordItemComponent } from './type-record-item/type-record-item.com
 import { OpsClassComponent } from './ops-class/ops-class.component';
 import { CookieBannerComponent } from './cookie-banner/cookie-banner.component';
 import { OpsSocialTypeComponent } from './ops-social-type/ops-social-type.component';
+import { ApSummaryComponent } from './ap-summary/ap-summary.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -123,7 +124,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     TypeRecordItemComponent,
     OpsClassComponent,
     CookieBannerComponent,
-    OpsSocialTypeComponent
+    OpsSocialTypeComponent,
+    ApSummaryComponent
   ],
   imports: [
     HttpClientModule,
