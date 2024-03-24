@@ -2689,6 +2689,7 @@ export const searchModel = {
   apMatchTerms: apMatchTerms,
   apTypes: apTypeNames,
   apSextas: apSextaMap,
+  apTypeSextas: apTypes,
   tagTerms: tagTerms,
   personTerms: personTerms,
   enneaMatchTerms: enneaMatchTerms,

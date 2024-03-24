@@ -233,8 +233,8 @@
       </div>
       <div *ngIf="activeTab === 'AP'">
         <div>
-          <h2>{{ person.apType }}</h2>
-          <div>Learn more at <a href="https://www.attitudinalpsyche.com/personality-profiles/" target="_blank">AttitudinalPsyche.com</a>.</div>
+          <h2>{{ person.apType }} <span *ngIf="person.apSubtype">({{ person.apSubtype }})</span></h2>
+          <app-ap-summary [typedPerson]="person"></app-ap-summary>
         </div>
       </div>
     </div>
