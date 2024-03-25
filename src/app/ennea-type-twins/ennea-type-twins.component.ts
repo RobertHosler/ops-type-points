@@ -55,12 +55,12 @@ export class EnneaTypeTwinsComponent implements OnInit {
   constructor(private opsDataService: OpsDataService) {
     this.opsDataService.allNames.subscribe((result) => {
       this.allNames = result;
-      this.fetchTwins();
     });
   }
 
   ngOnInit(): void {
     this.initParts();
+    this.fetchTwins();
   }
 
   ngOnChanges() {

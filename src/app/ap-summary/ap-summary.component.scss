@@ -1,0 +1,50 @@
+@import "../../assets/variables";
+@import "../../../node_modules/bootstrap/scss/mixins/breakpoints";
+
+.aspect-name {
+    font-weight: bold;
+}
+.aspect-position {
+    font-size: .9rem;
+}
+.aspect-subtype {
+    font-size: .9rem;
+}
+
+thead {
+    background-color: #ccc;
+    th {
+        border-bottom: 2px solid $dark;
+    }
+}
+th, td {
+    padding: .25rem;
+    text-align: center;
+}
+td {
+    background-color: #ccc;
+}
+td:not(:first-child) {
+    background-color: #ddd;
+}
+td.emphasized {
+    background-color: #bcffbc;
+}
+td.obscured {
+    background-color: #d0ecf5;
+}
+.table-wrapper {
+    overflow: auto;
+}
+tr.aspect-row {
+    border-top: 2px solid $dark;
+}
+
+@include media-breakpoint-down("xs", $grid-breakpoints) {
+    table {
+        font-size: .8rem;
+    }
+    .aspect-extra {
+        display: none;
+    }
+}

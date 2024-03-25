@@ -211,8 +211,23 @@ subtypesMap.set('4-0', {
     }
 });
 
+const aspectMap = new Map();
+aspectMap.set('L', {
+    name: "Logic"
+});
+aspectMap.set('E', {
+    name: "Emotion"
+});
+aspectMap.set('F', {
+    name: "Physics"
+});
+aspectMap.set('V', {
+    name: "Volition"
+});
+
 export const apModel = {
     apTypeMap: apTypeMap,
     attitudesMap: attitudesMap,
     subtypesMap: subtypesMap,
+    aspectMap: aspectMap
 };

@@ -19,15 +19,16 @@ export class ApSummaryComponent implements OnInit {
     sexta: string;
     descriptionLink: string;
     sextaLink: string;
-  }
+  };
 
   aspects : string[];
-  subtypes = [];
+  subtypes;
   
   ngOnInit(): void {
     this.apType = apModel.apTypeMap.get(this.typedPerson.apType);
     this.aspects = this.apType.name.split('');
     if (this.typedPerson.apSubtype) {
+      this.subtypes = [];
       this.typedPerson.apSubtype.split('').forEach((subtype, index) => {
         const subtypeName = (index+1) + '-' + subtype;
         const subTypeObj = apModel.subtypesMap.get(subtypeName);

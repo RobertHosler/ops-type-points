@@ -1,6 +1,6 @@
 <div class="person-row" *ngIf="person" [ngClass]="{ 'dark-mode': darkMode.enabled }">
   <div class="left-side">
-    <div class="left-side-inner pl-3 py-3">
+    <div class="left-side-inner py-3">
       <div class="person-wrapper">
         <div class="person-picture mb-2">
           <div *ngIf="person.pictureUrl" class="person-img mb-3">
@@ -18,40 +18,48 @@
       </div>
       <div class="type-selection">
         <div class="type-selection-item" *ngIf="person.type">
-          <app-type-indicator
-            class="type-indicator"
+          <div class="text-center">
+            <app-type-indicator
+            class="type-indicator d-inline-block"
             [option]="1"
             [type]="person.type"
           ></app-type-indicator>
-          <button (click)="activeTab = 'OPS'" class="btn btn-gray"
+          </div>
+          <button (click)="changeTab('OPS')" class="btn btn-gray"
             [ngClass]="{ active: activeTab === 'OPS' }"
             >Objective Personality</button>
         </div>
         <div class="type-selection-item" *ngIf="person.eType">
-          <app-type-indicator
-            class="type-indicator"
-            [option]="1"
-            [eType]="person.fullEType"
-          ></app-type-indicator>
+          <div class="text-center">
+            <app-type-indicator
+              class="type-indicator d-inline-block"
+              [option]="1"
+              [eType]="person.fullEType"
+            ></app-type-indicator>
+          </div>
           <button  class="btn btn-gray"
-            (click)="activeTab = 'Enneagram'"
+            (click)="changeTab('Enneagram')"
             [ngClass]="{ active: activeTab === 'Enneagram' }">Enneagram</button>
         </div>
         <div class="type-selection-item" *ngIf="person.wssType">
-          <app-socionics-shape
-            class="type-indicator"
-            [type]="person.wssType"
-          ></app-socionics-shape>
+          <div class="text-center">
+            <app-socionics-shape
+              class="type-indicator d-inline-block mt-2"
+              [type]="person.wssType"
+            ></app-socionics-shape>
+          </div>
           <button  class="btn btn-gray"
-              (click)="activeTab = 'WSS'"
+              (click)="changeTab('WSS')"
               [ngClass]="{ active: activeTab === 'WSS' }">Socionics</button>
         </div>
         <div class="type-selection-item" *ngIf="person.apType">
-          <div class="ap-type">
-            {{person.apType}}
+          <div class="text-center">
+            <div class="ap-type mt-2">
+              {{person.apType}}
+            </div>
           </div>
           <button  class="btn btn-gray"
-              (click)="activeTab = 'AP'"
+              (click)="changeTab('AP')"
               [ngClass]="{ active: activeTab === 'AP' }">Attitudinal Psyche</button>
         </div>
 
@@ -79,7 +87,7 @@
             class="btn btn-gray d-block w-100"
             *ngFor="let option of opsOptions"
             [ngClass]="{ active: activeOps === option }"
-            (click)="activeTab = 'OPS'; activeOps = option"
+            (click)="changeOpsTab(option)"
           >
             {{ option }}
           </button>
@@ -147,21 +155,21 @@
           <button
             class="btn btn-gray d-block w-100"
             [ngClass]="{ active: activeEnnea === 'Summary' }"
-            (click)="activeTab = 'Enneagram'; activeEnnea = 'Summary'"
+            (click)="changeEnneaTab('Summary')"
           >
             Summary
           </button>
           <button
             class="btn btn-gray d-block w-100"
             [ngClass]="{ active: activeEnnea === 'Description' }"
-            (click)="activeTab = 'Enneagram'; activeEnnea = 'Description'"
+            (click)="changeEnneaTab('Description')"
           >
             Description
           </button>
           <button
             class="btn btn-gray d-block w-100"
             [ngClass]="{ active: activeEnnea === 'Twins' }"
-            (click)="activeTab = 'Enneagram'; activeEnnea = 'Twins'"
+            (click)="changeEnneaTab('Twins')"
           >
             Twins
           </button>
@@ -234,7 +242,17 @@
       <div *ngIf="activeTab === 'AP'">
         <div>
           <h2>{{ person.apType }} <span *ngIf="person.apSubtype">({{ person.apSubtype }})</span></h2>
-          <app-ap-summary [typedPerson]="person"></app-ap-summary>
+          <div class="summary-wrapper">
+            <div>
+              <h3>Summary</h3>
+              <app-ap-summary [typedPerson]="person"></app-ap-summary>
+            </div>
+            <div></div>
+            <div>
+              <h3>Links</h3>
+              <app-ap-links [typedPerson]="person"></app-ap-links>
+            </div>
+          </div>
         </div>
       </div>
     </div>

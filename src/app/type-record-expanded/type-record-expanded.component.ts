@@ -20,8 +20,8 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
 
   activeTab: string;
 
-  activeOps = 'Summary';
-  activeEnnea = 'Summary';
+  activeOps;// = 'Summary';
+  activeEnnea;// = 'Summary';
 
   opsOptions = [
     'Summary',
@@ -73,6 +73,7 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
         }
       });
     }
+    // this.updateRoute();
   }
 
   ngOnDestroy(): void {
@@ -93,6 +94,13 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
   private initRoute(setup?) {
     this.routeSubscription = this.route.queryParamMap.subscribe((params) => {
       this.personName = params.get('person');
+      this.activeTab = params.get('active');
+      if (params.get('activeOps')) {
+        this.activeOps = params.get('activeOps');
+      }
+      if (params.get('activeEnnea')) {
+        this.activeEnnea = params.get('activeEnnea');
+      }
       let opsType = params.get('ops');
       let name = params.get('name');
       if (this.personName) {
@@ -131,10 +139,14 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
   }
 
   private initActiveTab() {
-    if (this.person.type) {
+    if (this.activeTab) {
+      return; // already set
+    } else if (this.person.type) {
       this.activeTab = 'OPS';
+      this.activeOps = 'Summary';
     } else if (this.person.eType) {
       this.activeTab = 'Enneagram';
+      this.activeEnnea = 'Summary';
     } else if (this.person.wssType) {
       this.activeTab = 'WSS';
     } else if (this.person.apType) {
@@ -144,4 +156,37 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
       this.activeTab = 'Default';
     }
   }
+
+  changeTab(tab: string) {
+    if (!this.activeEnnea && tab === 'Enneagram') {
+      this.activeEnnea = 'Summary';
+    }
+    this.activeTab = tab;
+    this.updateRoute();
+  }
+
+  changeOpsTab(tab: string) {
+    this.activeOps = tab;
+    this.updateRoute();
+  }
+
+  changeEnneaTab(tab: string) {
+    this.activeEnnea = tab;
+    this.updateRoute();
+  }
+
+  updateRoute() {
+    const queryParams: Params = {
+      person: this.personName,
+      active: this.activeTab,
+      activeOps: this.activeOps,
+      activeEnnea: this.activeEnnea,
+    };
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: queryParams,
+      queryParamsHandling: 'merge',
+    });
+  }
+
 }

@@ -28,16 +28,20 @@
   padding-left: 1rem;
   padding-right: 1rem;
   & > :first-child {
-    width: 30%;
+    width: 40%;
   }
   & > :last-child {
-    margin-left: .5rem;
     width: 60%;
   }
 }
 .ap-type {
+  font-family: fantasy;
   font-size: 1.25rem;
   padding: .25rem .5rem;
+  display: inline-block;
+  background: #ccc;
+  border: 2px solid $dark;
+  border-radius: 0.25rem;
 }
 .type-selector {
    & > .btn,
@@ -61,6 +65,48 @@
   .full-width {
     width: 100%;
   }
+}
+
+.person-wrapper {
+  h1 {
+    margin: 0px;
+    text-align: center;
+  }
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.person-picture {
+  display: flex;
+  // flex-direction: column;
+  justify-content: flex-end;
+}
+.person-picture img {
+  border-radius: 5px;
+  max-height: 250px;
+  max-width: 250px;
+}
+.person-img {
+  text-align: center;
+}
+.ops-visual-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.type-options .btn {
+  min-width: 100px;
+}
+.person-indicator {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  min-width: 100px;
 }
 
 @include media-breakpoint-up("lg", $grid-breakpoints) {
@@ -106,9 +152,10 @@
       display: flex;
       flex-direction: column;
       // justify-content: center;
-      margin-left: 1rem;
-      border-left: 1px solid;
+      // margin-left: 1rem;
+      // border-left: 1px solid;
       padding-left: 1rem;
+      min-width: 40%;
     }
   }
 }
@@ -127,45 +174,18 @@
       min-width: inherit;
     }
   }
-}
-.person-wrapper {
-  h1 {
-    margin: 0px;
-    text-align: center;
+  .person-picture {
+    justify-content: flex-start;
   }
-}
-.person-picture {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.person-picture img {
-  border-radius: 5px;
-  max-height: 250px;
-  max-width: 250px;
-}
-.person-img {
-  text-align: center;
-}
-.ops-visual-row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.flex-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.type-options .btn {
-  min-width: 100px;
-}
-.person-indicator {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  min-width: 100px;
+  .type-selection-item {
+    & > :first-child {
+      order: 2;
+    }
+    & > :last-child {
+      order: 1;
+    }
+  }
+
 }
 @include media-breakpoint-up("sm", $grid-breakpoints) {
   .person-dashboard {
@@ -174,7 +194,7 @@
     }
   }
   .person-wrapper {
-    max-width: 300px;
+    // max-width: 300px;
   }
 }
 

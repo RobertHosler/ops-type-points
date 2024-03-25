@@ -1,0 +1,11 @@
+<div class="mb-3">
+    Type Descriptions on AttitudinalPsyche.com
+    <ul>
+        <li><a [href]="apType.descriptionLink" target="_blank">{{ typedPerson.apType }} type description</a></li>
+        <li *ngIf="typedPerson.apSubtype"><a href="https://www.attitudinalpsyche.com/theory/subtypes/" target="_blank">Subtypes info</a></li>
+        <li><a [href]="apType.sextaLink" target="_blank">{{ apType.sexta }} sexta description</a></li>
+        <ng-container *ngFor="let aspect of aspects; let i = index;">
+            <li><a [href]="'https://www.attitudinalpsyche.com/theory/attitudes/' + (i+1) + aspect" target="_blank">{{ (i+1) + aspect }} attitude description</a></li>
+        </ng-container>
+    </ul>
+</div>

@@ -1,25 +1,8 @@
-
-<div class="mb-3" *ngIf="false">
-    {{ typedPerson.apType }} <span *ngIf="typedPerson.apSubtype">({{ typedPerson.apSubtype }})</span>
-</div>
-<div class="mb-3">
-    <a [href]="apType.descriptionLink" target="_blank">{{ typedPerson.apType }} description</a>
-    <span *ngIf="typedPerson.apSubtype">, <a href="https://www.attitudinalpsyche.com/theory/subtypes/" target="_blank">Subtypes Info</a>
-    </span>
-</div>
-
-<div class="mb-3">
-    Sexta: {{ apType.sexta }}
-    <div>
-        <a [href]="apType.sextaLink" target="_blank">{{apType.sexta}} description</a>
-    </div>
-</div>
-
-<div>
+<div class="table-wrapper">
     <table class="table">
         <thead>
             <th>
-                Aspect
+                Attitude
             </th>
             <th>
                 Self +/-
@@ -32,17 +15,47 @@
             </th>
         </thead>
         <tbody>
-            <tr *ngFor="let aspect of aspects; let i = index;">
-                <td>{{aspect}}</td>
-                <td>Self-{{ [1, 3].includes(i+1) ? 'Positive': 'Negative' }}</td>
-                <td>Others-{{ [2, 4].includes(i+1) ? 'Positive': 'Negative' }}</td>
-                <td>{{ [1, 4].includes(i+1) ? 'Results': 'Process' }}-Oriented</td>
+            <ng-container *ngFor="let aspect of aspects; let i = index;">
+            <tr class="aspect-row">
+                <td><div class="aspect-name">{{i+1}}{{aspect}}</div>
+                    
+                </td>
+                <td><div class="aspect-position"><span class="aspect-extra">Self-</span>{{ [1, 2].includes(i+1) ? 'Positive': 'Negative' }}</div>
+                    
+                </td>
+                <td
+                ><div class="aspect-position"><span class="aspect-extra">Others-</span>{{ [2, 4].includes(i+1) ? 'Positive': 'Negative' }}</div>
+                    
+                </td>
+                <td
+                    
+                ><div class="aspect-position">{{ [1, 4].includes(i+1) ? 'Results': 'Process' }}<span class="aspect-extra">-Oriented</span></div>
+                </td>
             </tr>
+            <tr *ngIf="subtypes" class="subtypes-row">
+                <td><div *ngIf="subtypes">{{ subtypes[i].name}} </div></td>
+                <td [ngClass]="{
+                    'emphasized': subtypes && subtypes[i].highContrast.self,
+                    'obscured': subtypes && !subtypes[i].highContrast.self}">
+                    <div class="aspect-subtype" *ngIf="subtypes">{{ subtypes[i].highContrast.self  ? 'Emphasized' : 'Obscured'}} </div>
+                </td>
+                <td [ngClass]="{
+                    'emphasized': subtypes && subtypes[i].highContrast.others,
+                    'obscured': subtypes && !subtypes[i].highContrast.others}">
+                    <div class="aspect-subtype" *ngIf="subtypes">{{ subtypes[i].highContrast.others ? 'Emphasized' : 'Obscured'}}</div>
+                </td>
+                <td [ngClass]="{
+                    'emphasized': subtypes && subtypes[i].highContrast.process,
+                    'obscured': subtypes && !subtypes[i].highContrast.process}">
+                    <div class="aspect-subtype" *ngIf="subtypes">{{ subtypes[i].highContrast.process ? 'Emphasized' : 'Obscured'}}</div>
+                </td>
+            </tr>
+            </ng-container>
         </tbody>
     </table>
 </div>
 
-<div *ngIf="typedPerson.apSubtype">
+<div *ngIf="false && typedPerson.apSubtype">
     <table class="table">
         <thead>
             <th>Subtype</th>
