@@ -9,3 +9,14 @@
         </ng-container>
     </ul>
 </div>
+
+<div *ngIf="sanitizedEmbed">
+    <h3>Analysis</h3>
+    <iframe
+      width="560"
+      height="315"
+      [src]="sanitizedEmbed"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
