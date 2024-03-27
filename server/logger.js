@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 
-const DEBUG_ENABLED = true;
-const TRACE_ENABLED = true;
+const DEBUG_ENABLED = false;
+const TRACE_ENABLED = false;
 
 function buildLogMessage(args) {
   var logMessage = '';
