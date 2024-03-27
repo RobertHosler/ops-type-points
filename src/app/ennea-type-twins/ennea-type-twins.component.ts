@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { searchModel } from '../search/search.model';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 
@@ -8,6 +8,7 @@ import { OpsDataService, TypedPerson } from '../service/ops-data.service';
   styleUrls: ['./ennea-type-twins.component.scss'],
 })
 export class EnneaTypeTwinsComponent implements OnInit {
+
   @Input()
   typedPerson: TypedPerson;
 
@@ -55,16 +56,23 @@ export class EnneaTypeTwinsComponent implements OnInit {
   constructor(private opsDataService: OpsDataService) {
     this.opsDataService.allNames.subscribe((result) => {
       this.allNames = result;
+      this.fetchTwins();
     });
   }
 
   ngOnInit(): void {
     this.initParts();
-    this.fetchTwins();
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.typedPerson) {
+      this.typedPerson = changes.typedPerson.currentValue;
+    }
+    if (changes.trifix) {
+      this.trifix = changes.trifix.currentValue;
+    }
     this.initParts();
+    this.fetchTwins();
   }
 
   private initParts() {
@@ -75,7 +83,6 @@ export class EnneaTypeTwinsComponent implements OnInit {
       this.trifix = this.typedPerson.trifix;
     } else if (this.trifix) {
       this.activeMods = [];
-      this.fetchTwins();
     }
   }
 

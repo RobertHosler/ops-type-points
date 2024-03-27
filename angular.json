@@ -119,5 +119,8 @@
         }
       }
     }},
-  "defaultProject": "ops-type-points"
+  "defaultProject": "ops-type-points",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     new HomeLink(
       'Analyze',
       '/analyzer',
-      'Scope out and compare objective personality types',
+      'Break down and compare personality types from multiple systems',
       false,
       '/assets/images/analyzer.png'
     ),

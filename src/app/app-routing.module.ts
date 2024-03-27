@@ -14,7 +14,6 @@ import { TypeRecordExpandedComponent } from './type-record-expanded/type-record-
 import { EnneaTermsComponent } from './ennea-terms/ennea-terms.component';
 import { EnneaTrifixPageComponent } from './ennea-trifix-page/ennea-trifix-page.component';
 import { TypeExemplarsComponent } from './type-exemplars/type-exemplars.component';
-import { EnneaGridComponent } from './ennea-grid/ennea-grid.component';
 import { EnneaGridPageComponent } from './ennea-grid-page/ennea-grid-page.component';
 import { EnneaDaaChronologicalComponent } from './ennea-daa-chronological/ennea-daa-chronological.component';
 import { OpsClassComponent } from './ops-class/ops-class.component';
@@ -28,7 +27,10 @@ const routes: Routes = [
   {
     path: 'analyzer',
     component: MainLayoutComponent,
-    children: [{ path: '', component: TypeAnalyzerComponent }],
+    children: [
+      { path: '', component: TypeAnalyzerComponent},
+      { path: 'custom', component: TypeRecordExpandedComponent }
+    ],
   },
   {
     path: 'search',

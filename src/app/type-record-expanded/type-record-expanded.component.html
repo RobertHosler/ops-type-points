@@ -17,6 +17,14 @@
         </div>
       </div>
       <div class="type-selection">
+        <div class="type-selection-item" *ngIf="custom">
+          <div class="text-center">
+            
+          </div>
+          <button (click)="changeTab('Custom')" class="btn btn-gray"
+            [ngClass]="{ active: activeTab === 'Custom' }"
+            >Customize</button>
+        </div>
         <div class="type-selection-item" *ngIf="person.type">
           <div class="text-center">
             <app-type-indicator
@@ -69,6 +77,168 @@
   <div class="right-side">
     <div class="right-side-inner px-3 mt-3 pb-5">
       <h1>{{ person.name }}</h1>
+
+      <div *ngIf="custom && activeTab === 'Custom'">
+        <p>Enter types below to generate a unique page for a given set of types.  Bookmark it to return and analyze again later.</p>
+        <form (ngSubmit)="onSubmit(opsForm)" #opsForm="ngForm">
+          <h2>Objective Personality</h2>
+          <div class="flex-form">
+            <div>
+              <label for="modalities" class="mt-2">Modalities</label>
+              <input
+                  id="modalities"
+                  type="text"
+                  class="form-control"
+                  minlength="2"
+                  maxlength="2"
+                  placeholder="FF"
+                  [(ngModel)]="modalities"
+                  name="modalities"
+                  #modalitiesInput="ngModel"
+                />
+            </div>
+            <div>
+              <label for="saviors" class="mt-2">Saviors</label>
+              <input
+                  id="saviors"
+                  type="text"
+                  class="form-control"
+                  minlength="4"
+                  maxlength="5"
+                  placeholder="Fe/Se"
+                  [(ngModel)]="saviors"
+                  name="saviors"
+              />
+            </div>
+            <div>
+              <label for="animals" class="mt-2">Animals</label>
+              <input
+                  id="animals"
+                  type="text"
+                  class="form-control"
+                  minlength="4"
+                  maxlength="7"
+                  placeholder="PC/S(B)"
+                  [(ngModel)]="animals"
+                  name="animals"
+              />
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-primary mr-3" type="submit">Submit</button>
+            <button class="btn btn-secondary mr-3" (click)="opsForm.reset()">Reset</button>
+          </div>
+        </form>
+        <hr>
+        <form (ngSubmit)="onSubmit(enneaForm)" #enneaForm="ngForm">
+          <h2>Enneagram</h2>
+          <div class="flex-form">
+            <div>
+              <label for="instincts" class="mt-2">Instincts (optional)</label>
+              <input
+                  id="instincts"
+                  name="instincts"
+                  type="text"
+                  class="form-control"
+                  minlength="4"
+                  maxlength="5"
+                  placeholder="so/sp"
+                  [(ngModel)]="enneaInstincts"
+              />
+            </div>
+            <div>
+              <label for="enneaCore" class="mt-2">Core</label>
+              <input
+                  id="enneaCore"
+                  name="enneaCore"
+                  type="text"
+                  class="form-control"
+                  minlength="3"
+                  maxlength="3"
+                  placeholder="9w1"
+                  [(ngModel)]="enneaCore"
+              />
+            </div>
+            <div>
+              <label for="enneaTrifix" class="mt-2">Trifix (optional)</label>
+              <input
+                  id="enneaTrifix"
+                  name="enneaTrifix"
+                  type="text"
+                  class="form-control"
+                  minlength="3"
+                  maxlength="11"
+                  placeholder="9w1 6w5 3w2 or 963"
+                  [(ngModel)]="enneaTrifix"
+              />
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-primary mr-3" type="submit">Submit</button>
+            <button class="btn btn-secondary mr-3" (click)="enneaForm.reset()">Reset</button>
+          </div>
+        </form>
+        <hr>
+        <form (ngSubmit)="onSubmit(wssForm)" #wssForm="ngForm">
+          <h2>Socionics</h2>
+          <div class="flex-form">
+            <div>
+              <label for="wssType" class="mt-2">Type</label>
+              <input
+                  id="wssType"
+                  name="wssType"
+                  type="text"
+                  class="form-control"
+                  minlength="3"
+                  maxlength="3"
+                  placeholder="LII"
+                  [(ngModel)]="wss"
+              />
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-primary mr-3" type="submit">Submit</button>
+            <button class="btn btn-secondary mr-3" (click)="wssForm.reset()">Reset</button>
+          </div>
+        </form>
+        <hr>
+        <form (ngSubmit)="onSubmit(apForm)" #apForm="ngForm">
+          <h2>Attitudinal Psyche</h2>
+          <div class="flex-form">
+            <div>
+              <label for="apType" class="mt-2">AP Type</label>
+              <input
+                  id="apType"
+                  name="apType"
+                  type="text"
+                  class="form-control"
+                  minlength="4"
+                  maxlength="4"
+                  placeholder="FLVE"
+                  [(ngModel)]="ap"
+              />
+            </div>
+            <div>
+              <label for="apSubtype" class="mt-2">AP Subtype</label>
+              <input
+                  id="apSubtype"
+                  name="apSubtype"
+                  type="text"
+                  class="form-control"
+                  minlength="4"
+                  maxlength="4"
+                  placeholder="1234"
+                  [(ngModel)]="apSub"
+              />
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-primary mr-3" type="submit">Submit</button>
+            <button class="btn btn-secondary mr-3" (click)="apForm.reset()">Reset</button>
+          </div>
+        </form>
+      </div>
+
       <div *ngIf="activeTab === 'OPS'">
         <h2>
           {{ person.type }} 

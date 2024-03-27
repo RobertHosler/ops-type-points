@@ -1157,10 +1157,13 @@ apMatchTerms.set('lop', {
 
 // self-negative
 function getSelfNegative(apType) {
-  return (apType.subString(2,4)).toLowerCase();
+  return (apType.substring(2,4)).toLowerCase();
 }
 apMatchTerms.set('fsn', {
   match: (person: TypedPerson) => {
+    if (person.apType && person.apType.length !== 4) {
+      console.log(person);
+    }
     return person.apType && getSelfNegative(person.apType).includes('f');
   },
 });

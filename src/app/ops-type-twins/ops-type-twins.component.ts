@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { OpsDataService, TypedPerson } from '../service/ops-data.service';
 import { OpsType } from '../type-analyzer/ops-type';
 
@@ -7,7 +7,7 @@ import { OpsType } from '../type-analyzer/ops-type';
   templateUrl: './ops-type-twins.component.html',
   styleUrls: ['./ops-type-twins.component.scss'],
 })
-export class OpsTypeTwinsComponent implements OnInit {
+export class OpsTypeTwinsComponent implements OnInit, OnChanges {
   @Input()
   opsType: OpsType;
 
@@ -22,11 +22,19 @@ export class OpsTypeTwinsComponent implements OnInit {
   constructor(private opsDataService: OpsDataService) {
     this.opsDataService.allTypes.subscribe((result) => {
       this.allTypes = result;
+      this.fetchTwins(this.opsType);
     });
   }
 
   ngOnInit(): void {
     this.fetchTwins(this.opsType);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.opsType) {
+      this.opsType = changes.opsType.currentValue;
+      this.fetchTwins(this.opsType);
+    }
   }
 
   private fetchTwins(type: OpsType) {

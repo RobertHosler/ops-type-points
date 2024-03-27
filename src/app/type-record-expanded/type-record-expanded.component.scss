@@ -67,6 +67,26 @@
   }
 }
 
+.flex-form {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -.5rem;
+  margin-right: -.5rem;
+  & > * {
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-bottom: .5rem;
+    flex-grow: 1;
+    max-width: 200px;
+  }
+  input {
+    color: #000;
+    &::placeholder {
+      color: #aaa;
+    }
+  }
+}
+
 .person-wrapper {
   h1 {
     margin: 0px;

@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-type-indicator',
   templateUrl: './type-indicator.component.html',
   styleUrls: ['./type-indicator.component.scss'],
 })
-export class TypeIndicatorComponent implements OnInit {
+export class TypeIndicatorComponent implements OnInit, OnChanges {
   @Input()
   type;// = 'MM-Te/Se-PC/S(B)';
 
@@ -63,4 +63,15 @@ export class TypeIndicatorComponent implements OnInit {
       return '';
     }
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.eType) {
+      this.eType = changes.eType.currentValue;
+    }
+    if (changes.type) {
+      this.type = changes.type.currentValue;
+    }
+    this.ngOnInit();
+  }
+
 }
