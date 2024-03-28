@@ -351,6 +351,12 @@ function fetchAirtableData() {
         });
       })
       .then(() => {
+        // remove excluded - TODO: get from database
+        const deleteKeys = ['saadet'];
+        deleteKeys.forEach(key => {
+          nameMap.delete(key);
+        });
+      }).then(() => {
         personsComplete = true;
         attemptResolve();
       });
