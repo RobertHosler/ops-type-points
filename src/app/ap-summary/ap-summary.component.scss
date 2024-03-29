@@ -28,10 +28,10 @@ td:not(:first-child) {
     background-color: #ddd;
 }
 td.emphasized {
-    background-color: #bcffbc;
+    background-color: $emphasize-green;
 }
 td.obscured {
-    background-color: #d0ecf5;
+    background-color: $obscure-blue;
 }
 .table-wrapper {
     overflow: auto;

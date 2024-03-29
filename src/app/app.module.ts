@@ -69,6 +69,8 @@ import { CookieBannerComponent } from './cookie-banner/cookie-banner.component';
 import { OpsSocialTypeComponent } from './ops-social-type/ops-social-type.component';
 import { ApSummaryComponent } from './ap-summary/ap-summary.component';
 import { ApLinksComponent } from './ap-links/ap-links.component';
+import { ApFunctionsComponent } from './ap-functions/ap-functions.component';
+import { ApRelationsComponent } from './ap-relations/ap-relations.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -127,7 +129,9 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     CookieBannerComponent,
     OpsSocialTypeComponent,
     ApSummaryComponent,
-    ApLinksComponent
+    ApLinksComponent,
+    ApFunctionsComponent,
+    ApRelationsComponent
   ],
   imports: [
     HttpClientModule,

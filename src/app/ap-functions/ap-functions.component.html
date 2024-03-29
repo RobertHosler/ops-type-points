@@ -1,0 +1,28 @@
+<div *ngIf="typedPerson && typedPerson.apType">
+
+    <table class="table">
+        <thead>
+            <th>Name</th>
+            <th class="p-0">
+                <div class="gift m-1">Automating</div><div class="trap m-1">Restraining</div>
+            </th>
+            <th class="p-0"><div class="trap m-1">Trap</div><div class="gift m-1">Gift</div></th>
+        </thead>
+        <ng-container *ngFor="let function of functions">
+        <tr class="row-a">
+            <td class="function-name">{{function.name}}</td>
+            <td class="p-1"><div class="gift">{{automatingForce(function)}}</div></td>
+            <td class="p-1"><div class="trap">{{function.trap}}</div></td>
+        </tr>
+        <tr class="row-b">
+            <td>{{slotsIllustration(function)}}</td>
+            <td class="p-1"><div class="trap">{{restrainedForce(function)}}</div></td>
+            <td class="p-1"><div class="gift">{{function.gift}}</div></td>
+        </tr>
+        </ng-container>
+    </table>
+    <div class="mb-3 small">
+        Learn more about AP Functions at <a [href]="learnMoreLink" target="_blank">AttitudinalPsyche.com</a>.
+    </div>
+
+</div>

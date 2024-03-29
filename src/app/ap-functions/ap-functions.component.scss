@@ -1,0 +1,33 @@
+@import "../../assets/variables";
+@import "../../../node_modules/bootstrap/scss/mixins/breakpoints";
+
+.table {
+    color: $dark;
+    background-color: #ccc;
+    margin-bottom: 0px;
+    th,td {
+        text-align: center;
+        padding: .25rem;
+        vertical-align: middle;
+    }
+    th {
+        border-bottom: 2px solid $dark;
+    }
+    .row-a td {
+        border-top: 2px solid $dark;
+    }
+    .row-b td {
+        padding-top: 0rem;
+        border-top: none;
+    }
+}
+.function-name {
+    font-weight: bold;
+}
+
+.gift {
+    background-color: $emphasize-green;
+}
+.trap {
+    background-color: $obscure-blue;
+}
