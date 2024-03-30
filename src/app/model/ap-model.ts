@@ -52,7 +52,15 @@ subtypesMap.set('1-1', {
         self: true,
         others: true,
         process: true
-    }
+    },
+    description: [
+        'Enriching',
+        'Clarifying',
+        'Consistent',
+        'Specialized',
+        'Boundaried',
+        'Precise'
+    ]
 });
 subtypesMap.set('1-2', {
     type: 'Overlay',
@@ -60,7 +68,15 @@ subtypesMap.set('1-2', {
         self: true,
         others: false,
         process: false
-    }
+    },
+    description: [
+        'Fierce',
+        'Confident',
+        'Leaderlike',
+        'Boundaryless',
+        'Steamrolling',
+        'Messy'
+    ]
 });
 subtypesMap.set('1-3', {
     type: 'Candid',
@@ -68,7 +84,15 @@ subtypesMap.set('1-3', {
         self: false,
         others: true,
         process: false
-    }
+    },
+    description: [
+        'Raw',
+        'Questioning',
+        'Picky',
+        'Vulnerable',
+        'Truth-seeking',
+        'Negative'
+    ]
 });
 subtypesMap.set('1-4', {
     type: 'Candid',
@@ -76,7 +100,15 @@ subtypesMap.set('1-4', {
         self: false,
         others: false,
         process: true
-    }
+    },
+    description: [
+        'Solving',
+        'Impersonal',
+        'Time sensitive',
+        'Energy sensitive',
+        'Solipsistic',
+        'Lax'
+    ]
 });
 // 2-x
 subtypesMap.set('2-1', {
@@ -85,7 +117,15 @@ subtypesMap.set('2-1', {
         self: true,
         others: false,
         process: false
-    }
+    },
+    description: [
+        'Leaderlike',
+        'Self-referencing',
+        'Grandiose',
+        'Exemplifying',
+        'Growth oriented',
+        'Unrelenting'
+    ]
 });
 subtypesMap.set('2-2', {
     type: 'Accentuated',
@@ -93,7 +133,15 @@ subtypesMap.set('2-2', {
         self: true,
         others: true,
         process: true
-    }
+    },
+    description: [
+        'Gathering',
+        'Databasing',
+        'Consistent',
+        'Energetic',
+        'Curious',
+        'Patient'
+    ]
 });
 subtypesMap.set('2-3', {
     type: 'Elaborate',
@@ -101,7 +149,15 @@ subtypesMap.set('2-3', {
         self: false,
         others: false,
         process: true
-    }
+    },
+    description: [
+        'Picky',
+        'Prying',
+        'Impersonal',
+        'Limitless',
+        'Neurotic',
+        'Argumentative'
+    ]
 });
 subtypesMap.set('2-4', {
     type: 'Secondhand',
@@ -109,7 +165,15 @@ subtypesMap.set('2-4', {
         self: false,
         others: true,
         process: false
-    }
+    },
+    description: [
+        'Listening',
+        'Encouraging',
+        'Supporting',
+        'Solving',
+        'Modest',
+        'Appropriate'
+    ]
 });
 // 3-x
 subtypesMap.set('3-1', {
@@ -118,7 +182,15 @@ subtypesMap.set('3-1', {
         self: false,
         others: true,
         process: false
-    }
+    },
+    description: [
+        'Bold',
+        'Calling out',
+        'Dismissive',
+        'Testy',
+        'Skeptical',
+        'Flaw finding'
+    ]
 });
 subtypesMap.set('3-2', {
     type: 'Intrepid',
@@ -126,7 +198,15 @@ subtypesMap.set('3-2', {
         self: false,
         others: false,
         process: true
-    }
+    },
+    description: [
+        'Impersonal',
+        'Scattered',
+        'Informative',
+        'Curious',
+        'Endeavoring',
+        'Daring'
+    ]
 });
 subtypesMap.set('3-3', {
     type: 'Accentuated',
@@ -134,7 +214,15 @@ subtypesMap.set('3-3', {
         self: true,
         others: true,
         process: true
-    }
+    },
+    description: [
+        'Serious',
+        'Verbose',
+        'Sensitive',
+        'Shifting',
+        'Reactive',
+        'Neurotic'
+    ]
 });
 subtypesMap.set('3-4', {
     type: 'Trivial',
@@ -142,7 +230,15 @@ subtypesMap.set('3-4', {
         self: true,
         others: false,
         process: false
-    }
+    },
+    description: [
+        'Victimizing',
+        'Insecure',
+        'Escaping',
+        'Isolating',
+        'Looping',
+        'Bleak'
+    ]
 });
 // 4-x
 subtypesMap.set('4-1', {
@@ -151,7 +247,15 @@ subtypesMap.set('4-1', {
         self: false,
         others: false,
         process: true
-    }
+    },
+    description: [
+        'Flippant',
+        'Conclusive',
+        'Time sensitive',
+        'Impersonal',
+        'Efficient',
+        'Urgent'
+    ]
 });
 subtypesMap.set('4-2', {
     type: 'Venture',
@@ -159,7 +263,15 @@ subtypesMap.set('4-2', {
         self: false,
         others: true,
         process: false
-    }
+    },
+    description: [
+        'Open-minded',
+        'Referencing',
+        'Venturing',
+        'Stockpiling',
+        'Sourcing',
+        'Querying'
+    ]
 });
 subtypesMap.set('4-3', {
     type: 'Repellent',
@@ -167,7 +279,15 @@ subtypesMap.set('4-3', {
         self: true,
         others: false,
         process: false
-    }
+    },
+    description: [
+        'Disgusted',
+        'Negative',
+        'Annoyed',
+        'Time sensitive',
+        'Complaining',
+        'Self-absorbed'
+    ]
 });
 subtypesMap.set('4-4', {
     type: 'Accentuated',
@@ -175,7 +295,15 @@ subtypesMap.set('4-4', {
         self: true,
         others: true,
         process: true
-    }
+    },
+    description: [
+        'Connoisseur-like',
+        'Laser-like',
+        'Fearless',
+        'Honest',
+        'Practical',
+        'Penetrating'
+    ]
 });
 // x-0
 subtypesMap.set('1-0', {
@@ -184,7 +312,15 @@ subtypesMap.set('1-0', {
         self: false,
         others: false,
         process: false
-    }
+    },
+    description: [
+        'Ambivalent',
+        'Merged',
+        'Egoless',
+        'Restrained',
+        'Suggestive',
+        'Idle'
+    ]
 });
 subtypesMap.set('2-0', {
     type: 'Obscured',
@@ -192,7 +328,15 @@ subtypesMap.set('2-0', {
         self: false,
         others: false,
         process: false
-    }
+    },
+    description: [
+        'Lax/Chill',
+        'Time sensitive',
+        'Neutralizing',
+        'Non-talkative',
+        'Unresponsive',
+        'Adaptable'
+    ]
 });
 subtypesMap.set('3-0', {
     type: 'Obscured',
@@ -200,7 +344,15 @@ subtypesMap.set('3-0', {
         self: false,
         others: false,
         process: false
-    }
+    },
+    description: [
+        'Neutralizing',
+        'Avoiding',
+        'Delaying',
+        'Suppressing',
+        'Contained',
+        'Steely'
+    ]
 });
 subtypesMap.set('4-0', {
     type: 'Obscured',
@@ -208,7 +360,15 @@ subtypesMap.set('4-0', {
         self: false,
         others: false,
         process: false
-    }
+    },
+    description: [
+        'Polished',
+        'Dismissive',
+        'Snubbing',
+        'Downplaying',
+        'Ambivalent',
+        'Distracting'
+    ]
 });
 
 const aspectMap = new Map();

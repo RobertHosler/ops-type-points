@@ -23,6 +23,85 @@ export class ApSummaryComponent implements OnInit {
 
   aspects : string[];
   subtypes;
+
+  positions = [
+    {
+      position: 1,
+      self: [
+        'Certain',
+        'Sufficient',
+        'Strong'
+      ],
+      others: [
+        'Aggressive',
+        'Subjective',
+        'Vulnerable'
+      ],
+      orientation: [
+        'Flippant',
+        'Local',
+        'Distinct'
+      ],
+      description: ''
+    },
+    {
+      position: 2,
+      self: [
+        'Certain',
+        'Sufficient',
+        'Strong'
+      ],
+      others: [
+        'Aggressive',
+        'Subjective',
+        'Vulnerable'
+      ],
+      orientation: [
+        'Flippant',
+        'Local',
+        'Distinct'
+      ],
+      description: ''
+    },
+    {
+      position: 3,
+      self: [
+        'Certain',
+        'Sufficient',
+        'Strong'
+      ],
+      others: [
+        'Aggressive',
+        'Subjective',
+        'Vulnerable'
+      ],
+      orientation: [
+        'Flippant',
+        'Local',
+        'Distinct'
+      ],
+      description: ''
+    },
+    {
+      position: 4,
+      self: [
+        'Certain',
+        'Sufficient',
+        'Strong'
+      ],
+      others: [
+        'Aggressive',
+        'Subjective',
+        'Vulnerable'
+      ],
+      orientation: [
+        'Flippant',
+        'Local',
+        'Distinct'
+      ],
+      description: ''
+    },
+  ]
   
   ngOnInit(): void {
     this.apType = apModel.apTypeMap.get(this.typedPerson.apType);
@@ -39,6 +118,7 @@ export class ApSummaryComponent implements OnInit {
           name: subtypeName,
           type: subTypeObj.type,
           highContrast: subTypeObj.highContrast,
+          description: subTypeObj.description
         });
       });
     }

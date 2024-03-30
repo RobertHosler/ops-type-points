@@ -21,17 +21,25 @@ th, td {
     padding: .25rem;
     text-align: center;
 }
-td {
+td:first-child {
     background-color: #ccc;
+    vertical-align: middle;
 }
-td:not(:first-child) {
+td,
+td.light-bg {
     background-color: #ddd;
 }
-td.emphasized {
+.emphasized {
     background-color: $emphasize-green;
 }
-td.obscured {
+.obscured {
     background-color: $obscure-blue;
+}
+.results {
+    background-color: #f5f5a5;
+}
+.process {
+    background-color: #ffd8b2;
 }
 .table-wrapper {
     overflow: auto;
@@ -47,4 +55,20 @@ tr.aspect-row {
     .aspect-extra {
         display: none;
     }
+}
+
+.subtype-description-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.subtype-description {
+    padding: .25rem;
+    font-size: .8rem;
+}
+.subtype-name {
+    vertical-align: middle;
+}
+.subtype-type {
+    font-size: .8rem;
 }

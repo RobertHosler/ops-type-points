@@ -17,38 +17,46 @@
         <tbody>
             <ng-container *ngFor="let aspect of aspects; let i = index;">
             <tr class="aspect-row">
-                <td><div class="aspect-name">{{i+1}}{{aspect}}</div>
-                    
+                <td>
+                    <div class="aspect-name">{{i+1}}{{aspect}}</div>
                 </td>
-                <td><div class="aspect-position"><span class="aspect-extra">Self-</span>{{ [1, 2].includes(i+1) ? 'Positive': 'Negative' }}</div>
-                    
+                <td>
+                    <div class="aspect-position" [ngClass]="{'emphasized': [1, 2].includes(i+1), 'obscured': ![1, 2].includes(i+1)}">
+                        <span class="aspect-extra">Self-</span>{{ [1, 2].includes(i+1) ? 'Positive': 'Negative' }}
+                    </div>
                 </td>
-                <td
-                ><div class="aspect-position"><span class="aspect-extra">Others-</span>{{ [2, 4].includes(i+1) ? 'Positive': 'Negative' }}</div>
-                    
+                <td>
+                    <div class="aspect-position" [ngClass]="{'emphasized': [2, 4].includes(i+1), 'obscured': ![2, 4].includes(i+1)}">
+                            <span class="aspect-extra">Others-</span>{{ [2, 4].includes(i+1) ? 'Positive': 'Negative' }}
+                    </div>
                 </td>
-                <td
-                    
-                ><div class="aspect-position">{{ [1, 4].includes(i+1) ? 'Results': 'Process' }}<span class="aspect-extra">-Oriented</span></div>
+                <td>
+                    <div class="aspect-position" [ngClass]="{'results': [1, 4].includes(i+1), 'process': ![1, 4].includes(i+1)}">
+                        {{ [1, 4].includes(i+1) ? 'Results': 'Process' }}<span class="aspect-extra">-Oriented</span>
+                    </div>
                 </td>
             </tr>
             <tr *ngIf="subtypes" class="subtypes-row">
-                <td><div *ngIf="subtypes">{{ subtypes[i].name}} </div></td>
-                <td [ngClass]="{
-                    'emphasized': subtypes && subtypes[i].highContrast.self,
-                    'obscured': subtypes && !subtypes[i].highContrast.self}">
-                    <div class="aspect-subtype" *ngIf="subtypes">{{ subtypes[i].highContrast.self  ? 'Emphasized' : 'Obscured'}} </div>
+                <td class="subtype-name" rowspan="2">
+                    <div *ngIf="subtypes">{{ subtypes[i].name}}</div>
+                    <div *ngIf="subtypes" class="subtype-type">{{ subtypes[i].type}}</div>
                 </td>
-                <td [ngClass]="{
-                    'emphasized': subtypes && subtypes[i].highContrast.others,
-                    'obscured': subtypes && !subtypes[i].highContrast.others}">
-                    <div class="aspect-subtype" *ngIf="subtypes">{{ subtypes[i].highContrast.others ? 'Emphasized' : 'Obscured'}}</div>
+                <td>
+                    <div class="aspect-subtype" *ngIf="subtypes" [ngClass]="{'emphasized': subtypes && subtypes[i].highContrast.self, 'obscured': subtypes && !subtypes[i].highContrast.self}">{{ subtypes[i].highContrast.self  ? 'Emphasized' : 'Obscured'}} </div>
                 </td>
-                <td [ngClass]="{
-                    'emphasized': subtypes && subtypes[i].highContrast.process,
-                    'obscured': subtypes && !subtypes[i].highContrast.process}">
-                    <div class="aspect-subtype" *ngIf="subtypes">{{ subtypes[i].highContrast.process ? 'Emphasized' : 'Obscured'}}</div>
+                <td>
+                    <div class="aspect-subtype" *ngIf="subtypes" [ngClass]="{'emphasized': subtypes && subtypes[i].highContrast.others, 'obscured': subtypes && !subtypes[i].highContrast.others}">{{ subtypes[i].highContrast.others ? 'Emphasized' : 'Obscured'}}</div>
                 </td>
+                <td>
+                    <div class="aspect-subtype" *ngIf="subtypes" [ngClass]="{'emphasized': subtypes && subtypes[i].highContrast.process, 'obscured': subtypes && !subtypes[i].highContrast.process}">{{ subtypes[i].highContrast.process ? 'Emphasized' : 'Obscured'}}</div>
+                </td>
+            </tr>
+            <tr *ngIf="subtypes" class="subtypes-row">
+                <td colspan="3" class="light-bg"><div class="subtype-description-wrapper">
+                    <div class="subtype-description" *ngFor="let d of subtypes[i].description">
+                        {{d}}
+                    </div>
+                </div></td>
             </tr>
             </ng-container>
         </tbody>
