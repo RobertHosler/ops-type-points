@@ -17,8 +17,12 @@
         <tbody>
             <ng-container *ngFor="let aspect of aspects; let i = index;">
             <tr class="aspect-row">
-                <td>
+                <td *ngIf="!subtypes">
                     <div class="aspect-name">{{i+1}}{{aspect}}</div>
+                </td>
+                <td *ngIf="subtypes" rowspan="3">
+                    <div class="aspect-name">{{i+1}}{{aspect}}{{subtypes[i].name.substring(1)}}</div>
+                    <div *ngIf="subtypes" class="subtype-type">{{ subtypes[i].type}}</div>
                 </td>
                 <td>
                     <div class="aspect-position" [ngClass]="{'emphasized': [1, 2].includes(i+1), 'obscured': ![1, 2].includes(i+1)}">
@@ -37,17 +41,13 @@
                 </td>
             </tr>
             <tr *ngIf="subtypes" class="subtypes-row">
-                <td class="subtype-name" rowspan="2">
-                    <div *ngIf="subtypes">{{ subtypes[i].name}}</div>
-                    <div *ngIf="subtypes" class="subtype-type">{{ subtypes[i].type}}</div>
-                </td>
-                <td>
+                <td class="light-bg">
                     <div class="aspect-subtype" *ngIf="subtypes" [ngClass]="{'emphasized': subtypes && subtypes[i].highContrast.self, 'obscured': subtypes && !subtypes[i].highContrast.self}">{{ subtypes[i].highContrast.self  ? 'Emphasized' : 'Obscured'}} </div>
                 </td>
-                <td>
+                <td class="light-bg">
                     <div class="aspect-subtype" *ngIf="subtypes" [ngClass]="{'emphasized': subtypes && subtypes[i].highContrast.others, 'obscured': subtypes && !subtypes[i].highContrast.others}">{{ subtypes[i].highContrast.others ? 'Emphasized' : 'Obscured'}}</div>
                 </td>
-                <td>
+                <td class="light-bg">
                     <div class="aspect-subtype" *ngIf="subtypes" [ngClass]="{'emphasized': subtypes && subtypes[i].highContrast.process, 'obscured': subtypes && !subtypes[i].highContrast.process}">{{ subtypes[i].highContrast.process ? 'Emphasized' : 'Obscured'}}</div>
                 </td>
             </tr>
