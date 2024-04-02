@@ -946,29 +946,82 @@ const apTypes: ApTypeModel[] = [
 ];
 
 const apSextaMap = new Map();
-apSextaMap.set('Ena', {
+apSextaMap.set('ENA', {
   types: ['FVLE', 'FLVE', 'EVLF', 'ELVF'],
-  color: 'ap-orange'
+  color: 'ap-orange',
+  results: ['F', 'E'],
+  process: ['V', 'L'],
+  evolution: ['Experiencing chaos. Seeking the unknown and trying to understand what is happening through emotions, raw sensations, and comfort (or discomfort).'],
+  role: ['Beginning lifecycles. Starting anew. Uncovering secrets, taboo, the hidden and bringing them to light through playful banter and discussion. Prefer comfort in the immediate environment, discomfort in the outside environment. Separating work and pleasure. Hands-on discovery of the new and interesting.'],
+  resulting: ['excitement, pleasure, enjoyment, and entertainment'],
+  resulting2: ['F + E + Results = Desire to achieve emotional results in the physical realm.'],
+  processing: ['action plans, schemes, expert opinions, and agendas'],
+  processing2: ['V + L + Process = Willingness to dive into the complex processing of plans and goals.'],
+  // culture: ['Enas are often found on the outskirts of any culture either through isolation, escaping or becoming anti-authoritarian. These types usually dedicate their lives to exploring, constantly reinventing themselves, or anxiously awaiting the next big high they can attain. There are no limitations that these types will accept for themselves as all things are potential shifts towards a more interesting present moment. This sexta is integral to humanity because they are the first groups of people to actively hoist themselves into new ideas, pleasures, adventures, experiments, and explorations.'],
+  culture: ['Enas are often found on the outskirts of any culture either through isolation, escaping or becoming anti-authoritarian. These types usually dedicate their lives to exploring, constantly reinventing themselves, or anxiously awaiting the next big high they can attain. There are no limitations that these types will accept for themselves as all things are potential shifts towards a more interesting present moment. This sexta is integral to humanity because they are the first groups of people to actively hoist themselves into new ideas, pleasures, adventures, experiments, and explorations.'],
+  link: 'https://www.attitudinalpsyche.com/personality-profiles/ena/'
 });
-apSextaMap.set('Dio', {
+apSextaMap.set('DIO', {
   types: ['LVFE', 'LFVE', 'EVFL', 'EFVL'],
-  color: 'ap-blue'
+  color: 'ap-blue',
+  results: ['E', 'L'],
+  process: ['F', 'V'],
+  evolution: ['Organizing chaos. Engaging in endeavors that fulfill needs by promoting organization and clear-headedness.'],
+  role: ['Interacting with the environment. Organizing information into systems and routines. Discovering the beauty of what is here in the moment through strong, vibrant emotion. Viewing life as a series of lessons that can be pulled from a bookshelf as needed. Managing chaos by systematizing information and enforcing efficient task-work.'],
+  resulting: ['education, artistry, vocalization, communication and ideology'],
+  processing: ['configurations, organization of the environment, composition, commands, and survival skills'],
+  culture: ['Dios are usually found in the most technically active parts of any culture. This sexta is extremely hands on and needs to see the raw physical quality and potential of all things. For this reason, Dios are tinkerers. They love to try things out to see if there is any educational or artistic value that can be attained from it. Chaos is something that these types seek out, as it must be fixed or organized into an opportunity. This sexta is integral to humanity because they decide what becomes acceptable to integrate into society: be it for entertainment, education, or practical solutions.'],
+  link: 'https://www.attitudinalpsyche.com/personality-profiles/dio/'
 });
-apSextaMap.set('Tria', {
+apSextaMap.set('TRIA', {
   types: ['VLFE', 'VFLE', 'ELFV', 'EFLV'],
-  color: 'ap-red'
+  color: 'ap-red',
+  results: ['V', 'E'],
+  process: ['F', 'L'],
+  evolution: [''],
+  role: [''],
+  resulting: ['inspiration, motivation, teamwork, and diplomacy'],
+  processing: ['precise details, logistics, coordination, and analytical accuracy'],
+  culture: [''],
+  link: 'https://www.attitudinalpsyche.com/personality-profiles/tria/'
 });
-apSextaMap.set('Tessera', {
+apSextaMap.set('TESSERA', {
   types: ['VFEL', 'VEFL', 'LFEV', 'LEFV'],
-  color: 'ap-pink'
+  color: 'ap-pink',
+  results: ['V', 'L'],
+  process: ['F', 'E'],
+  evolution: [''],
+  role: [''],
+  resulting: ['action plans, schemes, expert opinions, and agendas'],
+  processing: ['excitement, pleasure, enjoyment, and entertainment'],
+  culture: [''],
+  link: 'https://www.attitudinalpsyche.com/personality-profiles/tessera/'
 });
-apSextaMap.set('Pente', {
+apSextaMap.set('PENTE', {
   types: ['VLEF', 'VELF', 'FLEV', 'FELV'],
-  color: 'ap-yellow'
+  color: 'ap-yellow',
+  results: ['F', 'V'],
+  process: ['E', 'L'],
+  evolution: [''],
+  role: [''],
+  resulting: ['configurations, organization of the environment, composition, commands, and survival skills'],
+  processing: ['education, artistry, vocalization, communication and ideology'],
+  culture: [''],
+  link: 'https://www.attitudinalpsyche.com/personality-profiles/pente/'
 });
-apSextaMap.set('Exi', {
+apSextaMap.set('EXI', {
   types: ['LVEF', 'LEVF', 'FVEL', 'FEVL'],
-  color: 'ap-green'
+  color: 'ap-green',
+  results: ['F', 'L'],
+  process: ['V', 'E'],
+  evolution: ['Solving chaos. Resolving the issues that plague our personal and professional lives through wholeness, happiness, and pleasing sensation.'],
+  role: ['Ending cycles. Bringing joy to one’s life. Learning how to harness emotions and willpower into happy solitude. Finding who you are and why that matters. Helping and serving the self as best as possible, while documenting the journey. Becoming one with all we’ve built.'],
+  resulting: ['precise details, logistics, coordination, and analytical accuracy'],
+  resulting2: ['F + L + Results = Desire to achieve logical results in the physical realm.'],
+  processing: ['inspiration, motivation, teamwork, and diplomacy'],
+  processing2: ['V + E + Process = Willingness to dive into the complexities of '],
+  culture: ['Exis can be found in the thriving, flourishing, and wholesome parts of any culture. These types desire to feel a sense of internal completion no matter what they decide to do in life. For this reason, Exis need easy living where the only struggles are those that you have chosen for yourself. Everything must have a reason or else it is extraneous information that could potentially cause needless discord. This sexta is integral to humanity because they show us the roadmap to living a fulfilled life without worries, pointless struggles, or caving into the unfair expectations of others.'],
+  link: 'https://www.attitudinalpsyche.com/personality-profiles/exi/'
 });
 
 const apTypeNames = [];

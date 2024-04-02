@@ -72,6 +72,7 @@ import { ApLinksComponent } from './ap-links/ap-links.component';
 import { ApFunctionsComponent } from './ap-functions/ap-functions.component';
 import { ApRelationsComponent } from './ap-relations/ap-relations.component';
 import { ApDescriptionComponent } from './ap-description/ap-description.component';
+import { ApSextaComponent } from './ap-sexta/ap-sexta.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -133,7 +134,8 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     ApLinksComponent,
     ApFunctionsComponent,
     ApRelationsComponent,
-    ApDescriptionComponent
+    ApDescriptionComponent,
+    ApSextaComponent
   ],
   imports: [
     HttpClientModule,
