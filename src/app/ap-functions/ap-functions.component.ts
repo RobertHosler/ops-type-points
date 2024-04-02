@@ -59,8 +59,8 @@ export class ApFunctionsComponent {
   }
 
   restrainedForce(apFunction) {
-    return apFunction.slots[0] + this.typedPerson.apType.charAt(apFunction.slots[1]-1) + ' -> ' +
-    apFunction.slots[1] + this.typedPerson.apType.charAt(apFunction.slots[0]-1);
+    return apFunction.slots[1] + this.typedPerson.apType.charAt(apFunction.slots[1]-1) + ' -> ' +
+    apFunction.slots[0] + this.typedPerson.apType.charAt(apFunction.slots[0]-1);
   }
 
   slotsIllustration(apFunction) {
