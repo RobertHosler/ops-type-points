@@ -63,6 +63,45 @@
     </table>
 </div>
 
+
+<div *ngIf="subtypes">
+    <h4>Subtype Summary</h4>
+    <table class="table">
+        <thead>
+            <th></th>
+            <ng-container *ngFor="let aspect of aspects; let i = index;">
+                <th class="aspect-row">
+                    <div class="aspect-name">{{i+1}}{{aspect}}{{subtypes[i].name.substring(1)}}</div>
+                </th>
+            </ng-container>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Self</td>
+                <td><div [ngClass]="{'emphasized': subtypes[0].highContrast.self, 'obscured': subtypes && !subtypes[0].highContrast.self}">+</div></td>
+                <td><div [ngClass]="{'emphasized': subtypes[1].highContrast.self, 'obscured': subtypes && !subtypes[1].highContrast.self}">+</div></td>
+                <td><div [ngClass]="{'emphasized-negative': subtypes[2].highContrast.self, 'obscured': subtypes && !subtypes[2].highContrast.self}">-</div></td>
+                <td><div [ngClass]="{'emphasized-negative': subtypes[3].highContrast.self, 'obscured': subtypes && !subtypes[3].highContrast.self}">-</div></td>
+            </tr>
+            <tr>
+                <td>Other</td>
+                <td><div [ngClass]="{'emphasized-negative': subtypes[0].highContrast.others, 'obscured': subtypes && !subtypes[0].highContrast.others}">-</div></td>
+                <td><div [ngClass]="{'emphasized': subtypes[1].highContrast.others, 'obscured': subtypes && !subtypes[1].highContrast.others}">+</div></td>
+                <td><div [ngClass]="{'emphasized-negative': subtypes[2].highContrast.others, 'obscured': subtypes && !subtypes[2].highContrast.others}">-</div></td>
+                <td><div [ngClass]="{'emphasized': subtypes[3].highContrast.others, 'obscured': subtypes && !subtypes[3].highContrast.others}">+</div></td>
+            </tr>
+            <tr>
+                <td>Method</td>
+                <td><div [ngClass]="{'emphasized': subtypes[0].highContrast.process, 'obscured': subtypes && !subtypes[0].highContrast.process}">R</div></td>
+                <td><div [ngClass]="{'emphasized': subtypes[1].highContrast.process, 'obscured': subtypes && !subtypes[1].highContrast.process}">P</div></td>
+                <td><div [ngClass]="{'emphasized': subtypes[2].highContrast.process, 'obscured': subtypes && !subtypes[2].highContrast.process}">P</div></td>
+                <td><div [ngClass]="{'emphasized': subtypes[3].highContrast.process, 'obscured': subtypes && !subtypes[3].highContrast.process}">R</div></td>
+            </tr>
+    
+        </tbody>
+    </table>
+</div>
+
 <div *ngIf="false && typedPerson.apSubtype">
     <table class="table">
         <thead>
