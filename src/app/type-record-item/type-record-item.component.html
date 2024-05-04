@@ -111,17 +111,26 @@
         {{ typeRecord.name }}
       </div>
       <div class="type">
-        <div *ngIf="typeRecord.type && opsShow">
+        <div *ngIf="typeRecord.type && showTypes.ops">
           {{ typeRecord.type }}
         </div>
-        <div *ngIf="typeRecord.fullEType && enneaShow">
+        <div *ngIf="typeRecord.fullEType && showTypes.ennea">
           {{ typeRecord.fullEType }}
         </div>
-        <div *ngIf="typeRecord.wssType && wssShow">
+        <div *ngIf="typeRecord.wssType && showTypes.wss">
           {{ typeRecord.wssType }}
         </div>
-        <div *ngIf="typeRecord.apType && apShow">
-          {{ typeRecord.apType.substring(0,2) }} - {{ typeRecord.apSubtype }}
+        <div *ngIf="typeRecord.apType && showTypes.ap">
+          <ng-container *ngFor="let aspect of typeRecord.apType.split('');">
+            <span class="ap-aspect ap-core"
+            [ngClass]="{
+              'ap-v': aspect === 'V',
+              'ap-e': aspect === 'E',
+              'ap-l': aspect === 'L',
+              'ap-f': aspect === 'F',
+            }">{{ aspect }}</span>
+          </ng-container>
+          <span *ngIf="typeRecord.apSubtype">({{ typeRecord.apSubtype }})</span>
         </div>
       </div>
       <ng-container
