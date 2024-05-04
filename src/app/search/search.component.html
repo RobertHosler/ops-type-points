@@ -6,379 +6,383 @@
   </div>
 </div>
 <div *ngIf="routerInit && !initialLoad">
-  <div #container class="container pt-3">
-    <div *ngIf="false" class="img-right img-heading">
-      <img src="/assets/images/database.png" />
-    </div>
-    <div *ngIf="!searchInitiated" class="search-top">
-      <h1>
-        <span class="search-heading">Search the </span
-        ><span class="sp-branding">Database</span>
-      </h1>
-      <div>
-        <p class="lead mb-2">
-          <strong>{{ recordCount }}</strong> people typed in the
-          <strong (click)="scrollTo(opsHeader)">Objective Personality</strong>,
-          <strong (click)="scrollTo(enneaHeader)">Enneagram</strong>, 
-          <strong (click)="scrollTo(wssHeader)">Socionics</strong>, 
-          and/or <strong (click)="scrollTo(apHeader)">Attitudinal Psyche</strong>. 
-          Try entering a type, a name, or see below for more advanced tricks.
-        </p>
-        <div>
+  <div #container class="pt-3">
 
-        </div>
+    <div class="container">
+
+      <div *ngIf="false" class="img-right img-heading">
+        <img src="/assets/images/database.png" />
       </div>
-      <div class="d-none d-sm-flex my-2" *ngIf="false">
-        <app-type-indicator [option]="1"></app-type-indicator>
-        <div class="mx-3">
-          <app-type-indicator
-            [option]="1"
-            type="MF-Fe/Ni-BP/C(S)"
-          ></app-type-indicator>
-        </div>
-        <div class="mx-3">
-          <app-type-indicator
-            [option]="1"
-            type="FM-Fi/Se-CS/B(P)"
-          ></app-type-indicator>
-        </div>
-        <div class="mx-3">
-          <app-type-indicator
-            [option]="1"
-            type="FF-Ti/Ni-SB/P(C)"
-          ></app-type-indicator>
-        </div>
-      </div>
-    </div>
-    <div class="clear-right"></div>
-    <div class="my-2">
-      <div class="form-group mb-2">
-        <!-- <label for="name" class="name-label">Search by Name or Type:</label> -->
-        <div class="input-group">
-          <input
-            #nameInput
-            id="name"
-            type="text"
-            class="form-control border-primary"
-            minlength="2"
-            required
-            autocomplete="off"
-            [placeholder]="placeholderText"
-            (keyup)="searchAll()"
-            [(ngModel)]="textString"
-            name="name"
-          />
-          <div class="input-group-append">
-            <button class="btn btn-outline-primary clear-button" (click)="clearSearch()">
-              Clear
-            </button>
-          </div>
-        </div>
-        <div class="help small mb-3" *ngIf="false">
-          Searches for the text within the name and types field of the person
-          record. Examples:
-          <a [routerLink]="['/search']" [queryParams]="{ text: 'john cena' }"
-            >john cena</a
-          >,
-          <a [routerLink]="['/search']" [queryParams]="{ text: 'sp/so - 6w7' }"
-            >sp/so - 6w7</a
-          >,
-          <a [routerLink]="['/search']" [queryParams]="{ text: 'ff-ti/se' }"
-            >ff-ti/se</a
-          >
-        </div>
-      </div>
-      <div *ngIf="false">
-        <div class="mb-3">
-          <span class="search-type-label">Additional Search Options</span>
+      <div *ngIf="!searchInitiated" class="search-top">
+        <h1>
+          <span class="search-heading">Search the </span
+          ><span class="sp-branding">Database</span>
+        </h1>
+        <div>
+          <p class="lead mb-2">
+            <strong>{{ recordCount }}</strong> people typed in the
+            <strong (click)="scrollTo(opsHeader)">Objective Personality</strong>,
+            <strong (click)="scrollTo(enneaHeader)">Enneagram</strong>, 
+            <strong (click)="scrollTo(wssHeader)">Socionics</strong>, 
+            and/or <strong (click)="scrollTo(apHeader)">Attitudinal Psyche</strong>. 
+            Try entering a type, a name, or see below for more advanced tricks.
+          </p>
           <div>
-            <button
-              *ngFor="let st of searchToggles"
-              class="btn btn-gray mr-2"
-              (click)="toggleSearchOptions(st.name)"
-              [ngClass]="{ active: st.active }"
-            >
-              {{ st.name }}
-            </button>
+
           </div>
         </div>
-        <div [ngClass]="{ 'd-none': !enneaToggle.active }">
-          <ng-component *ngTemplateOutlet="ennea"></ng-component>
-        </div>
-        <div [ngClass]="{ 'd-none': !opsToggle.active }">
-          <ng-component *ngTemplateOutlet="ops"></ng-component>
-        </div>
-      </div>
-      <div class="button-wrapper">
-        <div class="d-inline-block w-100">
-          <button
-            class="btn btn-gray btn-sm mr-1"
-            [ngClass]="{ active: showHelp }"
-            (click)="showHelp = !showHelp"
-          >
-            Help
-          </button>
-          <button
-            class="btn btn-gray btn-sm mr-1"
-            [ngClass]="{ active: showSources }"
-            (click)="showSources = !showSources"
-          >
-            Sources
-          </button>
-          <button
-            *ngIf="searchInitiated"
-            class="btn btn-gray btn-sm mr-1"
-            [ngClass]="{ active: showSort }"
-            (click)="showSort = !showSort"
-          >
-            Sort
-          </button>
-          <button
-            *ngIf="searchInitiated"
-            class="btn btn-gray btn-sm mr-1"
-            [ngClass]="{ active: showDisplay }"
-            (click)="showDisplay = !showDisplay"
-          >
-            Display
-          </button>
-          <button
-            *ngIf="searchInitiated"
-            class="btn btn-gray btn-sm mr-1"
-            [ngClass]="{ active: showPrevious }"
-            (click)="showPrevious = !showPrevious"
-          >
-            History
-          </button>
-        </div>
-        <div class="d-inline-block" *ngIf="showSort">
-          <div class="small">Sort by:</div>
-          <div class="btn-group">
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: sortBy === 'name' }"
-              (click)="resort('name')"
-            >
-              Name
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: sortBy === 'ops' }"
-              (click)="resort('ops')"
-            >
-              OPS
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: sortBy === 'ennea' }"
-              (click)="resort('ennea')"
-            >
-              Ennea
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: sortBy === 'wss' }"
-              (click)="resort('wss')"
-            >
-              Socionics
-            </button>
+        <div class="d-none d-sm-flex my-2" *ngIf="false">
+          <app-type-indicator [option]="1"></app-type-indicator>
+          <div class="mx-3">
+            <app-type-indicator
+              [option]="1"
+              type="MF-Fe/Ni-BP/C(S)"
+            ></app-type-indicator>
           </div>
-        </div>
-        <div class="d-inline-block" *ngIf="showSort">
-          <div class="small">Sort by Date:</div>
-          <div class="btn-group">
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: sortBy === 'modified' }"
-              (click)="resort('modified')"
-            >
-              Modified
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: sortBy === 'created' }"
-              (click)="resort('created')"
-            >
-              Created
-            </button>
+          <div class="mx-3">
+            <app-type-indicator
+              [option]="1"
+              type="FM-Fi/Se-CS/B(P)"
+            ></app-type-indicator>
           </div>
-        </div>
-        <div class="d-inline-block" *ngIf="showDisplay">
-          <div class="small">Display Format:</div>
-          <div class="btn-group">
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: !cards }"
-              (click)="cards = !cards"
-            >
-              Default
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: cards }"
-              (click)="cards = !cards"
-            >
-              Image Only
-            </button>
-          </div>
-        </div>
-        <div class="d-inline-block" *ngIf="showDisplay">
-          <div class="small">Show Types:</div>
-          <div class="btn-group">
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: showTypes.ops && showTypes.ennea && showTypes.wss && showTypes.ap }"
-              (click)="showType('all')"
-            >
-              ALL
-            </button>
-          <div class="btn-group">
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: showTypes.ops }"
-              (click)="showType('ops')"
-            >
-              OPS
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: showTypes.ennea }"
-              (click)="showType('ennea')"
-            >
-              Enneagram
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: showTypes.wss }"
-              (click)="showType('wss')"
-            >
-              Socionics
-            </button>
-            <button
-              class="btn btn-gray btn-sm"
-              [ngClass]="{ active: showTypes.ap }"
-              (click)="showType('ap')"
-            >
-              AP
-            </button>
+          <div class="mx-3">
+            <app-type-indicator
+              [option]="1"
+              type="FF-Ti/Ni-SB/P(C)"
+            ></app-type-indicator>
           </div>
         </div>
       </div>
-      <div *ngIf="showHelp" class="mt-2">
-        <ng-component *ngTemplateOutlet="tips"></ng-component>
-      </div>
-      <div class="mt-2">
-        <small ><u class="mr-1">Try our new terms for Attitudinal Psyche Types:</u><a [routerLink]="['/search']"
-        [queryParams]="{ text: 'AP' }">Attitudinal Psyche (AP)</a>,
-        <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'VELF' }">VELF</a>,
-        <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'FLEV' }">FLEV</a>,
-        <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'ena' }">ena</a>,
-        <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'dio' }">dio</a>,
-        <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'tria' }">tria</a>,
-        <a [routerLink]="['/search']"
-        [queryParams]="{ text: '2f' }">2F</a>,
-        <a [routerLink]="['/search']"
-        [queryParams]="{ text: '3V' }">3V</a>,
-        <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'vop' }">Others Positive Volition (vop)</a>,
-        <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'lro' }">Results Oriented Logic (lro)</a>
-      </small>
-      </div>
-      <div class="mt-2" *ngIf="searches.size > 0 && showPrevious">
-        <div>Search History</div>
-        <div class="previous-search-wrapper">
-          <span
-            *ngFor="let previousSearch of searches | keyvalue"
-            class="previous-search"
-          >
-            <a
-              [routerLink]="['/search']"
-              [queryParams]="{ text: previousSearch.key }"
-              >{{ previousSearch.value.term }} ({{
-                previousSearch.value.count
-              }})</a
+      <div class="clear-right"></div>
+      <div class="my-2">
+        <div class="form-group mb-2">
+          <!-- <label for="name" class="name-label">Search by Name or Type:</label> -->
+          <div class="input-group">
+            <input
+              #nameInput
+              id="name"
+              type="text"
+              class="form-control border-primary"
+              minlength="2"
+              required
+              autocomplete="off"
+              [placeholder]="placeholderText"
+              (keyup)="searchAll()"
+              [(ngModel)]="textString"
+              name="name"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary clear-button" (click)="clearSearch()">
+                Clear
+              </button>
+            </div>
+          </div>
+          <div class="help small mb-3" *ngIf="false">
+            Searches for the text within the name and types field of the person
+            record. Examples:
+            <a [routerLink]="['/search']" [queryParams]="{ text: 'john cena' }"
+              >john cena</a
+            >,
+            <a [routerLink]="['/search']" [queryParams]="{ text: 'sp/so - 6w7' }"
+              >sp/so - 6w7</a
+            >,
+            <a [routerLink]="['/search']" [queryParams]="{ text: 'ff-ti/se' }"
+              >ff-ti/se</a
             >
-            <button (click)="searches.delete(previousSearch.key)">X</button>
-          </span>
-          <button
-            *ngIf="searches.size > 4"
-            (click)="searches.clear()"
-            class="previous-search previous-search-clear"
+          </div>
+        </div>
+        <div *ngIf="false">
+          <div class="mb-3">
+            <span class="search-type-label">Additional Search Options</span>
+            <div>
+              <button
+                *ngFor="let st of searchToggles"
+                class="btn btn-gray mr-2"
+                (click)="toggleSearchOptions(st.name)"
+                [ngClass]="{ active: st.active }"
+              >
+                {{ st.name }}
+              </button>
+            </div>
+          </div>
+          <div [ngClass]="{ 'd-none': !enneaToggle.active }">
+            <ng-component *ngTemplateOutlet="ennea"></ng-component>
+          </div>
+          <div [ngClass]="{ 'd-none': !opsToggle.active }">
+            <ng-component *ngTemplateOutlet="ops"></ng-component>
+          </div>
+        </div>
+        <div class="button-wrapper">
+          <div class="d-inline-block w-100">
+            <button
+              class="btn btn-gray btn-sm mr-1"
+              [ngClass]="{ active: showHelp }"
+              (click)="showHelp = !showHelp"
+            >
+              Help
+            </button>
+            <button
+              class="btn btn-gray btn-sm mr-1"
+              [ngClass]="{ active: showSources }"
+              (click)="showSources = !showSources"
+            >
+              Sources
+            </button>
+            <button
+              *ngIf="searchInitiated"
+              class="btn btn-gray btn-sm mr-1"
+              [ngClass]="{ active: showSort }"
+              (click)="showSort = !showSort"
+            >
+              Sort
+            </button>
+            <button
+              *ngIf="searchInitiated"
+              class="btn btn-gray btn-sm mr-1"
+              [ngClass]="{ active: showDisplay }"
+              (click)="showDisplay = !showDisplay"
+            >
+              Display
+            </button>
+            <button
+              *ngIf="searchInitiated"
+              class="btn btn-gray btn-sm mr-1"
+              [ngClass]="{ active: showPrevious }"
+              (click)="showPrevious = !showPrevious"
+            >
+              History
+            </button>
+          </div>
+          <div class="d-inline-block" *ngIf="showSort">
+            <div class="small">Sort by:</div>
+            <div class="btn-group">
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: sortBy === 'name' }"
+                (click)="resort('name')"
+              >
+                Name
+              </button>
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: sortBy === 'ops' }"
+                (click)="resort('ops')"
+              >
+                OPS
+              </button>
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: sortBy === 'ennea' }"
+                (click)="resort('ennea')"
+              >
+                Ennea
+              </button>
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: sortBy === 'wss' }"
+                (click)="resort('wss')"
+              >
+                Socionics
+              </button>
+            </div>
+          </div>
+          <div class="d-inline-block" *ngIf="showSort">
+            <div class="small">Sort by Date:</div>
+            <div class="btn-group">
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: sortBy === 'modified' }"
+                (click)="resort('modified')"
+              >
+                Modified
+              </button>
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: sortBy === 'created' }"
+                (click)="resort('created')"
+              >
+                Created
+              </button>
+            </div>
+          </div>
+          <div class="d-inline-block" *ngIf="showDisplay">
+            <div class="small">Display Format:</div>
+            <div class="btn-group">
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: !cards }"
+                (click)="cards = !cards"
+              >
+                Default
+              </button>
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: cards }"
+                (click)="cards = !cards"
+              >
+                Image Only
+              </button>
+            </div>
+          </div>
+          <div class="d-inline-block" *ngIf="showDisplay">
+            <div class="small">Show Types:</div>
+            <div class="btn-group">
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: showTypes.ops && showTypes.ennea && showTypes.wss && showTypes.ap }"
+                (click)="showType('all')"
+              >
+                ALL
+              </button>
+            <div class="btn-group">
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: showTypes.ops }"
+                (click)="showType('ops')"
+              >
+                OPS
+              </button>
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: showTypes.ennea }"
+                (click)="showType('ennea')"
+              >
+                Enneagram
+              </button>
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: showTypes.wss }"
+                (click)="showType('wss')"
+              >
+                Socionics
+              </button>
+              <button
+                class="btn btn-gray btn-sm"
+                [ngClass]="{ active: showTypes.ap }"
+                (click)="showType('ap')"
+              >
+                AP
+              </button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showHelp" class="mt-2">
+          <ng-component *ngTemplateOutlet="tips"></ng-component>
+        </div>
+        <div class="mt-2">
+          <small ><u class="mr-1">Try our new terms for Attitudinal Psyche Types:</u><a [routerLink]="['/search']"
+          [queryParams]="{ text: 'AP' }">Attitudinal Psyche (AP)</a>,
+          <a [routerLink]="['/search']"
+          [queryParams]="{ text: 'VELF' }">VELF</a>,
+          <a [routerLink]="['/search']"
+          [queryParams]="{ text: 'FLEV' }">FLEV</a>,
+          <a [routerLink]="['/search']"
+          [queryParams]="{ text: 'ena' }">ena</a>,
+          <a [routerLink]="['/search']"
+          [queryParams]="{ text: 'dio' }">dio</a>,
+          <a [routerLink]="['/search']"
+          [queryParams]="{ text: 'tria' }">tria</a>,
+          <a [routerLink]="['/search']"
+          [queryParams]="{ text: '2f' }">2F</a>,
+          <a [routerLink]="['/search']"
+          [queryParams]="{ text: '3V' }">3V</a>,
+          <a [routerLink]="['/search']"
+          [queryParams]="{ text: 'vop' }">Others Positive Volition (vop)</a>,
+          <a [routerLink]="['/search']"
+          [queryParams]="{ text: 'lro' }">Results Oriented Logic (lro)</a>
+        </small>
+        </div>
+        <div class="mt-2" *ngIf="searches.size > 0 && showPrevious">
+          <div>Search History</div>
+          <div class="previous-search-wrapper">
+            <span
+              *ngFor="let previousSearch of searches | keyvalue"
+              class="previous-search"
+            >
+              <a
+                [routerLink]="['/search']"
+                [queryParams]="{ text: previousSearch.key }"
+                >{{ previousSearch.value.term }} ({{
+                  previousSearch.value.count
+                }})</a
+              >
+              <button (click)="searches.delete(previousSearch.key)">X</button>
+            </span>
+            <button
+              *ngIf="searches.size > 4"
+              (click)="searches.clear()"
+              class="previous-search previous-search-clear"
+            >
+              Clear All
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="p-1 data-sources mb-3" *ngIf="showSources">
+        <div class="mb-1 d-inline-block">
+          <strong>Objective Personality</strong> type data courtesy of the
+          <a target="_blank" [href]="opsDbSource">Objective Personality Database</a
+          >, a project by Ryan and Jana based on typings by Dave and Shannon Powers.
+          <a target="_blank" [href]="opsDbInfo">Learn More</a>.
+          Additional OPS data added where YouTube type reveals and/or 
+          interviews exist. <a [href]="appLinks.contact" target="_blank">Contact me</a>
+          to be included or excluded from this app and/or update your picture.  Some
+          additional types from classes and YouTube videos provided via our own Database
+          when not yet available via the OPS Database.
+        </div>
+        <div class="mb-1">
+          <strong>Enneagram</strong> type data sourced from the
+          <a [href]="enneagrammerLink" target="_blank">Enneagrammer Database</a>.
+          Continue to explore on their
+          <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
+          learn more about their take on the Enneagram at
+          <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>.  You can also 
+          view all the <a [routerLink]="['daa']">DAA Classes in Order</a>.
+          Additional Enneagram data provided through a collaboration with <a [routerLink]="['/search']"
+          [queryParams]="{ text: 'Fay Willow' }">Fay Willow</a>.  Search <a [routerLink]="['/search']"
+          [queryParams]="{ text: 'faytabase' }">faytabase</a> to see the full list.
+        </div>
+        <div class="mb-1">
+          <strong>Socionics</strong> type data sourced from the World Socionic's
+          Society's
+          <a
+            href="https://www.facebook.com/notes/world-socionics-society/wss-public-figure-benchmark/1974788942540812/" target="_blank"
+            >Public Figure Benchmark</a
+          >. Learn more about WSS on their
+          <a href="https://www.facebook.com/groups/584205738265813" target="_blank"
+            >Facebook page</a
           >
-            Clear All
-          </button>
+          or
+          <a
+            href="https://www.youtube.com/c/WorldSocionicsSocietyWSS"
+            target="_blank"
+            >YouTube Channel</a
+          >.
+        </div>
+        <div class="mb-1">
+          <strong>Attitudinal Psyche</strong> type data sourced from the 
+          <a
+            href="https://www.attitudinalpsyche.com/theory/database/" target="_blank"
+            >Notable People Database</a
+          >. Learn more about Attitudinal Psyche on 
+          <a href="https://www.attitudinalpsyche.com/" target="_blank"
+            >their website</a
+          >
+          or
+          <a
+            href="https://www.youtube.com/c/attitudinalpsyche"
+            target="_blank"
+            >YouTube Channel</a
+          >.
         </div>
       </div>
     </div>
-    <div class="p-1 data-sources mb-3" *ngIf="showSources">
-      <div class="mb-1 d-inline-block">
-        <strong>Objective Personality</strong> type data courtesy of the
-        <a target="_blank" [href]="opsDbSource">Objective Personality Database</a
-        >, a project by Ryan and Jana based on typings by Dave and Shannon Powers.
-        <a target="_blank" [href]="opsDbInfo">Learn More</a>.
-        Additional OPS data added where YouTube type reveals and/or 
-        interviews exist. <a [href]="appLinks.contact" target="_blank">Contact me</a>
-        to be included or excluded from this app and/or update your picture.  Some
-        additional types from classes and YouTube videos provided via our own Database
-        when not yet available via the OPS Database.
-      </div>
-      <div class="mb-1">
-        <strong>Enneagram</strong> type data sourced from the
-        <a [href]="enneagrammerLink" target="_blank">Enneagrammer Database</a>.
-        Continue to explore on their
-        <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
-        learn more about their take on the Enneagram at
-        <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>.  You can also 
-        view all the <a [routerLink]="['daa']">DAA Classes in Order</a>.
-        Additional Enneagram data provided through a collaboration with <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'Fay Willow' }">Fay Willow</a>.  Search <a [routerLink]="['/search']"
-        [queryParams]="{ text: 'faytabase' }">faytabase</a> to see the full list.
-      </div>
-      <div class="mb-1">
-        <strong>Socionics</strong> type data sourced from the World Socionic's
-        Society's
-        <a
-          href="https://www.facebook.com/notes/world-socionics-society/wss-public-figure-benchmark/1974788942540812/" target="_blank"
-          >Public Figure Benchmark</a
-        >. Learn more about WSS on their
-        <a href="https://www.facebook.com/groups/584205738265813" target="_blank"
-          >Facebook page</a
-        >
-        or
-        <a
-          href="https://www.youtube.com/c/WorldSocionicsSocietyWSS"
-          target="_blank"
-          >YouTube Channel</a
-        >.
-      </div>
-      <div class="mb-1">
-        <strong>Attitudinal Psyche</strong> type data sourced from the 
-        <a
-          href="https://www.attitudinalpsyche.com/theory/database/" target="_blank"
-          >Notable People Database</a
-        >. Learn more about Attitudinal Psyche on 
-        <a href="https://www.attitudinalpsyche.com/" target="_blank"
-          >their website</a
-        >
-        or
-        <a
-          href="https://www.youtube.com/c/attitudinalpsyche"
-          target="_blank"
-          >YouTube Channel</a
-        >.
-      </div>
+    <div
+      *ngIf="searchInitiated && displayedRecords && displayedRecords.length > 0"
+      class="alert alert-info mt-3"
+    >
+      Search found {{ displayedRecords.length }} results.
     </div>
-  </div>
-  <div
-    *ngIf="searchInitiated && displayedRecords && displayedRecords.length > 0"
-    class="alert alert-info mt-3"
-  >
-    Search found {{ displayedRecords.length }} results.
   </div>
 
   <div class="search-instructions mt-4" *ngIf="!searchInitiated">
