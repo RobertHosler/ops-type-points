@@ -150,6 +150,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       if (!newTextString) {
         newTextString = params.get('name');
       }
+
       this.eTypes.forEach((eType) => {
         if (eType.name === params.get('et')) {
           this.activeEType = eType;
@@ -167,15 +168,28 @@ export class SearchComponent implements OnInit, OnDestroy {
           ? params.get(option.coin.param)
           : '';
       });
+
+      const searchCallback = () => {
+        const showString = params.get('show');
+        if (showString) {
+          this.showTypes.ops = showString.includes('ops');
+          this.showTypes.wss = showString.includes('wss');
+          this.showTypes.ennea = showString.includes('ennea');
+          this.showTypes.ap = showString.includes('ap');
+          this.updateRoute();
+        }
+      };
+
       if (newTextString !== this.textString) {
         this.textString = newTextString;
         if (!newTextString) {
           this.searchInitiated = false;
           this.initialLoad = false;
         } else {
-          this.searchAll();
+          this.searchAll(searchCallback);
         }
       }
+      
     });
   }
 
@@ -437,7 +451,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   /**
    * Initiate search for all possible options.
    */
-  searchAll() {
+  searchAll(callback?) {
     // console.time('search');
     // initiate search
     this.searchRequests++;
@@ -473,7 +487,6 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.showTypes.wss = true;
           this.showTypes.ap = true;
         }
-        this.showType();
         this.updateRoute();
         if (this.initialLoad) {
           this.initialLoad = false;
@@ -481,6 +494,9 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.ignoreRouteUpdate = true;
       }
       this.searchRequests--;
+      if (callback) {
+        callback();
+      }
       // console.timeEnd('search');
     }, this.initialLoad ? 0 : 500);
   }
@@ -963,14 +979,20 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   updateRoute() {
+    let showParam = [];
+    if (this.showTypes.ops) { showParam.push('ops'); }
+    if (this.showTypes.ennea) { showParam.push('ennea'); }
+    if (this.showTypes.wss) { showParam.push('wss'); }
+    if (this.showTypes.ap) { showParam.push('ap'); }
     const queryParams: Params = {
       type: null, //legacy
       name: null, //legacy
-      text: this.textString,
+      text: this.searchInitiated ? this.textString : null,
       et: this.activeEType ? this.activeEType.name : null,
       w: this.activeWing,
       i1: this.activeInstinct ? this.activeInstinct.name : null,
       i2: this.activeInstinct2,
+      show: this.searchInitiated ? showParam.join(',') : null
     };
     this.options.forEach((option) => {
       if (option.val) {
@@ -1040,6 +1062,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.textString = '';
     this.nameInput.nativeElement.focus();
     this.searchInitiated = false;
+    this.showDisplay = false;
+    this.showSort = false;
+    this.showPrevious = false;
     this.updateRoute();
     // this.displayedRecords = null;
   }
@@ -1059,6 +1084,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     } else if (s === 'ap') {
       this.showTypes.ap = !this.showTypes.ap;
     }
+    this.updateRoute();
   }
 
   scrollTo(el: ElementRef) {
