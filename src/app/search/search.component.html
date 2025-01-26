@@ -269,29 +269,6 @@
         <div *ngIf="showHelp" class="mt-2">
           <ng-component *ngTemplateOutlet="tips"></ng-component>
         </div>
-        <div class="mt-2">
-          <small ><u class="mr-1">Try our new terms for Attitudinal Psyche Types:</u><a [routerLink]="['/search']"
-          [queryParams]="{ text: 'AP' }">Attitudinal Psyche (AP)</a>,
-          <a [routerLink]="['/search']"
-          [queryParams]="{ text: 'VELF' }">VELF</a>,
-          <a [routerLink]="['/search']"
-          [queryParams]="{ text: 'FLEV' }">FLEV</a>,
-          <a [routerLink]="['/search']"
-          [queryParams]="{ text: 'ena' }">ena</a>,
-          <a [routerLink]="['/search']"
-          [queryParams]="{ text: 'dio' }">dio</a>,
-          <a [routerLink]="['/search']"
-          [queryParams]="{ text: 'tria' }">tria</a>,
-          <a [routerLink]="['/search']"
-          [queryParams]="{ text: '2f' }">2F</a>,
-          <a [routerLink]="['/search']"
-          [queryParams]="{ text: '3V' }">3V</a>,
-          <a [routerLink]="['/search']"
-          [queryParams]="{ text: 'vop' }">Others Positive Volition (vop)</a>,
-          <a [routerLink]="['/search']"
-          [queryParams]="{ text: 'lro' }">Results Oriented Logic (lro)</a>
-        </small>
-        </div>
         <div class="mt-2" *ngIf="searches.size > 0 && showPrevious">
           <div>Search History</div>
           <div class="previous-search-wrapper">
@@ -318,7 +295,7 @@
           </div>
         </div>
       </div>
-      <div class="p-1 data-sources mb-3" *ngIf="showSources">
+      <div class="p-1 data-sources mt-3 mb-3" *ngIf="showSources">
         <div class="mb-1 d-inline-block">
           <strong>Objective Personality</strong> type data courtesy of the
           <a target="_blank" [href]="opsDbSource">Objective Personality Database</a
@@ -382,6 +359,12 @@
       class="alert alert-info mt-3"
     >
       Search found {{ displayedRecords.length }} results.
+    </div>
+    <div class="mt-2 alert alert-info" *ngIf="searchInitiated && showTypes.ap">
+      <small>Our Attitudinal Psyche types may be out of date while the AP site 
+        goes through some renovation. You can check <a href="https://www.attitudinalpsyche.com/theory/database/" target="_blank" class="text-bold">their database</a> for 
+        the most up to date records.
+      </small>
     </div>
   </div>
 
