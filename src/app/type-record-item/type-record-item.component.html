@@ -101,6 +101,13 @@
       >
         <i-bs name="globe2" class="mx-1" width="1.25rem" height="1.25rem"></i-bs
       ></a>
+      <span
+        popoverTitle="Last Updated"
+        triggers="mouseenter:mouseleave"
+        [popover]="typeRecord.lastModified | date:'MMM d, yyyy'"
+      >
+        <i-bs name="info-circle" class="ml-1" width="1rem" height="1rem"></i-bs>
+      </span>
     </div>
     <a
       *ngIf="!externalLink || displayPracticeLink"

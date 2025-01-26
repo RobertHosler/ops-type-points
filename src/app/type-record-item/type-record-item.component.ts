@@ -4,7 +4,7 @@ import { TypedPerson } from '../service/ops-data.service';
 @Component({
   selector: 'app-type-record-item',
   templateUrl: './type-record-item.component.html',
-  styleUrls: ['./type-record-item.component.scss'],
+  styleUrls: ['./type-record-item.component.scss']
 })
 export class TypeRecordItemComponent implements OnInit, OnChanges {
 
