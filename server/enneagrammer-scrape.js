@@ -46,7 +46,7 @@ function buildData($) {
   let instinct;
   let type;
   let trifix;
-  const numberOfColumns = 5;
+  const numberOfColumns = 6;
   dataRow.each((x, data) => {
     const colText = $(data).text();
     if (x % numberOfColumns === 0) {
