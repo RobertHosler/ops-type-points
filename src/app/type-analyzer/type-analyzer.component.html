@@ -23,72 +23,35 @@
   <p>
     Enter an OPS type using the OPS Type code to view that type. For a list of
     valid animal stacks and the corresponding saviors see the
-    <a
-      href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
-      target="_blank"
-      >Class Notes Document</a
-    >
+    <a href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
+      target="_blank">Class Notes Document</a>
     or read more about
-    <a href="{{ opsCodeLink }}" target="_blank"
-      >the OPS Type Code on Subjective Personality</a
-    >.
+    <a href="{{ opsCodeLink }}" target="_blank">the OPS Type Code on Subjective Personality</a>.
   </p>
   <form (ngSubmit)="onSubmit(form)" #form="ngForm">
     <div class="row">
       <div class="form-group col-6 col-sm-3">
         <label for="modalities">Modalities</label>
-        <input
-          id="modalities"
-          type="text"
-          class="form-control"
-          minlength="2"
-          maxlength="2"
-          required
-          [(ngModel)]="modalityString"
-          name="modalities"
-        />
+        <input id="modalities" type="text" class="form-control" minlength="2" maxlength="2" required
+          [(ngModel)]="modalityString" name="modalities" />
         <div class="help small">Ex: MM, MF, FF, FM</div>
       </div>
       <div class="form-group col-6 col-sm-3">
         <label for="savior-one">Savior One</label>
-        <input
-          id="savior-one"
-          type="text"
-          class="form-control"
-          minlength="2"
-          maxlength="2"
-          required
-          [(ngModel)]="s1String"
-          name="savior1"
-        />
+        <input id="savior-one" type="text" class="form-control" minlength="2" maxlength="2" required
+          [(ngModel)]="s1String" name="savior1" />
         <div class="help small">Ex: Te, Fi, Ne, Si</div>
       </div>
       <div class="form-group col-6 col-sm-3">
         <label for="savior-two">Savior Two</label>
-        <input
-          id="savior-two"
-          type="text"
-          class="form-control"
-          minlength="2"
-          maxlength="2"
-          required
-          [(ngModel)]="s2String"
-          name="savior2"
-        />
+        <input id="savior-two" type="text" class="form-control" minlength="2" maxlength="2" required
+          [(ngModel)]="s2String" name="savior2" />
         <div class="help small">Ex: Fe, Ti, Se, Ni</div>
       </div>
       <div class="form-group col-6 col-sm-3">
         <label for="animals">Animal Stack</label>
-        <input
-          id="animals"
-          type="text"
-          class="form-control"
-          minlength="2"
-          maxlength="4"
-          required
-          [(ngModel)]="animalString"
-          name="animals"
-        />
+        <input id="animals" type="text" class="form-control" minlength="2" maxlength="4" required
+          [(ngModel)]="animalString" name="animals" />
         <div class="help small">Ex: PCSB, SBPC</div>
       </div>
     </div>
@@ -107,11 +70,8 @@
       </div>
       <div class="alert alert-danger" *ngIf="!isValidAnimals">
         <strong>Animal Stack Invalid.</strong> See the
-        <a
-          href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
-          target="_blank"
-          >Class Notes Document</a
-        >
+        <a href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
+          target="_blank">Class Notes Document</a>
         for a list of valid animals stacks.
         <div>
           Also remember that Play and Sleep cannot be in the first two animals
@@ -121,11 +81,8 @@
       <div class="alert alert-danger" *ngIf="!typeValid">
         <strong>Type Invalid.</strong> Savior functions must match the first
         animal. See the
-        <a
-          href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
-          target="_blank"
-          >Class Notes Document</a
-        >
+        <a href="https://docs.google.com/document/d/1aLrwLdhvOGIF-fdouUxAxJ_5tlt6mgu_NBnXaN4N_JU/edit?usp=drive_web&ouid=104557786537846843214"
+          target="_blank">Class Notes Document</a>
         for a list of valid animals stacks and their corresponding savior
         functions.
         <div>
@@ -145,22 +102,14 @@
     </div>
     <div>
       <label>
-        <input
-          type="checkbox"
-          [checked]="compare"
-          (change)="compare = !compare"
-        />
+        <input type="checkbox" [checked]="compare" (change)="compare = !compare" />
         Compare Types
       </label>
     </div>
     <div *ngIf="opsTypes.length > 1">
       <div *ngFor="let type of opsTypes; index as i">
         {{ type.opsCode }}
-        <button
-          class="btn btn-danger btn-remove"
-          type="button"
-          (click)="onRemoveOpsType(i)"
-        >
+        <button class="btn btn-danger btn-remove" type="button" (click)="onRemoveOpsType(i)">
           X
         </button>
       </div>
@@ -173,12 +122,8 @@
         <h2>{{ opsTypes[0].opsCode }}</h2>
         <div class="row">
           <div class="col-md-5 col-lg-4">
-            <app-type-bubbles
-              class="text-center"
-              [showOptions]="false"
-              [showType]="false"
-              [index]="0"
-            ></app-type-bubbles>
+            <app-type-bubbles class="text-center" [showOptions]="false" [showType]="false"
+              [index]="0"></app-type-bubbles>
           </div>
           <div class="col-md-7 col-lg-8">
             <app-type-dashboard [index]="0"></app-type-dashboard>
@@ -186,38 +131,8 @@
         </div>
         <h3>Type Twins</h3>
         <div class="mb-2">
-          <button
-            class="btn btn-gray mr-2"
-            (click)="twin('modality')"
-            [ngClass]="{ active: twinMod }"
-          >
-            Ignoring Modality
-          </button>
-          <button
-            class="btn btn-gray mr-2"
-            (click)="twin('core-need')"
-            [ngClass]="{ active: twinNeed }"
-          >
-            Ignoring OO/DD
-          </button>
-          <button
-            class="btn btn-gray mr-2"
-            (click)="twin('info-energy')"
-            [ngClass]="{ active: twinDom }"
-          >
-            Ignoring Info/Energy
-          </button>
+          <app-ops-type-twins [opsType]="opsTypes[0]"></app-ops-type-twins>
         </div>
-        <app-type-record-list
-          style="min-height: 300px;"
-          [typeRecords]="twinPersons"
-          [showMolecule]="true"
-          [showSource]="false"
-          [loading]="typeTwinsLoading"
-          loadingMessage="Type Twins are loading..."
-          notFoundMessage="Sorry, no type twins for this type yet..."
-        >
-        </app-type-record-list>
       </tab>
       <tab heading="Checklist">
         <app-type-checklist [opsType]="opsTypes[0]"></app-type-checklist>

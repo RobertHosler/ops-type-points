@@ -467,7 +467,7 @@ function startIo() {
       {
         listener: "getTypes",
         trigger: "types",
-        val: Array.from(typeMap),
+        val: [] // Array.from(typeMap),
       },
       {
         listener: "getNineTypes",

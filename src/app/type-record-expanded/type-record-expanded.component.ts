@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./type-record-expanded.component.scss'],
 })
 export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
-  
+
   @Input()
   person: TypedPerson;
   @Input()
@@ -110,6 +110,7 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
 
   private initRoute(setup?) {
     this.routeSubscription = this.route.queryParamMap.subscribe((params) => {
+      this.person = null; // reset person
       this.personName = params.get('person');
       this.activeTab = params.get('active');
       if (params.get('activeOps')) {
@@ -124,13 +125,12 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
         this.custom = true;
         this.activeName = params.get('name');
         let opsType = params.get('ops');
-        this.person = null; // reset person
         if (opsType && opsType.length === 16) {
           this.initBasicPerson();
           this.person.type = opsType;
-          this.person.mod = opsType.substring(0,2);
-          this.person.s1 = opsType.substring(3,5);
-          this.person.s2 = opsType.substring(6,8);
+          this.person.mod = opsType.substring(0, 2);
+          this.person.s1 = opsType.substring(3, 5);
+          this.person.s2 = opsType.substring(6, 8);
           this.person.animals = opsType.substring(9);
           this.modalities = this.person.mod;
           this.saviors = this.person.s1 + '/' + this.person.s2;
@@ -156,9 +156,9 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
           this.initBasicPerson();
           this.enneaCore = enneaType;
           this.person.eType = enneaType;
-          this.person.coreEType = enneaType.substring(0,1);
-          this.person.wing = enneaType.substring(2,3);
-          this.person.coreETypeLong = enneaType.substring(0,1); // should be spelled out ex: Nine
+          this.person.coreEType = enneaType.substring(0, 1);
+          this.person.wing = enneaType.substring(2, 3);
+          this.person.coreETypeLong = enneaType.substring(0, 1); // should be spelled out ex: Nine
           let instinct = params.get('i'); // ex: so/sp
           this.enneaInstincts = instinct;
           this.person.instinct = instinct;
@@ -272,7 +272,7 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
   onSubmit(ngForm: NgForm) {
     if (ngForm.valid) {
       this.formValid = true;
-      this.modalities 
+      this.modalities
 
       let ops = null;
       if (this.saviors && this.animals) {
@@ -289,7 +289,7 @@ export class TypeRecordExpandedComponent implements OnInit, OnDestroy {
 
       if (this.enneaInstincts) {
         let cleanInstincts = this.enneaInstincts.replace('/', '').toLowerCase();
-        this.enneaInstincts = cleanInstincts.substring(0,2) + '/' + cleanInstincts.substring(2,4);
+        this.enneaInstincts = cleanInstincts.substring(0, 2) + '/' + cleanInstincts.substring(2, 4);
       }
 
       if (this.enneaTrifix && this.enneaTrifix.length === 3 && this.enneaTrifix.includes('w')) {

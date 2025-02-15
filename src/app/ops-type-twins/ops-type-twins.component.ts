@@ -17,124 +17,64 @@ export class OpsTypeTwinsComponent implements OnInit, OnChanges {
   twinNeed = false;
   twinDom = false;
   twinPersons: TypedPerson[];
-  allTypes: Map<string, TypedPerson[]>;
+
+  allNames: Map<string, TypedPerson>;
 
   constructor(private opsDataService: OpsDataService) {
-    this.opsDataService.allTypes.subscribe((result) => {
-      this.allTypes = result;
-      this.fetchTwins(this.opsType);
+    this.opsDataService.allNames.subscribe((result) => {
+      this.allNames = result;
+      this.fetchTwins();
     });
   }
 
   ngOnInit(): void {
-    this.fetchTwins(this.opsType);
+    this.fetchTwins();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.opsType) {
       this.opsType = changes.opsType.currentValue;
-      this.fetchTwins(this.opsType);
+      this.fetchTwins();
     }
   }
 
-  private fetchTwins(type: OpsType) {
+  private fetchTwins() {
     this.twinPersons = [];
-    if (this.allTypes && type) {
-      this.fetchExactTwins(type);
-      if (this.twinMod) {
-        this.fetchModTwins(type);
-      }
-      if (this.twinNeed) {
-        this.fetchNeedTwins(type);
-      }
-      if (this.twinDom) {
-        this.fetchDomTwins(type);
-      }
+    if (this.allNames) {
+      this.allNames.forEach((person: TypedPerson) => {
+        if (!person.type) {
+          return; // doesn't have ops type
+        }
+        if (person.type === this.opsType.opsCode) {
+          // exact match
+          this.twinPersons.push(person);
+          return;
+        }
+
+        if (!((person.s1 === this.opsType.s1String &&
+          person.s2 === this.opsType.s2String) ||
+          (this.twinNeed && // allow swapped needs
+            person.s2 === this.opsType.s1String &&
+            person.s1 === this.opsType.s2String))) {
+          return; // needs don't match
+        }
+
+        if (!(this.twinMod ||
+          person.mod === this.opsType.modalityString)) {
+          return; // modalities don't match or aren't excluded
+        }
+
+        if (!(person.type.substring(9) === this.opsType.animalStringFormal ||
+          (this.twinDom && person.animals.substring(0, 2) === this.opsType.animalString.substring(0, 2)))) {
+          return; // animals don't match
+        }
+        this.twinPersons.push(person);
+      });
       this.typeTwinsLoading = false;
     } else {
       setTimeout(() => {
-        this.fetchTwins(type);
+        this.fetchTwins();
       }, 0);
-    }
-  }
-
-  private fetchExactTwins(type: OpsType) {
-    this.concatTwins(type.opsCode);
-  }
-
-  private fetchModTwins(type: OpsType) {
-    let mod = ['MM', 'MF', 'FF', 'FM'];
-    mod.forEach((m) => {
-      if (m === type.modalityString) {
-        return; // skip exact
-      }
-      var tempType = new OpsType(
-        m,
-        this.opsType.s1String,
-        this.opsType.s2String,
-        this.opsType.animalString
-      );
-      let mfKey =
-        m +
-        '-' +
-        type.s1String +
-        '/' +
-        type.s2String +
-        '-' +
-        type.animalStringFormal;
-      this.concatTwins(mfKey);
-      if (this.twinNeed) {
-        this.fetchNeedTwins(tempType);
-      }
-      if (this.twinDom) {
-        this.fetchDomTwins(tempType);
-      }
-    });
-  }
-
-  private fetchNeedTwins(type: OpsType) {
-    const saviorAlt = type.s2String + '/' + type.s1String;
-    this.concatTwins(
-      type.modalityString + '-' + saviorAlt + '-' + type.animalStringFormal
-    );
-    if (this.twinDom) {
-      var tempType = new OpsType(
-        type.modalityString,
-        type.s2String,
-        type.s1String,
-        type.animalString
-      );
-      this.fetchDomTwins(tempType);
-    }
-  }
-
-  private fetchDomTwins(type: OpsType) {
-    let animalAlt =
-      type.animalStack[0] +
-      type.animalStack[1] +
-      '/' +
-      type.animalStack[3] +
-      '(' +
-      type.animalStack[2] +
-      ')';
-    this.concatTwins(
-      type.modalityString +
-        '-' +
-        type.s1String +
-        '/' +
-        type.s2String +
-        '-' +
-        animalAlt
-    );
-  }
-
-  /**
-   * Add twins with a specified type to the list.
-   */
-  private concatTwins(key: string) {
-    let twins = this.allTypes.get(key);
-    if (twins) {
-      this.twinPersons = this.twinPersons.concat(twins);
     }
   }
 
@@ -150,6 +90,6 @@ export class OpsTypeTwinsComponent implements OnInit, OnChanges {
         this.twinDom = !this.twinDom;
         break;
     }
-    this.fetchTwins(this.opsType);
+    this.fetchTwins();
   }
 }

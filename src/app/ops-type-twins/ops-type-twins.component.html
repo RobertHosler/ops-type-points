@@ -1,35 +1,16 @@
 <h3>Type Twins</h3>
 <div class="mb-2">
-  <button
-    class="btn btn-gray mr-2"
-    (click)="twin('modality')"
-    [ngClass]="{ active: twinMod }"
-  >
+  <button class="btn btn-gray mr-2" (click)="twin('modality')" [ngClass]="{ active: twinMod }">
     Ignoring Modality
   </button>
-  <button
-    class="btn btn-gray mr-2"
-    (click)="twin('core-need')"
-    [ngClass]="{ active: twinNeed }"
-  >
+  <button class="btn btn-gray mr-2" (click)="twin('core-need')" [ngClass]="{ active: twinNeed }">
     Ignoring OO/DD
   </button>
-  <button
-    class="btn btn-gray mr-2"
-    (click)="twin('info-energy')"
-    [ngClass]="{ active: twinDom }"
-  >
+  <button class="btn btn-gray mr-2" (click)="twin('info-energy')" [ngClass]="{ active: twinDom }">
     Ignoring Info/Energy
   </button>
 </div>
-<app-type-record-list
-  style="min-height: 300px"
-  [typeRecords]="twinPersons"
-  [showMolecule]="true"
-  [showSource]="false"
-  [showTypes]="{ ops: true}"
-  [loading]="typeTwinsLoading"
-  loadingMessage="Type Twins are loading..."
-  notFoundMessage="Sorry, no type twins for this type yet..."
->
+<app-type-record-list style="min-height: 300px" [typeRecords]="twinPersons" [showMolecule]="true" [showSource]="false"
+  [showTypes]="{ ops: true}" [loading]="typeTwinsLoading" loadingMessage="Type Twins are loading..."
+  notFoundMessage="Sorry, no type twins for this type yet...">
 </app-type-record-list>
