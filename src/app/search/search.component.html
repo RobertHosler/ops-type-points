@@ -191,15 +191,21 @@
         </div>
         <div class="p-1 data-sources mt-3 mb-3" *ngIf="showSources">
           <div class="mb-1 d-inline-block">
-            <strong>Objective Personality</strong> type data courtesy of the
-            <a target="_blank" [href]="opsDbSource">Objective Personality Database</a>, a project by Ryan and Jana based
-            on typings by Dave and Shannon Powers.
+            All typings in the database are based on the guesses of experts in their respective systems but are subject
+            to change if that information changes. The information provided here is not necessarily up to date with
+            their current
+            best guess but it is our intention to provide as close to that information as possible.
+          </div>
+          <div class="mb-1 d-inline-block">
+            <strong>Objective Personality</strong> type data largely provided by the
+            <a target="_blank" [href]="opsDbSource">Objective Personality Database</a>, another community project
+            created by Ryan and Jana from the typing guesses of Dave and Shannon as they have discloused them through
+            various sources.
             <a target="_blank" [href]="opsDbInfo">Learn More</a>.
-            Additional OPS data added where YouTube type reveals and/or
-            interviews exist. <a [href]="appLinks.contact" target="_blank">Contact me</a>
-            to be included or excluded from this app and/or update your picture. Some
-            additional types from classes and YouTube videos provided via our own Database
-            when not yet available via the OPS Database.
+            Some additional types provided via our own data when not provided by the partner database. Objective
+            Personality
+            now maintains their own database that is accessible with a subscription to <a
+              href="https://www.objectivepersonality.com/" target="_blank">their website</a>.
           </div>
           <div class="mb-1">
             <strong>Enneagram</strong> type data sourced from the
@@ -208,10 +214,7 @@
             <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
             learn more about their take on the Enneagram at
             <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>. You can also
-            view all the <a [routerLink]="['daa']">DAA Classes in Order</a>.
-            Additional Enneagram data provided through a collaboration with <a [routerLink]="['/search']"
-              [queryParams]="{ text: 'Fay Willow' }">Fay Willow</a>. Search <a [routerLink]="['/search']"
-              [queryParams]="{ text: 'faytabase' }">faytabase</a> to see the full list.
+            view all the data from their <a [routerLink]="['daa']">Classes in Order</a>.
           </div>
           <div class="mb-1">
             <strong>Socionics</strong> type data sourced from the World Socionic's
@@ -231,7 +234,8 @@
             <a href="https://www.youtube.com/c/attitudinalpsyche" target="_blank">YouTube Channel</a>.
           </div>
           <div class="mb-1">
-            <strong>Community Members</strong> are not currently included as of 2/15/25.
+            <em>Community Members are no longer included as of 2/15/25.</em> You can however <a
+              [routerLink]="['/analyzer/custom']">create a custom page for yourself</a>.
           </div>
         </div>
       </div>
@@ -247,7 +251,7 @@
       </div>
       <div class="mt-2" *ngIf="showUpdateNotice">
         <small><strong class="text-info">Update 2/15/25:</strong> Community members are no longer included in search
-          results.</small>
+          results. You can however <a [routerLink]="['/analyzer/custom']">create a custom page for yourself</a>.</small>
       </div>
     </div>
 

@@ -342,7 +342,7 @@ function fetchAirtableData() {
         opsExtra.mergeMaps(nameMap, opsExtraMap);
         interviews.mergeMaps(nameMap, interviewMap);
         enneagrammer.mergeMaps(nameMap, eTypeMap);
-        faytabase.mergeMaps(nameMap, fayTypeMap);
+        // faytabase.mergeMaps(nameMap, fayTypeMap);
         wss.mergeMaps(nameMap, wssMap);
         subjective.mergeMaps(nameMap, subjectiveMap);
         apDb.mergeMaps(nameMap, apMap);
