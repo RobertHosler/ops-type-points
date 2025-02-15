@@ -83,6 +83,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   routerInit = false;
 
+  showUpdateNotice = new Date() < new Date('2025-04-01');
+
   @ViewChild('opsHeader') opsHeader: ElementRef;
   @ViewChild('enneaHeader') enneaHeader: ElementRef;
   @ViewChild('wssHeader') wssHeader: ElementRef;
@@ -189,7 +191,7 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.searchAll(searchCallback);
         }
       }
-      
+
     });
   }
 
@@ -299,7 +301,7 @@ export class SearchComponent implements OnInit, OnDestroy {
         } else {
           result = this.sortOpsType(a, b);
           if (result === 0) {
-            result = this.sortEType(a, b);  
+            result = this.sortEType(a, b);
           }
           if (result === 0) {
             result = this.sortName(a, b);
@@ -574,7 +576,7 @@ export class SearchComponent implements OnInit, OnDestroy {
           this.showTypes.modify = true;
           // result = true;
           return;
-        } else if (s.includes('|') ) {
+        } else if (s.includes('|')) {
           // Or Search
           let sArr = s.split('|');
           let found = false;
@@ -612,7 +614,7 @@ export class SearchComponent implements OnInit, OnDestroy {
           // Overlay Search - starts with '(' and contains numbers
           s = s.substring(1);
           if (s.endsWith(')')) {
-            s = s.substring(0, s.length -1);
+            s = s.substring(0, s.length - 1);
           }
           if (person.fullTrifix && person.fullTrifix.length === 11) {
             let overlay = person.fullTrifix.charAt(2) + person.fullTrifix.charAt(6) + person.fullTrifix.charAt(10);
@@ -769,26 +771,26 @@ export class SearchComponent implements OnInit, OnDestroy {
         this.showTypes.ops = true;
       }
     } else if (searchModel.enneaMatchTerms.get(s)) {
-        if (!searchModel.enneaMatchTerms.get(s).match(person)) {
-          result = false;
-        } else {
-          this.sortBy = 'ennea';
-          this.showTypes.ennea = true;
-        }
-      } else if (searchModel.socionicsTerms.get(s)) {
-        if (!searchModel.socionicsTerms.get(s).match(person)) {
-          result = false;
-        } else {
-          this.sortBy = 'wss';
-          this.showTypes.wss = true;
-        }
+      if (!searchModel.enneaMatchTerms.get(s).match(person)) {
+        result = false;
+      } else {
+        this.sortBy = 'ennea';
+        this.showTypes.ennea = true;
+      }
+    } else if (searchModel.socionicsTerms.get(s)) {
+      if (!searchModel.socionicsTerms.get(s).match(person)) {
+        result = false;
+      } else {
+        this.sortBy = 'wss';
+        this.showTypes.wss = true;
+      }
     } else if (searchModel.apMatchTerms.get(s)) {
-        if (!searchModel.apMatchTerms.get(s).match(person)) {
-          result = false;
-        } else {
-          this.sortBy = '';
-          this.showTypes.ap = true;
-        }
+      if (!searchModel.apMatchTerms.get(s).match(person)) {
+        result = false;
+      } else {
+        this.sortBy = '';
+        this.showTypes.ap = true;
+      }
     } else if (searchModel.sexTerms.get(s)) {
       if (!searchModel.sexTerms.get(s).match(person)) {
         result = false;

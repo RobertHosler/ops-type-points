@@ -15,16 +15,15 @@
       </div>
       <div *ngIf="!searchInitiated" class="search-top">
         <h1>
-          <span class="search-heading">Search the </span
-          ><span class="sp-branding">Database</span>
+          <span class="search-heading">Search the </span><span class="sp-branding">Database</span>
         </h1>
         <div>
           <p class="lead mb-2">
             <strong>{{ recordCount }}</strong> people typed in the
             <strong (click)="scrollTo(opsHeader)">Objective Personality</strong>,
-            <strong (click)="scrollTo(enneaHeader)">Enneagram</strong>, 
-            <strong (click)="scrollTo(wssHeader)">Socionics</strong>, 
-            and/or <strong (click)="scrollTo(apHeader)">Attitudinal Psyche</strong>. 
+            <strong (click)="scrollTo(enneaHeader)">Enneagram</strong>,
+            <strong (click)="scrollTo(wssHeader)">Socionics</strong>,
+            and/or <strong (click)="scrollTo(apHeader)">Attitudinal Psyche</strong>.
             Try entering a type, a name, or see below for more advanced tricks.
           </p>
           <div>
@@ -34,22 +33,13 @@
         <div class="d-none d-sm-flex my-2" *ngIf="false">
           <app-type-indicator [option]="1"></app-type-indicator>
           <div class="mx-3">
-            <app-type-indicator
-              [option]="1"
-              type="MF-Fe/Ni-BP/C(S)"
-            ></app-type-indicator>
+            <app-type-indicator [option]="1" type="MF-Fe/Ni-BP/C(S)"></app-type-indicator>
           </div>
           <div class="mx-3">
-            <app-type-indicator
-              [option]="1"
-              type="FM-Fi/Se-CS/B(P)"
-            ></app-type-indicator>
+            <app-type-indicator [option]="1" type="FM-Fi/Se-CS/B(P)"></app-type-indicator>
           </div>
           <div class="mx-3">
-            <app-type-indicator
-              [option]="1"
-              type="FF-Ti/Ni-SB/P(C)"
-            ></app-type-indicator>
+            <app-type-indicator [option]="1" type="FF-Ti/Ni-SB/P(C)"></app-type-indicator>
           </div>
         </div>
       </div>
@@ -58,19 +48,9 @@
         <div class="form-group mb-2">
           <!-- <label for="name" class="name-label">Search by Name or Type:</label> -->
           <div class="input-group">
-            <input
-              #nameInput
-              id="name"
-              type="text"
-              class="form-control border-primary"
-              minlength="2"
-              required
-              autocomplete="off"
-              [placeholder]="placeholderText"
-              (keyup)="searchAll()"
-              [(ngModel)]="textString"
-              name="name"
-            />
+            <input #nameInput id="name" type="text" class="form-control border-primary" minlength="2" required
+              autocomplete="off" [placeholder]="placeholderText" (keyup)="searchAll()" [(ngModel)]="textString"
+              name="name" />
             <div class="input-group-append">
               <button class="btn btn-outline-primary clear-button" (click)="clearSearch()">
                 Clear
@@ -80,27 +60,17 @@
           <div class="help small mb-3" *ngIf="false">
             Searches for the text within the name and types field of the person
             record. Examples:
-            <a [routerLink]="['/search']" [queryParams]="{ text: 'john cena' }"
-              >john cena</a
-            >,
-            <a [routerLink]="['/search']" [queryParams]="{ text: 'sp/so - 6w7' }"
-              >sp/so - 6w7</a
-            >,
-            <a [routerLink]="['/search']" [queryParams]="{ text: 'ff-ti/se' }"
-              >ff-ti/se</a
-            >
+            <a [routerLink]="['/search']" [queryParams]="{ text: 'john cena' }">john cena</a>,
+            <a [routerLink]="['/search']" [queryParams]="{ text: 'sp/so - 6w7' }">sp/so - 6w7</a>,
+            <a [routerLink]="['/search']" [queryParams]="{ text: 'ff-ti/se' }">ff-ti/se</a>
           </div>
         </div>
         <div *ngIf="false">
           <div class="mb-3">
             <span class="search-type-label">Additional Search Options</span>
             <div>
-              <button
-                *ngFor="let st of searchToggles"
-                class="btn btn-gray mr-2"
-                (click)="toggleSearchOptions(st.name)"
-                [ngClass]="{ active: st.active }"
-              >
+              <button *ngFor="let st of searchToggles" class="btn btn-gray mr-2" (click)="toggleSearchOptions(st.name)"
+                [ngClass]="{ active: st.active }">
                 {{ st.name }}
               </button>
             </div>
@@ -114,74 +84,39 @@
         </div>
         <div class="button-wrapper">
           <div class="d-inline-block w-100">
-            <button
-              class="btn btn-gray btn-sm mr-1"
-              [ngClass]="{ active: showHelp }"
-              (click)="showHelp = !showHelp"
-            >
+            <button class="btn btn-gray btn-sm mr-1" [ngClass]="{ active: showHelp }" (click)="showHelp = !showHelp">
               Help
             </button>
-            <button
-              class="btn btn-gray btn-sm mr-1"
-              [ngClass]="{ active: showSources }"
-              (click)="showSources = !showSources"
-            >
+            <button class="btn btn-gray btn-sm mr-1" [ngClass]="{ active: showSources }"
+              (click)="showSources = !showSources">
               Sources
             </button>
-            <button
-              *ngIf="searchInitiated"
-              class="btn btn-gray btn-sm mr-1"
-              [ngClass]="{ active: showSort }"
-              (click)="showSort = !showSort"
-            >
+            <button *ngIf="searchInitiated" class="btn btn-gray btn-sm mr-1" [ngClass]="{ active: showSort }"
+              (click)="showSort = !showSort">
               Sort
             </button>
-            <button
-              *ngIf="searchInitiated"
-              class="btn btn-gray btn-sm mr-1"
-              [ngClass]="{ active: showDisplay }"
-              (click)="showDisplay = !showDisplay"
-            >
+            <button *ngIf="searchInitiated" class="btn btn-gray btn-sm mr-1" [ngClass]="{ active: showDisplay }"
+              (click)="showDisplay = !showDisplay">
               Display
             </button>
-            <button
-              *ngIf="searchInitiated"
-              class="btn btn-gray btn-sm mr-1"
-              [ngClass]="{ active: showPrevious }"
-              (click)="showPrevious = !showPrevious"
-            >
+            <button *ngIf="searchInitiated" class="btn btn-gray btn-sm mr-1" [ngClass]="{ active: showPrevious }"
+              (click)="showPrevious = !showPrevious">
               History
             </button>
           </div>
           <div class="d-inline-block" *ngIf="showSort">
             <div class="small">Sort by:</div>
             <div class="btn-group">
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: sortBy === 'name' }"
-                (click)="resort('name')"
-              >
+              <button class="btn btn-gray btn-sm" [ngClass]="{ active: sortBy === 'name' }" (click)="resort('name')">
                 Name
               </button>
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: sortBy === 'ops' }"
-                (click)="resort('ops')"
-              >
+              <button class="btn btn-gray btn-sm" [ngClass]="{ active: sortBy === 'ops' }" (click)="resort('ops')">
                 OPS
               </button>
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: sortBy === 'ennea' }"
-                (click)="resort('ennea')"
-              >
+              <button class="btn btn-gray btn-sm" [ngClass]="{ active: sortBy === 'ennea' }" (click)="resort('ennea')">
                 Ennea
               </button>
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: sortBy === 'wss' }"
-                (click)="resort('wss')"
-              >
+              <button class="btn btn-gray btn-sm" [ngClass]="{ active: sortBy === 'wss' }" (click)="resort('wss')">
                 Socionics
               </button>
             </div>
@@ -189,18 +124,12 @@
           <div class="d-inline-block" *ngIf="showSort">
             <div class="small">Sort by Date:</div>
             <div class="btn-group">
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: sortBy === 'modified' }"
-                (click)="resort('modified')"
-              >
+              <button class="btn btn-gray btn-sm" [ngClass]="{ active: sortBy === 'modified' }"
+                (click)="resort('modified')">
                 Modified
               </button>
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: sortBy === 'created' }"
-                (click)="resort('created')"
-              >
+              <button class="btn btn-gray btn-sm" [ngClass]="{ active: sortBy === 'created' }"
+                (click)="resort('created')">
                 Created
               </button>
             </div>
@@ -208,18 +137,10 @@
           <div class="d-inline-block" *ngIf="showDisplay">
             <div class="small">Display Format:</div>
             <div class="btn-group">
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: !cards }"
-                (click)="cards = !cards"
-              >
+              <button class="btn btn-gray btn-sm" [ngClass]="{ active: !cards }" (click)="cards = !cards">
                 Default
               </button>
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: cards }"
-                (click)="cards = !cards"
-              >
+              <button class="btn btn-gray btn-sm" [ngClass]="{ active: cards }" (click)="cards = !cards">
                 Image Only
               </button>
             </div>
@@ -227,822 +148,607 @@
           <div class="d-inline-block" *ngIf="showDisplay">
             <div class="small">Show Types:</div>
             <div class="btn-group">
-              <button
-                class="btn btn-gray btn-sm"
+              <button class="btn btn-gray btn-sm"
                 [ngClass]="{ active: showTypes.ops && showTypes.ennea && showTypes.wss && showTypes.ap }"
-                (click)="showType('all')"
-              >
+                (click)="showType('all')">
                 ALL
               </button>
-            <div class="btn-group">
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: showTypes.ops }"
-                (click)="showType('ops')"
-              >
-                OPS
-              </button>
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: showTypes.ennea }"
-                (click)="showType('ennea')"
-              >
-                Enneagram
-              </button>
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: showTypes.wss }"
-                (click)="showType('wss')"
-              >
-                Socionics
-              </button>
-              <button
-                class="btn btn-gray btn-sm"
-                [ngClass]="{ active: showTypes.ap }"
-                (click)="showType('ap')"
-              >
-                AP
-              </button>
+              <div class="btn-group">
+                <button class="btn btn-gray btn-sm" [ngClass]="{ active: showTypes.ops }" (click)="showType('ops')">
+                  OPS
+                </button>
+                <button class="btn btn-gray btn-sm" [ngClass]="{ active: showTypes.ennea }" (click)="showType('ennea')">
+                  Enneagram
+                </button>
+                <button class="btn btn-gray btn-sm" [ngClass]="{ active: showTypes.wss }" (click)="showType('wss')">
+                  Socionics
+                </button>
+                <button class="btn btn-gray btn-sm" [ngClass]="{ active: showTypes.ap }" (click)="showType('ap')">
+                  AP
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        <div *ngIf="showHelp" class="mt-2">
-          <ng-component *ngTemplateOutlet="tips"></ng-component>
-        </div>
-        <div class="mt-2" *ngIf="searches.size > 0 && showPrevious">
-          <div>Search History</div>
-          <div class="previous-search-wrapper">
-            <span
-              *ngFor="let previousSearch of searches | keyvalue"
-              class="previous-search"
-            >
-              <a
-                [routerLink]="['/search']"
-                [queryParams]="{ text: previousSearch.key }"
-                >{{ previousSearch.value.term }} ({{
+          <div *ngIf="showHelp" class="mt-2">
+            <ng-component *ngTemplateOutlet="tips"></ng-component>
+          </div>
+          <div class="mt-2" *ngIf="searches.size > 0 && showPrevious">
+            <div>Search History</div>
+            <div class="previous-search-wrapper">
+              <span *ngFor="let previousSearch of searches | keyvalue" class="previous-search">
+                <a [routerLink]="['/search']" [queryParams]="{ text: previousSearch.key }">{{ previousSearch.value.term
+                  }} ({{
                   previousSearch.value.count
-                }})</a
-              >
-              <button (click)="searches.delete(previousSearch.key)">X</button>
-            </span>
-            <button
-              *ngIf="searches.size > 4"
-              (click)="searches.clear()"
-              class="previous-search previous-search-clear"
-            >
-              Clear All
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="p-1 data-sources mt-3 mb-3" *ngIf="showSources">
-        <div class="mb-1 d-inline-block">
-          <strong>Objective Personality</strong> type data courtesy of the
-          <a target="_blank" [href]="opsDbSource">Objective Personality Database</a
-          >, a project by Ryan and Jana based on typings by Dave and Shannon Powers.
-          <a target="_blank" [href]="opsDbInfo">Learn More</a>.
-          Additional OPS data added where YouTube type reveals and/or 
-          interviews exist. <a [href]="appLinks.contact" target="_blank">Contact me</a>
-          to be included or excluded from this app and/or update your picture.  Some
-          additional types from classes and YouTube videos provided via our own Database
-          when not yet available via the OPS Database.
-        </div>
-        <div class="mb-1">
-          <strong>Enneagram</strong> type data sourced from the
-          <a [href]="enneagrammerLink" target="_blank">Enneagrammer Database</a>.
-          Continue to explore on their
-          <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
-          learn more about their take on the Enneagram at
-          <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>.  You can also 
-          view all the <a [routerLink]="['daa']">DAA Classes in Order</a>.
-          Additional Enneagram data provided through a collaboration with <a [routerLink]="['/search']"
-          [queryParams]="{ text: 'Fay Willow' }">Fay Willow</a>.  Search <a [routerLink]="['/search']"
-          [queryParams]="{ text: 'faytabase' }">faytabase</a> to see the full list.
-        </div>
-        <div class="mb-1">
-          <strong>Socionics</strong> type data sourced from the World Socionic's
-          Society's
-          <a
-            href="https://www.facebook.com/notes/world-socionics-society/wss-public-figure-benchmark/1974788942540812/" target="_blank"
-            >Public Figure Benchmark</a
-          >. Learn more about WSS on their
-          <a href="https://www.facebook.com/groups/584205738265813" target="_blank"
-            >Facebook page</a
-          >
-          or
-          <a
-            href="https://www.youtube.com/c/WorldSocionicsSocietyWSS"
-            target="_blank"
-            >YouTube Channel</a
-          >.
-        </div>
-        <div class="mb-1">
-          <strong>Attitudinal Psyche</strong> type data sourced from the 
-          <a
-            href="https://www.attitudinalpsyche.com/theory/database/" target="_blank"
-            >Notable People Database</a
-          >. Learn more about Attitudinal Psyche on 
-          <a href="https://www.attitudinalpsyche.com/" target="_blank"
-            >their website</a
-          >
-          or
-          <a
-            href="https://www.youtube.com/c/attitudinalpsyche"
-            target="_blank"
-            >YouTube Channel</a
-          >.
-        </div>
-      </div>
-    </div>
-    <div
-      *ngIf="searchInitiated && displayedRecords && displayedRecords.length > 0"
-      class="alert alert-info mt-3"
-    >
-      Search found {{ displayedRecords.length }} results.
-    </div>
-    <div class="mt-2 alert alert-info" *ngIf="searchInitiated && showTypes.ap">
-      <small>Our Attitudinal Psyche types may be out of date while the AP site 
-        goes through some renovation. You can check <a href="https://www.attitudinalpsyche.com/theory/database/" target="_blank" class="text-bold">their database</a> for 
-        the most up to date records.
-      </small>
-    </div>
-  </div>
-
-  <div class="search-instructions mt-4" *ngIf="!searchInitiated">
-    <div class="fix-bg">
-      <div class="container">
-        <h2 class="mb-4" #opsHeader>Objective Personality</h2>
-        <div class="rules">
-          <div class="rule" *ngFor="let rule of searchModel.opsRules">
-            <div class="rule-name">{{ rule.label }}</div>
-            <div class="rule-example">
-              <ng-container
-                *ngFor="let example of rule.examples; let i = index"
-              >
-                <span class="mx-1" *ngIf="i > 0"></span>
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: example }"
-                ></ng-container>
-              </ng-container>
+                  }})</a>
+                <button (click)="searches.delete(previousSearch.key)">X</button>
+              </span>
+              <button *ngIf="searches.size > 4" (click)="searches.clear()"
+                class="previous-search previous-search-clear">
+                Clear All
+              </button>
             </div>
           </div>
         </div>
-        <div class="my-2 text-center">
-          Any of the above search terms can be combined together for advanced
-          search.
-          <div>
-            <span class="mx-3 d-inline-block"
-              ><ng-container
-                *ngTemplateOutlet="
+        <div class="p-1 data-sources mt-3 mb-3" *ngIf="showSources">
+          <div class="mb-1 d-inline-block">
+            <strong>Objective Personality</strong> type data courtesy of the
+            <a target="_blank" [href]="opsDbSource">Objective Personality Database</a>, a project by Ryan and Jana based
+            on typings by Dave and Shannon Powers.
+            <a target="_blank" [href]="opsDbInfo">Learn More</a>.
+            Additional OPS data added where YouTube type reveals and/or
+            interviews exist. <a [href]="appLinks.contact" target="_blank">Contact me</a>
+            to be included or excluded from this app and/or update your picture. Some
+            additional types from classes and YouTube videos provided via our own Database
+            when not yet available via the OPS Database.
+          </div>
+          <div class="mb-1">
+            <strong>Enneagram</strong> type data sourced from the
+            <a [href]="enneagrammerLink" target="_blank">Enneagrammer Database</a>.
+            Continue to explore on their
+            <a [href]="enneagrammerPinterest" target="_blank">Pinterest Boards</a> or
+            learn more about their take on the Enneagram at
+            <a href="https://www.enneagrammer.com/">Enneagrammer.com</a>. You can also
+            view all the <a [routerLink]="['daa']">DAA Classes in Order</a>.
+            Additional Enneagram data provided through a collaboration with <a [routerLink]="['/search']"
+              [queryParams]="{ text: 'Fay Willow' }">Fay Willow</a>. Search <a [routerLink]="['/search']"
+              [queryParams]="{ text: 'faytabase' }">faytabase</a> to see the full list.
+          </div>
+          <div class="mb-1">
+            <strong>Socionics</strong> type data sourced from the World Socionic's
+            Society's
+            <a href="https://www.facebook.com/notes/world-socionics-society/wss-public-figure-benchmark/1974788942540812/"
+              target="_blank">Public Figure Benchmark</a>. Learn more about WSS on their
+            <a href="https://www.facebook.com/groups/584205738265813" target="_blank">Facebook page</a>
+            or
+            <a href="https://www.youtube.com/c/WorldSocionicsSocietyWSS" target="_blank">YouTube Channel</a>.
+          </div>
+          <div class="mb-1">
+            <strong>Attitudinal Psyche</strong> type data sourced from the
+            <a href="https://www.attitudinalpsyche.com/theory/database/" target="_blank">Notable People Database</a>.
+            Learn more about Attitudinal Psyche on
+            <a href="https://www.attitudinalpsyche.com/" target="_blank">their website</a>
+            or
+            <a href="https://www.youtube.com/c/attitudinalpsyche" target="_blank">YouTube Channel</a>.
+          </div>
+          <div class="mb-1">
+            <strong>Community Members</strong> are not currently included as of 2/15/25.
+          </div>
+        </div>
+      </div>
+      <div *ngIf="searchInitiated && displayedRecords && displayedRecords.length > 0" class="alert alert-info mt-3">
+        Search found {{ displayedRecords.length }} results.
+      </div>
+      <div class="mt-2 alert alert-info" *ngIf="searchInitiated && showTypes.ap">
+        <small>Our Attitudinal Psyche types may be out of date while the AP site
+          goes through some renovation. You can check <a href="https://www.attitudinalpsyche.com/theory/database/"
+            target="_blank" class="text-bold">their database</a> for
+          the most up to date records.
+        </small>
+      </div>
+      <div class="mt-2" *ngIf="showUpdateNotice">
+        <small><strong class="text-info">Update 2/15/25:</strong> Community members are no longer included in search
+          results.</small>
+      </div>
+    </div>
+
+    <div class="search-instructions mt-4" *ngIf="!searchInitiated">
+      <div class="fix-bg">
+        <div class="container">
+          <h2 class="mb-4" #opsHeader>Objective Personality</h2>
+          <div class="rules">
+            <div class="rule" *ngFor="let rule of searchModel.opsRules">
+              <div class="rule-name">{{ rule.label }}</div>
+              <div class="rule-example">
+                <ng-container *ngFor="let example of rule.examples; let i = index">
+                  <span class="mx-1" *ngIf="i > 0"></span>
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: example }"></ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="my-2 text-center">
+            Any of the above search terms can be combined together for advanced
+            search.
+            <div>
+              <span class="mx-3 d-inline-block"><ng-container *ngTemplateOutlet="
                   searchlink;
                   context: { text: 'MM ENTP Jumper' }
-                "
-              ></ng-container
-            ></span>
-            <span class="mx-3 d-inline-block"
-              ><ng-container
-                *ngTemplateOutlet="searchlink; context: { text: 'xF ENFJ pc' }"
-              ></ng-container
-            ></span>
-            <span class="mx-3 d-inline-block"
-              ><ng-container
-                *ngTemplateOutlet="
+                "></ng-container></span>
+              <span class="mx-3 d-inline-block"><ng-container
+                  *ngTemplateOutlet="searchlink; context: { text: 'xF ENFJ pc' }"></ng-container></span>
+              <span class="mx-3 d-inline-block"><ng-container *ngTemplateOutlet="
                   searchlink;
                   context: { text: 'intp female ff' }
-                "
-              ></ng-container
-            ></span>
+                "></ng-container></span>
+            </div>
+          </div>
+          <div>
+            <app-ops-type-table></app-ops-type-table>
           </div>
         </div>
-        <div>
-          <app-ops-type-table></app-ops-type-table>
-        </div>
       </div>
-    </div>
-    <div class="fix-bg e-bg">
-      <div class="container">
-        <h2 class="mb-4" #enneaHeader>Enneagram</h2>
-        <div class="mb-3">
-          <div class="rules">
-            <div class="rule">
-              <div class="rule-name">All Enneagram</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: 'ennea' }"
-                ></ng-container>
+      <div class="fix-bg e-bg">
+        <div class="container">
+          <h2 class="mb-4" #enneaHeader>Enneagram</h2>
+          <div class="mb-3">
+            <div class="rules">
+              <div class="rule">
+                <div class="rule-name">All Enneagram</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: 'ennea' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Core Type</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: '9' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Core Type</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: '9' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">with Wing</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: '6w7' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">with Wing</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: '6w7' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Dominant Instinct</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: 'sp/' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Dominant Instinct</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: 'sp/' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Playground Instinct</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: '/sx' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Playground Instinct</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: '/sx' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Blindspot Instinct</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: '!so' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Blindspot Instinct</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: '!so' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Instinct not blind</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: 'so' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Instinct not blind</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: 'so' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Instinct Stacking</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: 'sx/sp' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Instinct Stacking</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: 'sx/sp' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Has Trifix</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="
+              <div class="rule">
+                <div class="rule-name">Has Trifix</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="
                     searchlink;
                     context: { text: ['trifix'] }
-                  "
-                ></ng-container>
+                  "></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Has Overlay</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="
+              <div class="rule">
+                <div class="rule-name">Has Overlay</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="
                     searchlink;
                     context: { text: ['overlay'] }
-                  "
-                ></ng-container>
+                  "></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div
-                class="rule-name"
-                popoverTitle="Trifix Stacking"
-                [popover]="'Order matters for the trifix stacking search. 369 will not return 963 results.'"
-                triggers="mouseenter:mouseleave:click"
-              >
-                Trifix Stacking
-                <i-bs
-                  name="info-circle"
-                  class="ml-1"
-                  width=".8rem"
-                  height=".8rem"
-                ></i-bs>
+              <div class="rule">
+                <div class="rule-name" popoverTitle="Trifix Stacking"
+                  [popover]="'Order matters for the trifix stacking search. 369 will not return 963 results.'"
+                  triggers="mouseenter:mouseleave:click">
+                  Trifix Stacking
+                  <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+                </div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: '396' }"></ng-container>
+                </div>
               </div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: '396' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name" popoverTitle="Trifix Combinations"
+                  [popover]="'Order doesn\'t matter for the trifix combination search.  *369 and *936 will return the same results.'"
+                  triggers="mouseenter:mouseleave:click">
+                  Trifix Combinations
+                  <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+                </div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: '*714' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div
-                class="rule-name"
-                popoverTitle="Trifix Combinations"
-                [popover]="'Order doesn\'t matter for the trifix combination search.  *369 and *936 will return the same results.'"
-                triggers="mouseenter:mouseleave:click"
-              >
-                Trifix Combinations
-                <i-bs
-                  name="info-circle"
-                  class="ml-1"
-                  width=".8rem"
-                  height=".8rem"
-                ></i-bs>
-              </div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: '*714' }"
-                ></ng-container>
-              </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name"
-              popoverTitle="Overlay Combinations"
-              [popover]="'Order doesn\'t matter for the overlay combination search.  (48) and (84 will return the same results.'"
-              triggers="mouseenter:mouseleave:click"
-              >
-                Overlay Combinations
-                <i-bs
-                  name="info-circle"
-                  class="ml-1"
-                  width=".8rem"
-                  height=".8rem"
-                ></i-bs>
-              </div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="
+              <div class="rule">
+                <div class="rule-name" popoverTitle="Overlay Combinations"
+                  [popover]="'Order doesn\'t matter for the overlay combination search.  (48) and (84 will return the same results.'"
+                  triggers="mouseenter:mouseleave:click">
+                  Overlay Combinations
+                  <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
+                </div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="
                     searchlink;
                     context: { text: ['(84'] }
-                  "
-                ></ng-container>
+                  "></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Trifix Centers Order</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="
+              <div class="rule">
+                <div class="rule-name">Trifix Centers Order</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="
                     searchlink;
                     context: { text: ['HeadHeart'] }
-                  "
-                ></ng-container>
+                  "></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Trifix Second Center</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="
+              <div class="rule">
+                <div class="rule-name">Trifix Second Center</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="
                     searchlink;
                     context: { text: ['GutSecond'] }
-                  "
-                ></ng-container>
+                  "></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Trifix Last Center</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="
+              <div class="rule">
+                <div class="rule-name">Trifix Last Center</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="
                     searchlink;
                     context: { text: ['HeadLast'] }
-                  "
-                ></ng-container>
+                  "></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Sex</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="
+              <div class="rule">
+                <div class="rule-name">Sex</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="
                     searchlink;
                     context: { text: '5w6 female' }
-                  "
-                ></ng-container>
+                  "></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Wing Swap</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: '9w8|8w9' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Wing Swap</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: '9w8|8w9' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Or Search</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: '396|369' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Or Search</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: '396|369' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Combine Searches</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: '9w8 !sp' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Combine Searches</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: '9w8 !sp' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Ennea + OPS</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: 'sp MM' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Ennea + OPS</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: 'sp MM' }"></ng-container>
+                </div>
               </div>
-            </div>
-            <div class="rule">
-              <div class="rule-name">Ennea + Socionics</div>
-              <div class="rule-example">
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: 'so EIE' }"
-                ></ng-container>
+              <div class="rule">
+                <div class="rule-name">Ennea + Socionics</div>
+                <div class="rule-example">
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: 'so EIE' }"></ng-container>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <h3>Trifix Combinations <a [routerLink]="['/nineTypes/trifix']" class="learn-more">Learn More</a></h3>
-        <div>
-          <app-ennea-grid [searchLinkEnabled]="true"></app-ennea-grid>
-        </div>
-        <div class="fix-wrapper" *ngIf="false">
-          <table class="trifix-table ej-red">
-            <tbody>
-              <tr *ngFor="let x of [0, 1, 2]">
-                <td
-                  *ngFor="
+          <h3>Trifix Combinations <a [routerLink]="['/nineTypes/trifix']" class="learn-more">Learn More</a></h3>
+          <div>
+            <app-ennea-grid [searchLinkEnabled]="true"></app-ennea-grid>
+          </div>
+          <div class="fix-wrapper" *ngIf="false">
+            <table class="trifix-table ej-red">
+              <tbody>
+                <tr *ngFor="let x of [0, 1, 2]">
+                  <td *ngFor="
                     let fix of searchModel.trifixStacks.slice(x * 3, x * 3 + 3);
                     let i = index
-                  "
-                >
-                  <a
-                    [routerLink]="['/search']"
-                    [queryParams]="{ text: '*' + fix }"
-                    >{{ fix }}</a
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="trifix-table ij-blue">
-            <tbody>
-              <tr *ngFor="let x of [3, 4, 5]">
-                <td
-                  *ngFor="
+                  ">
+                    <a [routerLink]="['/search']" [queryParams]="{ text: '*' + fix }">{{ fix }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="trifix-table ij-blue">
+              <tbody>
+                <tr *ngFor="let x of [3, 4, 5]">
+                  <td *ngFor="
                     let fix of searchModel.trifixStacks.slice(x * 3, x * 3 + 3);
                     let i = index
-                  "
-                >
-                  <a
-                    [routerLink]="['/search']"
-                    [queryParams]="{ text: '*' + fix }"
-                    >{{ fix }}</a
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table class="trifix-table ep-green">
-            <tbody>
-              <tr *ngFor="let x of [6, 7, 8]">
-                <td
-                  *ngFor="
+                  ">
+                    <a [routerLink]="['/search']" [queryParams]="{ text: '*' + fix }">{{ fix }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="trifix-table ep-green">
+              <tbody>
+                <tr *ngFor="let x of [6, 7, 8]">
+                  <td *ngFor="
                     let fix of searchModel.trifixStacks.slice(x * 3, x * 3 + 3);
                     let i = index
-                  "
-                >
-                  <a
-                    [routerLink]="['/search']"
-                    [queryParams]="{ text: '*' + fix }"
-                    >{{ fix }}</a
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  ">
+                    <a [routerLink]="['/search']" [queryParams]="{ text: '*' + fix }">{{ fix }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="fix-bg">
-      <div class="container">
-        <h2 class="mb-4" #wssHeader>Socionics</h2>
-        <div class="rules">
-          <div class="rule" *ngFor="let rule of searchModel.wssRules">
-            <div class="rule-name">{{ rule.label }}</div>
-            <div class="rule-example">
-              <ng-container
-                *ngFor="let example of rule.examples; let i = index"
-              >
-                <span class="mx-1" *ngIf="i > 0"></span>
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: example }"
-                ></ng-container>
-              </ng-container>
+      <div class="fix-bg">
+        <div class="container">
+          <h2 class="mb-4" #wssHeader>Socionics</h2>
+          <div class="rules">
+            <div class="rule" *ngFor="let rule of searchModel.wssRules">
+              <div class="rule-name">{{ rule.label }}</div>
+              <div class="rule-example">
+                <ng-container *ngFor="let example of rule.examples; let i = index">
+                  <span class="mx-1" *ngIf="i > 0"></span>
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: example }"></ng-container>
+                </ng-container>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="mt-3 fix-wrapper justify-content-center">
-          <div
-            *ngFor="
+          <div class="mt-3 fix-wrapper justify-content-center">
+            <div *ngFor="
               let quadra of ['Alpha', 'Beta', 'Gamma', 'Delta'];
               let x = index
-            "
-          >
-            <table class="trifix-table">
-              <thead>
-                <tr>
-                  <th colspan="2">
-                    <div class="text-center">{{ quadra }}</div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody
-                [ngClass]="{
+            ">
+              <table class="trifix-table">
+                <thead>
+                  <tr>
+                    <th colspan="2">
+                      <div class="text-center">{{ quadra }}</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody [ngClass]="{
                   'ej-red': quadra === 'Alpha',
                   'ij-blue': quadra === 'Beta',
                   'ep-green': quadra === 'Gamma',
                   'ip-gray': quadra === 'Delta'
-                }"
-              >
-                <tr>
-                  <td
-                    *ngFor="
+                }">
+                  <tr>
+                    <td *ngFor="
                       let i = index;
                       let type of searchModel.socionicsTypes.slice(
                         x * 4,
                         x * 4 + 2
                       );
-                    "
-                  >
-                    <a
-                      [routerLink]="['/search']"
-                      [queryParams]="{ text: type }"
-                      >{{ type.toUpperCase() }}</a
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <td
-                    *ngFor="
+                    ">
+                      <a [routerLink]="['/search']" [queryParams]="{ text: type }">{{ type.toUpperCase() }}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td *ngFor="
                       let type of searchModel.socionicsTypes.slice(
                         x * 4 + 2,
                         x * 4 + 4
                       );
                       let i = index
-                    "
-                  >
-                    <a
-                      [routerLink]="['/search']"
-                      [queryParams]="{ text: type }"
-                      >{{ type.toUpperCase() }}</a
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    ">
+                      <a [routerLink]="['/search']" [queryParams]="{ text: type }">{{ type.toUpperCase() }}</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="fix-bg">
+        <div class="container">
+          <h2 class="mb-4" #apHeader>Attitudinal Psyche</h2>
+          <div class="rules">
+            <div class="rule" *ngFor="let rule of searchModel.apRules">
+              <div class="rule-name">{{ rule.label }}</div>
+              <div class="rule-example">
+                <ng-container *ngFor="let example of rule.examples; let i = index">
+                  <span class="mx-1" *ngIf="i > 0"></span>
+                  <ng-container *ngTemplateOutlet="searchlink; context: { text: example }"></ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 fix-wrapper justify-content-center">
+            <div class="ap-sexta" *ngFor="let key of searchModel.apSextas.keys()">
+              <div class="text-center font-weight-bold"><a [routerLink]="['/search']" [queryParams]="{ text: key }">{{
+                  key }}</a></div>
+              <table class="trifix-table" [ngClass]="searchModel.apSextas.get(key).color">
+                <tbody>
+                  <tr>
+                    <td *ngFor="let type of searchModel.apSextas.get(key).types.slice(0, 2)">
+                      <a [routerLink]="['/search']" [queryParams]="{ text: type }">{{ type }}</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td *ngFor="let type of searchModel.apSextas.get(key).types.slice(2)">
+                      <a [routerLink]="['/search']" [queryParams]="{ text: type }">{{ type }}</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
-    <div class="fix-bg">
-      <div class="container">
-        <h2 class="mb-4" #apHeader>Attitudinal Psyche</h2>
-        <div class="rules">
-          <div class="rule" *ngFor="let rule of searchModel.apRules">
-            <div class="rule-name">{{ rule.label }}</div>
-            <div class="rule-example">
-              <ng-container
-                *ngFor="let example of rule.examples; let i = index"
-              >
-                <span class="mx-1" *ngIf="i > 0"></span>
-                <ng-container
-                  *ngTemplateOutlet="searchlink; context: { text: example }"
-                ></ng-container>
-              </ng-container>
-            </div>
-          </div>
-        </div>
-        <div class="mt-3 fix-wrapper justify-content-center">
-          <div class="ap-sexta" *ngFor="let key of searchModel.apSextas.keys()">
-            <div class="text-center font-weight-bold"><a
-              [routerLink]="['/search']"
-              [queryParams]="{ text: key }"
-              >{{ key }}</a></div>
-            <table class="trifix-table" [ngClass]="searchModel.apSextas.get(key).color">
-              <tbody>
-                <tr>
-                  <td *ngFor="let type of searchModel.apSextas.get(key).types.slice(0, 2)">
-                    <a
-                      [routerLink]="['/search']"
-                      [queryParams]="{ text: type }"
-                      >{{ type }}</a>
-                  </td>
-                </tr>
-                <tr>
-                  <td *ngFor="let type of searchModel.apSextas.get(key).types.slice(2)">
-                    <a
-                      [routerLink]="['/search']"
-                      [queryParams]="{ text: type }"
-                      >{{ type }}</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
-  <div class="record-wrapper">
-    <div *ngIf="searchInitiated" class="container-fluid records-bg" #recordList>
-      <app-type-record-list
-        [typeRecords]="displayedRecords"
-        [loading]="searchLoading"
-        [linkToAnalyzer]="true"
-        [grayscale]="grayscale"
-        [imageOnly]="cards"
-        [showTypes]="showTypes"
-      ></app-type-record-list>
-    </div>
-  </div>
-</div>
-
-<ng-template #ops>
-  <div class="search-coins mb-5">
-    <div class="row">
-      <div class="col-md-4">
-        <div *ngIf="options" class="coin-groups">
-          <div *ngFor="let option of optionValues">
-            <div class="coin-label coin-label-sm" *ngIf="false">
-              <a
-                [href]="option.coin.infoLink"
-                target="_blank"
-                *ngIf="option.coin.infoLink"
-              >
-                {{ option.coin.name }}
-              </a>
-              <span *ngIf="!option.coin.infoLink">
-                {{ option.coin.name }}
-              </span>
-            </div>
-            <div class="btn-group" btnRadioGroup [(ngModel)]="option.val">
-              <ng-container
-                *ngIf="option.coin.sides.length === 2; else other_content"
-              >
-                <label
-                  class="btn btn-side"
-                  [btnRadio]="option.coin.sides[0].val"
-                >
-                  {{ option.coin.sides[0].name }}
-                </label>
-                <label class="btn btn-middle" [btnRadio]="''"> / </label>
-                <label
-                  class="btn btn-side"
-                  [btnRadio]="option.coin.sides[1].val"
-                >
-                  {{ option.coin.sides[1].name }}
-                </label>
-              </ng-container>
-              <ng-template #other_content>
-                <label
-                  class="btn"
-                  [btnRadio]="side.val"
-                  *ngFor="let side of option.coin.sides"
-                >
-                  {{ side.name }}
-                </label>
-                <label class="btn btn-unset" [btnRadio]="''"> Clear </label>
-              </ng-template>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 d-md-none">
-        <hr />
-      </div>
-      <div class="col-md-8">
-        <div *ngFor="let cluster of clusters">
-          <span class="coin-label d-none">{{ cluster.name }}</span>
-          <div class="coin-groups">
-            <div class="btn-group">
-              <label
-                class="btn"
-                *ngFor="let funct of cluster.cluster"
-                [ngClass]="{ active: isCoins(funct.coins) }"
-                (click)="setCoins(funct.coins)"
-              >
-                {{ funct.label }}
-              </label>
-            </div>
-          </div>
-        </div>
+    <div class="record-wrapper">
+      <div *ngIf="searchInitiated" class="container-fluid records-bg" #recordList>
+        <app-type-record-list [typeRecords]="displayedRecords" [loading]="searchLoading" [linkToAnalyzer]="true"
+          [grayscale]="grayscale" [imageOnly]="cards" [showTypes]="showTypes"></app-type-record-list>
       </div>
     </div>
   </div>
-</ng-template>
 
-<ng-template #ennea>
-  <div class="search-coins search-enneagram mb-5">
-    <div class="search-ewrapper mb-3">
-      <div class="search-etype mr-3">
-        <label class="type-label">Type</label>
-        <span *ngFor="let eType of eTypes; let i = index">
-          <button
-            class="btn btn-gray mx-1 my-1"
-            [ngClass]="{ active: activeEType === eType }"
-            (click)="toggleEType(eType)"
-          >
-            {{ eType.name }}
-          </button>
-          <br *ngIf="(i + 1) % 3 === 0"
-        /></span>
+  <ng-template #ops>
+    <div class="search-coins mb-5">
+      <div class="row">
+        <div class="col-md-4">
+          <div *ngIf="options" class="coin-groups">
+            <div *ngFor="let option of optionValues">
+              <div class="coin-label coin-label-sm" *ngIf="false">
+                <a [href]="option.coin.infoLink" target="_blank" *ngIf="option.coin.infoLink">
+                  {{ option.coin.name }}
+                </a>
+                <span *ngIf="!option.coin.infoLink">
+                  {{ option.coin.name }}
+                </span>
+              </div>
+              <div class="btn-group" btnRadioGroup [(ngModel)]="option.val">
+                <ng-container *ngIf="option.coin.sides.length === 2; else other_content">
+                  <label class="btn btn-side" [btnRadio]="option.coin.sides[0].val">
+                    {{ option.coin.sides[0].name }}
+                  </label>
+                  <label class="btn btn-middle" [btnRadio]="''"> / </label>
+                  <label class="btn btn-side" [btnRadio]="option.coin.sides[1].val">
+                    {{ option.coin.sides[1].name }}
+                  </label>
+                </ng-container>
+                <ng-template #other_content>
+                  <label class="btn" [btnRadio]="side.val" *ngFor="let side of option.coin.sides">
+                    {{ side.name }}
+                  </label>
+                  <label class="btn btn-unset" [btnRadio]="''"> Clear </label>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 d-md-none">
+          <hr />
+        </div>
+        <div class="col-md-8">
+          <div *ngFor="let cluster of clusters">
+            <span class="coin-label d-none">{{ cluster.name }}</span>
+            <div class="coin-groups">
+              <div class="btn-group">
+                <label class="btn" *ngFor="let funct of cluster.cluster" [ngClass]="{ active: isCoins(funct.coins) }"
+                  (click)="setCoins(funct.coins)">
+                  {{ funct.label }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="search-wing mr-3">
-        <label class="type-label">Wing</label>
-        <div *ngIf="activeEType">
-          <button
-            *ngFor="let wing of activeEType.wings"
-            class="btn btn-gray mx-1"
-            [ngClass]="{ active: activeWing === wing }"
-            (click)="
+    </div>
+  </ng-template>
+
+  <ng-template #ennea>
+    <div class="search-coins search-enneagram mb-5">
+      <div class="search-ewrapper mb-3">
+        <div class="search-etype mr-3">
+          <label class="type-label">Type</label>
+          <span *ngFor="let eType of eTypes; let i = index">
+            <button class="btn btn-gray mx-1 my-1" [ngClass]="{ active: activeEType === eType }"
+              (click)="toggleEType(eType)">
+              {{ eType.name }}
+            </button>
+            <br *ngIf="(i + 1) % 3 === 0" /></span>
+        </div>
+        <div class="search-wing mr-3">
+          <label class="type-label">Wing</label>
+          <div *ngIf="activeEType">
+            <button *ngFor="let wing of activeEType.wings" class="btn btn-gray mx-1"
+              [ngClass]="{ active: activeWing === wing }" (click)="
               activeWing === wing ? (activeWing = null) : (activeWing = wing)
-            "
-          >
-            {{ wing }}
+            ">
+              {{ wing }}
+            </button>
+          </div>
+          <div *ngIf="!activeEType">
+            <button class="btn btn-gray mx-1" *ngFor="let x of [1, 2]">?</button>
+          </div>
+        </div>
+        <div class="search-instinct mr-3">
+          <label class="type-label">Instinct</label>
+          <button *ngFor="let instinct of instincts" class="btn btn-gray mx-1"
+            [ngClass]="{ active: activeInstinct === instinct }" (click)="toggleInstinct(instinct)">
+            {{ instinct.name }}
           </button>
         </div>
-        <div *ngIf="!activeEType">
-          <button class="btn btn-gray mx-1" *ngFor="let x of [1, 2]">?</button>
-        </div>
-      </div>
-      <div class="search-instinct mr-3">
-        <label class="type-label">Instinct</label>
-        <button
-          *ngFor="let instinct of instincts"
-          class="btn btn-gray mx-1"
-          [ngClass]="{ active: activeInstinct === instinct }"
-          (click)="toggleInstinct(instinct)"
-        >
-          {{ instinct.name }}
-        </button>
-      </div>
-      <div class="search-instinct2">
-        <label class="type-label">Second Instinct</label>
-        <div *ngIf="activeInstinct">
-          <button
-            *ngFor="let second of activeInstinct.secondary"
-            class="btn btn-gray mx-1"
-            [ngClass]="{ active: activeInstinct2 === second }"
-            (click)="
+        <div class="search-instinct2">
+          <label class="type-label">Second Instinct</label>
+          <div *ngIf="activeInstinct">
+            <button *ngFor="let second of activeInstinct.secondary" class="btn btn-gray mx-1"
+              [ngClass]="{ active: activeInstinct2 === second }" (click)="
               activeInstinct2 === second
                 ? (activeInstinct2 = null)
                 : (activeInstinct2 = second)
-            "
-          >
-            {{ second }}
-          </button>
-        </div>
-        <div *ngIf="!activeInstinct">
-          <button class="btn btn-gray mx-1" *ngFor="let x of [1, 2]">?</button>
+            ">
+              {{ second }}
+            </button>
+          </div>
+          <div *ngIf="!activeInstinct">
+            <button class="btn btn-gray mx-1" *ngFor="let x of [1, 2]">?</button>
+          </div>
         </div>
       </div>
+
     </div>
+  </ng-template>
 
-  </div>
-</ng-template>
+  <ng-template #tips>
+    <ul class="search-tips">
+      <li>
+        <a [routerLink]="['/search']" [queryParams]="{ text: 'Kardashian' }">Looking for a specific person? Search by
+          name, Ex: "Kardashian"</a>
+      </li>
+      <li>
+        <a [routerLink]="['/search']" [queryParams]="{ text: 'mm exxj fe' }">
+          Want to see those of a similar type? Search by parts. Ex: "mm exxj
+          fe"</a>
+      </li>
+      <li>
+        <a [routerLink]="['/search']" [queryParams]="{ text: 'ennea' }">
+          Only want to see those with an Enneagram type? Add "Ennea" or
+          "Enneagram" to your search.</a>
+      </li>
+      <li>
+        Just try some things out! If you find a keyword isn't working as you might
+        expect,
+        <a [href]="appLinks.contact" target="_blank">let me know!</a>
+      </li>
+    </ul>
+  </ng-template>
 
-<ng-template #tips>
-  <ul class="search-tips">
-    <li>
-      <a [routerLink]="['/search']" [queryParams]="{ text: 'Kardashian' }"
-        >Looking for a specific person? Search by name, Ex: "Kardashian"</a
-      >
-    </li>
-    <li>
-      <a [routerLink]="['/search']" [queryParams]="{ text: 'mm exxj fe' }">
-        Want to see those of a similar type? Search by parts. Ex: "mm exxj
-        fe"</a
-      >
-    </li>
-    <li>
-      <a [routerLink]="['/search']" [queryParams]="{ text: 'ennea' }">
-        Only want to see those with an Enneagram type? Add "Ennea" or
-        "Enneagram" to your search.</a
-      >
-    </li>
-    <li>
-      Just try some things out! If you find a keyword isn't working as you might
-      expect,
-      <a [href]="appLinks.contact" target="_blank">let me know!</a>
-    </li>
-  </ul>
-</ng-template>
-
-<ng-template #searchlink let-text="text">
-  <a [routerLink]="['/search']" [queryParams]="{ text: text }">{{ text }}</a>
-</ng-template>
+  <ng-template #searchlink let-text="text">
+    <a [routerLink]="['/search']" [queryParams]="{ text: text }">{{ text }}</a>
+  </ng-template>
