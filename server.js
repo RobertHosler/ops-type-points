@@ -88,7 +88,7 @@ const ioState = {
 function ioSetup(ioState) {
   io.on("connection", function (socket) {
     logger.debug("new socketio connection", socket.conn.id);
-    
+
     ioState.sockets.push(socket);
 
     socket.on("disconnect", function () {
@@ -159,7 +159,7 @@ const opsExtra = require("./server/airtable/ops-db");
 const subjective = require("./server/airtable/ops-subjective-db");
 const apDb = require("./server/airtable/ap-db");
 const airtable = require("./server/airtable/airtable");
-const {  findSimilarPromise } = require("./server/similar-names");
+const { findSimilarPromise } = require("./server/similar-names");
 const { scrape } = require("./server/enneagrammer-scrape");
 const { scrapeAP } = require("./server/attitudinal-scrape");
 const { dbCompare } = require("./server/db-compare");
@@ -353,6 +353,11 @@ function fetchAirtableData() {
       .then(() => {
         // remove excluded - TODO: get from database
         const deleteKeys = ['saadet'];
+        nameMap.forEach((val, key) => {
+          if (val.tags.includes('Community Member')) {
+            deleteKeys.push(key);
+          }
+        });
         deleteKeys.forEach(key => {
           nameMap.delete(key);
         });
