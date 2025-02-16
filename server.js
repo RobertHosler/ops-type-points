@@ -17,18 +17,20 @@ const io = require("socket.io")(server, {
 
 // Serve static images from the 'public/images' folder
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
+
 // Configure npm to use the built angular app
-// app.use(express.static("./dist/ops-type-points"));
+app.use(express.static("./dist/ops-type-points"));
 
 // Example route to get an image
 app.get('/images/:imageName', (req, res) => {
   const imageName = req.params.imageName;
   res.sendFile(path.join(__dirname, 'public/images', imageName));
 });
-// app.get("/*", function (req, res) {
-//   console.log("serving app");
-//   res.sendFile("index.html", { root: "dist/ops-type-points/" });
-// });
+app.get("/*", function (req, res) {
+  console.log("serving app");
+  res.sendFile("index.html", { root: "dist/ops-type-points/" });
+});
+
 // Run server
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
