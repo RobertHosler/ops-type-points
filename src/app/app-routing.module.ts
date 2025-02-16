@@ -28,7 +28,7 @@ const routes: Routes = [
     path: 'analyzer',
     component: MainLayoutComponent,
     children: [
-      { path: '', component: TypeAnalyzerComponent},
+      { path: '', component: TypeAnalyzerComponent },
       { path: 'custom', component: TypeRecordExpandedComponent }
     ],
   },
@@ -71,9 +71,9 @@ const routes: Routes = [
     path: 'practice',
     component: MainLayoutComponent,
     children: [
-        { path: '', component: TypePracticeComponent },
-        { path: 'exemplars', component: TypeExemplarsComponent },
-      ],
+      { path: '', component: TypePracticeComponent },
+      { path: 'exemplars', component: TypeExemplarsComponent },
+    ],
   },
   {
     path: 'quiz',
@@ -92,9 +92,9 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-    scrollPositionRestoration: 'enabled'
-}),
+      scrollPositionRestoration: 'enabled'
+    }),
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

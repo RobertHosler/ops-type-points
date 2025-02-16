@@ -74,7 +74,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ops-type-points:build"
+            "browserTarget": "ops-type-points:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -118,7 +119,8 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ops-type-points",
   "cli": {
     "analytics": false
