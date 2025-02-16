@@ -253,7 +253,7 @@ const resizeImage = async (inputPath, outputPath, width, height) => {
       })
       .toFile(outputPath);
 
-    rename(inputPath, outputPath);
+    deleteFile(inputPath);
 
     // console.log(`Resized file: ${outputPath}`);
     // setTimeout(() => {
@@ -261,6 +261,33 @@ const resizeImage = async (inputPath, outputPath, width, height) => {
     // }, 2000);
   } catch (err) {
     console.error('Error resizing image:', err);
+  }
+};
+
+const deleteFile = (filePath, counter) => {
+  try {
+    if (counter) {
+      counter++;
+    } else {
+      counter = 1;
+    }
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.log('retrying delete - err', counter, filePath);
+        setTimeout(() => {
+          if (counter < 20) { // max twenty tries
+            deleteFile(filePath, counter);
+          }
+        }, 100);
+      }
+    });
+  } catch (err) {
+    console.log('retrying delete - catch', counter, filePath);
+    setTimeout(() => {
+      if (counter < 20) { // max twenty tries
+        deleteFile(filePath, counter);
+      }
+    }, 100);
   }
 };
 
