@@ -1,6 +1,10 @@
 /*jshint esversion: 6 */
 
 const https = require("https");
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const writeFile = promisify(fs.writeFile);
 const logger = require("../logger")
 const API_TOKEN = process.env.OP_DATABASE_TOKEN || require("../local-api").token;
 const MAX_RECORD = 10000;
@@ -54,7 +58,7 @@ function getData(input, offset, callback) {
         hostname: host,
         path: path,
         headers: {
-          Authorization: ('Bearer ' + API_TOKEN)            
+          Authorization: ('Bearer ' + API_TOKEN)
         }
       },
       (response) => {
@@ -75,7 +79,7 @@ function getData(input, offset, callback) {
             requests--;
             logger.trace("safe request", input.name, "COMPLETE", requests);
             if (requests === 0) {
-            logger.trace("safe requests queue empty");
+              logger.trace("safe requests queue empty");
             }
           }, 1000);
         });
@@ -119,7 +123,7 @@ function getAllData(input) {
             // Handle End
             logger.debug("getAllData", input.name, allRecords.length, "COMPLETE");
             resolve(allRecords);
-          }          
+          }
         }
       });
     };
@@ -138,14 +142,117 @@ exports.getAll = getAllData;
 exports.buildUrl = buildUrl;
 
 exports.getRecordPicture = (pictureField) => {
-  if( pictureField && pictureField.length > 0) {
+  let picture = '';
+  if (pictureField && pictureField.length > 0) {
     if (pictureField[0].thumbnails) {
-      return pictureField[0].thumbnails.large.url;
+      picture = pictureField[0].thumbnails.large.url;
     } else if (pictureField[0].url) {
-      return pictureField[0].url; // backup method for some data which doesn't have thumbnails?
+      picture = pictureField[0].url; // backup method for some data which doesn't have thumbnails?
     }
+    // picture =
+    storePicture(picture);
   }
-  return '';
+  return picture;
+};
+
+/**
+ * Stores the picture on the local server and returns its new location
+ */
+function storePicture(picture) {
+  // Example usage
+  // var fileName = generateUID() + ".jpg";
+  var fileName = "test-image.jpg";
+  downloadImage(picture, fileName)
+    .then(imagePath => {
+      // console.log('Image path:', imagePath)
+    })
+    .catch(error => console.error(error));
+
+  return "/images/temp/" + fileName;
+}
+
+function generateUID() {
+  return 'id-' + Date.now() + '-' + Math.floor(Math.random() * 1000000);
+}
+
+const tempPath = '../../public/images/temp';
+const imagesPath = path.join(__dirname, tempPath);
+
+const downloadImage = async (url, fileName) => {
+  try {
+    // Make an HTTPS request to get the image
+    const imageUrl = new URL(url);
+    if (imageUrl.protocol !== 'https:') {
+      throw new Error('The URL must be an HTTPS URL.');
+    }
+
+    // Define the path to save the image on your server
+    const imagePath = path.join(imagesPath, fileName);
+
+    // Return a Promise that resolves when the image has been saved
+    const saveImage = new Promise((resolve, reject) => {
+      https.get(url, (response) => {
+        if (response.statusCode !== 200) {
+          reject(new Error('Failed to fetch image, status code: ' + response.statusCode));
+        }
+
+        const chunks = [];
+
+        response.on('data', (chunk) => {
+          chunks.push(chunk);
+        });
+
+        response.on('end', async () => {
+          try {
+            const buffer = Buffer.concat(chunks);
+            await writeFile(imagePath, buffer);
+            // console.log('Image saved successfully:', imagePath);
+            resolve(imagePath); // Return the saved image path
+          } catch (err) {
+            reject('Error saving image: ' + err.message);
+          }
+        });
+
+        response.on('error', (err) => {
+          reject('Error downloading image: ' + err.message);
+        });
+      });
+    });
+
+    return await saveImage;
+
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+// Function to delete all files in a directory
+const deleteAllFilesInDirectory = (dir) => {
+  fs.readdir(dir, (err, files) => {
+    if (err) {
+      console.error('Error reading directory:', err);
+      return;
+    }
+
+    // Iterate over each file in the directory
+    files.forEach(file => {
+      const filePath = path.join(dir, file);
+
+      // Delete each file
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error(`Error deleting file ${file}:`, err);
+        } else {
+          // console.log(`Deleted file: ${file}`);
+        }
+      });
+    });
+  });
+};
+
+exports.refreshImages = () => {
+  console.log('deleting images');
+  deleteAllFilesInDirectory(imagesPath);
 };
 
 exports.buildKey = (name) => {

@@ -203,8 +203,11 @@ function findSimilarRecords(socket, max) {
   logger.debug("finding similar... async...")
 }
 
-const mins = 60;
+const mins = 5;
 const refreshTimer = 60 * 1000 * mins;
+
+const hours = 24;  // 24 hours
+// const refreshTimer = 60 * 60 * 1000 * hours;  // Timer set to 24 hours
 function refreshAirtableData(socket) {
   logger.debug("Refreshing data");
   fetchAirtableData().then(
@@ -264,6 +267,7 @@ function fetchAirtableData() {
     let apMap;
 
     // get Persons - combining data from multiple sources
+    airtable.refreshImages();
     airtable
       // Fetch OPS Database ("Airtable")
       .getAll({
