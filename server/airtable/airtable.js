@@ -275,30 +275,12 @@ const rename = (inputPath, outputPath, counter) => {
   } catch (err) {
     console.log('retrying rename', counter, inputPath, outputPath);
     setTimeout(() => {
-      rename(inputPath, outputPath, counter);
+      if (counter < 20) { // max twenty tries
+        rename(inputPath, outputPath, counter);
+      }
     }, 100);
   }
 }
-
-const deleteFile = async (filePath) => {
-  try {
-    fs.access(filePath, fs.constants.F_OK | fs.constants.W_OK, (err) => {
-      if (err) {
-        console.error('No permission or file does not exist:', err);
-      } else {
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            console.error('Error deleting file:', err);
-          } else {
-            console.log('File deleted');
-          }
-        });
-      }
-    });
-  } catch (err) {
-    console.error(`Error deleting file ${filePath}:`, err);
-  }
-};
 
 // Function to delete all files in a directory
 const deleteAllFilesInDirectory = (dir) => {
@@ -310,7 +292,7 @@ const deleteAllFilesInDirectory = (dir) => {
 
     // Iterate over each file in the directory
     files.forEach(file => {
-      if (file === ".gitignore") {
+      if (file === ".gitignore" || file === "cache") {
         return;
       }
 
@@ -330,7 +312,7 @@ const deleteAllFilesInDirectory = (dir) => {
 
 exports.refreshImages = () => {
   console.log('deleting images');
-  // deleteAllFilesInDirectory(imageCachePath);
+  deleteAllFilesInDirectory(imageCachePath);
   deleteAllFilesInDirectory(imagesPath);
 };
 
