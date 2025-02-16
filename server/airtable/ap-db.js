@@ -121,7 +121,7 @@ function mergeMaps(nameMap, eTypeMap) {
       let ytLink = '';
       let personTags = [];
       if (!val.tags.includes('Community Member')) {
-        ytLink = 'https://www.youtube.com/results?search_query='+ key + ' interview';
+        ytLink = 'https://www.youtube.com/results?search_query=' + key + ' interview';
       } else {
         personTags.push("Community Member");
       }

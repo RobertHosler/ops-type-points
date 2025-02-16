@@ -5,10 +5,20 @@ const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
 const writeFile = promisify(fs.writeFile);
+const sharp = require('sharp'); // resizing images
 const logger = require("../logger")
 const API_TOKEN = process.env.OP_DATABASE_TOKEN || require("../local-api").token;
 const MAX_RECORD = 10000;
 const AIRTABLE_BASE = "https://api.airtable.com/v0/";
+
+/*
+ * getAllData -> return promise
+ * getAllData -> invokes getDataSafe
+ * getDataSafe -> invokes getData (at a safe interval)
+ * getData -> invokes get request to airtable to retrieve json response
+ * getData -> invokes callback with json response (callback is defined in getAllData)
+ * callback -> parses json or throws an exception if no json returned
+ */
 
 function buildUrl(dbKey, table, view, fields) {
   const url = new URL(AIRTABLE_BASE + dbKey + "/" + table);
@@ -144,13 +154,15 @@ exports.buildUrl = buildUrl;
 exports.getRecordPicture = (pictureField) => {
   let picture = '';
   if (pictureField && pictureField.length > 0) {
+    let modifier = '';
     if (pictureField[0].thumbnails) {
-      picture = pictureField[0].thumbnails.large.url;
+      modifier = 'thumbnail';
+      picture = pictureField[0].thumbnails.large.url; // small, full, large
     } else if (pictureField[0].url) {
+      modifier = 'full';
       picture = pictureField[0].url; // backup method for some data which doesn't have thumbnails?
     }
-    // picture =
-    storePicture(picture);
+    picture = storePicture(picture, modifier);
   }
   return picture;
 };
@@ -158,10 +170,9 @@ exports.getRecordPicture = (pictureField) => {
 /**
  * Stores the picture on the local server and returns its new location
  */
-function storePicture(picture) {
+function storePicture(picture, modifier) {
   // Example usage
-  // var fileName = generateUID() + ".jpg";
-  var fileName = "test-image.jpg";
+  var fileName = modifier + '-' + generateUID() + ".jpg";
   downloadImage(picture, fileName)
     .then(imagePath => {
       // console.log('Image path:', imagePath)
@@ -177,6 +188,8 @@ function generateUID() {
 
 const tempPath = '../../public/images/temp';
 const imagesPath = path.join(__dirname, tempPath);
+const imageCachePath = path.join(__dirname, tempPath, "cache");
+
 
 const downloadImage = async (url, fileName) => {
   try {
@@ -187,6 +200,7 @@ const downloadImage = async (url, fileName) => {
     }
 
     // Define the path to save the image on your server
+    const tempImagePath = path.join(imageCachePath, fileName);
     const imagePath = path.join(imagesPath, fileName);
 
     // Return a Promise that resolves when the image has been saved
@@ -205,7 +219,10 @@ const downloadImage = async (url, fileName) => {
         response.on('end', async () => {
           try {
             const buffer = Buffer.concat(chunks);
-            await writeFile(imagePath, buffer);
+            await writeFile(tempImagePath, buffer);
+
+            await resizeImage(tempImagePath, imagePath, 300, 300);
+
             // console.log('Image saved successfully:', imagePath);
             resolve(imagePath); // Return the saved image path
           } catch (err) {
@@ -223,6 +240,63 @@ const downloadImage = async (url, fileName) => {
 
   } catch (error) {
     console.error('Error:', error);
+  }
+};
+
+const resizeImage = async (inputPath, outputPath, width, height) => {
+  try {
+    // console.trace(`Resizing file: ${inputPath}`);
+    await sharp(inputPath)
+      .resize(width, height, {
+        fit: sharp.fit.inside, // Ensures the image fits within the max dimensions
+        withoutEnlargement: true, // Prevents enlarging images that are already smaller than the max size
+      })
+      .toFile(outputPath);
+
+    rename(inputPath, outputPath);
+
+    // console.log(`Resized file: ${outputPath}`);
+    // setTimeout(() => {
+    //   deleteFile(inputPath);
+    // }, 2000);
+  } catch (err) {
+    console.error('Error resizing image:', err);
+  }
+};
+
+const rename = (inputPath, outputPath, counter) => {
+  try {
+    if (counter) {
+      counter++;
+    } else {
+      counter = 1;
+    }
+    fs.renameSync(inputPath, outputPath); // Overwrite the original file with the resized image
+  } catch (err) {
+    console.log('retrying rename', counter, inputPath, outputPath);
+    setTimeout(() => {
+      rename(inputPath, outputPath, counter);
+    }, 100);
+  }
+}
+
+const deleteFile = async (filePath) => {
+  try {
+    fs.access(filePath, fs.constants.F_OK | fs.constants.W_OK, (err) => {
+      if (err) {
+        console.error('No permission or file does not exist:', err);
+      } else {
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error('Error deleting file:', err);
+          } else {
+            console.log('File deleted');
+          }
+        });
+      }
+    });
+  } catch (err) {
+    console.error(`Error deleting file ${filePath}:`, err);
   }
 };
 
@@ -256,7 +330,13 @@ const deleteAllFilesInDirectory = (dir) => {
 
 exports.refreshImages = () => {
   console.log('deleting images');
+  // deleteAllFilesInDirectory(imageCachePath);
   deleteAllFilesInDirectory(imagesPath);
+};
+
+exports.resetImageCache = () => {
+  console.log('clearing image cache');
+  deleteAllFilesInDirectory(imageCachePath);
 };
 
 exports.buildKey = (name) => {

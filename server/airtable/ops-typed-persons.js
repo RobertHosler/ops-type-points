@@ -61,7 +61,7 @@ const opsTypedPersons = {
     "Links",
     "Unique ID",
   ],
-  converter: () => {},
+  converter: () => { },
   callback: () => {
     typedPersonComplete = true;
   },
@@ -228,7 +228,7 @@ function convertName(id, name) {
   const akaIndex = name.indexOf("a/k/a");
   if (akaIndex > -1) {
     let name1 = name.substring(0, akaIndex).trim();
-    let name2 = name.substring(akaIndex+5).trim();
+    let name2 = name.substring(akaIndex + 5).trim();
     name = name1;
     // name = name1 + " (" + name2 + ")";
     // console.log("Trimmed Name aka - ", beforeName, "- to |" + name + "|");
@@ -320,7 +320,7 @@ function convertPersons(records) {
     let type = record.fields.Type;
     if ((!type || type.includes('?') || type.length !== 16) &&
       !tags.includes("Incomplete")) {
-        tags.push('Incomplete');
+      tags.push('Incomplete');
     }
     let socialType = record.fields["Social Type"];
     socialType = socialType ? socialType.substring(socialType.length - 1) : socialType;
@@ -333,7 +333,7 @@ function convertPersons(records) {
     let ytLink = '';
     let personTags = [];
     if (!tags.includes('Community Member')) {
-      ytLink = 'https://www.youtube.com/results?search_query='+ name + ' interview';
+      ytLink = 'https://www.youtube.com/results?search_query=' + name + ' interview';
     } else {
       personTags.push("Community Member");
     }
@@ -361,8 +361,8 @@ function convertPersons(records) {
           ? "Decider"
           : record.fields["Single Observer vs Decider"] ===
             "Single Observer / Double Decider"
-          ? "Observer"
-          : ""
+            ? "Observer"
+            : ""
         : "",
       deciderNeed: record.fields["Decider Human Need"],
       observerNeed: record.fields["Observer Human Need"],
@@ -370,44 +370,44 @@ function convertPersons(records) {
         ? record.fields["Savior Observer"] === "Sensory"
           ? "S"
           : record.fields["Savior Observer"] === "Intuition"
-          ? "N"
-          : ""
+            ? "N"
+            : ""
         : "",
       deciderLetter: record.fields["Savior Decider"]
         ? record.fields["Savior Decider"] === "Feeling"
           ? "F"
           : record.fields["Savior Decider"] === "Thinking"
-          ? "T"
-          : ""
+            ? "T"
+            : ""
         : "",
       infoAnimal: record.fields["Blast vs Consume"]
         ? record.fields["Blast vs Consume"] === "Blast"
           ? "B"
           : record.fields["Blast vs Consume"] === "Consume"
-          ? "C"
-          : ""
+            ? "C"
+            : ""
         : "",
       energyAnimal: record.fields["Play vs Sleep"]
         ? record.fields["Play vs Sleep"] === "Play"
           ? "P"
           : record.fields["Play vs Sleep"] === "Sleep"
-          ? "S"
-          : ""
+            ? "S"
+            : ""
         : "",
       animalBalance: record.fields["Energy vs Info Dom"],
       sensoryMod: record.fields["Sensory Sexual"]
         ? record.fields["Sensory Sexual"] === "Masculine"
           ? "M"
           : record.fields["Sensory Sexual"] === "Feminine"
-          ? "F"
-          : ""
+            ? "F"
+            : ""
         : "",
       deMod: record.fields["De Sexual"]
         ? record.fields["De Sexual"] === "Masculine"
           ? "M"
           : record.fields["De Sexual"] === "Feminine"
-          ? "F"
-          : ""
+            ? "F"
+            : ""
         : "",
       sex: record.fields["Biological Sex"],
       trans: record.fields.Transgender,
