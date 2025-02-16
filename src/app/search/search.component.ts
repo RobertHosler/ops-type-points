@@ -84,6 +84,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   routerInit = false;
 
   showUpdateNotice = new Date() < new Date('2025-04-01');
+  showMissingDataNotice = new Date() < new Date('2025-03-01');
 
   @ViewChild('opsHeader') opsHeader: ElementRef;
   @ViewChild('enneaHeader') enneaHeader: ElementRef;

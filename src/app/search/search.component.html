@@ -250,11 +250,16 @@
         </small>
       </div>
       <div class="mt-2" *ngIf="showUpdateNotice">
-        <small><strong class="text-info">Update 2/15/25:</strong> Community members are no longer included in search
+        <small><strong class="text-info">Update:</strong> Community members are no longer included in search
           results. You can however <a [routerLink]="['/analyzer/custom']">create a custom page for yourself</a>.</small>
+      </div>
+      <div class="mt-2" *ngIf="showMissingDataNotice">
+        <small><strong class="text-danger">Notice:</strong> Due to a change in a vendor API policy, some data will be
+          missing until the March 1st. Apologies for any inconvenience.</small>
       </div>
     </div>
 
+    <div class="mb-4" *ngIf="searchInitiated"></div>
     <div class="search-instructions mt-4" *ngIf="!searchInitiated">
       <div class="fix-bg">
         <div class="container">
