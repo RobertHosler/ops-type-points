@@ -236,6 +236,10 @@ const deleteAllFilesInDirectory = (dir) => {
 
     // Iterate over each file in the directory
     files.forEach(file => {
+      if (file === ".gitignore") {
+        return;
+      }
+
       const filePath = path.join(dir, file);
 
       // Delete each file
