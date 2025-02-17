@@ -206,8 +206,8 @@ function findSimilarRecords(socket, max) {
 const mins = 5;
 // const refreshTimer = 60 * 1000 * mins;
 
-const hours = 48;
-const refreshTimer = 60 * 60 * 1000 * hours;  // Timer set to 24 hours
+const days = 7;
+const refreshTimer = 60 * 60 * 1000 * 24 * days;  // refresh once a week
 function refreshAirtableData(socket) {
   logger.debug("Refreshing data");
   fetchAirtableData().then(
