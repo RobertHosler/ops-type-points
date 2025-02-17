@@ -221,7 +221,7 @@ const downloadImage = async (url, fileName) => {
             const buffer = Buffer.concat(chunks);
             await writeFile(tempImagePath, buffer);
 
-            await resizeImage(tempImagePath, imagePath, 300, 300);
+            await resizeImage(tempImagePath, imagePath, 200, 200);
 
             // console.log('Image saved successfully:', imagePath);
             resolve(imagePath); // Return the saved image path
@@ -248,7 +248,8 @@ const resizeImage = async (inputPath, outputPath, width, height) => {
     // console.trace(`Resizing file: ${inputPath}`);
     await sharp(inputPath)
       .resize(width, height, {
-        fit: sharp.fit.inside, // Ensures the image fits within the max dimensions
+        position: sharp.position.center,
+        // fit: sharp.fit.inside, // Ensures the image fits within the max dimensions
         withoutEnlargement: true, // Prevents enlarging images that are already smaller than the max size
       })
       .toFile(outputPath);
@@ -265,30 +266,22 @@ const resizeImage = async (inputPath, outputPath, width, height) => {
 };
 
 const deleteFile = (filePath, counter) => {
-  try {
-    if (counter) {
-      counter++;
-    } else {
-      counter = 1;
-    }
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        console.log('retrying delete - err', counter, filePath);
-        setTimeout(() => {
-          if (counter < 20) { // max twenty tries
-            deleteFile(filePath, counter);
-          }
-        }, 100);
-      }
-    });
-  } catch (err) {
-    console.log('retrying delete - catch', counter, filePath);
-    setTimeout(() => {
-      if (counter < 20) { // max twenty tries
-        deleteFile(filePath, counter);
-      }
-    }, 100);
+  if (counter) {
+    counter++;
+  } else {
+    counter = 1;
   }
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      setTimeout(() => {
+        if (counter < 20) { // max twenty tries
+          deleteFile(filePath, counter);
+        } else {
+          console.log('couldnt delete', counter, filePath);
+        }
+      }, 200);
+    }
+  });
 };
 
 const rename = (inputPath, outputPath, counter) => {
