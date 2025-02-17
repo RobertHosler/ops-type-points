@@ -77,7 +77,7 @@ function convertRecords(records) {
     }
     let ytLink = '';
     if (!tags.includes('Community Member')) {
-      ytLink = 'https://www.youtube.com/results?search_query='+ name + ' interview';
+      ytLink = 'https://www.youtube.com/results?search_query=' + name + ' interview';
     }
 
     const links = record.fields.Links;
@@ -145,10 +145,10 @@ function formatType(typeArr) {
   return result;
 }
 
-function mergeMaps(nameMap, typeMap) {
+function mergeMaps(nameMap, newMap) {
   const matches = [];
   let i = 0;
-  typeMap.forEach((val, key) => {
+  newMap.forEach((val, key) => {
     let nameVal = nameMap.get(key);
     if (!nameVal) {
       // look for altName as well
@@ -216,7 +216,7 @@ function mergeMaps(nameMap, typeMap) {
       let ytLink = '';
       let personTags = [];
       if (!val.tags.includes('Community Member')) {
-        ytLink = 'https://www.youtube.com/results?search_query='+ val.name + ' interview';
+        ytLink = 'https://www.youtube.com/results?search_query=' + val.name + ' interview';
       } else {
         personTags.push("Community Member");
       }

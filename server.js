@@ -59,35 +59,35 @@ const ioState = {
       listener: "getTerms",
       trigger: "terms",
       getVal: () => {
-        return Array.from(ioState.termMap);
+        return ioState.termMap ? Array.from(ioState.termMap) : [];
       },
     },
     {
       listener: "getSources",
       trigger: "sources",
       getVal: () => {
-        return Array.from(ioState.sourceMap);
+        return ioState.sourceMap ? Array.from(ioState.sourceMap) : [];
       },
     },
     {
       listener: "getParents",
       trigger: "parents",
       getVal: () => {
-        return Array.from(ioState.childrenMap);
+        return ioState.childrenMap ? Array.from(ioState.childrenMap) : [];
       },
     },
     {
       listener: "getTypes",
       trigger: "types",
       getVal: () => {
-        return Array.from(ioState.typeMap);
+        return ioState.typeMap ? Array.from(ioState.typeMap) : [];
       },
     },
     {
       listener: "getNineTypes",
       trigger: "nineTypes",
       getVal: () => {
-        return Array.from(ioState.nineTypesMap);
+        return ioState.nineTypesMap ? Array.from(ioState.nineTypesMap) : [];
       },
     },
   ],
@@ -238,10 +238,174 @@ function refreshAirtableData(socket) {
 }
 refreshAirtableData();
 
+
+function fetchAirtableData() {
+  console.time("fetch-airtable-data");
+  return new Promise((resolve, reject) => {
+
+    const resultMaps = {
+      nineTypesMap: null,
+      termMap: null,
+      sourceMap: null,
+      typeMap: null,
+      nameMap: null,
+      childrenMap: null,
+      eTypeMap: null,
+      fayTypeMap: null,
+      wssMap: null,
+      interviewMap: null,
+      opsExtraMap: null,
+      subjectiveMap: null,
+      apMap: null,
+    };
+
+    const primaryDataSources = [ // must execute first
+      {
+        name: "OP Database", // jana & ryan DB
+        url: typedPersons.listUrl,
+        convert: typedPersons.convertPersons,
+        process: (result) => {
+          resultMaps.nameMap = result.names;
+          resultMaps.typeMap = result.types;
+        }
+      },
+      {
+        name: "Definitions",
+        url: terms.urlMap.get("definitions"),
+        convert: terms.convertDefinitions,
+        process: (result) => {
+          resultMaps.termMap = result.terms;
+          resultMaps.sourceMap = result.sources;
+        }
+      }];
+
+    // Define a list of data sources and their respective processing functions
+    const dataSources = [
+      {
+        name: "OPS DB", // my ops database
+        url: opsExtra.url,
+        convert: opsExtra.convertRecords,
+        merge: opsExtra.mergeMaps
+      },
+      {
+        name: "Enneagrammer DB",
+        url: enneagrammer.url,
+        convert: enneagrammer.convertRecords,
+        merge: enneagrammer.mergeMaps
+      },
+      {
+        name: "WSS DB",
+        url: wss.url,
+        convert: wss.convertRecords,
+        merge: wss.mergeMaps
+      },
+      {
+        name: "AP DB",
+        url: apDb.url,
+        convert: apDb.convertRecords,
+        merge: apDb.mergeMaps
+      },
+      {
+        name: "Children",
+        url: terms.urlMap.get("children"),
+        convert: (records) => {
+          return terms.convertChildren(records, resultMaps.termMap)
+        },
+        process: (result) => {
+          resultMaps.childrenMap = result.children;
+        }
+      },
+      {
+        name: "Nine Types",
+        url: nineTypes.nineTypesUrl,
+        convert: nineTypes.convert,
+        process: (result) => {
+          resultMaps.nineTypesMap = result.nineTypes;
+        }
+      }
+      // {
+      //   name: "Subjective Personality DB", // 'subjective' tagged typings - unused
+      //   url: subjective.url,
+      //   convert: subjective.convertRecords,
+      //   merge: subjective.mergeMaps
+      // },
+      // {
+      //   name: "Faytabase", // 'faytabase' tagged typings - unused
+      //   url: faytabase.url,
+      //   convert: faytabase.convertRecords,
+      //   merge: faytabase.mergeMaps
+      // },
+      // {
+      //   name: "Interview DB", // youtube & community typings
+      //   url: interviews.url,
+      //   convert: interviews.convertRecords,
+      //   merge: interviews.mergeMaps
+      // },
+    ];
+
+    // Helper to fetch and process data
+    function fetchData(source) {
+      return airtable
+        .getAll({
+          name: source.name,
+          url: source.url,
+        })
+        .then((records) => {
+          const result = source.convert(records);
+          if (source.process) {
+            source.process(result);
+          } else if (source.merge) {
+            source.merge(resultMaps.nameMap, result);
+          } else {
+            console.log('could not process or merge map from ' + source.name);
+          }
+        })
+        .catch(errorHandler);
+    }
+
+    airtable.refreshImages();
+    // First, fetch the primary data source before starting the others
+    Promise.all(primaryDataSources.map((source) => fetchData(source)))
+      .then(() => {
+        // Now fetch the other data sources
+        return Promise.all(dataSources.map((source) => fetchData(source)));
+      })
+      .then(() => {
+        const deleteKeys = [];
+        resultMaps.nameMap.forEach((val, key) => {
+          val.key = key; // add key to record for convenience in frontend
+          if (val.tags.includes('Community Member')) {
+            deleteKeys.push(key);
+          }
+        });
+        deleteKeys.forEach(key => { // remove excluded - TODO: get from database?
+          resultMaps.nameMap.delete(key);
+        });
+      })
+      .then(() => {
+        console.timeEnd("fetch-airtable-data");
+        resolve(resultMaps);
+      })
+      .catch(errorHandler);
+
+
+    // Iterate over otherDataSources to fetch other data
+    //   Promise.all(otherDataSources.map((source) => fetchData(source)))
+    //     .then(() => {
+    //       // Mark the steps as complete and attempt to resolve
+    //       completeFlags.definitions = true;
+    //       completeFlags.nineTypes = true;
+    //       attemptResolve();
+    //     })
+    //     .catch(errorHandler);
+  });
+}
+
+
 /**
  * Creates a promise which does not resolve until all airtable requests have completed.
  */
-function fetchAirtableData() {
+function fetchAirtableData_legacy() {
   console.time("fetch-airtable-data");
   return new Promise((resolve, reject) => {
     let personsComplete = false;
