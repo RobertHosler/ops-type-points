@@ -1,11 +1,10 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey, MAX_RECORD } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/appPbUnkpJUadoSO1/";
 const TABLE_NAME = "Faytabase";
 const VIEW = "Grid view";
-const MAX_RECORD = 10000;
 const fields = [
   "Name",
   "Alt-Name",
@@ -68,7 +67,7 @@ function convertRecords(records) {
         : "?";
     let tags = ["Faytabase"];
     (record.fields.Tags ? record.fields.Tags : []).forEach(tag => {
-        tags.push(tag);
+      tags.push(tag);
     });
     if (tags.includes('Hide')) {
       console.log('Faytabase: ' + name + ' Hidden');
@@ -208,7 +207,7 @@ function mergeMaps(nameMap, eTypeMap) {
     } else {
       // Add to nameMap
       i++;
-      let ytLink = 'https://www.youtube.com/results?search_query='+ eKey + ' interview';
+      let ytLink = 'https://www.youtube.com/results?search_query=' + eKey + ' interview';
       nameMap.set(eKey, {
         name: eVal.name,
         coreEType: eVal.coreEType,

@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
+const { MAX_RECORD } = require("./airtable");
 
 const ENNEAGRAM_HOST = "https://api.airtable.com/v0/appTmhBYKYMGTX2y5/";
-const MAX_RECORD = 10000;
 
 const nineTypesUrl = new URL(ENNEAGRAM_HOST + "Description");
 nineTypesUrl.searchParams.append("maxRecords", MAX_RECORD);
@@ -23,7 +23,7 @@ function convertNineTypes(records) {
     if (nineTypesSetMap.get(descriptionSetName)) {
       nineTypesSetMap
         .get(descriptionSetName)
-        [typeName.toLowerCase()].push(text);
+      [typeName.toLowerCase()].push(text);
     } else {
       const set = {
         one: [],
@@ -62,7 +62,7 @@ function convertNineTypes(records) {
     // }
   });
   return {
-      nineTypes: nineTypesSetMap
+    nineTypes: nineTypesSetMap
   };
 }
 

@@ -1,11 +1,10 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, compareModifiedDates, getLastModified, buildKey } = require("./airtable");
+const { getRecordPicture, compareModifiedDates, getLastModified, buildKey, MAX_RECORD } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/appg1oZhulu8BvATT/";
 const TABLE_NAME = "OPS";
 const VIEW = "Grid view";
-const MAX_RECORD = 12000;
 const fields = [
   "Name",
   "Alt-Name",
@@ -151,7 +150,7 @@ function mergeMaps(nameMap, interviewMap) {
         s2 = typeArr[1].substring(2, 4);
         animals = type.substring(9, 13);
       }
-      let ytLink = 'https://www.youtube.com/results?search_query='+ key + ' interview';
+      let ytLink = 'https://www.youtube.com/results?search_query=' + key + ' interview';
 
       if (nameVal) {
         // Merge records

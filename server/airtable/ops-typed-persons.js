@@ -1,13 +1,12 @@
 /*jshint esversion: 6 */
 // OP Database - Ryan & Jana - https://airtable.com/shrQ6IoDtlXpzmC1l/tblyUDDV5zVyuX5VL/viweXFJuHAQpi5as3
 
-const { getRecordPicture, getLastModified, buildKey } = require("./airtable");
+const { getRecordPicture, getLastModified, buildKey, MAX_RECORD } = require("./airtable");
 
 const OP_DB_HOST = "https://api.airtable.com/v0/appudq0aG1uwqIFX5/";
 const OP_DB_KEY = "appudq0aG1uwqIFX5";
 const OFFICIALLY_TYPED = "Officially Typed People";
 const BY_MBTI_TYPE = "Gallery by MBTI Type";
-const MAX_RECORD = 10000;
 
 const listUrl = new URL(OP_DB_HOST + "Officially Typed People");
 listUrl.searchParams.append("maxRecords", MAX_RECORD);

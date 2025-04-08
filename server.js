@@ -15,6 +15,16 @@ const io = require("socket.io")(server, {
   },
 });
 
+// disable for local testing that doesn't require airtable due to api limits
+let enableAirtable = true;
+if (process.env.NODE_ENV === 'development') {
+  console.log('Running locally', process.env.NODE_ENV);
+  enableAirtable = false; // limited by default locally even when enabled - see airtable.js
+} else {
+  console.log('Not running locally', process.env.NODE_ENV);
+}
+
+
 // Serve static images from the 'public/images' folder
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
@@ -37,6 +47,9 @@ server.listen(PORT, () => {
   console.log("Listening on port ", PORT);
 });
 
+/**
+ * Manages the requests from the socket connections, returning the requested data.
+ */
 const ioState = {
   sockets: [],
   nineTypesMap: new Map(),
@@ -203,15 +216,14 @@ function findSimilarRecords(socket, max) {
   logger.debug("finding similar... async...")
 }
 
-const mins = 5;
-// const refreshTimer = 60 * 1000 * mins;
-
 const days = 7;
+const refreshEnabled = true; // don't refresh due to airtable api limits
 const refreshTimer = 60 * 60 * 1000 * 24 * days;  // refresh once a week
 function refreshAirtableData(socket) {
   logger.debug("Refreshing data");
-  fetchAirtableData().then(
-    (result) => {
+  fetchAirtableData()
+    .then((result) => {
+      logger.debug("Refreshing complete", result);
       // once complete, emit that refresh is complete and broadcast updates
       ioState.nineTypesMap = result.nineTypesMap;
       ioState.termMap = result.termMap;
@@ -228,19 +240,22 @@ function refreshAirtableData(socket) {
         socket.emit("refreshComplete", "complete");
       }
     },
-    () => {
-      //rejected
-    }
-  ).then(() => {
-    logger.debug("Refreshing complete");
-    setTimeout(refreshAirtableData, refreshTimer);
-  });
+      (reason) => {
+        logger.debug("Refreshing failed", reason);
+      }
+    ).then(() => {
+      if (refreshEnabled) {
+        setTimeout(refreshAirtableData, refreshTimer);
+      } else {
+        logger.debug("auto-refresh disabled - manual refresh required");
+      }
+    });
 }
 refreshAirtableData();
 
-
 function fetchAirtableData() {
   console.time("fetch-airtable-data");
+
   return new Promise((resolve, reject) => {
 
     const resultMaps = {
@@ -259,6 +274,8 @@ function fetchAirtableData() {
       apMap: null,
     };
 
+    airtable.refreshImages();
+
     const primaryDataSources = [ // must execute first
       {
         name: "OP Database", // jana & ryan DB
@@ -267,7 +284,8 @@ function fetchAirtableData() {
         process: (result) => {
           resultMaps.nameMap = result.names;
           resultMaps.typeMap = result.types;
-        }
+        },
+        enabled: enableAirtable
       },
       {
         name: "Definitions",
@@ -276,7 +294,8 @@ function fetchAirtableData() {
         process: (result) => {
           resultMaps.termMap = result.terms;
           resultMaps.sourceMap = result.sources;
-        }
+        },
+        enabled: enableAirtable
       }];
 
     // Define a list of data sources and their respective processing functions
@@ -285,35 +304,83 @@ function fetchAirtableData() {
         name: "OPS DB", // my ops database
         url: opsExtra.url,
         convert: opsExtra.convertRecords,
-        merge: opsExtra.mergeMaps
+        process: (result) => {
+          resultMaps.opsExtraMap = result;
+        },
+        merge: opsExtra.mergeMaps,
+        enabled: enableAirtable
       },
       {
         name: "Enneagrammer DB",
         url: enneagrammer.url,
         convert: enneagrammer.convertRecords,
-        merge: enneagrammer.mergeMaps
+        process: (result) => {
+          resultMaps.eTypeMap = result;
+        },
+        merge: enneagrammer.mergeMaps,
+        enabled: enableAirtable
+      },
+      { // TODO: needs work to be properly converted
+        name: "Enneagrammer Scrape",
+        fetch: scrape, // scrapes from enneagrammer DB
+        convert: (result) => {
+          const mapResult = new Map();
+          result.forEach((record) => {
+            record.tags = ['Enneagrammer'];
+            mapResult.set(record.name, record);
+          });
+          resultMaps.eTypeMap = mapResult;
+          return mapResult;
+        },
+        merge: enneagrammer.mergeMaps,
+        enabled: false
       },
       {
         name: "WSS DB",
         url: wss.url,
         convert: wss.convertRecords,
-        merge: wss.mergeMaps
+        process: (result) => {
+          resultMaps.wssMap = result;
+        },
+        merge: wss.mergeMaps,
+        enabled: enableAirtable
       },
       {
         name: "AP DB",
         url: apDb.url,
         convert: apDb.convertRecords,
-        merge: apDb.mergeMaps
+        process: (result) => {
+          resultMaps.apMap = result;
+        },
+        merge: apDb.mergeMaps,
+        enabled: false // enableAirtable - deprecated, using AP Scrape now
       },
       {
-        name: "Children",
+        name: "AP Scrape",
+        // url: apDb.url,
+        fetch: scrapeAP,
+        convert: (result) => {
+          const mapResult = new Map();
+          result.forEach((record) => {
+            record.tags = ['AP'];
+            mapResult.set(record.name, record);
+          });
+          resultMaps.apMap = mapResult;
+          return mapResult;
+        },
+        merge: apDb.mergeMaps,
+        enabled: true
+      },
+      {
+        name: "Terms Children",
         url: terms.urlMap.get("children"),
         convert: (records) => {
           return terms.convertChildren(records, resultMaps.termMap)
         },
         process: (result) => {
           resultMaps.childrenMap = result.children;
-        }
+        },
+        enabled: enableAirtable
       },
       {
         name: "Nine Types",
@@ -321,49 +388,73 @@ function fetchAirtableData() {
         convert: nineTypes.convert,
         process: (result) => {
           resultMaps.nineTypesMap = result.nineTypes;
-        }
-      }
-      // {
-      //   name: "Subjective Personality DB", // 'subjective' tagged typings - unused
-      //   url: subjective.url,
-      //   convert: subjective.convertRecords,
-      //   merge: subjective.mergeMaps
-      // },
-      // {
-      //   name: "Faytabase", // 'faytabase' tagged typings - unused
-      //   url: faytabase.url,
-      //   convert: faytabase.convertRecords,
-      //   merge: faytabase.mergeMaps
-      // },
-      // {
-      //   name: "Interview DB", // youtube & community typings
-      //   url: interviews.url,
-      //   convert: interviews.convertRecords,
-      //   merge: interviews.mergeMaps
-      // },
+        },
+        enabled: enableAirtable
+      },
+      {
+        name: "Subjective Personality DB", // 'subjective' tagged typings
+        url: subjective.url,
+        convert: subjective.convertRecords,
+        process: (result) => {
+          resultMaps.subjectiveMap = result;
+        },
+        merge: subjective.mergeMaps,
+        enabled: false // unused
+      },
+      {
+        name: "Faytabase", // 'faytabase' tagged typings
+        url: faytabase.url,
+        convert: faytabase.convertRecords,
+        process: (result) => {
+          resultMaps.fayTypeMap = result;
+        },
+        merge: faytabase.mergeMaps,
+        enabled: false // unused
+      },
+      {
+        name: "Community Interview DB", // youtube & community typings
+        url: interviews.url,
+        convert: interviews.convertRecords,
+        process: (result) => {
+          resultMaps.interviewMap = result;
+        },
+        merge: interviews.mergeMaps,
+        enabled: false // unused
+      },
     ];
 
     // Helper to fetch and process data
     function fetchData(source) {
-      return airtable
-        .getAll({
-          name: source.name,
-          url: source.url,
-        })
-        .then((records) => {
-          const result = source.convert(records);
-          if (source.process) {
-            source.process(result);
-          } else if (source.merge) {
-            source.merge(resultMaps.nameMap, result);
-          } else {
-            console.log('could not process or merge map from ' + source.name);
-          }
-        })
+      logger.debug("Fetching data for: ", source.name);
+      var fetchPromise = new Promise((resolve, reject) => {
+        resolve([]);
+      });
+      if (source.enabled) {
+        if (source.fetch) {
+          fetchPromise = source.fetch();
+        } else if (source.url) {
+          fetchPromise = airtable
+            .getAll({
+              name: source.name,
+              url: source.url,
+            });
+        }
+      }
+      return fetchPromise.then((records) => {
+        const result = source.convert(records);
+        if (source.process) {
+          source.process(result);
+        }
+        if (source.merge) {
+          source.merge(resultMaps.nameMap, result);
+        }
+        if (!source.process && !source.merge) {
+          console.log('could not process or merge map from ' + source.name);
+        }
+      })
         .catch(errorHandler);
     }
 
-    airtable.refreshImages();
     // First, fetch the primary data source before starting the others
     Promise.all(primaryDataSources.map((source) => fetchData(source)))
       .then(() => {
@@ -388,273 +479,5 @@ function fetchAirtableData() {
       })
       .catch(errorHandler);
 
-
-    // Iterate over otherDataSources to fetch other data
-    //   Promise.all(otherDataSources.map((source) => fetchData(source)))
-    //     .then(() => {
-    //       // Mark the steps as complete and attempt to resolve
-    //       completeFlags.definitions = true;
-    //       completeFlags.nineTypes = true;
-    //       attemptResolve();
-    //     })
-    //     .catch(errorHandler);
   });
-}
-
-
-/**
- * Creates a promise which does not resolve until all airtable requests have completed.
- */
-function fetchAirtableData_legacy() {
-  console.time("fetch-airtable-data");
-  return new Promise((resolve, reject) => {
-    let personsComplete = false;
-    let definitionsComplete = false;
-    let nineTypesComplete = false;
-    let completeSteps = [
-      personsComplete,
-      definitionsComplete,
-      nineTypesComplete,
-    ];
-    let nineTypesMap;
-    let termMap;
-    let sourceMap;
-    let typeMap;
-    let nameMap;
-    let childrenMap;
-    let eTypeMap;
-    let fayTypeMap;
-    let wssMap;
-    let interviewMap;
-    let opsExtraMap;
-    let subjectiveMap;
-    let apMap;
-
-    // get Persons - combining data from multiple sources
-    airtable.refreshImages();
-    airtable
-      // Fetch OPS Database ("Airtable")
-      .getAll({
-        name: "OP Database",
-        url: typedPersons.listUrl,
-      })
-      // Process OPS Data from "Airtable"
-      .then((records) => {
-        const result = typedPersons.convertPersons(records);
-        typeMap = result.types;
-        nameMap = result.names;
-      }, errorHandler)
-      // Fetch Enneagram Data
-      .then(() => {
-        return airtable.getAll({
-          name: "Enneagrammer DB",
-          url: enneagrammer.url,
-        });
-      }, errorHandler)
-      // Process Enneagram Data
-      .then((records) => {
-        const result = enneagrammer.convertRecords(records);
-        eTypeMap = result;
-      })
-      // Fetch More OPS Data (Roqb's DB)
-      .then(() => {
-        return airtable.getAll({
-          name: "OPS DB",
-          url: opsExtra.url,
-        });
-      }, errorHandler)
-      // Process Extra OPS Data
-      .then((records) => {
-        const result = opsExtra.convertRecords(records);
-        opsExtraMap = result;
-      })
-      .then(() => {
-        return airtable.getAll({
-          name: "Faytabase",
-          url: faytabase.url,
-        });
-      }, errorHandler)
-      .then((records) => {
-        const result = faytabase.convertRecords(records);
-        fayTypeMap = result;
-      })
-      .then(() => {
-        return airtable.getAll({
-          name: "WSS DB",
-          url: wss.url,
-        });
-      }, errorHandler)
-      .then((records) => {
-        const result = wss.convertRecords(records);
-        wssMap = result;
-      })
-      .then(() => {
-        return airtable.getAll({
-          name: "Interview DB",
-          url: interviews.url,
-        });
-      })
-      .then((records) => {
-        const result = interviews.convertRecords(records);
-        interviewMap = result;
-      })
-      .then(() => {
-        return airtable.getAll({
-          name: "Subjective Personality DB",
-          url: subjective.url,
-        });
-      })
-      .then((records) => {
-        const result = subjective.convertRecords(records);
-        subjectiveMap = result;
-      })
-      .then(() => {
-        return airtable.getAll({
-          name: "AP DB",
-          url: apDb.url,
-        });
-      })
-      .then((records) => {
-        const result = apDb.convertRecords(records);
-        apMap = result;
-      })
-      .then(() => {
-        // Merge Map Results Together
-        opsExtra.mergeMaps(nameMap, opsExtraMap);
-        interviews.mergeMaps(nameMap, interviewMap);
-        enneagrammer.mergeMaps(nameMap, eTypeMap);
-        // faytabase.mergeMaps(nameMap, fayTypeMap);
-        wss.mergeMaps(nameMap, wssMap);
-        subjective.mergeMaps(nameMap, subjectiveMap);
-        apDb.mergeMaps(nameMap, apMap);
-        nameMap.forEach((val, key) => {
-          val.key = key;
-        });
-      })
-      .then(() => {
-        // remove excluded - TODO: get from database
-        const deleteKeys = ['saadet'];
-        nameMap.forEach((val, key) => {
-          if (val.tags.includes('Community Member')) {
-            deleteKeys.push(key);
-          }
-        });
-        deleteKeys.forEach(key => {
-          nameMap.delete(key);
-        });
-      }).then(() => {
-        personsComplete = true;
-        attemptResolve();
-      });
-
-    // get Definitions
-    airtable
-      .getAll({
-        name: "Definitions",
-        url: terms.urlMap.get("definitions"),
-      })
-      .then((records) => {
-        // handle Definitions
-        const result = terms.convertDefinitions(records);
-        termMap = result.terms;
-        sourceMap = result.sources;
-      }, errorHandler)
-      // get Children
-      .then(() => {
-        return airtable.getAll({
-          name: "Children",
-          url: terms.urlMap.get("children"),
-        });
-      }, errorHandler)
-      .then((records) => {
-        // handle Children
-        const result = terms.convertChildren(records, termMap);
-        childrenMap = result.children;
-      })
-      .then(() => {
-        definitionsComplete = true;
-        attemptResolve();
-      });
-
-    airtable
-      .getAll({
-        name: "Nine Types",
-        url: nineTypes.nineTypesUrl,
-      })
-      .then((records) => {
-        const result = nineTypes.convert(records);
-        nineTypesMap = result.nineTypes;
-      }, errorHandler)
-      .then(() => {
-        nineTypesComplete = true;
-        attemptResolve();
-      });
-
-    function attemptResolve() {
-      console.log(
-        "attempt resolve",
-        completeSteps.every((v) => v === true)
-      );
-      if (personsComplete && definitionsComplete && nineTypesComplete) {
-        console.timeEnd("fetch-airtable-data");
-        resolve({
-          nineTypesMap: nineTypesMap,
-          termMap: termMap,
-          sourceMap: sourceMap,
-          typeMap: typeMap,
-          nameMap: nameMap,
-          childrenMap: childrenMap,
-          eTypeMap: eTypeMap,
-          apMap: apMap,
-        });
-      }
-    }
-  }, errorHandler);
-}
-
-// Wait for maps to complete before starting the io
-function startIo() {
-  if (
-    nineTypesMap &&
-    termMap &&
-    sourceMap &&
-    typeMap &&
-    nameMap &&
-    childrenMap &&
-    eTypeMap
-  ) {
-    // console.timeЕnd(setup);
-    ioSetup([
-      {
-        listener: "getNames",
-        trigger: "names",
-        val: Array.from(nameMap),
-      },
-      {
-        listener: "getTerms",
-        trigger: "terms",
-        val: Array.from(termMap),
-      },
-      {
-        listener: "getSources",
-        trigger: "sources",
-        val: Array.from(sourceMap),
-      },
-      {
-        listener: "getParents",
-        trigger: "parents",
-        val: Array.from(childrenMap),
-      },
-      {
-        listener: "getTypes",
-        trigger: "types",
-        val: [] // Array.from(typeMap),
-      },
-      {
-        listener: "getNineTypes",
-        trigger: "nineTypes",
-        val: Array.from(nineTypesMap),
-      },
-    ]);
-  }
 }

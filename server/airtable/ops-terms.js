@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
+const { MAX_RECORD } = require("./airtable");
 
 const TERMS_HOST = "https://api.airtable.com/v0/appU0Gx0zVVLeMYUe/";
-const MAX_RECORD = 10000;
 
 const termsUrl = new URL(TERMS_HOST + "Terms");
 termsUrl.searchParams.append("maxRecords", MAX_RECORD);

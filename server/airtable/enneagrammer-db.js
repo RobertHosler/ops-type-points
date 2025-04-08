@@ -1,11 +1,10 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey, MAX_RECORD } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/apptRQDj4AV89IiNn/";
 const TABLE_NAME = "Enneagrammer DB";
 const VIEW = "Grid view";
-const MAX_RECORD = 10000;
 const fields = [
   "Name",
   "Alt-Name",
@@ -148,7 +147,7 @@ function convertRecords(records) {
     const trifix = buildTritype(fullTrifix);
     const dirtyOverlay = record.fields.Overlay ? record.fields.Overlay : buildDirtyOverlay(fullTrifix);
     const overlay = cleanOverlay(dirtyOverlay, trifix);
-    
+
     const fullEType = buildFullEType(instinct, eType, fullTrifix, dirtyOverlay); // wing format: so/sp 9w1 3w4 6w7
     const fullETypeOverlay = buildFullETypeOverlay(instinct, eType, trifix, overlay); // overlay format: so/sp 936 (147)
     const emphasizedNumbers = buildEmphasizedNumbers(trifix, dirtyOverlay);
@@ -195,7 +194,7 @@ function convertRecords(records) {
 function buildEmphasizedNumbers(trifix, overlay) {
   let emphasizedNumbers = [];
   if (trifix && overlay) {
-    const numbers = (trifix+overlay).split(''); // all numbers in the array
+    const numbers = (trifix + overlay).split(''); // all numbers in the array
     numbers.forEach(s => {
       const indexArr = getAllIndexes(numbers, s);
       if (indexArr.length > 1 && !emphasizedNumbers.includes(s)) {
@@ -208,8 +207,8 @@ function buildEmphasizedNumbers(trifix, overlay) {
 
 function getAllIndexes(arr, val) {
   var indexes = [], i = -1;
-  while ((i = arr.indexOf(val, i+1)) != -1){
-      indexes.push(i);
+  while ((i = arr.indexOf(val, i + 1)) != -1) {
+    indexes.push(i);
   }
   return indexes;
 }
@@ -218,9 +217,9 @@ function buildDirtyOverlay(fullTrifix) {
   let overlay = null;
   if (fullTrifix && fullTrifix.length === 11) {
     const parts = fullTrifix.split(" ");
-    let overlay1 = parts[0].substring(2,3);
-    let overlay2 = parts[1].substring(2,3);
-    let overlay3 = parts[2].substring(2,3);
+    let overlay1 = parts[0].substring(2, 3);
+    let overlay2 = parts[1].substring(2, 3);
+    let overlay3 = parts[2].substring(2, 3);
     overlay = overlay1 + overlay2 + overlay3;
   }
   return overlay;
@@ -229,7 +228,7 @@ function buildDirtyOverlay(fullTrifix) {
 function cleanOverlay(dirtyOverlay, trifix) {
   let overlay = null;
   if (dirtyOverlay) {
-    overlay = [ ...new Set(dirtyOverlay.split(''))];//remove duplicates
+    overlay = [...new Set(dirtyOverlay.split(''))];//remove duplicates
     trifix.split('').forEach(s => {
       const index = overlay.indexOf(s);
       if (index > -1) {
@@ -246,10 +245,10 @@ function buildOverlay(trifix, fullTrifix) {
   let overlay = null;
   if (fullTrifix && fullTrifix.length === 11) {
     const parts = fullTrifix.split(" ");
-    let overlay1 = parts[0].substring(2,3);
-    let overlay2 = parts[1].substring(2,3);
-    let overlay3 = parts[2].substring(2,3);
-    overlay = [ ...new Set([overlay1, overlay2, overlay3])];//remove duplicates
+    let overlay1 = parts[0].substring(2, 3);
+    let overlay2 = parts[1].substring(2, 3);
+    let overlay3 = parts[2].substring(2, 3);
+    overlay = [...new Set([overlay1, overlay2, overlay3])];//remove duplicates
     trifix.split('').forEach(s => {
       const index = overlay.indexOf(s);
       if (index > -1) {
@@ -265,7 +264,7 @@ function buildOverlay(trifix, fullTrifix) {
 /**
  * Build full eType in format:
  *  [INSTINCT] [CORE] [TRIFIX]
- *  
+ *
  * Trifix will contains wings instead of overlay format.
  */
 function buildFullEType(instinct, eType, fullTrifix, dirtyOverlay) {
@@ -278,9 +277,9 @@ function buildFullEType(instinct, eType, fullTrifix, dirtyOverlay) {
   } else if (fullTrifix && fullTrifix.length === 3 && dirtyOverlay && dirtyOverlay.length === 3) {
     let trifixParts = fullTrifix.split('');
     let dirtyParts = dirtyOverlay.split('');
-    coreType = trifixParts[0] + 'w' + dirtyParts[0] + ' ' + 
-        trifixParts[1] + 'w' + dirtyParts[1] + ' ' + 
-        trifixParts[2] + 'w' + dirtyParts[2];
+    coreType = trifixParts[0] + 'w' + dirtyParts[0] + ' ' +
+      trifixParts[1] + 'w' + dirtyParts[1] + ' ' +
+      trifixParts[2] + 'w' + dirtyParts[2];
   } else {
     coreType = eType;
     trifix = fullTrifix;
@@ -412,7 +411,7 @@ function mergeMaps(nameMap, eTypeMap) {
       let ytLink = '';
       let personTags = [];
       if (!eVal.tags.includes('Community Member')) {
-        ytLink = 'https://www.youtube.com/results?search_query='+ eKey + ' interview';
+        ytLink = 'https://www.youtube.com/results?search_query=' + eKey + ' interview';
       } else {
         personTags.push("Community Member");
       }

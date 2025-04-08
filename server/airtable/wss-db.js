@@ -1,11 +1,10 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey, MAX_RECORD } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/apphGksK3AXCVIcCr/";
 const TABLE_NAME = "WSS DB";
 const VIEW = "Grid view";
-const MAX_RECORD = 12000;
 const fields = [
   "Name",
   "Type",
@@ -97,10 +96,10 @@ function mergeMaps(nameMap, wssMap) {
     } else {
       // Add to nameMap
       j++;
-      let ytLink = 'https://www.youtube.com/results?search_query='+ wssKey + ' interview';
+      let ytLink = 'https://www.youtube.com/results?search_query=' + wssKey + ' interview';
       let tags = ['WSS'];
       (wssVal.tags ? wssVal.tags : []).forEach(tag => {
-          tags.push(tag);
+        tags.push(tag);
       });
       if (tags.includes('Historical')) {
         ytLink = '';

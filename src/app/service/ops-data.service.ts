@@ -260,6 +260,7 @@ export class TypedPerson {
   wing?: string; // 1
   fullEType?: string;// so/sp - 9w1 - 963
   fullETypeOverlay?: string; // so/sp 963(125)
+  apEpisode?: string;
   apType?: string;
   apSubtype?: string;
   wssType?: string;

@@ -1,11 +1,10 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, compareModifiedDates, getLastModified, buildKey } = require("./airtable");
+const { getRecordPicture, compareModifiedDates, getLastModified, buildKey, MAX_RECORD } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/appcD3UjS4Do1PHEd/";
 const TABLE_NAME = "Interviews";
 const VIEW = "Grid view";
-const MAX_RECORD = 12000;
 const fields = [
   "Name",
   "Alt-Name",
@@ -110,7 +109,7 @@ function convertRecords(records) {
     if (!record.fields["Not Community"]) {
       tags.push("Community Member");
     } else {
-      ytLink = 'https://www.youtube.com/results?search_query='+ name + ' interview';
+      ytLink = 'https://www.youtube.com/results?search_query=' + name + ' interview';
     }
     if (bin) {
       ytLink = bin.split('\n')[0];

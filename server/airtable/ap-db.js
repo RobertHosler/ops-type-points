@@ -1,12 +1,11 @@
 /*jshint esversion: 6 */
 
 const logger = require("../logger")
-const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey, MAX_RECORD } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/appS1nbL2o9NAoOpQ/";
 const TABLE_NAME = "AP DB";
-const VIEW = "Grid view";
-const MAX_RECORD = 10000;
+const VIEW = "Grid view - hide spec";
 const fields = [
   "Name",
   "Alt-Name",
@@ -77,16 +76,17 @@ function convertRecords(records) {
   return result;
 }
 
-function mergeMaps(nameMap, eTypeMap) {
+function mergeMaps(nameMap, apTypeMap) {
   const matches = [];
   let i = 0;
-  eTypeMap.forEach((val, key) => {
+  apTypeMap.forEach((val, key) => {
     let nameVal = nameMap.get(key);
     if (!nameVal) {
       nameVal = nameMap.get(val.altName);
     }
     if (nameVal) {
       // Merge
+      nameVal.apEpisode = val.episode;
       nameVal.apType = val.apType; // FVLE
       nameVal.apSubtype = val.apSubtype; // 0202
       nameVal.tags = nameVal.tags ? nameVal.tags : [];
@@ -131,6 +131,7 @@ function mergeMaps(nameMap, eTypeMap) {
       }
       nameMap.set(key, {
         name: val.name,
+        apEpisode: val.episode,
         apType: val.apType,
         apSubtype: val.apSubtype,
         pictureUrl: val.pictureUrl,

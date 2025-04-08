@@ -3,6 +3,7 @@
 // const https = require("https");
 const request = require("request-promise");
 const cheerio = require("cheerio");
+const logger = require("./logger");
 const { enneaConvertName } = require("./airtable/enneagrammer-db");
 const dbUrl = new URL("https://www.enneagrammer.com/database-list");
 const googleDocUrl = new URL(
@@ -23,13 +24,13 @@ function scrape() {
     console.log("requesting...", dbUrl.toString());
     request(urlOptions, (error, response, html) => {
       if (!error && response.statusCode == 200) {
-        console.log("nice, we did it");
+        logger.debug("[mer]-db - nice, we did it");
         const $ = cheerio.load(html);
         const data = buildData($);
         resolve(data);
         //custom-table-block custom-table-block-bordered custom-table-block-1 custom-table-inited
       } else {
-        console.log("darn, it broke", error, response.statusCode);
+        logger.error("[mer]-db - darn, it broke", error, response.statusCode);
         reject([]);
       }
     });
@@ -62,7 +63,7 @@ function buildData($) {
         trifix = trifix.replace(/[^0-9\(\)]/g, '');
       }
       if (logNames.includes(name)) {
-        console.log(name, instinct, type, trifix);
+        logger.debug(name, instinct, type, trifix);
       }
       const result = {
         name: name,
@@ -75,6 +76,7 @@ function buildData($) {
       }
     }
   });
+  logger.info("[mer]-db scrape " + result.length);
   return results;
 }
 

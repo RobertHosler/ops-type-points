@@ -1,11 +1,10 @@
 /*jshint esversion: 6 */
 
-const { getRecordPicture, getLastModified, compareModifiedDates, buildKey } = require("./airtable");
+const { getRecordPicture, getLastModified, compareModifiedDates, buildKey, MAX_RECORD } = require("./airtable");
 
 const HOST = "https://api.airtable.com/v0/app2KuryAPU7YdO32/";
 const TABLE_NAME = "OPS DB";
 const VIEW = "Grid view";
-const MAX_RECORD = 10000;
 const fields = [
   "Name",
   "Alt-Name",

@@ -8,8 +8,11 @@ const writeFile = promisify(fs.writeFile);
 const sharp = require('sharp'); // resizing images
 const logger = require("../logger")
 const API_TOKEN = process.env.OP_DATABASE_TOKEN || require("../local-api").token;
-const MAX_RECORD = 10000;
 const AIRTABLE_BASE = "https://api.airtable.com/v0/";
+
+const pageSize = 100;
+exports.MAX_RECORD = process.env.NODE_ENV === 'development' ? pageSize * 1 : 10000;
+console.log("max record: ", process.env.NODE_ENV, exports.MAX_RECORD);
 
 /*
  * getAllData -> return promise
@@ -22,7 +25,7 @@ const AIRTABLE_BASE = "https://api.airtable.com/v0/";
 
 function buildUrl(dbKey, table, view, fields) {
   const url = new URL(AIRTABLE_BASE + dbKey + "/" + table);
-  url.searchParams.append("maxRecords", MAX_RECORD);
+  url.searchParams.append("maxRecords", exports.MAX_RECORD);
   url.searchParams.append("view", view);
   fields.forEach((field) => {
     url.searchParams.append("fields", field);
