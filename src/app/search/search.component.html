@@ -242,11 +242,11 @@
       <div *ngIf="searchInitiated && displayedRecords && displayedRecords.length > 0" class="alert alert-info mt-3">
         Search found {{ displayedRecords.length }} results.
       </div>
-      <div class="mt-2 alert alert-info" *ngIf="searchInitiated && showTypes.ap">
-        <small>Our Attitudinal Psyche types may be out of date while the AP site
-          goes through some renovation. You can check <a href="https://www.attitudinalpsyche.com/theory/database/"
-            target="_blank" class="text-bold">their database</a> for
-          the most up to date records.
+      <div class="mt-2 text-info" *ngIf="searchInitiated && showTypes.ap">
+        <small>Our Attitudinal Psyche types were recently updated to be in line with the new database. There is
+          less data than before, but more is being added all the time! Learn more at <a
+            href="https://www.attitudinalpsyche.com/membership-account/membership-levels/" target="_blank"
+            class="text-bold">attitudinalpsyche.com</a>.
         </small>
       </div>
       <div class="mt-2" *ngIf="showUpdateNotice">

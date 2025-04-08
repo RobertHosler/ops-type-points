@@ -1,119 +1,67 @@
-<div
-  class="image-col"
-  [ngClass]="{ 'image-only': imageOnly, 'practice': displayPracticeLink }"
-  *ngIf="(!imageOnly || imageOnly && typeRecord.pictureUrl) && (typeRecord.type || typeRecord.fullEType || typeRecord.wssType|| typeRecord.apType)"
->
+<div class="image-col" [ngClass]="{ 'image-only': imageOnly, 'practice': displayPracticeLink }"
+  *ngIf="(!imageOnly || imageOnly && typeRecord.pictureUrl) && (typeRecord.type || typeRecord.fullEType || typeRecord.wssType|| typeRecord.apType)">
   <div class="image-text-top">
     <div *ngIf="displayPracticeLink">
-      <a [routerLink]="['/practice']" [queryParams]="{ name: typeRecord.key }"
-        >Practice Typing</a
-      >
+      <a [routerLink]="['/practice']" [queryParams]="{ name: typeRecord.key }">Practice Typing</a>
     </div>
   </div>
   <div class="image-wrapper">
     <div class="link-row" *ngIf="!displayPracticeLink">
-      <span
-        *ngIf="typeRecord.tags.includes('Community Member')"
-        class="community-member-logo"
-        [popover]="'Community Member'"
-        triggers="mouseenter:mouseleave"
-        placement="top"
-      >
+      <span *ngIf="typeRecord.tags.includes('Community Member')" class="community-member-logo"
+        [popover]="'Community Member'" triggers="mouseenter:mouseleave" placement="top">
         <img src="/assets/images/sp-logo-no-bg.png" />
       </span>
-      <a
-        [href]="
+      <a *ngIf="typeRecord.apEpisode" href="https://www.attitudinalpsyche.com/the-typology-vault/"
+        [popover]="'AP Episode ' + typeRecord.apEpisode" triggers="mouseenter:mouseleave" placement="top"
+        class="ops-logo-link" target="_blank">
+        <img src="/assets/images/ap-logo.jpg" />
+      </a>
+      <a [href]="
           typeRecord.classLink
             ? typeRecord.classLink
             : 'https://docs.google.com/document/u/0/d/1lNO4NjYwvPQYSBhHZNzTiFTTVfhitOWlFsdvr-WTX9g/mobilebasic'
-        "
-        *ngIf="
+        " *ngIf="
         (showTypes.ops &&
           typeRecord.tags &&
           typeRecord.tags.includes('OPS Class Typing'))
         "
         [popover]="'OPS Class ' + (typeRecord.opsClassNumber && typeRecord.opsClassNumber > 0 ? typeRecord.opsClassNumber : '')"
-        triggers="mouseenter:mouseleave"
-        placement="top"
-        class="ops-logo-link"
-        target="_blank"
-      >
+        triggers="mouseenter:mouseleave" placement="top" class="ops-logo-link" target="_blank">
         <img src="/assets/images/ops-logo.PNG" />
       </a>
-      <a
-        [href]="
+      <a [href]="
           typeRecord.daaLink
             ? typeRecord.daaLink
             : 'https://www.enneagrammer.com/members-home'
-        "
-        [popover]="'Dark Arts Academy Class ' + typeRecord.daaClassNumber"
-        triggers="mouseenter:mouseleave"
-        placement="top"
-        *ngIf="
+        " [popover]="'Dark Arts Academy Class ' + typeRecord.daaClassNumber" triggers="mouseenter:mouseleave"
+        placement="top" *ngIf="
           typeRecord.tags && showTypes.ennea && typeRecord.tags.includes('Academy Typing (DAA)')
-        "
-        class="daa-logo-link"
-        target="_blank"
-      >
+        " class="daa-logo-link" target="_blank">
         <img src="/assets/images/enneagrammer-logo.png" />
       </a>
-      <a
-        [href]="
+      <a [href]="
           typeRecord.wssLink
             ? typeRecord.wssLink
             : 'http://worldsocionics.blogspot.com/'
-        "
-        [popover]="'WSS Analysis'"
-        triggers="mouseenter:mouseleave"
-        placement="top"
-        *ngIf="
+        " [popover]="'WSS Analysis'" triggers="mouseenter:mouseleave" placement="top" *ngIf="
         (showTypes.wss && typeRecord.tags && typeRecord.tags.includes('Analysis'))
-        "
-        class="wss-logo-link"
-        target="_blank"
-      >
+        " class="wss-logo-link" target="_blank">
         <img src="/assets/images/wss-logo.jpg" />
       </a>
-      <a
-        *ngIf="typeRecord.ytLink"
-        class="youtube-link"
-        [href]="typeRecord.ytLink"
-        target="_blank"
-        [popover]="'Watch Interview'"
-        triggers="mouseenter:mouseleave"
-        placement="top"
-      >
-        <i-bs
-          name="youtube"
-          class="mx-1"
-          width="1.25rem"
-          height="1.25rem"
-        ></i-bs
-      ></a>
-      <a
-        *ngIf="typeRecord.tags.includes('Historical')"
-        class="wiki-link"
-        target="_blank"
-        [href]="'https://en.wikipedia.org/wiki/' + typeRecord.name"
-        [popover]="'Wikipedia'"
-        triggers="mouseenter:mouseleave"
-        placement="top"
-      >
-        <i-bs name="globe2" class="mx-1" width="1.25rem" height="1.25rem"></i-bs
-      ></a>
-      <span
-        popoverTitle="Last Updated"
-        triggers="mouseenter:mouseleave"
-        [popover]="typeRecord.lastModified | date:'MMM d, yyyy'"
-      >
+      <a *ngIf="typeRecord.ytLink" class="youtube-link" [href]="typeRecord.ytLink" target="_blank"
+        [popover]="'Watch Interview'" triggers="mouseenter:mouseleave" placement="top">
+        <i-bs name="youtube" class="mx-1" width="1.25rem" height="1.25rem"></i-bs></a>
+      <a *ngIf="typeRecord.tags.includes('Historical')" class="wiki-link" target="_blank"
+        [href]="'https://en.wikipedia.org/wiki/' + typeRecord.name" [popover]="'Wikipedia'"
+        triggers="mouseenter:mouseleave" placement="top">
+        <i-bs name="globe2" class="mx-1" width="1.25rem" height="1.25rem"></i-bs></a>
+      <span popoverTitle="Last Updated" triggers="mouseenter:mouseleave"
+        [popover]="typeRecord.lastModified | date:'MMM d, yyyy'">
         <i-bs name="info-circle" class="ml-1" width="1rem" height="1rem"></i-bs>
       </span>
     </div>
-    <a
-      *ngIf="!externalLink || displayPracticeLink"
-      [routerLink]="imageRouterLink()"
-      [queryParams]="imageQueryParams(typeRecord)"
-    >
+    <a *ngIf="!externalLink || displayPracticeLink" [routerLink]="imageRouterLink()"
+      [queryParams]="imageQueryParams(typeRecord)">
       <div class="name">
         {{ typeRecord.name }}
       </div>
@@ -129,8 +77,7 @@
         </div>
         <div *ngIf="typeRecord.apType && showTypes.ap">
           <ng-container *ngFor="let aspect of typeRecord.apType.split('');">
-            <span class="ap-aspect ap-core"
-            [ngClass]="{
+            <span class="ap-aspect ap-core" [ngClass]="{
               'ap-v': aspect === 'V',
               'ap-e': aspect === 'E',
               'ap-l': aspect === 'L',
@@ -140,20 +87,13 @@
           <span *ngIf="typeRecord.apSubtype">({{ typeRecord.apSubtype }})</span>
         </div>
       </div>
-      <ng-container
-        *ngTemplateOutlet="typeImage; context: { record: typeRecord }"
-      ></ng-container>
+      <ng-container *ngTemplateOutlet="typeImage; context: { record: typeRecord }"></ng-container>
     </a>
     <a [href]="externalLink(typeRecord)" *ngIf="externalLink && !displayPracticeLink" target="_blank">
-      <ng-container
-        *ngTemplateOutlet="typeImage; context: { record: typeRecord }"
-      ></ng-container>
+      <ng-container *ngTemplateOutlet="typeImage; context: { record: typeRecord }"></ng-container>
     </a>
   </div>
-  <div
-    class="image-text-bottom text-center"
-    [ngClass]="{ indicator: typeIndicator }"
-  >
+  <div class="image-text-bottom text-center" [ngClass]="{ indicator: typeIndicator }">
     <div class="image-name">
       <div [ngClass]="{ 'image-name-label': true }">
         {{ typeRecord.name }}
@@ -162,128 +102,78 @@
     <div *ngIf="!displayPracticeLink && typeIndicator">
       <div class="image-indicator-row">
         <div *ngIf="typeRecord.type">
-          <app-type-indicator
-            [option]="1"
-            [type]="typeRecord.type"
-          ></app-type-indicator>
+          <app-type-indicator [option]="1" [type]="typeRecord.type"></app-type-indicator>
         </div>
         <div *ngIf="typeRecord.fullEType">
-          <app-type-indicator
-            [option]="1"
-            [eType]="typeRecord.fullEType"
-          ></app-type-indicator>
+          <app-type-indicator [option]="1" [eType]="typeRecord.fullEType"></app-type-indicator>
         </div>
       </div>
     </div>
     <div class="type-wrapper" *ngIf="!displayPracticeLink && !typeIndicator">
-      <div *ngIf="showReveal && typeRecord.type && showTypes.ops"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="showReveal = false">Reveal Ops Type</a></div>
-      <div
-        class="image-type"
-        *ngIf="typeRecord.type && showTypes.ops && !showReveal"
-      >
-        <span
-          *ngIf="typeRecord.opsTags && typeRecord.opsTags.length"
-          [popover]="typeRecord.opsTags"
-          triggers="mouseenter:mouseleave"
-          placement="bottom"
-        >
+      <div *ngIf="showReveal && typeRecord.type && showTypes.ops"><a href="javascript:void(0)" class="btn-link btn-sm"
+          (click)="showReveal = false">Reveal Ops Type</a></div>
+      <div class="image-type" *ngIf="typeRecord.type && showTypes.ops && !showReveal">
+        <span *ngIf="typeRecord.opsTags && typeRecord.opsTags.length" [popover]="typeRecord.opsTags"
+          triggers="mouseenter:mouseleave" placement="bottom">
           {{ typeRecord.type }}
-          <i-bs
-            name="info-circle"
-            class="ml-1"
-            width=".8rem"
-            height=".8rem"
-          ></i-bs>
+          <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
         </span>
         <span *ngIf="!typeRecord.opsTags || !typeRecord.opsTags.length">
           {{ typeRecord.type }}
         </span>
-        <span *ngIf="typeRecord.socialType"
-          [popover]="'Social Type ' + typeRecord.socialType"
+        <span *ngIf="typeRecord.socialType" [popover]="'Social Type ' + typeRecord.socialType"
           triggers="mouseenter:mouseleave">
           [{{ typeRecord.socialType }}]
         </span>
       </div>
-      <div *ngIf="showReveal && typeRecord.fullEType && showTypes.ennea"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="showReveal = false">Reveal Ennea Type</a></div>
+      <div *ngIf="showReveal && typeRecord.fullEType && showTypes.ennea"><a href="javascript:void(0)"
+          class="btn-link btn-sm" (click)="showReveal = false">Reveal Ennea Type</a></div>
       <div class="image-type" *ngIf="typeRecord.fullEType && showTypes.ennea && !showReveal">
         <div *ngIf="typeRecord.enneaTags && typeRecord.enneaTags.length">
-          <span
-            *ngIf="typeRecord.overlay"
-            [popover]="typeRecord.fullEType + ' ' + typeRecord.enneaTags"
-            triggers="mouseenter:mouseleave"
-            placement="bottom"
-          >
-            <span
-              *ngIf="
+          <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType + ' ' + typeRecord.enneaTags"
+            triggers="mouseenter:mouseleave" placement="bottom">
+            <span *ngIf="
                 typeRecord.emphasizedNumbers &&
                 typeRecord.emphasizedNumbers.length > 0
-              "
-              [innerHTML]="
+              " [innerHTML]="
                 emphasize(
                   typeRecord.fullETypeOverlay,
                   typeRecord.emphasizedNumbers
                 )
-              "
-            ></span>
-            <span
-              *ngIf="
+              "></span>
+            <span *ngIf="
                 !typeRecord.emphasizedNumbers ||
                 typeRecord.emphasizedNumbers.length === 0
-              "
-              >{{ typeRecord.fullETypeOverlay }}</span
-            >
-            <i-bs
-              name="info-circle"
-              class="ml-1"
-              width=".8rem"
-              height=".8rem"
-            ></i-bs>
+              ">{{ typeRecord.fullETypeOverlay }}</span>
+            <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
           </span>
-          <span
-            *ngIf="!typeRecord.overlay"
-            [popover]="typeRecord.enneaTags"
-            triggers="mouseenter:mouseleave"
-            placement="bottom"
-          >
+          <span *ngIf="!typeRecord.overlay" [popover]="typeRecord.enneaTags" triggers="mouseenter:mouseleave"
+            placement="bottom">
             {{ typeRecord.fullEType }}
-            <i-bs
-              name="info-circle"
-              class="ml-1"
-              width=".8rem"
-              height=".8rem"
-            ></i-bs>
+            <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
           </span>
         </div>
         <div *ngIf="!typeRecord.enneaTags || !typeRecord.enneaTags.length">
-          <span
-            *ngIf="typeRecord.overlay"
-            [popover]="typeRecord.fullEType"
-            triggers="mouseenter:mouseleave"
-            placement="bottom"
-          >
-            <span
-              *ngIf="typeRecord.emphasizedNumbers"
-              [innerHTML]="
+          <span *ngIf="typeRecord.overlay" [popover]="typeRecord.fullEType" triggers="mouseenter:mouseleave"
+            placement="bottom">
+            <span *ngIf="typeRecord.emphasizedNumbers" [innerHTML]="
                 emphasize(
                   typeRecord.fullETypeOverlay,
                   typeRecord.emphasizedNumbers
                 )
-              "
-            ></span>
+              "></span>
             <span *ngIf="!typeRecord.emphasizedNumbers">{{
               typeRecord.fullETypeOverlay
-            }}</span>
+              }}</span>
           </span>
           <span *ngIf="!typeRecord.overlay">
             {{ typeRecord.fullEType }}
           </span>
         </div>
       </div>
-      <div *ngIf="showReveal && typeRecord.wssType && showTypes.wss"><a href="javascript:void(0)" class="btn-link btn-sm" (click)="showReveal = false">Reveal Socionics Type</a></div>
-      <div
-        class="image-type"
-        *ngIf="!showReveal && typeRecord.wssType && showTypes.wss"
-      >
+      <div *ngIf="showReveal && typeRecord.wssType && showTypes.wss"><a href="javascript:void(0)"
+          class="btn-link btn-sm" (click)="showReveal = false">Reveal Socionics Type</a></div>
+      <div class="image-type" *ngIf="!showReveal && typeRecord.wssType && showTypes.wss">
         {{ typeRecord.wssType }}
       </div>
       <div *ngIf="false && typeRecord.ytLink">
@@ -291,8 +181,7 @@
       </div>
       <div class="image-type ap-type ap-color" *ngIf="typeRecord.apType && showTypes.ap">
         <ng-container *ngFor="let aspect of typeRecord.apType.split('');">
-          <span class="ap-aspect ap-core"
-          [ngClass]="{
+          <span class="ap-aspect ap-core" [ngClass]="{
             'ap-v': aspect === 'V',
             'ap-e': aspect === 'E',
             'ap-l': aspect === 'L',
@@ -300,18 +189,9 @@
           }">{{ aspect }}</span>
         </ng-container>
         <span *ngIf="typeRecord.apSubtype">({{ typeRecord.apSubtype }})</span>
-        <span
-          *ngIf="typeRecord.apTags && typeRecord.apTags.length > 0"
-          [popover]="typeRecord.apTags"
-          triggers="mouseenter:mouseleave"
-          placement="bottom"
-        >
-          <i-bs
-            name="info-circle"
-            class="ml-1"
-            width=".8rem"
-            height=".8rem"
-          ></i-bs>
+        <span *ngIf="typeRecord.apTags && typeRecord.apTags.length > 0" [popover]="typeRecord.apTags"
+          triggers="mouseenter:mouseleave" placement="bottom">
+          <i-bs name="info-circle" class="ml-1" width=".8rem" height=".8rem"></i-bs>
         </span>
       </div>
       <div *ngIf="showTypes.create" class="timestamp">
@@ -323,10 +203,7 @@
     </div>
     <div class="image-tags" *ngIf="true">
       <ng-container *ngFor="let tag of typeRecord.tags">
-        <div
-          (click)="activeTag !== tag ? (activeTag = tag) : (activeTag = '')"
-          class="image-tag"
-          [ngClass]="{
+        <div (click)="activeTag !== tag ? (activeTag = tag) : (activeTag = '')" class="image-tag" [ngClass]="{
             'tag-ops': tag === 'OPS',
             'tag-ennea': tag === 'Enneagrammer',
             'tag-wss': tag === 'WSS',
@@ -335,33 +212,28 @@
             'tag-class': tag === 'OPS Class Typing',
             'tag-community': tag === 'Community Member',
             active: activeTag === tag
-          }"
-        >
+          }">
           <span class="image-tag-text"> {{ tag }}</span>
-        </div></ng-container
-      >
+        </div>
+      </ng-container>
     </div>
   </div>
 </div>
 
 <ng-template #typeImage let-record="record">
-    <div
-      class="image-img"
-      [ngClass]="{
+  <div class="image-img" [ngClass]="{
         'image-missing': !record.pictureUrl,
         grayscale: grayscale
-      }"
-      [ngStyle]="{
+      }" [ngStyle]="{
         'background-image':
           'url(' +
           (record.pictureUrl
             ? record.pictureUrl
             : '/assets/images/sp-logo-no-bg.png') +
           ')'
-      }"
-    >
-      <span class="image-missing-text" *ngIf="!record.pictureUrl">
-        Image Missing
-      </span>
-    </div>
-  </ng-template>
+      }">
+    <span class="image-missing-text" *ngIf="!record.pictureUrl">
+      Image Missing
+    </span>
+  </div>
+</ng-template>
