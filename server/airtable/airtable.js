@@ -345,7 +345,7 @@ exports.resetImageCache = () => {
 };
 
 exports.buildKey = (name) => {
-  return name ? name.toLowerCase().replace(/[.\s-,]/g, '') : '';
+  return name ? name.replace(/[^a-zA-Z]/g, '').toLowerCase() : '';
 };
 
 exports.compareModifiedDates = (a, b) => {

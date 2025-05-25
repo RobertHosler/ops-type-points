@@ -7,6 +7,7 @@ const path = require('path');
 const http = require("http");
 const server = http.Server(app);
 const logger = require("./server/logger");
+const { buildKey } = require("./server/airtable/airtable");
 const io = require("socket.io")(server, {
   cors: {
     // Allow access from local 4200 - angular dev server can hit the npm server
@@ -17,11 +18,11 @@ const io = require("socket.io")(server, {
 
 // disable for local testing that doesn't require airtable due to api limits
 let enableAirtable = true;
-if (process.env.NODE_ENV === 'development') {
-  console.log('Running locally', process.env.NODE_ENV);
-  enableAirtable = false; // limited by default locally even when enabled - see airtable.js
+if (process.env.NODE_ENV === 'development') { // npm run start:dev
+  enableAirtable = true; // limited by default locally even when enabled - see airtable.js
+  logger.info('Running locally:', process.env.NODE_ENV, "| enableAirtable=" + enableAirtable);
 } else {
-  console.log('Not running locally', process.env.NODE_ENV);
+  logger.info('Not running locally:', process.env.NODE_ENV);
 }
 
 
@@ -217,7 +218,7 @@ function findSimilarRecords(socket, max) {
 }
 
 const days = 7;
-const refreshEnabled = true; // don't refresh due to airtable api limits
+const refreshEnabled = false; // don't refresh due to airtable api limits
 const refreshTimer = 60 * 60 * 1000 * 24 * days;  // refresh once a week
 function refreshAirtableData(socket) {
   logger.debug("Refreshing data");
@@ -359,11 +360,11 @@ function fetchAirtableData() {
         name: "AP Scrape",
         // url: apDb.url,
         fetch: scrapeAP,
-        convert: (result) => {
+        convert: (result) => { // convert list of results to map by name
           const mapResult = new Map();
           result.forEach((record) => {
             record.tags = ['AP'];
-            mapResult.set(record.name, record);
+            mapResult.set(buildKey(record.name), record);
           });
           resultMaps.apMap = mapResult;
           return mapResult;
@@ -461,7 +462,7 @@ function fetchAirtableData() {
         // Now fetch the other data sources
         return Promise.all(dataSources.map((source) => fetchData(source)));
       })
-      .then(() => {
+      .then(() => { // add keys and delete community members
         const deleteKeys = [];
         resultMaps.nameMap.forEach((val, key) => {
           val.key = key; // add key to record for convenience in frontend

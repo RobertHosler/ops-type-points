@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 
-const DEBUG_ENABLED = false;
+const DEBUG_ENABLED = process.env.NODE_ENV === 'development' ? true : false;
 const TRACE_ENABLED = false;
 
 function buildLogMessage(args) {

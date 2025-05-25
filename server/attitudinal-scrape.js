@@ -107,7 +107,17 @@ function convertName(name) {
     name = name.substring(0, dashIndex).trim();
     // console.log("Trimmed |", beforeName, "| to |" + name + "|");
   }
+  converterList.forEach((converter) => {
+    if (converter.org === name) {
+      // console.log("Converting Name - ", converter.org, "- to - |" + converter.result + "|");
+      name = converter.result;
+    }
+  });
   return name;
 }
+
+const converterList = [
+  { org: "Eminem", result: "Marshall 'Eminem' Mathers" },
+];
 
 exports.scrapeAP = scrapeAP;

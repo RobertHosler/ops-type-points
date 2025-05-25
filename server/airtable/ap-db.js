@@ -80,9 +80,10 @@ function mergeMaps(nameMap, apTypeMap) {
   const matches = [];
   let i = 0;
   apTypeMap.forEach((val, key) => {
-    let nameVal = nameMap.get(key);
+    let nameVal = nameMap.get(key); // check nameMap for existing record
     if (!nameVal) {
-      nameVal = nameMap.get(val.altName);
+      let altKey = buildKey(val.altName); // check for altName as key
+      nameVal = nameMap.get(altKey);
     }
     if (nameVal) {
       // Merge
@@ -147,7 +148,7 @@ function mergeMaps(nameMap, apTypeMap) {
       });
     }
   });
-  logger.trace("AP Matches", matches.length, "New Persons", i);
+  logger.info("AP Matches", matches.length, "New Persons", i);
 }
 
 exports.url = url;
