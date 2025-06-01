@@ -73,6 +73,8 @@ import { ApFunctionsComponent } from './ap-functions/ap-functions.component';
 import { ApRelationsComponent } from './ap-relations/ap-relations.component';
 import { ApDescriptionComponent } from './ap-description/ap-description.component';
 import { ApSextaComponent } from './ap-sexta/ap-sexta.component';
+import { ApShadowComponent } from './ap-shadow/ap-shadow.component';
+import { ApLinesComponent } from './ap-lines/ap-lines.component';
 
 const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
 
@@ -135,7 +137,9 @@ const config: SocketIoConfig = { url: environment.socketUrl, options: {} };
     ApFunctionsComponent,
     ApRelationsComponent,
     ApDescriptionComponent,
-    ApSextaComponent
+    ApSextaComponent,
+    ApShadowComponent,
+    ApLinesComponent
   ],
   imports: [
     HttpClientModule,

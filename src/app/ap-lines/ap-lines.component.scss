@@ -1,0 +1,20 @@
+@import "../../assets/variables";
+
+.table {
+  background-color: #ddd;
+  border-color: $purple;
+  text-align: center;
+
+  th {
+    border-bottom: 2px solid;
+  }
+
+  th,
+  td {
+    padding: .25rem;
+  }
+
+  tr {
+    border-top: 1px solid;
+  }
+}

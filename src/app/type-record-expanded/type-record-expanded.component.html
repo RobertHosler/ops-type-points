@@ -8,10 +8,7 @@
           </div>
         </div>
         <div class="mb-2" *ngIf="false">
-          <app-type-tags
-            [tags]="person.tags"
-            [allActive]="true"
-          ></app-type-tags>
+          <app-type-tags [tags]="person.tags" [allActive]="true"></app-type-tags>
         </div>
         <div class="type-row" *ngIf="false">
         </div>
@@ -19,46 +16,34 @@
       <div class="type-selection">
         <div class="type-selection-item" *ngIf="custom">
           <div class="text-center">
-            
+
           </div>
           <button (click)="changeTab('Custom')" class="btn btn-gray"
-            [ngClass]="{ active: activeTab === 'Custom' }"
-            >Customize</button>
+            [ngClass]="{ active: activeTab === 'Custom' }">Customize</button>
         </div>
         <div class="type-selection-item" *ngIf="person.type">
           <div class="text-center">
-            <app-type-indicator
-            class="type-indicator d-inline-block"
-            [option]="1"
-            [type]="person.type"
-          ></app-type-indicator>
+            <app-type-indicator class="type-indicator d-inline-block" [option]="1"
+              [type]="person.type"></app-type-indicator>
           </div>
-          <button (click)="changeTab('OPS')" class="btn btn-gray"
-            [ngClass]="{ active: activeTab === 'OPS' }"
-            >Objective Personality</button>
+          <button (click)="changeTab('OPS')" class="btn btn-gray" [ngClass]="{ active: activeTab === 'OPS' }">Objective
+            Personality</button>
         </div>
         <div class="type-selection-item" *ngIf="person.eType">
           <div class="text-center">
-            <app-type-indicator
-              class="type-indicator d-inline-block"
-              [option]="1"
-              [eType]="person.fullEType"
-            ></app-type-indicator>
+            <app-type-indicator class="type-indicator d-inline-block" [option]="1"
+              [eType]="person.fullEType"></app-type-indicator>
           </div>
-          <button  class="btn btn-gray"
-            (click)="changeTab('Enneagram')"
+          <button class="btn btn-gray" (click)="changeTab('Enneagram')"
             [ngClass]="{ active: activeTab === 'Enneagram' }">Enneagram</button>
         </div>
         <div class="type-selection-item" *ngIf="person.wssType">
           <div class="text-center">
-            <app-socionics-shape
-              class="type-indicator d-inline-block mt-2"
-              [type]="person.wssType"
-            ></app-socionics-shape>
+            <app-socionics-shape class="type-indicator d-inline-block mt-2"
+              [type]="person.wssType"></app-socionics-shape>
           </div>
-          <button  class="btn btn-gray"
-              (click)="changeTab('WSS')"
-              [ngClass]="{ active: activeTab === 'WSS' }">Socionics</button>
+          <button class="btn btn-gray" (click)="changeTab('WSS')"
+            [ngClass]="{ active: activeTab === 'WSS' }">Socionics</button>
         </div>
         <div class="type-selection-item" *ngIf="person.apType">
           <div class="text-center">
@@ -66,9 +51,8 @@
               {{person.apType}}
             </div>
           </div>
-          <button  class="btn btn-gray"
-              (click)="changeTab('AP')"
-              [ngClass]="{ active: activeTab === 'AP' }">Attitudinal Psyche</button>
+          <button class="btn btn-gray" (click)="changeTab('AP')" [ngClass]="{ active: activeTab === 'AP' }">Attitudinal
+            Psyche</button>
         </div>
 
       </div>
@@ -79,49 +63,25 @@
       <h1>{{ person.name }}</h1>
 
       <div *ngIf="custom && activeTab === 'Custom'">
-        <p>Enter types below to generate a unique page for a given set of types.  Bookmark it to return and analyze again later.</p>
+        <p>Enter types below to generate a unique page for a given set of types. Bookmark it to return and analyze again
+          later.</p>
         <form (ngSubmit)="onSubmit(opsForm)" #opsForm="ngForm">
           <h2>Objective Personality</h2>
           <div class="flex-form">
             <div>
               <label for="modalities" class="mt-2">Modalities</label>
-              <input
-                  id="modalities"
-                  type="text"
-                  class="form-control"
-                  minlength="2"
-                  maxlength="2"
-                  placeholder="FF"
-                  [(ngModel)]="modalities"
-                  name="modalities"
-                  #modalitiesInput="ngModel"
-                />
+              <input id="modalities" type="text" class="form-control" minlength="2" maxlength="2" placeholder="FF"
+                [(ngModel)]="modalities" name="modalities" #modalitiesInput="ngModel" />
             </div>
             <div>
               <label for="saviors" class="mt-2">Saviors</label>
-              <input
-                  id="saviors"
-                  type="text"
-                  class="form-control"
-                  minlength="4"
-                  maxlength="5"
-                  placeholder="Fe/Se"
-                  [(ngModel)]="saviors"
-                  name="saviors"
-              />
+              <input id="saviors" type="text" class="form-control" minlength="4" maxlength="5" placeholder="Fe/Se"
+                [(ngModel)]="saviors" name="saviors" />
             </div>
             <div>
               <label for="animals" class="mt-2">Animals</label>
-              <input
-                  id="animals"
-                  type="text"
-                  class="form-control"
-                  minlength="4"
-                  maxlength="7"
-                  placeholder="PC/S(B)"
-                  [(ngModel)]="animals"
-                  name="animals"
-              />
+              <input id="animals" type="text" class="form-control" minlength="4" maxlength="7" placeholder="PC/S(B)"
+                [(ngModel)]="animals" name="animals" />
             </div>
           </div>
           <div>
@@ -135,42 +95,18 @@
           <div class="flex-form">
             <div>
               <label for="instincts" class="mt-2">Instincts (optional)</label>
-              <input
-                  id="instincts"
-                  name="instincts"
-                  type="text"
-                  class="form-control"
-                  minlength="4"
-                  maxlength="5"
-                  placeholder="so/sp"
-                  [(ngModel)]="enneaInstincts"
-              />
+              <input id="instincts" name="instincts" type="text" class="form-control" minlength="4" maxlength="5"
+                placeholder="so/sp" [(ngModel)]="enneaInstincts" />
             </div>
             <div>
               <label for="enneaCore" class="mt-2">Core</label>
-              <input
-                  id="enneaCore"
-                  name="enneaCore"
-                  type="text"
-                  class="form-control"
-                  minlength="3"
-                  maxlength="3"
-                  placeholder="9w1"
-                  [(ngModel)]="enneaCore"
-              />
+              <input id="enneaCore" name="enneaCore" type="text" class="form-control" minlength="3" maxlength="3"
+                placeholder="9w1" [(ngModel)]="enneaCore" />
             </div>
             <div>
               <label for="enneaTrifix" class="mt-2">Trifix (optional)</label>
-              <input
-                  id="enneaTrifix"
-                  name="enneaTrifix"
-                  type="text"
-                  class="form-control"
-                  minlength="3"
-                  maxlength="11"
-                  placeholder="9w1 6w5 3w2 or 963"
-                  [(ngModel)]="enneaTrifix"
-              />
+              <input id="enneaTrifix" name="enneaTrifix" type="text" class="form-control" minlength="3" maxlength="11"
+                placeholder="9w1 6w5 3w2 or 963" [(ngModel)]="enneaTrifix" />
             </div>
           </div>
           <div>
@@ -184,16 +120,8 @@
           <div class="flex-form">
             <div>
               <label for="wssType" class="mt-2">Type</label>
-              <input
-                  id="wssType"
-                  name="wssType"
-                  type="text"
-                  class="form-control"
-                  minlength="3"
-                  maxlength="3"
-                  placeholder="LII"
-                  [(ngModel)]="wss"
-              />
+              <input id="wssType" name="wssType" type="text" class="form-control" minlength="3" maxlength="3"
+                placeholder="LII" [(ngModel)]="wss" />
             </div>
           </div>
           <div>
@@ -207,29 +135,13 @@
           <div class="flex-form">
             <div>
               <label for="apType" class="mt-2">AP Type</label>
-              <input
-                  id="apType"
-                  name="apType"
-                  type="text"
-                  class="form-control"
-                  minlength="4"
-                  maxlength="4"
-                  placeholder="FLVE"
-                  [(ngModel)]="ap"
-              />
+              <input id="apType" name="apType" type="text" class="form-control" minlength="4" maxlength="4"
+                placeholder="FLVE" [(ngModel)]="ap" />
             </div>
             <div>
               <label for="apSubtype" class="mt-2">AP Subtype</label>
-              <input
-                  id="apSubtype"
-                  name="apSubtype"
-                  type="text"
-                  class="form-control"
-                  minlength="4"
-                  maxlength="4"
-                  placeholder="1234"
-                  [(ngModel)]="apSub"
-              />
+              <input id="apSubtype" name="apSubtype" type="text" class="form-control" minlength="4" maxlength="4"
+                placeholder="1234" [(ngModel)]="apSub" />
             </div>
           </div>
           <div>
@@ -241,24 +153,16 @@
 
       <div *ngIf="activeTab === 'OPS'">
         <h2>
-          {{ person.type }} 
-          <span *ngIf="person.socialType"
-            [popover]="'Social Type ' + person.socialType"
+          {{ person.type }}
+          <span *ngIf="person.socialType" [popover]="'Social Type ' + person.socialType"
             triggers="mouseenter:mouseleave">
             [{{ person.socialType }}]
           </span>
-          <app-ops-type-animal
-            size="32"
-            [animalStack]="person.type.substring(9)"
-          ></app-ops-type-animal>
+          <app-ops-type-animal size="32" [animalStack]="person.type.substring(9)"></app-ops-type-animal>
         </h2>
         <div class="btn-group mb-3">
-          <button
-            class="btn btn-gray d-block w-100"
-            *ngFor="let option of opsOptions"
-            [ngClass]="{ active: activeOps === option }"
-            (click)="changeOpsTab(option)"
-          >
+          <button class="btn btn-gray d-block w-100" *ngFor="let option of opsOptions"
+            [ngClass]="{ active: activeOps === option }" (click)="changeOpsTab(option)">
             {{ option }}
           </button>
         </div>
@@ -266,34 +170,20 @@
           <div *ngIf="activeOps === 'Summary'" class="summary-wrapper">
             <div class="ops-molecule" *ngIf="person.type.length === 16">
               <h3>Molecule</h3>
-              <app-type-bubbles
-                class="text-center"
-                [showOptions]="false"
-                [showType]="false"
-                [opsTypes]="[personOpsType]"
-              ></app-type-bubbles>
+              <app-type-bubbles class="text-center" [showOptions]="false" [showType]="false"
+                [opsTypes]="[personOpsType]"></app-type-bubbles>
             </div>
-            <div
-              class="person-dashboard"
-              *ngIf="activeTab === 'OPS' && person.type.length === 16"
-            >
+            <div class="person-dashboard" *ngIf="activeTab === 'OPS' && person.type.length === 16">
               <h3>Dashboard</h3>
-              <app-type-dashboard
-                [opsType]="personOpsType"
-              ></app-type-dashboard>
+              <app-type-dashboard [opsType]="personOpsType"></app-type-dashboard>
             </div>
             <div>
               <h3>Animals</h3>
-              <app-type-dashboard-animals
-                [opsType]="personOpsType"
-              ></app-type-dashboard-animals>
+              <app-type-dashboard-animals [opsType]="personOpsType"></app-type-dashboard-animals>
             </div>
             <div>
               <h3>Points</h3>
-              <app-type-points
-              [opsType]="personOpsType"
-              [simple]="true"
-            ></app-type-points>
+              <app-type-points [opsType]="personOpsType" [simple]="true"></app-type-points>
             </div>
             <div>
               <h3>Links</h3>
@@ -309,10 +199,7 @@
           </div>
           <div *ngIf="activeOps === 'Description'">
             <h3>Description</h3>
-            <app-type-description
-              [opsType]="personOpsType"
-              [typedPerson]="person"
-            ></app-type-description>
+            <app-type-description [opsType]="personOpsType" [typedPerson]="person"></app-type-description>
           </div>
           <div *ngIf="activeOps === 'Twins'">
             <app-ops-type-twins [opsType]="personOpsType"></app-ops-type-twins>
@@ -322,25 +209,16 @@
       <div *ngIf="activeTab === 'Enneagram'">
         <h2>{{ person.fullEType }}</h2>
         <div class="btn-group mb-3">
-          <button
-            class="btn btn-gray d-block w-100"
-            [ngClass]="{ active: activeEnnea === 'Summary' }"
-            (click)="changeEnneaTab('Summary')"
-          >
+          <button class="btn btn-gray d-block w-100" [ngClass]="{ active: activeEnnea === 'Summary' }"
+            (click)="changeEnneaTab('Summary')">
             Summary
           </button>
-          <button
-            class="btn btn-gray d-block w-100"
-            [ngClass]="{ active: activeEnnea === 'Description' }"
-            (click)="changeEnneaTab('Description')"
-          >
+          <button class="btn btn-gray d-block w-100" [ngClass]="{ active: activeEnnea === 'Description' }"
+            (click)="changeEnneaTab('Description')">
             Description
           </button>
-          <button
-            class="btn btn-gray d-block w-100"
-            [ngClass]="{ active: activeEnnea === 'Twins' }"
-            (click)="changeEnneaTab('Twins')"
-          >
+          <button class="btn btn-gray d-block w-100" [ngClass]="{ active: activeEnnea === 'Twins' }"
+            (click)="changeEnneaTab('Twins')">
             Twins
           </button>
         </div>
@@ -349,9 +227,7 @@
             <app-enneagram-type [type]="person.coreEType"></app-enneagram-type>
           </div>
           <div *ngIf="person.instinct">
-            <app-enneagram-instinct
-              [instinct]="person.instinct"
-            ></app-enneagram-instinct>
+            <app-enneagram-instinct [instinct]="person.instinct"></app-enneagram-instinct>
           </div>
           <div class="mt-3 full-width">
             <h4>Triad Summary</h4>
@@ -359,23 +235,18 @@
           </div>
           <div *ngIf="false">
             <h4>Triad Weights</h4>
-            <app-ennea-type-calculator [coreType]="person.eType" [instinct]="person.instinct" [trifix]="person.fullTrifix"></app-ennea-type-calculator>
+            <app-ennea-type-calculator [coreType]="person.eType" [instinct]="person.instinct"
+              [trifix]="person.fullTrifix"></app-ennea-type-calculator>
           </div>
           <div class="mt-3 full-width" *ngIf="person.trifix">
             <h4>Trifix</h4>
-            <app-enneagram-trifix-combination
-              [trifix]="person.trifix"
-            ></app-enneagram-trifix-combination>
+            <app-enneagram-trifix-combination [trifix]="person.trifix"></app-enneagram-trifix-combination>
           </div>
           <div class="mt-3" *ngIf="person.trifix">
-            <app-enneagram-trifix
-              [trifix]="person.trifix"
-            ></app-enneagram-trifix>
+            <app-enneagram-trifix [trifix]="person.trifix"></app-enneagram-trifix>
           </div>
           <div class="mt-3" *ngIf="person.trifix">
-            <app-ennea-trifix-stems
-              [trifix]="person.trifix"
-            ></app-ennea-trifix-stems>
+            <app-ennea-trifix-stems [trifix]="person.trifix"></app-ennea-trifix-stems>
           </div>
           <div class="mt-3">
             <h4>Links</h4>
@@ -405,9 +276,7 @@
         <div>
           <h2>{{ person.wssType }}</h2>
         </div>
-        <app-socionics-reference
-          [type]="person.wssType"
-        ></app-socionics-reference>
+        <app-socionics-reference [type]="person.wssType"></app-socionics-reference>
       </div>
       <div *ngIf="activeTab === 'AP'">
         <div>
@@ -428,6 +297,10 @@
             <div>
               <h3>Sexta</h3>
               <app-ap-sexta [typedPerson]="person"></app-ap-sexta>
+            </div>
+            <div *ngIf="false">
+              <h3>Shadow</h3>
+              <app-ap-shadow [typedPerson]="person"></app-ap-shadow>
             </div>
             <div>
               <h3>Links</h3>
